@@ -1,0 +1,165 @@
+﻿<#@ template inherits="Microsoft.VisualStudio.TextTemplating.VSHost.ModelingTextTransformation" #>
+<#@ parameter name="delimiter" type="System.String" #>
+<#@ parameter name="path" type="System.String" #>
+<#@ template language="C#v3.5" #>
+<#@ assembly name="System.Core" #>
+<#@ import namespace="System.Linq" #>
+<#@ import namespace="System.Collections.Generic" #>
+<#@ TrnxDsl processor="TrnxDslDirectiveProcessor" requires="fileName='Test.TrnxDsl'" #>
+<#@ import namespace="System.IO" #>
+<#
+    if(ValidateModel(this.TransactionModel))
+    {
+        string className = null; 
+        string origClassName = null; 
+        string facadeName= null;
+        string engineName = null;
+        string mainName = null;
+
+        string [] testTypes = {"OK","KO"};
+       
+
+        // When you change the DSL Definition, some of the code below may not work.
+        foreach(TransactionLayer l in this.TransactionModel.TransactionLayers)
+        {      
+            var unitTestableEngines = from inputEngine in l.InputTransactionEngines
+                    where inputEngine.HasUnitTests == true
+                    select inputEngine;
+
+            foreach (InputTransactionEngine e in unitTestableEngines)
+            {
+                string unitTestPath = path + "\\UnitTest";
+                if(Directory.Exists(unitTestPath) == false) 
+                {
+                    Directory.CreateDirectory(unitTestPath);
+                }
+
+                unitTestPath = path + "\\UnitTest\\CustomCode";
+                if(Directory.Exists(unitTestPath) == false) 
+                {
+                    Directory.CreateDirectory(unitTestPath);
+                }
+
+                className = "TL"+l.Level+"_"+l.Name.Replace(" ","")+ "_"+e.Name.Replace(" ","")+"_UnitTest";                
+                mainName= this.TransactionModel.Name.Replace(" ","");
+                facadeName = mainName+"Facade";
+           
+#>	
+    <#=                    string.Format(delimiter,"UnitTest\\CustomCode\\"+className+"_UC") #>
+	using System;
+	using System.Collections.Generic;
+	using System.Text;
+    using TransactionKernelDSL.Framework.V1;
+    using log4net.Config;
+    using log4net;
+    using System.Threading;
+    using System.Diagnostics;
+    using NUnit.Framework;
+<#=                    EngineUsingGenerator(e) #>
+<#=                    ParserUsingGenerator(e) #>            
+#if DEBUG == true
+namespace <#=                    this.TransactionModel.Namespace #>
+{
+    [TestFixture]
+    public partial class <#=                    className #>
+	{
+            [TestFixtureSetUp]
+            public void <#=                    e.Name.Replace(" ","") #>_Setup()
+            {
+                
+            }
+
+            [TestFixtureTearDown]
+            public void <#=                    e.Name.Replace(" ","") #>_TearDown()
+            {
+               
+            }      
+	}
+}
+#endif
+<#    
+            }
+        }
+#>
+<#
+}
+ #>
+<#+
+        private string ParserUsingGenerator(InputTransactionEngine e)
+        {
+            switch(e.Parser)
+			{
+				case ParserType.NotTyped:
+				case ParserType.PropietaryParser:
+					return "";
+				default:
+					return "using TransactionKernelDSL.Framework.Parser."+e.Parser.ToString()+";";                                  
+			}
+        }    
+ #>
+<#+
+        private string EngineUsingGenerator(InputTransactionEngine e)
+        {
+            switch(e.Type)
+            {
+				case InputEngineType.TcpTriggeredSocketReusableMultiThreadedInputEngine:
+                case InputEngineType.TcpTriggeredMultiThreadedInputEngine:
+                    return "using System.Net.Sockets; \r\n\t using System.Net; \r\n\t";                
+                default:
+                    return "";                           
+            }
+        }    
+ #>
+<#+
+        private string InputEngineSetup(InputTransactionEngine e)
+        {
+            string result= " IPAddress testIpAddress; \r\n\t int testTcpPort; \r\n\t int testTimeout; \r\n\t";
+
+            switch(e.Type)
+            {
+				case InputEngineType.TcpTriggeredSocketReusableMultiThreadedInputEngine:
+                case InputEngineType.TcpTriggeredMultiThreadedInputEngine:
+                    result += "#region "+e.Name+" Setup \r\n";
+
+                    result += "TL"+e.TransactionLayer.Level+"_"+e.TransactionLayer.Name.Replace(" ","")+ "_"+e.Name.Replace(" ","")+"_Engine"+".Instance.Logger = \""+e.LoggerName+"\";\r\n\t";
+
+                    result += "#region "+e.Name+" Server Tcp Port \r\n";
+                    result += "{ \r\n\t";
+                    result += "if (Int32.TryParse(("+e.TransactionLayer.TransactionModel.Name.Replace(" ","")+"Facade.Instance.GetValue(\""+this.TransactionModel.Name.Replace(" ","")+".General\", \""+e.Name.Replace(" ","")+"_ServerTCPPort\") as List<string>)[0], out testTcpPort) == false) \r\n\t";
+                    result += "testTcpPort = 0; \r\n\t";             
+                    result += "} \r\n\t";
+                    result += "#endregion \r\n\t";
+                
+                    result += "#region "+e.Name+" Server Ip Address \r\n";
+                    result += "{ \r\n\t";           
+                    result += "if (IPAddress.TryParse(("+e.TransactionLayer.TransactionModel.Name.Replace(" ","")+"Facade.Instance.GetValue(\""+this.TransactionModel.Name.Replace(" ","")+".General\", \""+e.Name.Replace(" ","")+"_ServerIPAddress\") as List<string>)[0], out testIpAddress) == false) \r\n\t";                
+                    result += "testIpAddress = IPAddress.Parse(\"127.0.0.1\"); \r\n\t";              
+                    result += "} \r\n\t";
+                    result += "#endregion \r\n\t";
+
+                    result += "#region "+e.Name+" Server Timeout Setup \r\n";
+                    result += "{ \r\n\t";             
+                    result += "if (Int32.TryParse(("+e.TransactionLayer.TransactionModel.Name.Replace(" ","")+"Facade.Instance.GetValue(\""+this.TransactionModel.Name.Replace(" ","")+".General\", \""+e.Name.Replace(" ","")+"ServerTimeoutSec\") as List<string>)[0], out testTimeout) == false) \r\n\t";
+                    result += "testTimeout = 30; \r\n\t";                
+                    result += "} \r\n\t";
+                    result += "#endregion \r\n\t";
+
+                    result += "#endregion \r\n\t";
+                    break;
+            }
+
+            return result;
+        }   
+ #>
+<#+
+    private bool ValidateModel(TransactionModel m)
+    {
+        return (!String.IsNullOrEmpty(m.Name)) && (!String.IsNullOrEmpty(m.Namespace)) && (m.InstanceId > 0);
+    }
+ #>
+
+
+
+
+
+

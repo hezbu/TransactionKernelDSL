@@ -1,0 +1,133 @@
+﻿<#@ template inherits="Microsoft.VisualStudio.TextTemplating.VSHost.ModelingTextTransformation" #>
+<#@ parameter name="delimiter" type="System.String" #>
+<#@ parameter name="path" type="System.String" #>
+<#@ TrnxDsl processor="TrnxDslDirectiveProcessor" requires="fileName='Test.TrnxDsl'" #>
+<#@ import namespace="System.IO" #>
+<#
+    if(ValidateModel(this.TransactionModel))
+    {
+    string className = null; 
+    // When you change the DSL Definition, some of the code below may not work.
+    foreach(TransactionLayer l in this.TransactionModel.TransactionLayers)
+    {
+        foreach (TransactionHandler h in l.TransactionHandlers)
+        {
+          
+
+            className = "TL"+l.Level+"_"+l.Name.Replace(" ","")+ "_"+h.Name.Replace(" ","")+"_Handler";
+            if(h.MaintenanceTransactionHandler != null)
+            {
+                if(MaintenanceStage_HasCustomCode(h) == true)
+                {
+                                string layerLevelPath = path + "\\TL"+l.Level;
+                                if(Directory.Exists(layerLevelPath) == false) 
+                                {
+                                    Directory.CreateDirectory(layerLevelPath);
+                                }
+        
+                                string layerPath = layerLevelPath + "\\"+l.Name.Replace(" ","");
+                                if(Directory.Exists(layerPath) == false) 
+                                {
+                                    Directory.CreateDirectory(layerPath);
+                                }
+
+                                string customCodeLayerPath = layerPath + "\\CustomCode";
+                                if(Directory.Exists(customCodeLayerPath) == false) 
+                                {
+                                    Directory.CreateDirectory(customCodeLayerPath);
+                                }
+#>
+	<#=                        string.Format(delimiter,"TL"+l.Level+"\\"+l.Name.Replace(" ","")+"\\CustomCode\\"+ className+"_MaintenanceUserCustomizedCode") #>
+	using System;
+	using System.Collections.Generic;
+	using System.Text;
+    using TransactionKernelDSL.Framework.V1;
+    using log4net.Config;
+    using log4net;
+    using System.Threading;
+
+namespace <#=                        this.TransactionModel.Namespace #>
+{
+
+    /// <summary>
+    /// User-customized helpers for Maintenance stage methods 
+    /// </summary>
+    /// <remarks>
+    /// Generated on <#=                        DateTime.Now.ToString() #>
+    /// </remarks>
+	<#=                        ClassDefinitionGenerator(h,className) #>
+	{    
+                   #region ITransactionHandlerMaintenanceable User-Customized Members
+
+                    public bool DoMaintenance_UC()
+                    {       
+                    // Uncomment this line if you want to use default behaviour.
+                    // return DoMaintenance();
+
+                    throw new NotImplementedException("Implementation left for DoMaintenance_UC() in <#=                        className #>");               
+                    }
+
+                    public bool MaintenanceHandlerFactory_UC()
+                    {       
+                    // Uncomment this line if you want to use default behaviour.
+                    // return MaintenanceHandlerFactory();
+
+                    throw new NotImplementedException("Implementation left for MaintenanceHandlerFactory_UC() in <#=                        className #>");                             
+                    }
+
+                    #endregion                
+	}
+}
+<#    
+                }
+            }            
+        }
+    }
+}
+#>
+<#+
+    private bool ValidateModel(TransactionModel m)
+    {
+        return (!String.IsNullOrEmpty(m.Name)) && (!String.IsNullOrEmpty(m.Namespace)) && (m.InstanceId > 0);
+    }
+#>
+<#+ 
+    private bool MaintenanceStage_HasCustomCode(ModelElement m)
+    {
+        foreach(DomainRoleInfo d in m.GetDomainClass().LocalDomainRolesPlayed)
+        {
+            if(d.DisplayName == "Source Maintenance Transaction Handler")
+            {
+                return (d.GetElementLinks(m)[0] as TransactionKernelDSL.Framework.Language.TransactionHandlerReferencesMaintenanceTransactionHandler).HasCustomCode;
+            }            
+        }
+
+        return false;
+    }
+#>
+<#+
+    private string ClassDefinitionGenerator(TransactionHandler h, string className)
+    {
+        string result= "public partial class "+className+": AbstractTransactionHandler";
+
+        if(h.InputTransactionEngine != null)
+        {
+            result += ",ITransactionHandlerListenable";
+        }
+        if(h.ForwarderTransactionHandlers.Count > 0 || h.OutputTransactionEngine != null || h.OutputTransactionWebService != null)
+        {
+            result += ",ITransactionHandlerForwardable";
+        }
+        if(h.MaintenanceTransactionHandler != null)
+        {
+            result += ",ITransactionHandlerMaintenanceable";
+        }
+        if(h.TransactionSQLServerDataSources.Count > 0)
+        {
+            result += ",ITransactionHandlerPersistable";
+        }
+
+        return result;
+    }
+
+ #>

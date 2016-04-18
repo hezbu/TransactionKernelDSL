@@ -1,0 +1,344 @@
+﻿<#@ template inherits="Microsoft.VisualStudio.TextTemplating.VSHost.ModelingTextTransformation" #>
+<#@ parameter name="delimiter" type="System.String" #>
+<#@ parameter name="path" type="System.String" #>
+<#@ template language="C#v3.5" #>
+<#@ assembly name="System.Core" #>
+<#@ import namespace="System.Linq" #>
+<#@ import namespace="System.Collections.Generic" #>
+<#@ TrnxDsl processor="TrnxDslDirectiveProcessor" requires="fileName='Test.TrnxDsl'" #>
+<#@ import namespace="System.IO" #>
+<#
+    if(ValidateModel(this.TransactionModel))
+    { 
+        string className = null; 
+        // When you change the DSL Definition, some of the code below may not work.
+        foreach(TransactionLayer l in this.TransactionModel.TransactionLayers)
+        {
+            foreach (InputTransactionEngine e in l.InputTransactionEngines)
+            {
+                if(e.Parser == ParserType.PropietaryParser)
+                {
+                    string layerLevelPath = path + "\\TL"+l.Level;
+                    if(Directory.Exists(layerLevelPath) == false) 
+                    {
+                        Directory.CreateDirectory(layerLevelPath);
+                    }
+        
+                    string layerPath = layerLevelPath + "\\"+l.Name.Replace(" ","");
+                    if(Directory.Exists(layerPath) == false) 
+                    {
+                        Directory.CreateDirectory(layerPath);
+                    }
+
+                    className = "TL"+l.Level+"_"+l.Name.Replace(" ","")+ "_"+e.Name.Replace(" ","")+"_Parser";
+
+                    #>
+                    <#=                    string.Format(delimiter,"TL"+l.Level+"\\"+l.Name.Replace(" ","")+"\\"+className) #>
+                    using System;
+	                using System.Collections.Generic;
+	                using System.Text;
+                    using TransactionKernelDSL.Framework.V1;
+                    using log4net.Config;
+                    using log4net;
+                    using System.Threading;
+                    using System.Net.Sockets;
+                    namespace <#=                    this.TransactionModel.Namespace #>
+                    {
+
+                        /// <summary>
+                        /// A transactional parser named <#=                    className #>
+                        /// </summary>
+                        /// <remarks>
+                        /// Generated on <#=                    DateTime.Now.ToString() #>
+                        /// </remarks>
+                        public partial class <#=                    className #>: AbstractTransactionParser, ITransactionParserCommunicable, ITransactionParserAssembleable
+	                    {
+                              private string _ParserNickName = "PP";
+
+                              public <#=                    className #>()
+                                    : base(null, false)
+                                {
+                                    this._AssembleMethod = Assemble_UC;
+                                    this._DisassembleMethod = Disassemble_UC;
+
+                                    this._SendMethod = Send_UC;
+                                    this._ReceiveMethod = Receive_UC;
+                                    this._IsKeepAliveMessageMethod = IsKeepAliveMessage_UC;
+
+                                    this._RequestStructure = new <#=                    className #>Structure();
+                                    this._ResponseStructure = new <#=                    className #>Structure();
+                                    this._RequestStream = new <#=                    className #>Stream();
+                                    this._ResponseStream = new <#=                    className #>Stream();
+
+                                    this.SetupParser_UC();
+
+                                }
+
+                            #region ITransactionParserCommunicable Members
+
+                            public bool Send(object handler)
+                            {
+                                try
+                                {
+                                    if (IsKeepAliveMessage() == false)
+                                    {
+                                        ((TcpClient)handler).GetStream().Write(ResponseStream.Get(), 0, ResponseStream.Get().Length);
+                                        _Log.Info(this._ParserNickName+"_OUT: " + ResponseStream.ToString());
+                                    }
+                                    else
+                                    {
+                                        ((TcpClient)handler).GetStream().Write(new byte[] { 0x06 }, 0, 1);
+                                    }
+
+                                    return true;
+                                }
+                                catch (Exception ee)
+                                {
+                                    _ErrorMessage = "Error enviando: " + ee.Message;
+                                    _Status |= TransmissionStatus.SendingError;
+                                    return false;
+                                }
+                            }
+
+                            public bool Receive(object handler)
+                            {
+                                int bytesRead;
+                                int totalBytesRead = 0;          
+                                byte[] accumulatedBytesRead = new byte[8192];
+
+                                DateTime dtStart = System.DateTime.Now;
+                                bytesRead = 0;
+
+
+                                try
+                                {
+                                    bytesRead = ((TcpClient)handler).GetStream().Read(accumulatedBytesRead, totalBytesRead, 8192 - totalBytesRead);
+                                    totalBytesRead += bytesRead;
+
+                                    if (bytesRead == 0)
+                                    {
+                                        _ErrorMessage = "Error leyendo datos de conexion: bytesRead = 0";
+                                        _Status |= TransmissionStatus.ContactLost;
+                                        return false;
+                                    }
+
+                                }
+                                catch (System.IO.IOException ioEx)
+                                {
+                                    DateTime dtUnexpectedEnd = System.DateTime.Now;
+                                    _ErrorMessage = ioEx.Message;
+                                    _Status |= TransmissionStatus.ProblemDuringContact;
+                                    return false;
+                                }
+                                catch (Exception ex)
+                                {
+                                    //a socket error has occured o fue un timeout
+                                    _ErrorMessage = ex.Message;
+                                    _Status |= TransmissionStatus.Timeout;
+
+                                    return false;
+                                }
+
+
+
+                                this.RequestStream.Set(accumulatedBytesRead, totalBytesRead);
+                                _Log.Info(this._ParserNickName+"_IN: " + RequestStream.ToString());
+                                return true;
+                            }
+
+                            public bool IsKeepAliveMessage()
+                            {
+                                return false;
+                            }
+
+                            #endregion
+
+                            #region ITransactionParserAssembleable Members
+
+                            public bool Assemble()
+                            {
+                                throw new NotImplementedException();
+                            }
+
+                            public bool Disassemble()
+                            {
+                                throw new NotImplementedException();
+                            }
+
+                            #endregion
+                        }
+                    }
+<#
+                    
+                }
+            }
+            //---------------------------------------------------------------------------------------
+            //---------------------------------------------------------------------------------------
+            //---------------------------------------------------------------------------------------
+            //---------------------------------------------------------------------------------------
+            foreach (OutputTransactionEngine e in l.OutputTransactionEngines)
+            {
+                if(e.Parser == ParserType.PropietaryParser)
+                {
+                    string layerLevelPath = path + "\\TL"+l.Level;
+                    if(Directory.Exists(layerLevelPath) == false) 
+                    {
+                        Directory.CreateDirectory(layerLevelPath);
+                    }
+        
+                    string layerPath = layerLevelPath + "\\"+l.Name.Replace(" ","");
+                    if  (Directory.Exists(layerPath) == false) 
+                    {
+                        Directory.CreateDirectory(layerPath);
+                    }
+
+                    className = "TL"+l.Level+"_"+l.Name.Replace(" ","")+ "_"+e.Name.Replace(" ","")+"_Parser";
+                    #>	
+    <#=                    string.Format(delimiter,"TL"+l.Level+"\\"+l.Name.Replace(" ","")+"\\"+className) #>
+                    using System;
+	                using System.Collections.Generic;
+	                using System.Text;
+                    using TransactionKernelDSL.Framework.V1;
+                    using log4net.Config;
+                    using log4net;
+                    using System.Threading;
+                    using System.Net.Sockets;
+                    namespace <#=                    this.TransactionModel.Namespace #>
+                    {
+
+                        /// <summary>
+                        /// A transactional parser named <#=                    className #>
+                        /// </summary>
+                        /// <remarks>
+                        /// Generated on <#=                    DateTime.Now.ToString() #>
+                        /// </remarks>
+                         public partial class <#=                    className #>: AbstractTransactionParser, ITransactionParserCommunicable, ITransactionParserAssembleable
+	                    {
+
+                              private string _ParserNickName = "PP";
+
+                              public <#=                    className #>()
+                                    : base(null, false)
+                                {
+                                    this._AssembleMethod = Assemble_UC;
+                                    this._DisassembleMethod = Disassemble_UC;
+
+                                    this._SendMethod = Send_UC;
+                                    this._ReceiveMethod = Receive_UC;
+                                    this._IsKeepAliveMessageMethod = IsKeepAliveMessage_UC;
+
+                                    this._RequestStructure = new <#=                    className #>Structure();
+                                    this._ResponseStructure = new <#=                    className #>Structure();
+                                    this._RequestStream = new <#=                    className #>Stream();
+                                    this._ResponseStream = new <#=                    className #>Stream();
+
+                                    this.SetupParser_UC();
+
+                                }
+
+                            #region ITransactionParserCommunicable Members
+
+                            public bool Send(object handler)
+                            {
+                                try
+                                {
+                                    if (IsKeepAliveMessage() == false)
+                                    {
+                                        ((TcpClient)handler).GetStream().Write(ResponseStream.Get(), 0, ResponseStream.Get().Length);
+                                        _Log.Info(this._ParserNickName+"_OUT: " + ResponseStream.ToString());
+                                    }
+                                    else
+                                    {
+                                        ((TcpClient)handler).GetStream().Write(new byte[] { 0x06 }, 0, 1);
+                                    }
+
+                                    return true;
+                                }
+                                catch (Exception ee)
+                                {
+                                    _ErrorMessage = "Error enviando: " + ee.Message;
+                                    _Status |= TransmissionStatus.SendingError;
+                                    return false;
+                                }
+                            }
+
+                            public bool Receive(object handler)
+                            {
+                                int bytesRead;
+                                int totalBytesRead = 0;          
+                                byte[] accumulatedBytesRead = new byte[8192];
+
+                                DateTime dtStart = System.DateTime.Now;
+                                bytesRead = 0;
+
+
+                                try
+                                {
+                                    bytesRead = ((TcpClient)handler).GetStream().Read(accumulatedBytesRead, totalBytesRead, 8192 - totalBytesRead);
+                                    totalBytesRead += bytesRead;
+
+                                    if (bytesRead == 0)
+                                    {
+                                        _ErrorMessage = "Error leyendo datos de conexion: bytesRead = 0";
+                                        _Status |= TransmissionStatus.ContactLost;
+                                        return false;
+                                    }
+
+                                }
+                                catch (System.IO.IOException ioEx)
+                                {
+                                    DateTime dtUnexpectedEnd = System.DateTime.Now;
+                                    _ErrorMessage = ioEx.Message;
+                                    _Status |= TransmissionStatus.ProblemDuringContact;
+                                    return false;
+                                }
+                                catch (Exception ex)
+                                {
+                                    //a socket error has occured o fue un timeout
+                                    _ErrorMessage = ex.Message;
+                                    _Status |= TransmissionStatus.Timeout;
+
+                                    return false;
+                                }
+
+
+
+                                this.RequestStream.Set(accumulatedBytesRead, totalBytesRead);
+                                _Log.Info(this._ParserNickName+"_IN: " + RequestStream.ToString());
+                                return true;
+                            }
+
+                            public bool IsKeepAliveMessage()
+                            {
+                                return false;
+                            }
+
+                            #endregion
+
+                            #region ITransactionParserAssembleable Members
+
+                            public bool Assemble()
+                            {
+                                throw new NotImplementedException();
+                            }
+
+                            public bool Disassemble()
+                            {
+                                throw new NotImplementedException();
+                            }
+
+                            #endregion
+                        }
+                    }
+                    <#
+                }    
+            }
+        }
+    }
+#>
+<#+
+    private bool ValidateModel(TransactionModel m)
+    {
+        return (!String.IsNullOrEmpty(m.Name)) && (!String.IsNullOrEmpty(m.Namespace)) && (m.InstanceId > 0);
+    }
+ #>

@@ -1,0 +1,822 @@
+﻿<#@ template inherits="Microsoft.VisualStudio.TextTemplating.VSHost.ModelingTextTransformation" #>
+<#@ parameter name="delimiter" type="System.String" #>
+<#@ import namespace="System.Diagnostics" #>
+<#@ template language="C#v3.5" #>
+<#@ assembly name="System.Core" #>
+<#@ import namespace="System.Linq" #>
+<#@ import namespace="System.Collections.Generic" #>
+<#@ TrnxDsl processor="TrnxDslDirectiveProcessor" requires="fileName='Test.TrnxDsl'" #>
+<# 
+
+	List<string> DataSourceFields = new List<string>();
+	List<string> DataSourceSpSetups = new List<string>();
+
+    if(ValidateModel(this.TransactionModel))
+    {
+        string className= this.TransactionModel.Name.Replace(" ","")+"Facade";
+#>
+
+        <#=
+            string.Format(delimiter,this.TransactionModel.Name.Replace(" ","") + "Facade")
+            #>
+    using System;
+	using System.Collections.Generic;
+	using System.Text;
+    using System.Configuration;
+    using System.Xml;
+    using TransactionKernelDSL.Framework.V1;
+    using log4net.Config;
+    using log4net;
+    using System.Net;
+using System.Reflection;
+    using System.Threading;
+<#
+        if(this.TransactionModel.GetValueImplementationType == PersistableSourceType.SQLServerDatabase || this.TransactionModel.SequenceFactoryImplementationType == PersistableSourceType.SQLServerDatabase)
+        {
+ #>
+    using System.Data.SqlClient;
+    using System.Data;
+<#
+        }
+ #>
+	
+namespace <#=            this.TransactionModel.Namespace #>
+{
+
+    /// <summary>
+    /// The transactional facade for solution <#=            this.TransactionModel.Name #>
+    /// </summary>
+    /// <remarks>
+    /// Generated on <#=            DateTime.Now.ToString() #>
+    /// </remarks>
+	public partial class <#=            className #> : AbstractTransactionFacade
+	{
+        internal const string ConstStan = "ConstStan";
+
+        private static <#=            className #> _Instance = null;
+
+<#=     EnvironmentVariableGenerator(this.TransactionModel) #>
+<#
+        {
+            var outputWebServices = from l in this.TransactionModel.TransactionLayers
+                    let webServices = l.OutputTransactionWebServices
+                    from ws in webServices
+                    select ws;
+
+            foreach(OutputTransactionWebService ows in outputWebServices)
+            {
+            #>
+              private string _<#=                    "TL"+ows.TransactionLayer.Level+"_"+ows.TransactionLayer.Name.Replace(" ","")+ "_"+ows.Name.Replace(" ","")#>Url;
+              internal string <#=                    "TL"+ows.TransactionLayer.Level+"_"+ows.TransactionLayer.Name.Replace(" ","")+ "_"+ows.Name.Replace(" ","")#>Url { get { return _<#=                    "TL"+ows.TransactionLayer.Level+"_"+ows.TransactionLayer.Name.Replace(" ","")+ "_"+ows.Name.Replace(" ","")#>Url; } }
+              private int _<#=                    "TL"+ows.TransactionLayer.Level+"_"+ows.TransactionLayer.Name.Replace(" ","")+ "_"+ows.Name.Replace(" ","")#>Timeout;
+              internal int <#=                    "TL"+ows.TransactionLayer.Level+"_"+ows.TransactionLayer.Name.Replace(" ","")+ "_"+ows.Name.Replace(" ","")#>Timeout { get { return _<#=                    "TL"+ows.TransactionLayer.Level+"_"+ows.TransactionLayer.Name.Replace(" ","")+ "_"+ows.Name.Replace(" ","")#>Timeout; } }
+<#
+            }
+        }
+
+        if(this.TransactionModel.GetValueImplementationType == PersistableSourceType.SQLServerDatabase)
+        {
+ #>
+              private string _GetValueStoredProc = null;
+              internal string GetValueStoredProc { get { return _GetValueStoredProc; } }
+<#
+        }
+        if(this.TransactionModel.SequenceFactoryImplementationType == PersistableSourceType.SQLServerDatabase)
+        {
+         #>
+              private string _SequenceFactoryStoredProc = null;
+              internal string SequenceFactoryStoredProc { get { return _SequenceFactoryStoredProc; } }
+<#
+        }
+        foreach(TransactionLayer l in this.TransactionModel.TransactionLayers)
+        {
+            foreach(TransactionSQLServerDataSource ds in l.TransactionSQLServerDataSources)
+            {
+				if(DataSourceFields.Contains(ds.Name.Replace(" ","")) == false)
+                {
+
+
+                #>
+                private string _<#=                    ds.Name.Replace(" ","")#>StoredProc = null;
+                internal string <#=                    ds.Name.Replace(" ","")#>StoredProc { get { return _<#=                    ds.Name.Replace(" ","")#>StoredProc; } }
+<#
+					DataSourceFields.Add(ds.Name.Replace(" ",""));
+				}
+            }
+
+            var dssOeList = from dss in l.TransactionDataSourceSupports
+                    where (dss.SupportType == DataSourceSupportType.SQLServerSupport
+                        && dss.OutputTransactionEngines.Count > 0
+                        )
+                    let oes = dss.OutputTransactionEngines
+                    from oe in oes
+                    select oe;
+
+            foreach(OutputTransactionEngine oe in dssOeList)
+            {
+                switch(oe.Type)
+                {
+                    case OutputEngineType.TcpFunneledOutputEngine:
+  #>
+
+                private string _<#=                            "TL"+oe.TransactionLayer.Level+"_"+oe.TransactionLayer.Name.Replace(" ","")+ "_"+oe.Name.Replace(" ","")+"_Engine_"   #>UponForwardingProcessStoredProc = null;
+                internal string <#=                            "TL"+oe.TransactionLayer.Level+"_"+oe.TransactionLayer.Name.Replace(" ","")+ "_"+oe.Name.Replace(" ","")+"_Engine_"   #>UponForwardingProcessStoredProc { get { return _<#=                            "TL"+oe.TransactionLayer.Level+"_"+oe.TransactionLayer.Name.Replace(" ","")+ "_"+oe.Name.Replace(" ","")+"_Engine_"   #>UponForwardingProcessStoredProc; } }
+                private string _<#=                            "TL"+oe.TransactionLayer.Level+"_"+oe.TransactionLayer.Name.Replace(" ","")+ "_"+oe.Name.Replace(" ","")+"_Engine_"   #>PushRequirementStoredProc = null;
+                internal string <#=                            "TL"+oe.TransactionLayer.Level+"_"+oe.TransactionLayer.Name.Replace(" ","")+ "_"+oe.Name.Replace(" ","")+"_Engine_"   #>PushRequirementStoredProc { get { return _<#=                            "TL"+oe.TransactionLayer.Level+"_"+oe.TransactionLayer.Name.Replace(" ","")+ "_"+oe.Name.Replace(" ","")+"_Engine_"   #>PushRequirementStoredProc; } }
+                private string _<#=                            "TL"+oe.TransactionLayer.Level+"_"+oe.TransactionLayer.Name.Replace(" ","")+ "_"+oe.Name.Replace(" ","")+"_Engine_"   #>PullResponseStoredProc = null;
+                internal string <#=                            "TL"+oe.TransactionLayer.Level+"_"+oe.TransactionLayer.Name.Replace(" ","")+ "_"+oe.Name.Replace(" ","")+"_Engine_"   #>PullResponseStoredProc { get { return _<#=                            "TL"+oe.TransactionLayer.Level+"_"+oe.TransactionLayer.Name.Replace(" ","")+ "_"+oe.Name.Replace(" ","")+"_Engine_"   #>PullResponseStoredProc; } }
+                private string _<#=                            "TL"+oe.TransactionLayer.Level+"_"+oe.TransactionLayer.Name.Replace(" ","")+ "_"+oe.Name.Replace(" ","")+"_Engine_"   #>PushResponseStoredProc = null;
+                internal string <#=                            "TL"+oe.TransactionLayer.Level+"_"+oe.TransactionLayer.Name.Replace(" ","")+ "_"+oe.Name.Replace(" ","")+"_Engine_"   #>PushResponseStoredProc { get { return _<#=                            "TL"+oe.TransactionLayer.Level+"_"+oe.TransactionLayer.Name.Replace(" ","")+ "_"+oe.Name.Replace(" ","")+"_Engine_"   #>PushResponseStoredProc; } }
+                private string _<#=                            "TL"+oe.TransactionLayer.Level+"_"+oe.TransactionLayer.Name.Replace(" ","")+ "_"+oe.Name.Replace(" ","")+"_Engine_"   #>PullAvailableRequirementsStoredProc = null;
+                internal string <#=                            "TL"+oe.TransactionLayer.Level+"_"+oe.TransactionLayer.Name.Replace(" ","")+ "_"+oe.Name.Replace(" ","")+"_Engine_"   #>PullAvailableRequirementsStoredProc { get { return _<#=                            "TL"+oe.TransactionLayer.Level+"_"+oe.TransactionLayer.Name.Replace(" ","")+ "_"+oe.Name.Replace(" ","")+"_Engine_"   #>PullAvailableRequirementsStoredProc; } }
+
+<#
+                        break;
+                }
+            }
+        }
+ #>       
+#if DEBUG == true
+<# 
+
+        foreach(TransactionLayer l in this.TransactionModel.TransactionLayers)
+        {
+            foreach(TransactionEngine e in l.OutputTransactionEngines)
+            {
+                string engineName = "TL"+l.Level+"_"+l.Name.Replace(" ","")+ "_"+e.Name.Replace(" ","")+"_Engine";
+
+            #>
+                public DebugTransactionStatus <#=                    engineName #>_Status
+                {
+                    get
+                    {
+                        return <#=                    engineName #>.Instance.DebugStatus;
+                    }
+                }
+            <#
+            }
+
+            foreach(TransactionEngine e in l.InputTransactionEngines)
+            {
+                string engineName = "TL"+l.Level+"_"+l.Name.Replace(" ","")+ "_"+e.Name.Replace(" ","")+"_Engine";
+
+            #>
+                public DebugTransactionStatus <#=                    engineName #>_Status
+                {
+                    get
+                    {
+                        return <#=                    engineName #>.Instance.DebugStatus;
+                    }
+                }
+            <#
+            }
+        }
+                  
+#>
+#endif
+
+        /// <summary>
+        /// TRANSFORMACION
+        /// </summary>
+        public static <#=            className #> Instance
+        {
+            get
+            {
+                if (_Instance == null)
+                {
+                    _Instance = new <#=            className #>();
+                }
+
+                return _Instance as <#=            className #>;
+            }
+        }
+
+
+         /// <summary>
+        /// TRANSFORMACION - Argumento MANUAL
+        /// </summary>
+        private <#=            className #>()
+        {
+            int instanceId = 0;
+          
+            this._ConnectionString = ConfigurationManager.ConnectionStrings["MainConnection"].ConnectionString;
+<#        if(this.TransactionModel.GetValueImplementationType == PersistableSourceType.SQLServerDatabase)
+        {#>
+
+            _GetValueStoredProc = ConfigurationManager.AppSettings["GetValueStoredProcedure"];
+<#        }
+        if(this.TransactionModel.SequenceFactoryImplementationType == PersistableSourceType.SQLServerDatabase)
+        {
+            #>
+            _SequenceFactoryStoredProc = ConfigurationManager.AppSettings["SequenceFactoryStoredProcedure"];
+<#        }
+        foreach(TransactionLayer l in this.TransactionModel.TransactionLayers)
+        {
+            foreach(TransactionSQLServerDataSource ds in l.TransactionSQLServerDataSources)
+            {
+				if(DataSourceSpSetups.Contains(ds.Name.Replace(" ","")) == false)
+                {
+    #>
+                   _<#=                    ds.Name.Replace(" ","")#>StoredProc = ConfigurationManager.AppSettings["<#=                    ds.Name.Replace(" ","")#>StoredProcedure"];
+    <#
+					DataSourceSpSetups.Add(ds.Name.Replace(" ",""));
+                }
+            }
+
+            var dssOeList = from dss in l.TransactionDataSourceSupports
+                    where (dss.SupportType == DataSourceSupportType.SQLServerSupport
+                        && dss.OutputTransactionEngines.Count > 0
+                        )
+                    let oes = dss.OutputTransactionEngines
+                    from oe in oes
+                    select oe;
+
+            foreach(OutputTransactionEngine oe in dssOeList)
+            {
+                switch(oe.Type)
+                {
+                    case OutputEngineType.TcpFunneledOutputEngine:
+      #>
+                    _<#=                            "TL"+oe.TransactionLayer.Level+"_"+oe.TransactionLayer.Name.Replace(" ","")+ "_"+oe.Name.Replace(" ","")+"_Engine_"   #>PushRequirementStoredProc = ConfigurationManager.AppSettings["<#=                            "TL"+oe.TransactionLayer.Level+"_"+oe.TransactionLayer.Name.Replace(" ","")+ "_"+oe.Name.Replace(" ","")+"_Engine_"   #>PushRequirementStoredProcedure"];
+                    _<#=                            "TL"+oe.TransactionLayer.Level+"_"+oe.TransactionLayer.Name.Replace(" ","")+ "_"+oe.Name.Replace(" ","")+"_Engine_"   #>PullResponseStoredProc = ConfigurationManager.AppSettings["<#=                            "TL"+oe.TransactionLayer.Level+"_"+oe.TransactionLayer.Name.Replace(" ","")+ "_"+oe.Name.Replace(" ","")+"_Engine_"   #>PullResponseStoredProcedure"];
+                    _<#=                            "TL"+oe.TransactionLayer.Level+"_"+oe.TransactionLayer.Name.Replace(" ","")+ "_"+oe.Name.Replace(" ","")+"_Engine_"   #>UponForwardingProcessStoredProc = ConfigurationManager.AppSettings["<#=                            "TL"+oe.TransactionLayer.Level+"_"+oe.TransactionLayer.Name.Replace(" ","")+ "_"+oe.Name.Replace(" ","")+"_Engine_"   #>UponForwardingProcessStoredProcedure"];
+                    _<#=                            "TL"+oe.TransactionLayer.Level+"_"+oe.TransactionLayer.Name.Replace(" ","")+ "_"+oe.Name.Replace(" ","")+"_Engine_"   #>PushResponseStoredProc = ConfigurationManager.AppSettings["<#=                            "TL"+oe.TransactionLayer.Level+"_"+oe.TransactionLayer.Name.Replace(" ","")+ "_"+oe.Name.Replace(" ","")+"_Engine_"   #>PushResponseStoredProcedure"];
+                    _<#=                            "TL"+oe.TransactionLayer.Level+"_"+oe.TransactionLayer.Name.Replace(" ","")+ "_"+oe.Name.Replace(" ","")+"_Engine_"   #>PullAvailableRequirementsStoredProc = ConfigurationManager.AppSettings["<#=                            "TL"+oe.TransactionLayer.Level+"_"+oe.TransactionLayer.Name.Replace(" ","")+ "_"+oe.Name.Replace(" ","")+"_Engine_"   #>PullAvailableRequirementsStoredProcedure"];
+                    
+    <#
+                        break;
+                }
+            }
+        }
+ #>       
+
+            if (Int32.TryParse(ConfigurationManager.AppSettings["InstanceId"], out instanceId) == false) throw new ApplicationException("InstanceId is not a number (" + ConfigurationManager.AppSettings["InstanceId"] + ")");
+
+            this._InstanceId = instanceId;
+            List<string> results = new List<string>();
+
+            #region Facade Setup
+            #region Telnet Logger
+            _IsTelnetLoggerOn = Convert.ToBoolean((GetValue("<#=            this.TransactionModel.Name.Replace(" ","") #>.General", "TelnetLoggerOn") as List<string>)[0]);
+            _TelnetLogPort = 23100 + Convert.ToInt32(this._InstanceId);
+            #endregion
+            #region Logger
+            this._LogDirectory = (GetValue("<#=            this.TransactionModel.Name.Replace(" ","") #>.General", "LogDirectory") as List<string>)[0];
+            this._LogPrefix = (GetValue("<#=            this.TransactionModel.Name.Replace(" ","") #>.General", "LogPrefix") as List<string>)[0];
+            #endregion
+            #region Log4Net Setup
+            XmlDocument log4NetConfiguration = new XmlDocument();
+            log4NetConfiguration.LoadXml("<log4net debug=\"false\">" +
+                                ((_IsTelnetLoggerOn == false) ? String.Empty : "<appender name=\"HomeroTelnetLogger\" type=\"log4net.Appender.TelnetAppender\"><port value=\"" + _TelnetLogPort.ToString() + "\" /><layout type=\"log4net.Layout.PatternLayout\"><conversionPattern value=\"%date{HH:mm:ss.fff, }|Thread ID: %thread|%level |%method|%m%n\" /></layout></appender>") +
+                                ((Environment.UserInteractive == false) ? String.Empty : "<appender name=\"HomeroColoredConsoleAppender\" type=\"log4net.Appender.ColoredConsoleAppender\"><mapping><level value=\"ERROR\" /><foreColor value=\"White\" /><backColor value=\"Red, HighIntensity\" /></mapping><mapping><level value=\"FATAL\" /><foreColor value=\"Red, HighIntensity\" /></mapping><layout type=\"log4net.Layout.PatternLayout\"><conversionPattern value=\"[%thread]%m%n\" /></layout></appender>") +
+                                "<appender name=\"HomeroLogger\" type=\"log4net.Appender.RollingFileAppender\"><PreserveLogFileNameExtension value=\"true\" /><file value=\" " + _LogDirectory + "\\" + _LogPrefix + ".log \" /><appendToFile value=\"true\" /><rollingStyle value=\"Date\" /><datePattern value=\"'.'yyyyMMdd\" /><layout type=\"log4net.Layout.PatternLayout\"><conversionPattern value=\"%date{HH:mm:ss.fff, }|Thread ID: %thread|%level |%method|%m%n\" /></layout></appender>" +
+                                "<appender name=\"HomeroLoggerDebug\" type=\"log4net.Appender.DebugAppender\" ><layout type=\"log4net.Layout.PatternLayout\"><conversionPattern value=\"" + "%date{HH:mm:ss.fff, }|Thread ID: %thread|%level |%method|%m%n" + "\" /></layout></appender>" +
+                                <#       
+        {
+        var oeList = (from layer in this.TransactionModel.TransactionLayers
+                let engines = layer.OutputTransactionEngines
+                from oe in engines
+                where ( (String.IsNullOrEmpty(oe.EngineLoggerName) == false) && oe.EngineLoggerName != "MainLogger") 
+                select oe.EngineLoggerName).Union
+                (
+                    from layer in this.TransactionModel.TransactionLayers
+                    let engines2 = layer.OutputTransactionEngines
+                    from oe2 in engines2
+                    where ( (String.IsNullOrEmpty(oe2.LoggerName) == false) && oe2.LoggerName != "MainLogger") 
+                    select oe2.LoggerName
+                ).Union
+                (
+                    from layer in this.TransactionModel.TransactionLayers
+                    let engines3 = layer.InputTransactionEngines
+                    from ie in engines3
+                    where ( (String.IsNullOrEmpty(ie.LoggerName) == false) && ie.LoggerName != "MainLogger") 
+                    select ie.LoggerName
+                );
+
+                foreach(string e in oeList)
+                {                
+                #>
+                    "<appender name=\"<#=                e #>Appender\" type=\"log4net.Appender.RollingFileAppender\"><PreserveLogFileNameExtension value=\"true\" /><file value=\" " + _LogDirectory + "\\" + _LogPrefix + ".<#=                    e #>.log \" /><appendToFile value=\"true\" /><rollingStyle value=\"Date\" /><datePattern value=\"'.'yyyyMMdd\" /><layout type=\"log4net.Layout.PatternLayout\"><conversionPattern value=\"%date{HH:mm:ss.fff, }|Thread ID: %thread|%level |%method|%m%n\" /></layout></appender>" +
+                    "<logger name=\"<#=                    e #>\"><level value=\"ALL\" /><appender-ref ref=\"<#=                e #>Appender\" />" +
+                        ((_IsTelnetLoggerOn == false) ? String.Empty : "<appender-ref ref=\"HomeroTelnetLogger\" />") +
+                        ((Environment.UserInteractive == false) ? String.Empty : "<appender-ref ref=\"HomeroColoredConsoleAppender\" />") +
+                        "<appender-ref ref=\"HomeroLoggerDebug\" />" +
+                    "</logger>" +
+                <#
+                }
+    
+        }
+                                #>
+        
+                                "<logger name=\"MainLogger\"><level value=\"ALL\" /><appender-ref ref=\"HomeroLogger\" />" +
+                                 ((_IsTelnetLoggerOn == false) ? String.Empty : "<appender-ref ref=\"HomeroTelnetLogger\" />") +
+                                 ((Environment.UserInteractive == false) ? String.Empty : "<appender-ref ref=\"HomeroColoredConsoleAppender\" />") +
+                                 "<appender-ref ref=\"HomeroLoggerDebug\" />" +
+                                "</logger>" +
+                                "</log4net>");
+            XmlConfigurator.Configure(log4NetConfiguration.DocumentElement);
+            _Log = LogManager.GetLogger("MainLogger");
+            #endregion
+            #endregion
+            #region Engines Setup
+            <# 
+        foreach(TransactionLayer l in this.TransactionModel.TransactionLayers)
+        {
+            foreach(OutputTransactionEngine e in l.OutputTransactionEngines)
+            {
+           	   #>
+<#=                    OutputEngineSetup(e)#>
+<#
+            }
+            foreach(InputTransactionEngine e in l.InputTransactionEngines)
+            {       
+       		   #>
+<#=                    InputEngineSetup(e)#>
+<#
+            }
+        }
+#>
+            #endregion            
+<#=            WebServicesSetup(this.TransactionModel) #>
+            #region Environment Variables Setup
+<#=            EnvironmentVariableSetup(this.TransactionModel) #>            
+            #endregion
+            #region User Customized Setup
+            <#=            className #>UserCustomizedSetup();
+            #endregion
+
+        }
+
+      
+            <# 
+        switch(this.TransactionModel.GetValueImplementationType)
+        {
+            case PersistableSourceType.SQLServerDatabase:
+            #>
+      public override object GetValue(string section, string key = null)
+            {
+            List<string> results = new List<string>();
+            try            
+            {
+            #region Using SQL Connection
+            using (SqlConnection objSQLConnection = new SqlConnection())
+            {
+                objSQLConnection.ConnectionString = this._ConnectionString;
+                objSQLConnection.Open();
+
+                #region Using Sql Command
+                using (SqlCommand objSQLCommand = new SqlCommand())
+                {
+                    objSQLCommand.CommandType = CommandType.StoredProcedure;
+                    objSQLCommand.CommandText = _GetValueStoredProc;
+
+                    objSQLCommand.Parameters.Add(new SqlParameter("@cfg_instancia", SqlDbType.Int)).Value = this._InstanceId;
+                    objSQLCommand.Parameters.Add(new SqlParameter("@cfg_seccion", SqlDbType.VarChar, 100)).Value = section;
+                    if (key != null) objSQLCommand.Parameters.Add(new SqlParameter("@cfg_clave", SqlDbType.VarChar, 100)).Value = key;
+
+
+                    objSQLCommand.Connection = objSQLConnection;
+
+                    #region Using SqlDataReader
+                    using (SqlDataReader objSQLReader = objSQLCommand.ExecuteReader())
+                    {
+
+                        if (objSQLReader.HasRows == true)
+                        {
+                            while (objSQLReader.Read())
+                            {
+                                if (!String.IsNullOrEmpty(objSQLReader[0].ToString())) results.Add(objSQLReader[0].ToString());
+                                else if (!String.IsNullOrEmpty(objSQLReader[1].ToString())) results.Add(objSQLReader[1].ToString());
+
+                            }
+                        }
+                    }
+                    #endregion
+                }
+                #endregion
+                objSQLConnection.Close();
+            }
+            #endregion
+            }
+            catch(Exception ex)
+            {
+                _Log.Fatal("Exception found in GetValue(): "+ex.Message);
+                _Log.Fatal("StackTrace is " + ex.StackTrace);
+            }
+            
+        return results;
+        }
+<#
+                break;    
+
+        }
+        switch(this.TransactionModel.SequenceFactoryImplementationType)
+        {
+            case PersistableSourceType.SQLServerDatabase:
+            #>
+  public override object SequenceFactory()
+        {
+            string result = null;
+            try            
+            {
+            #region Using SQL Connection
+            using (SqlConnection objSQLConnection = new SqlConnection())
+            {
+                objSQLConnection.ConnectionString = this._ConnectionString;
+                objSQLConnection.Open();
+
+                #region Using Sql Command
+                using (SqlCommand objSQLCommand = new SqlCommand())
+                {
+                    objSQLCommand.CommandType = CommandType.StoredProcedure;
+                    objSQLCommand.CommandText = _SequenceFactoryStoredProc;
+
+                    objSQLCommand.Parameters.Add(new SqlParameter("@instanceId", SqlDbType.Int)).Value = this._InstanceId;
+                    objSQLCommand.Connection = objSQLConnection;
+
+                    #region Using SqlDataReader
+                    using (SqlDataReader objSQLReader = objSQLCommand.ExecuteReader())
+                    {
+
+                        if (objSQLReader.HasRows == true)
+                        {
+                            if (objSQLReader.Read())
+                            {
+                                if (!String.IsNullOrEmpty(objSQLReader[0].ToString()))
+                                    result = objSQLReader[0].ToString();
+                            }
+                        }
+                    }
+                    #endregion
+                }
+                #endregion
+                objSQLConnection.Close();
+            }
+            #endregion
+            }
+            catch(Exception ex)
+            {
+                _Log.Fatal("Exception found in SequenceFactory(): "+ex.Message);
+                _Log.Fatal("StackTrace is " + ex.StackTrace);
+            }
+            return result;
+      }
+<#
+                break;    
+
+        }
+
+
+#>
+  
+
+        /// <summary>
+        /// TRANSFORMACION - El orden de prendido es de niveles mas altos a mas bajos (desde TLn a TLx donde n > x)
+        ///                  Debe llenarse con los engines que se definan en el DSL
+        /// </summary>        
+        public override bool StartEngines()
+        {
+
+            #region Start Log
+            _Log.Info("## Service Launch <#=this.TransactionModel.Name #> - Instance Id = " + _InstanceId + " ##");
+            #region Loaded Assemblies
+            foreach (Assembly currentAssembly in AppDomain.CurrentDomain.GetAssemblies())
+            {
+                if (currentAssembly.GetName().FullName.Contains("TransactionKernelDSL") == true)
+                {
+                    _Log.Info("Loaded: [" + currentAssembly.GetName().FullName + "]");
+                }
+            }
+            #endregion
+            #endregion
+
+<#
+        var outputEngineList = from l in this.TransactionModel.TransactionLayers 
+                let outEng = l.OutputTransactionEngines	
+                from e in outEng		
+                where e.AutoStarts == true   
+                orderby l.Level descending
+                select e;
+        foreach(OutputTransactionEngine engine in outputEngineList)
+        {
+            string engineName = "TL"+engine.TransactionLayer.Level+"_"+engine.TransactionLayer.Name.Replace(" ","")+ "_"+engine.Name.Replace(" ","")+"_Engine";
+   #>
+   if ( <#=                engineName #>.Instance.Start() == false)
+            {
+                _Log.Fatal("Cannot start engine  <#=                engineName #>");
+                return false;
+            }    
+   <#
+        }
+    
+#>
+<#
+        var inputEngineList = from l in this.TransactionModel.TransactionLayers 
+                let inEng = l.InputTransactionEngines	
+                from e in inEng		
+                where e.AutoStarts == true   
+                orderby l.Level descending
+                select e;
+        foreach(InputTransactionEngine engine in inputEngineList)
+        {
+            string engineName = "TL"+engine.TransactionLayer.Level+"_"+engine.TransactionLayer.Name.Replace(" ","")+ "_"+engine.Name.Replace(" ","")+"_Engine";
+   #>
+   if ( <#=                engineName #>.Instance.Start() == false)
+            {
+                _Log.Fatal("Cannot start engine  <#=                engineName #>");
+                return false;
+            }    
+   <#
+        }
+    
+#>
+
+            #region User Customized Start Engines Method
+            <#=            className #>StartEngines_UC();
+            #endregion
+
+            return true;
+        }
+
+         /// <summary>
+        /// TRANSFORMACION - El orden de apagado es de niveles mas bajos a mas altos (desde TLx a TLn donde x < n)
+        ///                - Debe llenarse con los engines que se definan en el DSL
+        /// </summary>  
+        public override bool StopEngines()
+        {
+<#
+        inputEngineList = from l in this.TransactionModel.TransactionLayers 
+                let inEng = l.InputTransactionEngines	
+                from e in inEng		
+                where e.AutoStarts == true   
+                orderby l.Level ascending
+                select e;
+        foreach(InputTransactionEngine engine in inputEngineList)
+        {
+            string engineName = "TL"+engine.TransactionLayer.Level+"_"+engine.TransactionLayer.Name.Replace(" ","")+ "_"+engine.Name.Replace(" ","")+"_Engine";
+   #>
+   if ( <#=                engineName #>.Instance.Stop() == false)
+            {
+                _Log.Fatal("Cannot stop engine  <#=                engineName #>");
+                return false;
+            }    
+   <#
+        }
+    
+#>
+
+<#
+        outputEngineList = from l in this.TransactionModel.TransactionLayers 
+                let outEng = l.OutputTransactionEngines	
+                from e in outEng		
+                where e.AutoStarts == true   
+                orderby l.Level ascending
+                select e;
+        foreach(OutputTransactionEngine engine in outputEngineList)
+        {
+            string engineName = "TL"+engine.TransactionLayer.Level+"_"+engine.TransactionLayer.Name.Replace(" ","")+ "_"+engine.Name.Replace(" ","")+"_Engine";
+   #>
+   if ( <#=                engineName #>.Instance.Stop() == false)
+            {
+                _Log.Fatal("Cannot stop engine  <#=                engineName #>");
+                return false;
+            }    
+   <#
+        }
+    
+#>
+
+            #region User Customized Stop Engines Method
+            <#=            className #>StopEngines_UC();
+            #endregion
+            return true;
+        }
+
+
+    }
+}
+<#
+    }
+#>
+<#+
+    private string EnvironmentVariableSetup(TransactionModel m)
+    {
+        string result= "";
+        if(m.TransactionEnvironmentLayer != null)
+        {
+            foreach(TransactionEnvironmentSQLServerVariable v in m.TransactionEnvironmentLayer.TransactionEnvironmentSQLServerVariables)
+            {
+                result += "#region "+v.Name+" Env Variable \r\n\t";
+                result += "{ \r\n\t";            
+                result += "_"+m.Name.Replace(" ","")+"_"+v.Name.Replace(" ","")+"=(GetValue(\""+this.TransactionModel.Name.Replace(" ","")+".General\", \""+m.Name.Replace(" ","")+"_"+v.Name.Replace(" ","")+"\") as List<string>)[0]; \r\n\t";                  
+                result += "} \r\n\t";
+                result += "#endregion \r\n\t";
+            }
+        }
+        return result;
+    }
+    private string EnvironmentVariableGenerator(TransactionModel m)
+    {
+        string result= "";
+        if(m.TransactionEnvironmentLayer != null)
+        {
+            foreach(TransactionEnvironmentSQLServerVariable v in m.TransactionEnvironmentLayer.TransactionEnvironmentSQLServerVariables)
+            {
+                result += "#region "+v.Name+" Env Variable \r\n\t";
+                result += " private string _"+m.Name.Replace(" ","")+"_"+v.Name.Replace(" ","")+"; \r\n\t";                  
+                result += " internal string "+m.Name.Replace(" ","")+"_"+v.Name.Replace(" ","")+"{ get{ return  _"+m.Name.Replace(" ","")+"_"+v.Name.Replace(" ","")+"; } } \r\n\t";                  
+                result += "#endregion \r\n\t";
+            }
+        }
+        return result;
+    }
+ #>
+<#+
+    private string InputEngineSetup(InputTransactionEngine e)
+    {
+        string result= "";
+
+        switch(e.Type)
+        {
+            case InputEngineType.TimeTriggeredInputEngine:
+                result += "#region "+e.Name+" Setup \r\n";
+               
+                foreach(TimeTrigger tt in e.TimeTriggers)
+                {
+                    result += "{ \r\n\t";
+                    result += "int intDefaultValue = 0;\r\n\t";
+                    result += "if (Int32.TryParse((GetValue(\""+this.TransactionModel.Name.Replace(" ","")+".General\", \""+e.Name.Replace(" ","")+"_"+tt.Name.Replace(" ","")+"DueTime\") as List<string>)[0], out intDefaultValue) == false) \r\n\t";
+                    result += "intDefaultValue = 60; \r\n\t";
+                    result += "TL"+e.TransactionLayer.Level+"_"+e.TransactionLayer.Name.Replace(" ","")+ "_"+e.Name.Replace(" ","")+"_Engine"+".Instance."+tt.Name.Replace(" ","")+"DueTime = intDefaultValue; \r\n\t";
+                    result += "} \r\n\t";
+                }                
+                
+                result += "#endregion \r\n\t";
+                break;
+            case InputEngineType.TcpTriggeredMultiThreadedInputEngine:
+            case InputEngineType.TcpTriggeredSocketReusableMultiThreadedInputEngine:
+                result += "#region "+e.Name+" Setup \r\n";
+
+                result += "TL"+e.TransactionLayer.Level+"_"+e.TransactionLayer.Name.Replace(" ","")+ "_"+e.Name.Replace(" ","")+"_Engine"+".Instance.Logger = \""+e.LoggerName+"\";\r\n\t";
+
+                result += "#region "+e.Name+" Server Tcp Port \r\n";
+                result += "{ \r\n\t";
+                result += "int intDefaultValue = 0;\r\n\t";
+                result += "if (Int32.TryParse((GetValue(\""+this.TransactionModel.Name.Replace(" ","")+".General\", \""+e.Name.Replace(" ","")+"_ServerTCPPort\") as List<string>)[0], out intDefaultValue) == false) \r\n\t";
+                result += "intDefaultValue = 0; \r\n\t";
+                result += "TL"+e.TransactionLayer.Level+"_"+e.TransactionLayer.Name.Replace(" ","")+ "_"+e.Name.Replace(" ","")+"_Engine"+".Instance.ListenerTcpPort = intDefaultValue; \r\n\t";
+                result += "} \r\n\t";
+                result += "#endregion \r\n\t";
+                
+                result += "#region "+e.Name+" Server Ip Address \r\n";
+                result += "{ \r\n\t";
+                result += " IPAddress defaultAddress = IPAddress.Parse(\"127.0.0.1\");\r\n\t";
+                result += "if (IPAddress.TryParse((GetValue(\""+this.TransactionModel.Name.Replace(" ","")+".General\", \""+e.Name.Replace(" ","")+"_ServerIPAddress\") as List<string>)[0], out defaultAddress) == false) \r\n\t";                
+                result += "defaultAddress = IPAddress.Parse(\"127.0.0.1\"); \r\n\t";
+                result += "TL"+e.TransactionLayer.Level+"_"+e.TransactionLayer.Name.Replace(" ","")+ "_"+e.Name.Replace(" ","")+"_Engine"+".Instance.ListenerIpAddress = defaultAddress; \r\n\t";
+                result += "} \r\n\t";
+                result += "#endregion \r\n\t";
+
+                result += "#region "+e.Name+" Server Timeout Setup \r\n";
+                result += "{ \r\n\t";
+                result += "int intDefaultValue = 0;\r\n\t";
+                result += "if (Int32.TryParse((GetValue(\""+this.TransactionModel.Name.Replace(" ","")+".General\", \""+e.Name.Replace(" ","")+"ServerTimeoutSec\") as List<string>)[0], out intDefaultValue) == false) \r\n\t";
+                result += "intDefaultValue = 30; \r\n\t";
+                result += "TL"+e.TransactionLayer.Level+"_"+e.TransactionLayer.Name.Replace(" ","")+ "_"+e.Name.Replace(" ","")+"_Engine"+".Instance.ListenerTimeout = intDefaultValue; \r\n\t";
+                result += "} \r\n\t";
+                result += "#endregion \r\n\t";
+
+                result += "#region "+e.Name+" Min Thread \r\n";
+                result += "{ \r\n\t";
+                result += "int intDefaultValue = 0;\r\n\t";
+                result += "if (Int32.TryParse((GetValue(\""+this.TransactionModel.Name.Replace(" ","")+".General\", \""+e.Name.Replace(" ","")+"MinThread\") as List<string>)[0], out intDefaultValue) == false) \r\n\t";
+                result += "intDefaultValue = 250; \r\n\t";
+                result += "TL"+e.TransactionLayer.Level+"_"+e.TransactionLayer.Name.Replace(" ","")+ "_"+e.Name.Replace(" ","")+"_Engine"+".Instance.ListenerMinThreads = intDefaultValue; \r\n\t";
+                result += "} \r\n\t";
+                result += "#endregion \r\n\t";
+
+                result += "#region "+e.Name+" Completion Work Threads \r\n";
+                result += "{ \r\n\t";
+                result += "int intDefaultValue = 0;\r\n\t";
+                result += "if (Int32.TryParse((GetValue(\""+this.TransactionModel.Name.Replace(" ","")+".General\", \""+e.Name.Replace(" ","")+"MaxCompletionWorkThread\") as List<string>)[0], out intDefaultValue) == false) \r\n\t";
+                result += "intDefaultValue = 1000; \r\n\t";
+                result += "TL"+e.TransactionLayer.Level+"_"+e.TransactionLayer.Name.Replace(" ","")+ "_"+e.Name.Replace(" ","")+"_Engine"+".Instance.ListenerMinCompletionWorkThreads = intDefaultValue; \r\n\t";
+                result += "} \r\n\t";
+                result += "#endregion \r\n\t";
+
+
+                result += "#endregion \r\n\t";
+                break;
+        }
+
+        return result;
+    }
+    private string OutputEngineSetup(OutputTransactionEngine e)
+    {
+        string result= "";
+        
+        result = "#region "+e.Name+" Setup \r\n";
+        result += "TL"+e.TransactionLayer.Level+"_"+e.TransactionLayer.Name.Replace(" ","")+ "_"+e.Name.Replace(" ","")+"_Engine"+".Instance.Logger = \""+e.LoggerName+"\";\r\n\t";
+        result += "TL"+e.TransactionLayer.Level+"_"+e.TransactionLayer.Name.Replace(" ","")+ "_"+e.Name.Replace(" ","")+"_Engine"+".Instance.EngineLogger = \""+e.EngineLoggerName+"\";\r\n\t";
+
+
+        switch(e.Type)
+        {
+            case OutputEngineType.StraightOutputEngine:
+                break;
+            case OutputEngineType.FunneledOutputEngine:
+                break;
+            case OutputEngineType.TcpStraightOutputEngine:                
+            case OutputEngineType.TcpFunneledOutputEngine:
+                result += "#region "+e.Name+" Client Timeout \r\n\t";
+                result += "{ \r\n\t";
+                result += "int intDefaultValue = 0;\r\n\t";
+                result += "if (Int32.TryParse((GetValue(\""+e.TransactionLayer.TransactionModel.Name.Replace(" ","")+".General\", \"TL"+e.TransactionLayer.Level+"_"+e.TransactionLayer.Name.Replace(" ","")+ "_"+e.Name.Replace(" ","")+"_Engine.Timeout\") as List<string>)[0] \r\n\t";
+                result += "                 , out intDefaultValue) == false) \r\n\t";
+                result += "intDefaultValue = 60; \r\n\t";                
+                result += "TL"+e.TransactionLayer.Level+"_"+e.TransactionLayer.Name.Replace(" ","")+ "_"+e.Name.Replace(" ","")+"_Engine"+".Instance.Timeout = intDefaultValue; \r\n\t";
+                result += "} \r\n\t";
+                result += "#endregion \r\n\t";
+                
+
+                result += "#region "+e.Name+" Client IpAddress \r\n\t";
+                result += "{ \r\n\t";              
+                result += " IPAddress defaultAddress = IPAddress.Parse(\"127.0.0.1\");\r\n\t";
+                result += " if (IPAddress.TryParse((GetValue(\""+e.TransactionLayer.TransactionModel.Name.Replace(" ","")+".General\", \"TL"+e.TransactionLayer.Level+"_"+e.TransactionLayer.Name.Replace(" ","")+ "_"+e.Name.Replace(" ","")+"_Engine.IpAddress\") as List<string>)[0], out defaultAddress) == false)";
+                result += "  defaultAddress = IPAddress.Parse(\"127.0.0.1\"); \r\n\t";                
+                result += "TL"+e.TransactionLayer.Level+"_"+e.TransactionLayer.Name.Replace(" ","")+ "_"+e.Name.Replace(" ","")+"_Engine"+".Instance.IPAddress = defaultAddress; \r\n\t";
+                result += "} \r\n\t";
+                result += "#endregion \r\n\t";
+
+                result += "#region "+e.Name+" Client TcpPort \r\n\t";
+                result += "{ \r\n\t";               
+                result += "int intDefaultValue = 0;\r\n\t";
+                result += "if (Int32.TryParse((GetValue(\""+e.TransactionLayer.TransactionModel.Name.Replace(" ","")+".General\", \"TL"+e.TransactionLayer.Level+"_"+e.TransactionLayer.Name.Replace(" ","")+ "_"+e.Name.Replace(" ","")+"_Engine.TcpPort\") as List<string>)[0] \r\n\t";
+                result += "                 , out intDefaultValue) == false) \r\n\t";
+                result += "intDefaultValue = 60; \r\n\t";                
+                result += "TL"+e.TransactionLayer.Level+"_"+e.TransactionLayer.Name.Replace(" ","")+ "_"+e.Name.Replace(" ","")+"_Engine"+".Instance.TcpPort = intDefaultValue; \r\n\t";
+                result += "} \r\n\t";
+                result += "#endregion \r\n\t";
+
+                break;
+        }
+
+        result += "#endregion \r\n\t";
+
+        return result;
+    }
+ #>
+<#+
+    private string WebServicesSetup(TransactionModel m)
+    {
+        var outputWebServices = from l in m.TransactionLayers
+                let webServices = l.OutputTransactionWebServices
+                from ws in webServices
+                select ws;
+        
+        string result= "#region Web Services Setup \r\n\t";
+
+        foreach(OutputTransactionWebService ows in outputWebServices)
+        {
+            result += "#region TL"+ows.TransactionLayer.Level+"_"+ows.TransactionLayer.Name.Replace(" ","")+ "_"+ows.Name.Replace(" ","")+" Timeout Setup \r\n\t";
+            result += "{ \r\n\t";
+            result += "int intDefaultValue = 0;\r\n\t";
+            result += "if (Int32.TryParse((GetValue(\""+m.Name.Replace(" ","")+".General\", \"TL"+ows.TransactionLayer.Level+"_"+ows.TransactionLayer.Name.Replace(" ","")+ "_"+ows.Name.Replace(" ","")+"_Timeout\") as List<string>)[0], out intDefaultValue) == false) \r\n\t";
+            result += "intDefaultValue = 0; \r\n\t";
+            result += "_TL"+ows.TransactionLayer.Level+"_"+ows.TransactionLayer.Name.Replace(" ","")+ "_"+ows.Name.Replace(" ","")+"Timeout = intDefaultValue; \r\n\t";
+            result += "} \r\n\t";
+            result += "#endregion \r\n\t";
+
+            result += "#region TL"+ows.TransactionLayer.Level+"_"+ows.TransactionLayer.Name.Replace(" ","")+ "_"+ows.Name.Replace(" ","")+" Url Setup \r\n\t";
+            result += "{ \r\n\t";    
+            result += "try \r\n\t";
+            result += "{ \r\n\t";
+            result += "_TL"+ows.TransactionLayer.Level+"_"+ows.TransactionLayer.Name.Replace(" ","")+ "_"+ows.Name.Replace(" ","")+"Url = (GetValue(\""+m.Name.Replace(" ","")+".General\", \"TL"+ows.TransactionLayer.Level+"_"+ows.TransactionLayer.Name.Replace(" ","")+ "_"+ows.Name.Replace(" ","")+"_Url\") as List<string>)[0]; \r\n\t";                        
+            result += "} \r\n\t";
+            result += "catch(Exception ex) \r\n\t";
+            result += "{ \r\n\t";
+            result += "_Log.Fatal(\"Value "+"TL"+ows.TransactionLayer.Level+"_"+ows.TransactionLayer.Name.Replace(" ","")+ "_"+ows.Name.Replace(" ","")+"_Url doesn't exist\"); \r\n\t";
+            result += "} \r\n\t";
+            result += "} \r\n\t";
+            result += "#endregion \r\n\t";
+        }
+
+        return result + "#endregion\r\n\t";
+    }
+ #>
+<#+
+    private bool ValidateModel(TransactionModel m)
+    {
+        return (!String.IsNullOrEmpty(m.Name)) && (!String.IsNullOrEmpty(m.Namespace)) && (m.InstanceId > 0);
+    }
+ #>
+
+
+
+
+
+
+
+
+
+

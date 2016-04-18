@@ -1,0 +1,954 @@
+﻿<#@ template inherits="Microsoft.VisualStudio.TextTemplating.VSHost.ModelingTextTransformation" #>
+<#@ parameter name="delimiter" type="System.String" #>
+<#@ parameter name="path" type="System.String" #>
+<#@ template language="C#v3.5" #>
+<#@ assembly name="System.Core" #>
+<#@ import namespace="System.Linq" #>
+<#@ import namespace="System.Collections.Generic" #>
+<#@ TrnxDsl processor="TrnxDslDirectiveProcessor" requires="fileName='Test.TrnxDsl'" #>
+<#@ import namespace="System.IO" #>
+<#
+    if(ValidateModel(this.TransactionModel))
+    { 
+    string className = null; 
+    // When you change the DSL Definition, some of the code below may not work.
+    foreach(TransactionLayer l in this.TransactionModel.TransactionLayers)
+    {
+       
+
+        foreach (TransactionHandler h in l.TransactionHandlers)
+        {
+            string layerLevelPath = path + "\\TL"+l.Level;
+
+            if(Directory.Exists(layerLevelPath) == false) 
+            {
+                Directory.CreateDirectory(layerLevelPath);
+            }
+        
+            string layerPath = layerLevelPath + "\\"+l.Name.Replace(" ","");
+            if(Directory.Exists(layerPath) == false) 
+            {
+                Directory.CreateDirectory(layerPath);
+            }
+
+            className = "TL"+l.Level+"_"+l.Name.Replace(" ","")+ "_"+h.Name.Replace(" ","")+"_Handler";
+#>
+	<#=                string.Format(delimiter,"TL"+l.Level+"\\"+l.Name.Replace(" ","")+"\\"+ className) #>
+	using System;
+	using System.Collections.Generic;
+	using System.Text;
+    using TransactionKernelDSL.Framework.V1;
+    using log4net.Config;
+    using log4net;
+    using System.Threading;
+    using System.Globalization;
+<#
+            if(h.OutputTransactionEngine != null)
+            {
+                #>
+<#=                    ParserUsingGenerator(h.OutputTransactionEngine) #>            
+<#
+            } 
+            if(h.TransactionSQLServerDataSources.Count > 0)
+            {
+             #>
+    using System.Data.SqlClient;
+    using System.Data;
+<#
+            }
+             #>
+
+namespace <#=                this.TransactionModel.Namespace #>
+{
+
+    /// <summary>
+    /// A transaction handler named <#=                h.Name #> with Id  <#=                h.TransactionId #>
+    /// </summary>
+    /// <remarks>
+    /// Generated on <#=                DateTime.Now.ToString() #>
+    /// </remarks>
+	<#=                ClassDefinitionGenerator(h,className) #>
+	{
+         public  <#=                className #>(<#=                ((h.BackwardTransactionHandlers.Count > 0 || h.CallerTransactionHandlers.Count > 0)?"AbstractTransactionContext context":"") #>)
+            : base(<#=                ((h.BackwardTransactionHandlers.Count > 0 || h.CallerTransactionHandlers.Count > 0)?"context":"") #>)
+        {
+
+            CultureInfo culture = new CultureInfo("en-US");
+            Thread.CurrentThread.CurrentCulture = culture;
+            Thread.CurrentThread.CurrentUICulture = culture;
+
+            this.Logger = "<#=h.LoggerName #>";
+<#
+
+            if(h.OutputTransactionWebService != null)
+            {
+                #>
+                <#=                    h.OutputTransactionWebService.WebServiceClassName #>_WebServiceSetup();
+<#
+            }
+            if(h.OutputTransactionEngine != null)
+            {
+                #>
+            <#=                    ParserGenerator(h.OutputTransactionEngine) #>
+<#
+            }                       
+            if(!(h.BackwardTransactionHandlers.Count > 0 || h.CallerTransactionHandlers.Count > 0 ))
+            {
+                #>
+                _Context = new <#=                    this.TransactionModel.Name.Replace(" ","")+"Context" #>();
+<#
+            }
+
+
+            
+            if(h.InputTransactionEngine != null)
+                {
+                    if(h.InputTransactionEngine.GeneratesSequenceNumber == true )
+                    {
+#>
+                   _Context[<#=                            this.TransactionModel.Name #>Facade.ConstStan] = <#=                            this.TransactionModel.Name #>Facade.Instance.SequenceFactory() as string;
+                    if (String.IsNullOrEmpty(_Context[<#=                            this.TransactionModel.Name #>Facade.ConstStan]) == false)
+                    {
+                        _Log.Info("Sequence number is " + _Context[<#=                            this.TransactionModel.Name #>Facade.ConstStan]);
+                    }
+                    else
+                    {      
+                        _Log.Error("Couldn't get sequence number for handler <#=                            className #> ");
+                    }
+                    <# 
+                    }
+                    if(InputEngineStage_HasCustomCode(h) == true)
+                    {
+                        if(h.InputTransactionEngine.Type == InputEngineType.TimeTriggeredInputEngine)
+                            {
+                        #>
+                        this.GetRequirementMethod = new GetRequirementDelegate(GetRequirement_UC);
+                        this.BuildResponseMethod = new BuildResponseDelegate(BuildResponse);
+                        this.ReplyMethod = new ReplyDelegate(Reply);
+<#
+                            }
+                        else
+                            {
+                        #>
+                        this.GetRequirementMethod = new GetRequirementDelegate(GetRequirement_UC);
+                        this.BuildResponseMethod = new BuildResponseDelegate(BuildResponse_UC);
+                        this.ReplyMethod = new ReplyDelegate(Reply_UC);
+<#
+                            }
+                    }                
+                    else
+                    {
+                            #>
+                        this.GetRequirementMethod = new GetRequirementDelegate(GetRequirement);
+                        this.BuildResponseMethod = new BuildResponseDelegate(BuildResponse);
+                        this.ReplyMethod = new ReplyDelegate(Reply);
+<#
+                    }
+                    
+               }
+            if(h.TransactionSQLServerDataSources.Count > 0)
+            {           
+           #>
+            this.PreProcessTransactionMethod = new PreProcessTransactionDelegate(PreProcessTransaction);
+            this.PostProcessTransactionMethod = new PostProcessTransactionDelegate(PostProcessTransaction);
+            this.FinalPostProcessTransactionMethod = new FinalPostProcessTransactionDelegate(FinalPostProcessTransaction);
+<#
+            }
+            if(h.OutputTransactionEngine != null)
+            {
+                if(OutputEngineStage_HasCustomCode(h) == true)
+                {
+                      #>
+            this.ForwardHandlerFactoryMethod = new ForwardHandlerFactoryDelegate(ForwardHandlerFactory_UC);
+            this.GetResponseMethod = new GetResponseDelegate(GetResponse_UC);
+            this.BuildRequirementMethod = new BuildRequirementDelegate(BuildRequirement_UC);
+            this.ResolveMethod = new ResolveDelegate(Resolve_UC);
+            this.ProcessTransactionMethod = new ProcessTransactionDelegate(ProcessTransaction_UC);
+ <#
+                }
+                else
+                {
+            #>
+            this.ForwardHandlerFactoryMethod = new ForwardHandlerFactoryDelegate(ForwardHandlerFactory);
+            this.GetResponseMethod = new GetResponseDelegate(GetResponse);
+            this.BuildRequirementMethod = new BuildRequirementDelegate(BuildRequirement);
+            this.ResolveMethod = new ResolveDelegate(Resolve);
+            this.ProcessTransactionMethod = new ProcessTransactionDelegate(ProcessTransaction);
+ <#
+                }
+            }   
+            else if(h.ForwarderTransactionHandlers.Count == 1)
+            {              
+                          #>
+            this.ForwardHandlerFactoryMethod = new ForwardHandlerFactoryDelegate(ForwardHandlerFactory);
+            this.GetResponseMethod = new GetResponseDelegate(GetResponse);
+            this.BuildRequirementMethod = new BuildRequirementDelegate(BuildRequirement);
+            this.ResolveMethod = new ResolveDelegate(Resolve);
+            this.ProcessTransactionMethod = new ProcessTransactionDelegate(ProcessTransaction);
+ <#                
+            }    
+            else if(h.ForwarderTransactionHandlers.Count > 1)
+            {              
+                          #>
+            this.ForwardHandlerFactoryMethod = new ForwardHandlerFactoryDelegate(ForwardHandlerFactory_UC);
+            this.GetResponseMethod = new GetResponseDelegate(GetResponse);
+            this.BuildRequirementMethod = new BuildRequirementDelegate(BuildRequirement);
+            this.ResolveMethod = new ResolveDelegate(Resolve);
+            this.ProcessTransactionMethod = new ProcessTransactionDelegate(ProcessTransaction);
+ <#                
+            }     
+            else if(h.OutputTransactionWebService != null)
+            {
+                                  #>
+            this.ForwardHandlerFactoryMethod = new ForwardHandlerFactoryDelegate(ForwardHandlerFactory_UC);
+            this.GetResponseMethod = new GetResponseDelegate(GetResponse_UC);
+            this.BuildRequirementMethod = new BuildRequirementDelegate(BuildRequirement_UC);
+            this.ResolveMethod = new ResolveDelegate(Resolve_UC);
+            this.ProcessTransactionMethod = new ProcessTransactionDelegate(ProcessTransaction_UC);
+ <#       
+            }            
+            if(h.MaintenanceTransactionHandler != null)
+            {
+                if(MaintenanceStage_HasCustomCode(h) == true)
+                {
+                #>
+            this.MaintenanceHandlerFactoryMethod = new MaintenanceHandlerFactoryDelegate(MaintenanceHandlerFactory_UC);
+            this.DoMaintenanceMethod = new DoMaintenanceDelegate(DoMaintenance_UC);
+ <#
+                }
+                else
+                {
+                        #>
+            this.MaintenanceHandlerFactoryMethod = new MaintenanceHandlerFactoryDelegate(MaintenanceHandlerFactory);
+            this.DoMaintenanceMethod = new DoMaintenanceDelegate(DoMaintenance);
+ <#
+                }
+            }
+ #>  
+         
+        }
+
+        <# 
+            if(GetForwardableTransactionHandlerSequence(h).ToList().Count > 0)
+            {
+                #>
+              protected override void DoSecondStage()
+              {
+                <#
+                int forwardStep= 1;
+                foreach(TransactionHandler nextHandler in GetForwardableTransactionHandlerSequence(h))
+                {
+                    #>
+                    ///Start of Forward Step #<#=                        forwardStep.ToString()#>
+                    this._ForwardHandler = new <#=                        "TL"+nextHandler.TransactionLayer.Level+"_"+nextHandler.TransactionLayer.Name.Replace(" ","")+"_"+nextHandler.Name.Replace(" ","")+"_Handler"#>(_Context);
+                    this._ForwardHandler.DoTransaction();
+                    ///End of Forward Step #<#=                        forwardStep.ToString()#>
+<#
+                    forwardStep++;
+                }
+                #>          
+              }
+<#
+            }
+            else if(h.OutputTransactionEngine != null && h.ForwarderTransactionHandlers.Count > 0)
+            {
+                #>
+            protected override void DoSecondStage()
+            {
+                base.DoSecondStage();
+                ///As there's at least one routing forward handler, by default it will call Forward Handler's DoTransaction() Method 
+                ///But, please execute any conditions you need before and after the execution of these lines,
+                ///in order to prevent or decorate forward handler's execution.
+                if (this._ForwardHandler != null)
+                    this._ForwardHandler.DoTransaction(this);
+            }
+<#
+            }
+
+            if(h.InputTransactionEngine != null)
+            {
+                if(h.InputTransactionEngine.Type != InputEngineType.TimeTriggeredInputEngine)
+                    {
+                        #>
+                        #region ITransactionHandlerListenable Members
+                
+                        /// <summary>
+                        /// <#=                            ((InputEngineStage_HasCustomCode(h) == true)?"[NOT USED - CUSTOM CODE IS LINKED IN CONSTRUCTOR]":"") #>
+                        /// This method must be implemented in order to retrieve and validate data from an AbstractTransactionParserStructure,
+                        /// within internal AbstractTransactionParser object, passed by the input engine. Once data is validated, it shall be
+                        /// saved on an valid AbstractTransactionContext object within this transaction, so it can be shared between other methods and layers.
+                        /// </summary>
+                        /// <returns>TRUE if data was retrieved and validated OK, otherwise FALSE</returns>
+                        public bool GetRequirement()
+                        {
+                            throw new NotImplementedException("Implementation left for GetRequirement() in <#=                            className #>");
+                        }
+
+                        /// <summary>
+                        /// <#=                            ((InputEngineStage_HasCustomCode(h) == true)?"[NOT USED - CUSTOM CODE IS LINKED IN CONSTRUCTOR]":"") #>
+                        /// This method must be implemented in order to build a valid response from an AbstractTransactionContext object within
+                        /// this transaction, to an AbstractTransactionParserStructure within the internal Parser object.
+                        /// </summary>
+                        /// <returns>TRUE if a valid response was built, otherwise FALSE</returns>
+                        public bool BuildResponse()
+                        {
+                            throw new NotImplementedException("Implementation left for BuildResponse() in <#=                            className #>");
+                        }
+
+                        /// <summary>
+                        /// <#=                            ((InputEngineStage_HasCustomCode(h) == true)?"[NOT USED - CUSTOM CODE IS LINKED IN CONSTRUCTOR]":"") #>
+                        /// This method must be implemented in order to eventually send the response to the connected client. This method
+                        /// has the final decission regarding to whether sending or not a reply, checking internal statuses or values from upper layers, for instance.
+                        /// </summary>
+                        /// <returns>TRUE if a reply coudl be sent, otherwise FALSE</returns>
+                        public bool Reply()
+                        {
+                            <#= ReplyMethodGenerator(h) #>
+                        }
+
+                        #endregion
+                        <#
+                    }
+                    else
+                    {
+                        #>
+                        #region ITransactionHandlerListenable Members
+                
+                        /// <summary>
+                        /// <#=                            ((InputEngineStage_HasCustomCode(h) == true)?"[NOT USED - CUSTOM CODE IS LINKED IN CONSTRUCTOR]":"") #>
+                        /// This method must be implemented in order to retrieve and validate data from an AbstractTransactionParserStructure,
+                        /// within internal AbstractTransactionParser object, passed by the input engine. Once data is validated, it shall be
+                        /// saved on an valid AbstractTransactionContext object within this transaction, so it can be shared between other methods and layers.
+                        /// </summary>
+                        /// <returns>TRUE if data was retrieved and validated OK, otherwise FALSE</returns>
+                        public bool GetRequirement()
+                        {
+                            throw new NotImplementedException("Implementation left for GetRequirement() in <#=                            className #>");
+                        }
+
+                        /// <summary>                      
+                        /// This method would have been implemented in order to build a valid response from an AbstractTransactionContext object within
+                        /// this transaction, to an AbstractTransactionParserStructure within the internal Parser object,
+                        /// but since the handler is linked to a time trigger input engine, there is no need to build any response.
+                        /// </summary>
+                        /// <returns>Hardcoded TRUE</returns>
+                        public bool BuildResponse()
+                        {
+                            return true;
+                        }
+
+                        /// <summary>                        
+                        /// This method would have been implemented in order to eventually send the response to the connected client. This method
+                        /// has the final decission regarding to whether sending or not a reply, checking internal statuses or values from upper layers, for instance.
+                        /// Since the handler is linked to a time trigger input engine, thre is no need to reply.
+                        /// </summary>
+                        /// <returns>Hardcoded TRUE</returns>
+                        public bool Reply()
+                        {
+                            return true;
+                        }
+
+                        #endregion
+                        <#
+                    }
+            }
+            if(h.OutputTransactionEngine != null)
+                {
+#>
+
+                     #region ITransactionHandlerForwardable Members
+
+                        /// <summary>
+                        /// <#=                        ((OutputEngineStage_HasCustomCode(h) == true)?"[NOT USED - CUSTOM CODE IS LINKED IN CONSTRUCTOR]":"") #>
+                        /// This method has the responsability of creating a requirement context, likely in a Request AbstractParserStructure,
+                        /// in order to be sent to another layer or extern component.
+                        /// </summary>
+                        /// <returns>TRUE if it was possible to create a requirement, otherwise FALSE</returns>
+                        public bool BuildRequirement()
+                        {               
+                            throw new NotImplementedException("Implementation left for BuildRequirement() in <#=                        className #>");
+                        } 
+
+                        /// <summary>
+                        /// <#=                        ((OutputEngineStage_HasCustomCode(h) == true)?"[NOT USED - CUSTOM CODE IS LINKED IN CONSTRUCTOR]":"") #>
+                        /// This method has the responsability to eventually send from a Request AbstractParserStructure (or another type of context) and/or receive in a Response AbstractParserStructure (or another type of context),
+                        /// in order to exchange data between handlers or extern components.
+                        /// </summary>
+                        /// <returns>TRUE if it was possible to exchange information without errors, otherwise FALSE</returns>
+                        public bool Resolve()
+                        {
+                            _Context.TransmissionStatus = <#=                        "TL"+h.OutputTransactionEngine.TransactionLayer.Level+"_"+h.OutputTransactionEngine.TransactionLayer.Name.Replace(" ","")+"_"+h.OutputTransactionEngine.Name.Replace(" ","")+"_Engine" #>.Instance.Resolve(_AssignedParser);
+                            return _Context.TransmissionStatus == TransmissionStatus.NoError; 
+                        }
+
+                        /// <summary>
+                        /// <#=                        ((OutputEngineStage_HasCustomCode(h) == true)?"[NOT USED - CUSTOM CODE IS LINKED IN CONSTRUCTOR]":"") #>
+                        /// This method is executed whenever Resolve() has returned TRUE, in order to evaluate if the response is whether OK or not,
+                        /// at a business-logical-decission level.
+                        /// </summary>
+                        /// <returns>TRUE if response is OK at business-logical-decission level, otherwise FALSE</returns>
+                        public bool GetResponse()
+                        {
+                             throw new NotImplementedException("Implementation left for GetResponse() in <#=                        className #>");
+                        }
+
+                        /// <summary>
+                        /// <#=                        ((OutputEngineStage_HasCustomCode(h) == true)?"[NOT USED - CUSTOM CODE IS LINKED IN CONSTRUCTOR]":"") #>
+                        /// Must be implemented in order to instanciate a valid forwarding handler object in ForwardingHandler member.
+                        /// </summary>
+                        /// <returns>TRUE, if it was possible to instanciate the objet, otherwise FALSE</returns>
+                        public bool ForwardHandlerFactory()
+                        {
+                            <#
+                            if(h.ForwarderTransactionHandlers.Count == 1)
+                            {
+                     #>
+                                this._ForwardHandler = new <#=                        "TL"+h.ForwarderTransactionHandlers[0].TransactionLayer.Level+"_"+h.ForwarderTransactionHandlers[0].TransactionLayer.Name.Replace(" ","")+"_"+h.ForwarderTransactionHandlers[0].Name.Replace(" ","")+"_Handler"#>(_Context);
+                                return true;
+<#
+                            }
+                            else if(h.ForwarderTransactionHandlers.Count > 1)
+                            {
+                                #>
+                                throw new NotImplementedException("Implementation left for ForwardHandlerFactory() in <#=                        className #>");
+                                <#
+                            }
+                            else
+                            {
+                                #>
+                                return true; //Nothing to do, no more further forward steps to instance.  
+                                <#
+                            }
+ #>
+                        }
+
+                        /// <summary>
+                        /// <#=                    ((OutputEngineStage_HasCustomCode(h) == true)?"[NOT USED - CUSTOM CODE IS LINKED IN CONSTRUCTOR]":"") #>
+                        /// This method is always executed after the other forwarding stage methods, and should be implemented in order
+                        /// to analyse any type of either expected or unexpected transaction's status after this stage.
+                        /// </summary>
+                        /// <returns>TRUE if everything is OK, otherwise FALSE</returns>
+                        public bool ProcessTransaction()
+                        {
+                            throw new NotImplementedException("Implementation left for ProcessTransaction() in <#=                    className #>");
+                        }
+                    #endregion
+<#
+            }
+            else if(h.OutputTransactionWebService != null)
+            {
+                #>
+                     #region ITransactionHandlerForwardable Members
+
+                        /// <summary>
+                        /// [NOT USED - CUSTOM CODE IS LINKED IN CONSTRUCTOR]
+                        /// This method has the responsability of creating a requirement context, likely in a Request AbstractParserStructure,
+                        /// in order to be sent to another layer or extern component.
+                        /// </summary>
+                        /// <returns>TRUE if it was possible to create a requirement, otherwise FALSE</returns>
+                        public bool BuildRequirement()
+                        {               
+                            throw new NotImplementedException("Implementation left for BuildRequirement() in <#=                    className #>");
+                        } 
+
+                        /// <summary>
+                        /// [NOT USED - CUSTOM CODE IS LINKED IN CONSTRUCTOR]
+                        /// This method has the responsability to eventually send from a Request AbstractParserStructure (or another type of context) and/or receive in a Response AbstractParserStructure (or another type of context),
+                        /// in order to exchange data between handlers or extern components.
+                        /// </summary>
+                        /// <returns>TRUE if it was possible to exchange information without errors, otherwise FALSE</returns>
+                        public bool Resolve()
+                        {
+                            throw new NotImplementedException("Implementation left for Resolve() in <#=                    className #>");
+                        }
+
+                        /// <summary>
+                        /// [NOT USED - CUSTOM CODE IS LINKED IN CONSTRUCTOR]
+                        /// This method is executed whenever Resolve() has returned TRUE, in order to evaluate if the response is whether OK or not,
+                        /// at a business-logical-decission level.
+                        /// </summary>
+                        /// <returns>TRUE if response is OK at business-logical-decission level, otherwise FALSE</returns>
+                        public bool GetResponse()
+                        {
+                             throw new NotImplementedException("Implementation left for GetResponse() in <#=                    className #>");
+                        }
+
+                        /// <summary>
+                        /// [NOT USED - CUSTOM CODE IS LINKED IN CONSTRUCTOR]
+                        /// Must be implemented in order to instanciate a valid forwarding handler object in ForwardingHandler member.
+                        /// </summary>
+                        /// <returns>TRUE, if it was possible to instanciate the objet, otherwise FALSE</returns>
+                        public bool ForwardHandlerFactory()
+                        {
+                            return true; //Nothing to do, no more further forward steps to instance.  
+                        }
+
+                        /// <summary>
+                        /// [NOT USED - CUSTOM CODE IS LINKED IN CONSTRUCTOR]
+                        /// This method is always executed after the other forwarding stage methods, and should be implemented in order
+                        /// to analyse any type of either expected or unexpected transaction's status after this stage.
+                        /// </summary>
+                        /// <returns>TRUE if everything is OK, otherwise FALSE</returns>
+                        public bool ProcessTransaction()
+                        {
+                            throw new NotImplementedException("Implementation left for ProcessTransaction() in <#=                    className #>");
+                        }
+                    #endregion
+<#
+            }
+            else if(h.ForwarderTransactionHandlers.Count > 0)
+            {
+                #>
+                     #region ITransactionHandlerForwardable Members
+
+                        /// <summary>                        
+                        /// This methods has the responsability of creating a requirement context, likely in a Request AbstractParserStructure,
+                        /// in order to be sent to another layer or extern component.
+                        /// </summary>
+                        /// <returns>TRUE if it was possible to create a requirement, otherwise FALSE</returns>
+                        public bool BuildRequirement()
+                        {                
+                            return ( this._ForwardHandler.BuildRequirementMethod == null || this._ForwardHandler.BuildRequirementMethod() == true);
+                        }              
+         
+                        /// <summary>                       
+                        /// This method has the responsability to eventually send from a Request AbstractParserStructure (or another type of context) and/or receive in a Response AbstractParserStructure (or another type of context),
+                        /// in order to exchange data between handlers or extern components.
+                        /// </summary>
+                        /// <returns>TRUE if it was possible to exchange information without errors, otherwise FALSE</returns>
+                        public bool Resolve()
+                        {
+                            return ( this._ForwardHandler.ResolveMethod == null || this._ForwardHandler.ResolveMethod() == true);                            
+                        }
+
+                        /// <summary>                      
+                        /// This methods is executed whenever Resolve() has returned TRUE, in order to evaluate if the response is whether OK or not,
+                        /// at a business-logical-decission level.
+                        /// </summary>
+                        /// <returns>TRUE if response is OK at business-logical-decission level, otherwise FALSE</returns>
+                        public bool GetResponse()
+                        {                 
+                            return( this._ForwardHandler.GetResponseMethod == null || this._ForwardHandler.GetResponseMethod() == true);                            
+                        }
+
+                        /// <summary>                     
+                        /// Must be implemented in order to instanciate a valid forwarding handler object in ForwardingHandler member.
+                        /// </summary>
+                        /// <returns>TRUE, if it was possible to instanciate the objet, otherwise FALSE</returns>
+                        public bool ForwardHandlerFactory()
+                        {
+       <#
+                if(h.ForwarderTransactionHandlers.Count == 1)
+                {
+                    #>
+                        this._ForwardHandler = new <#=                        "TL"+h.ForwarderTransactionHandlers[0].TransactionLayer.Level+"_"+h.ForwarderTransactionHandlers[0].TransactionLayer.Name.Replace(" ","")+"_"+h.ForwarderTransactionHandlers[0].Name.Replace(" ","")+"_Handler"#>(_Context);
+                        return true;
+<#
+                }          
+                else if(GetForwardableTransactionHandlerSequence(h).ToList().Count > 0)
+                {
+                      #>
+                       return true;
+					   <#
+                }
+                else
+                {
+#>
+                        throw new NotImplementedException("Implementation left for ForwardHandlerFactory() in <#=                        className #>");
+<#
+                }
+#>
+                        }
+
+                        /// <summary>                       
+                        /// This method is always executed after the other forwarding stage methods, and should be implemented in order
+                        /// to analyse any type of either expected or unexpected transaction's status after this stage.
+                        /// </summary>
+                        /// <returns>TRUE if everything is OK, otherwise FALSE</returns>
+                        public bool ProcessTransaction()
+                        {
+                            return ( this._ForwardHandler.ProcessTransactionMethod == null || this._ForwardHandler.ProcessTransactionMethod() == true);                            
+                        }
+                    #endregion
+                <#
+            }
+            if(h.MaintenanceTransactionHandler != null)
+            {                
+                #>
+                    #region ITransactionHandlerMaintenanceable Members
+                    /// <summary>
+                    /// <#=                    ((MaintenanceStage_HasCustomCode(h) == true)?"[NOT USED - CUSTOM CODE IS LINKED IN CONSTRUCTOR]":"") #>
+                    /// This method sends DoTransaction() message to object MaintenanceHandler, in order to execute an annexed transaction
+                    /// after this is almost finished. First, MaintenanceHandlerFactory() message must be implemented so it can be possible to 
+                    /// create an object over MaintenanceHandler
+                    /// </summary>
+                    /// <returns>TRUE if maintenance transaction finished OK, otherwise FALSE</returns>
+                    public bool DoMaintenance()
+                    {
+                        this._MaintenanceHandler.DoTransaction(this);
+                       return true;
+                    }
+
+                    /// <summary>
+                    /// <#=                    ((MaintenanceStage_HasCustomCode(h) == true)?"[NOT USED - CUSTOM CODE IS LINKED IN CONSTRUCTOR]":"") #>
+                    /// This method must be implemented whether to create or not a valid instance of a annexed handler, that represents
+                    /// a maintenance handler. This shall be executed after this current transaction is almost finishing.
+                    /// </summary>
+                    /// <returns>TRUE if a MaintenanceHandler could be instanciated OK, othwerwise FALSE</returns>
+                    public bool MaintenanceHandlerFactory()
+                    {
+                        this._MaintenanceHandler = new <#=                    "TL"+h.MaintenanceTransactionHandler.TransactionLayer.Level+"_"+h.MaintenanceTransactionHandler.TransactionLayer.Name.Replace(" ","")+"_"+h.MaintenanceTransactionHandler.Name.Replace(" ","")+"_Handler" #>(this._Context);
+                        return true;                        
+                    }
+
+                    #endregion
+                <#
+            }
+
+#>
+<# 
+            if(h.TransactionSQLServerDataSources.Count > 0)
+            {
+                #>
+            #region ITransactionHandlerPersistable Members
+            
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <returns></returns>
+            public bool FinalPostProcessTransaction()
+            {
+                <#
+                int finalPostProcessTransactionStep = 1;
+                
+                var sqlDataSources = from orderedSqlDataSources in h.TransactionSQLServerDataSources
+                        orderby orderedSqlDataSources.StepOrder ascending
+                        select orderedSqlDataSources;
+
+                foreach(TransactionSQLServerDataSource ds in sqlDataSources)
+                {
+                    switch(ds.ExecutedOnStage)
+                    {
+                        case PersistableStage.FinalProcessStage:
+                            if(SQLServerDataSourceStage_HasCustomCode(h,ds.Name) == true)
+                            {
+                            #>                            
+                            //Step #<#=                                    finalPostProcessTransactionStep.ToString("G3") #>      
+                            if(<#=                                    ds.Name.Replace(" ","")#>_UC() == false) return false;
+<#
+                            }
+                            else
+                            {
+#>
+                            //Step #<#=                                    finalPostProcessTransactionStep.ToString("G3") #>    
+                            if(<#=                                    ds.Name.Replace(" ","")#>_Helper() == false) return false;
+<#
+                            }
+                            break;                      
+                    }
+                    finalPostProcessTransactionStep++;
+                }
+                #>          
+                return true;      
+            }
+
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <returns></returns>
+            public bool PostProcessTransaction()
+            {
+                 <#
+                int postProcessTransactionStep = 1;
+                foreach(TransactionSQLServerDataSource ds in sqlDataSources)
+                {
+                    switch(ds.ExecutedOnStage)
+                    {
+                        case PersistableStage.PostProcessStage:
+                            if(SQLServerDataSourceStage_HasCustomCode(h,ds.Name) == true)
+                            {
+                            #>                     
+                            //Step #<#=                                    postProcessTransactionStep.ToString("G3") #>                                  
+                            if(<#=                                    ds.Name.Replace(" ","")#>_UC() == false) return false;
+<#
+                            }
+                            else
+                            {
+#>
+                            //Step #<#=                                    postProcessTransactionStep.ToString("G3") #>      
+                            if(<#=                                    ds.Name.Replace(" ","")#>_Helper() == false) return false;
+<#
+                            }
+                            break;                                           
+                    }
+                    postProcessTransactionStep++;
+                }
+            
+                #>  
+                return true;
+            }
+
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <returns></returns>
+            public bool PreProcessTransaction()
+            {
+                   <#
+                int preProcessTransactionStep = 1;
+                foreach(TransactionSQLServerDataSource ds in sqlDataSources)
+                {
+                    switch(ds.ExecutedOnStage)
+                    {
+                        case PersistableStage.PreProcessStage:
+                            if(SQLServerDataSourceStage_HasCustomCode(h,ds.Name) == true)
+                            {
+                            #>   
+                            //Step #<#=                                    preProcessTransactionStep.ToString("G3") #>                          
+                            if(<#=                                    ds.Name.Replace(" ","")#>_UC() == false) return false;
+<#
+                            }
+                            else
+                            {
+#>
+                            //Step #<#=                                    preProcessTransactionStep.ToString("G3") #>                          
+                            if(<#=                                    ds.Name.Replace(" ","")#>_Helper() == false) return false;
+<#
+                            }
+                            break;                                         
+                    }
+
+                    preProcessTransactionStep++;
+                }
+                #>  
+                return true;
+            }
+           
+                <#
+                foreach(TransactionSQLServerDataSource ds in h.TransactionSQLServerDataSources)
+                {
+                    if(SQLServerDataSourceStage_HasCustomCode(h,ds.Name) == false)
+                    {
+                     #>
+                            private bool <#=                            ds.Name.Replace(" ","") #>_Helper()
+                            {
+                                #region Using SQL Connection
+
+                                using (SqlConnection objSQLConnection = new SqlConnection())
+                                {
+                                    objSQLConnection.ConnectionString = <#=                            ds.TransactionLayer.TransactionModel.Name.Replace(" ","")+"Facade.Instance.ConnectionString;" #>
+                                    objSQLConnection.Open();
+
+                                    #region Using Sql Command
+                                    using (SqlCommand objSQLCommand = new SqlCommand())
+                                    {
+                                        objSQLCommand.CommandType = CommandType.StoredProcedure;
+                                        objSQLCommand.CommandText = <#=                            ds.TransactionLayer.TransactionModel.Name.Replace(" ","")+"Facade.Instance."+ds.Name.Replace(" ","")+"StoredProc;" #>
+
+                                        throw new NotImplementedException("Must implement this part in order to set the parameters");
+                                        //objSQLCommand.Parameters.Add(new SqlParameter("@cfg_instancia", SqlDbType.Int)).Value = this._InstanceId;
+                                        //objSQLCommand.Parameters.Add(new SqlParameter("@cfg_seccion", SqlDbType.VarChar, 30)).Value = section;
+                                        //if (key != null) objSQLCommand.Parameters.Add(new SqlParameter("@cfg_clave", SqlDbType.VarChar, 30)).Value = key;
+
+
+                                        objSQLCommand.Connection = objSQLConnection;
+
+                                        #region Using SqlDataReader
+                                        using (SqlDataReader objSQLReader = objSQLCommand.ExecuteReader())
+                                        {
+
+                                            throw new NotImplementedException("Must implement this part in order to get valid response, if possible");
+                                          //  if (objSQLReader.HasRows == true)
+                                          //  {
+                                          //      while (objSQLReader.Read())
+                                          //      {
+                                          //          if (!String.IsNullOrEmpty(objSQLReader[0].ToString())) results.Add(objSQLReader[0].ToString());
+                                          //          else if (!String.IsNullOrEmpty(objSQLReader[1].ToString())) results.Add(objSQLReader[1].ToString());
+                                          //  
+                                          //      }
+                                          //  }
+                                        }
+                                        #endregion
+                                    }
+                                    #endregion
+                                    objSQLConnection.Close();
+                                }
+                                #endregion
+
+                                return true;
+                            }
+                            <#
+                    }
+                }
+
+                #>
+                #endregion
+<#
+            }
+
+#>
+            
+	}
+}
+<#    
+        }
+    }
+}
+#>
+<#+
+    private bool ValidateModel(TransactionModel m)
+    {
+        return (!String.IsNullOrEmpty(m.Name)) && (!String.IsNullOrEmpty(m.Namespace)) && (m.InstanceId > 0);
+    }
+ #>
+<#+
+    private string ReplyMethodGenerator(TransactionHandler h)
+    {
+        string result= "";
+        switch(h.InputTransactionEngine.Type)
+        {
+            case InputEngineType.TcpTriggeredMultiThreadedInputEngine:
+			case InputEngineType.TcpTriggeredSocketReusableMultiThreadedInputEngine:
+                result += "if (_AssignedParser.SendMethod != null && _AssignedParser.SendMethod(_AssignedClient) == true) \r\n";
+                result += "{ return true;  } \r\n";
+                result += " else \r\n";
+                result += "{ \r\n";
+                result += "_Log.Error(\"Error found during Reply() stage: \" + _AssignedParser.ErrorMessage + \" (\" + (_AssignedClient as System.Net.Sockets.TcpClient).Client.LocalEndPoint.ToString() + \" - \" + (_AssignedClient as System.Net.Sockets.TcpClient).Client.RemoteEndPoint.ToString() + \")\"); \r\n";
+                result += "return false; \r\n";
+                result += "} \r\n";
+                break;
+            default:
+                result += "throw new NotImplementedException(\"Implementation left for Reply()\"); \r\n";
+                break;
+        }
+        return result;
+    }
+ #>
+<#+
+    private bool OutputEngineStage_HasCustomCode(ModelElement m)
+    {
+        foreach(DomainRoleInfo d in m.GetDomainClass().LocalDomainRolesPlayed)
+        {
+            if(d.DisplayName == "Source Transaction Handler Output Engine")
+            {
+                return (d.GetElementLinks(m)[0] as TransactionKernelDSL.Framework.Language.TransactionHandlerReferencesOutputTransactionEngine).HasCustomCode;
+
+            }
+        }
+
+        return false;
+    }
+#>
+<#+ 
+    private bool MaintenanceStage_HasCustomCode(ModelElement m)
+    {
+        foreach(DomainRoleInfo d in m.GetDomainClass().LocalDomainRolesPlayed)
+        {
+            if(d.DisplayName == "Source Maintenance Transaction Handler")
+            {
+                return (d.GetElementLinks(m)[0] as TransactionKernelDSL.Framework.Language.TransactionHandlerReferencesMaintenanceTransactionHandler).HasCustomCode;
+            }            
+        }
+
+        return false;
+    }
+#>
+<#+ 
+    private bool SQLServerDataSourceStage_HasCustomCode(ModelElement m, string dsName)
+    {
+        foreach(DomainRoleInfo d in m.GetDomainClass().LocalDomainRolesPlayed)
+        {
+            if(d.DisplayName == "Source SQLServer Data Source Transaction Handler")
+            {
+                foreach(TransactionKernelDSL.Framework.Language.TransactionHandlerReferencesTransactionSQLServerDataSources ds in d.GetElementLinks(m))
+                {
+                    if(ds.TransactionSQLServerDataSource.Name == dsName)
+                    {
+                        return ds.HasCustomCode;
+                    }
+                }
+            }            
+        }
+        return false;
+    }
+#>
+<#+ 
+    private bool InputEngineStage_HasCustomCode(ModelElement m)
+    {
+        foreach(DomainRoleInfo d in m.GetDomainClass().LocalDomainRolesPlayed)
+        {
+            if(d.DisplayName == "Target Input Engine Transaction Handler")
+            {
+                return (d.GetElementLinks(m)[0] as TransactionKernelDSL.Framework.Language.InputTransactionEngineReferencesTransactionHandlers).HasCustomCode;
+
+            }
+        }
+
+        return false;
+    }
+#>
+<#+
+    private string ParserUsingGenerator(OutputTransactionEngine e)
+    {       
+		switch(e.Parser)
+        {
+		    case ParserType.NotTyped:
+            case ParserType.PropietaryParser:
+				return "";
+			default:
+				return "using TransactionKernelDSL.Framework.Parser."+e.Parser.ToString()+";";                                  
+        }
+    }
+    private string ParserGenerator(OutputTransactionEngine e)
+    {
+        switch(e.Parser)
+        {
+            case ParserType.NotTyped:
+                return "";     
+            case ParserType.PropietaryParser:
+                return "_AssignedParser = new "+"TL"+e.TransactionLayer.Level+"_"+e.TransactionLayer.Name.Replace(" ","")+ "_"+e.Name.Replace(" ","")+"_Parser(); \r\n"; 
+            default:
+                return "_AssignedParser = new "+e.Parser.ToString()+"Parser("+((String.IsNullOrEmpty(e.ParserSectionName))?"":"\""+e.ParserSectionName+"\"")+",false);";                      
+        }
+    }
+ #>
+<#+
+    private IEnumerable<TransactionHandler> GetForwardableTransactionHandlerSequence(TransactionHandler h)
+    {
+        var forwardingTrans = from d in h.GetDomainClass().LocalDomainRolesPlayed
+                let links = d.GetElementLinks(h) 
+                from link in links
+                where (d.DisplayName == "Source Forwarding Transaction Handler")
+                where (link as TransactionHandlerReferencesForwarderTransactionHandlers).IsRoutingLink == false
+                orderby (link as TransactionHandlerReferencesForwarderTransactionHandlers).SequenceOrder ascending
+                select (link as TransactionHandlerReferencesForwarderTransactionHandlers).TargetForwardingTransactionHandler;
+
+        return forwardingTrans;
+    }
+#>
+<#+
+    private string ClassDefinitionGenerator(TransactionHandler h, string className)
+    {
+        string result= "public partial class "+className+": AbstractTransactionHandler";
+
+        if(h.InputTransactionEngine != null)
+        {
+            result += ",ITransactionHandlerListenable";
+        }
+        if(h.ForwarderTransactionHandlers.Count > 0 || h.OutputTransactionEngine != null || h.OutputTransactionWebService != null)
+        {
+            result += ",ITransactionHandlerForwardable";
+        }
+        if(h.MaintenanceTransactionHandler != null)
+        {
+            result += ",ITransactionHandlerMaintenanceable";
+        }
+        if(h.TransactionSQLServerDataSources.Count > 0)
+        {
+            result += ",ITransactionHandlerPersistable";
+        }
+
+        return result;
+    }
+
+ #>

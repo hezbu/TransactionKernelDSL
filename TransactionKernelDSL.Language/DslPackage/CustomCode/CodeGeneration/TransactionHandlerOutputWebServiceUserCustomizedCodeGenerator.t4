@@ -1,0 +1,303 @@
+﻿<#@ template inherits="Microsoft.VisualStudio.TextTemplating.VSHost.ModelingTextTransformation" #>
+<#@ parameter name="delimiter" type="System.String" #>
+<#@ parameter name="path" type="System.String" #>
+<#@ TrnxDsl processor="TrnxDslDirectiveProcessor" requires="fileName='Test.TrnxDsl'" #>
+<#@ import namespace="System.IO" #>
+<#
+      if(ValidateModel(this.TransactionModel))
+    {
+        string className = null; 
+        // When you change the DSL Definition, some of the code below may not work.
+        foreach(TransactionLayer l in this.TransactionModel.TransactionLayers)
+        {
+            foreach (TransactionHandler h in l.TransactionHandlers)
+            {
+                className = "TL"+l.Level+"_"+l.Name.Replace(" ","")+ "_"+h.Name.Replace(" ","")+"_Handler";            
+                if(h.OutputTransactionWebService != null)
+                {              
+                    string layerLevelPath = path + "\\TL"+l.Level;
+                    if(Directory.Exists(layerLevelPath) == false) 
+                    {
+                        Directory.CreateDirectory(layerLevelPath);
+                    }
+        
+                    string layerPath = layerLevelPath + "\\"+l.Name.Replace(" ","");
+                    if(Directory.Exists(layerPath) == false) 
+                    {
+                        Directory.CreateDirectory(layerPath);
+                    }
+
+                    string customCodeLayerPath = layerPath + "\\CustomCode";
+                    if(Directory.Exists(customCodeLayerPath) == false) 
+                    {
+                        Directory.CreateDirectory(customCodeLayerPath);
+                    }
+                #>
+<#=                        string.Format(delimiter,"TL"+l.Level+"\\"+l.Name.Replace(" ","")+"\\CustomCode\\"+ className+"_ForwardingUserCustomizedCode") #>
+	using System;
+	using System.Collections.Generic;
+	using System.Text;
+    using TransactionKernelDSL.Framework.V1;
+    using log4net.Config;
+    using log4net;
+    using System.Threading;
+    using System.Net;
+
+namespace <#=                        this.TransactionModel.Namespace #>
+{
+
+    /// <summary>
+    /// User-customized helpers for Forwarding stage methods 
+    /// </summary>
+    /// <remarks>
+    /// Generated on <#=                        DateTime.Now.ToString() #>
+    /// </remarks>
+    <#=                        ClassDefinitionGenerator(h,className) #>
+	{    
+
+               
+                <#= OutputWebServiceSetup(h) #>
+             
+
+                #region ITransactionHandlerForwardable User-Customized Members
+
+                public bool BuildRequirement_UC()
+                {
+                    // Uncomment this line if you want to use default behaviour.
+                    // return BuildRequirement();
+
+                    throw new NotImplementedException("Implementation left for BuildRequirement_UC() in <#=                        className #>");
+                }                       
+
+                public bool Resolve_UC()
+                {
+                    // Uncomment this line if you want to use default behaviour.
+                    // return Resolve();
+                       
+                        object result;
+                        
+                        <#
+                        if(
+                            (h.OutputTransactionWebService.ArchitecturalPattern == WebServiceArchitecturalPattern.MultipleInstances)
+                            &&
+                            (h.OutputTransactionWebService.Technology == WebServiceTechnology.SoapHttpClientProtocol)
+                        )
+                    {
+                        #>
+                        using(<#= h.OutputTransactionWebService.WebServiceClassName #> _WebServiceHandler = new <#= h.OutputTransactionWebService.WebServiceClassName #>())
+                        {
+                           _WebServiceHandler.Url = <#= this.TransactionModel.Name.Replace(" ","") #>Facade.Instance.TL<#= h.OutputTransactionWebService.TransactionLayer.Level+"_"+h.OutputTransactionWebService.TransactionLayer.Name.Replace(" ","")+ "_"+h.OutputTransactionWebService.Name.Replace(" ","") #>Url;
+                           _WebServiceHandler.Timeout = <#= this.TransactionModel.Name.Replace(" ","") #>Facade.Instance.TL<#= h.OutputTransactionWebService.TransactionLayer.Level+"_"+h.OutputTransactionWebService.TransactionLayer.Name.Replace(" ","")+ "_"+h.OutputTransactionWebService.Name.Replace(" ","") #>Timeout * 1000;
+
+                           _Log.Info("<#= h.OutputTransactionWebService.WebServiceClassName #> URL is " + _WebServiceHandler.Url); 
+                           _Log.Info("<#= h.OutputTransactionWebService.WebServiceClassName #> Timeout is " + _WebServiceHandler.Timeout + "ms"); 
+<#
+                    }
+#>
+
+                        try
+                        {
+                            ///Here must be all the necessary code in order to call the web method
+                            _Context.TransmissionStatus = TransmissionStatus.NoError;
+     <#
+                        if(
+                            (h.OutputTransactionWebService.ArchitecturalPattern == WebServiceArchitecturalPattern.Singleton)
+                            &&
+                            (h.OutputTransactionWebService.Technology == WebServiceTechnology.SoapHttpClientProtocol)
+                        )
+                    {
+                        #>
+                            _Log.Info("<#= h.OutputTransactionWebService.WebServiceClassName #> URL is " + <#=this.TransactionModel.Name.Replace(" ","")+"Facade" #>.<#=                    "TL"+h.OutputTransactionWebService.TransactionLayer.Level+"_"+h.OutputTransactionWebService.TransactionLayer.Name.Replace(" ","")+ "_"+h.OutputTransactionWebService.Name.Replace(" ","")#>WebServiceInstance.Url); 
+                            _Log.Info("<#= h.OutputTransactionWebService.WebServiceClassName #> Timeout is " + <#=this.TransactionModel.Name.Replace(" ","")+"Facade" #>.<#=                    "TL"+h.OutputTransactionWebService.TransactionLayer.Level+"_"+h.OutputTransactionWebService.TransactionLayer.Name.Replace(" ","")+ "_"+h.OutputTransactionWebService.Name.Replace(" ","")#>WebServiceInstance.Timeout + "ms"); 
+                            result = <#=this.TransactionModel.Name.Replace(" ","")+"Facade" #>.<#=                    "TL"+h.OutputTransactionWebService.TransactionLayer.Level+"_"+h.OutputTransactionWebService.TransactionLayer.Name.Replace(" ","")+ "_"+h.OutputTransactionWebService.Name.Replace(" ","")#>WebServiceInstance.<#=                            h.TransactionId.Replace(" ","") #>(/* Here must be passed all needed parameter objects*/);
+<#                  
+                    } 
+
+                        if(
+                            (h.OutputTransactionWebService.ArchitecturalPattern == WebServiceArchitecturalPattern.MultipleInstances)
+                            &&
+                            (h.OutputTransactionWebService.Technology == WebServiceTechnology.SoapHttpClientProtocol)
+                        )
+                    {
+#>
+                            result = _WebServiceHandler.<#=                            h.TransactionId.Replace(" ","") #>(/* Here must be passed all needed parameter objects*/);
+<#                  
+                    } 
+#>
+                        }
+                        #region Common Exception Handling
+                        catch (WebException webEx) 
+                        {
+                           if (webEx.Status == WebExceptionStatus.Timeout)
+                            {
+                                _Log.Error("Timeout in WebMethod <#=                        h.TransactionId.Replace(" ","") #> detected: "+webEx.Message);                                        
+                                _Context.TransmissionStatus = TransmissionStatus.Timeout;    
+                            }
+                            else if (webEx.Status == WebExceptionStatus.ConnectFailure)
+                            {
+                                 _Log.Error("Connection failure in WebMethod <#=                        h.TransactionId.Replace(" ","") #> detected: "+webEx.Message);                                        
+                                 _Context.TransmissionStatus = TransmissionStatus.ProblemDuringContact;
+                            }
+                            else if (webEx.Status == WebExceptionStatus.ConnectionClosed)
+                            {
+                                 _Log.Error("Connection closure in WebMethod <#=                        h.TransactionId.Replace(" ","") #> detected: "+webEx.Message);                                        
+                                 _Context.TransmissionStatus = TransmissionStatus.ContactLost;
+                            }
+                            else
+                            {
+                                _Log.Error("Unknown error ("+webEx.Status.ToString()+") in WebMethod <#=                        h.TransactionId.Replace(" ","") #> detected: "+webEx.Message);                                        
+                                _Context.TransmissionStatus = TransmissionStatus.SocketError; 
+                            }
+                        }
+                        catch (Exception ex)
+                        {
+                                _Log.Error("Exception found in WebMethod <#=                        h.TransactionId.Replace(" ","") #> : "+ex.Message);                                        
+                                _Context.TransmissionStatus = TransmissionStatus.SocketError;
+                        }
+                        #endregion
+                  <#
+                        if(
+                            (h.OutputTransactionWebService.ArchitecturalPattern == WebServiceArchitecturalPattern.MultipleInstances)
+                            &&
+                            (h.OutputTransactionWebService.Technology == WebServiceTechnology.SoapHttpClientProtocol)
+                        )
+                    {
+                        #>
+                       }
+<#
+                    }
+#>
+                        return _Context.TransmissionStatus == TransmissionStatus.NoError; 
+                }
+                      
+                public bool GetResponse_UC()
+                {
+                    // Uncomment this line if you want to use default behaviour.
+                    // return GetResponse();
+
+                    throw new NotImplementedException("Implementation left for GetResponse_UC() in <#=                        className #>");
+                }
+
+                public bool ForwardHandlerFactory_UC()
+                {
+                    // Uncomment this line if you want to use default behaviour.
+                    // return ForwardHandlerFactory();
+
+                    throw new NotImplementedException("Implementation left for ForwardHandlerFactory_UC() in <#=                        className #>");
+                }
+
+                public bool ProcessTransaction_UC()
+                {
+                     // Uncomment this line if you want to use default behaviour.
+                    // return ProcessTransaction();
+
+                        throw new NotImplementedException("Implementation left for ProcessTransaction_UC() in <#=                        className #>");
+                }
+
+                    #endregion                   
+	}
+}
+<#
+                
+                
+                }
+            }
+        }
+    }
+#>
+<#+
+    private string OutputWebServiceSetup(TransactionHandler h)
+    {
+        string result= "";
+        //Case #1 -> SOAP y Multiple instances
+        if(
+                (h.OutputTransactionWebService.ArchitecturalPattern == WebServiceArchitecturalPattern.MultipleInstances)
+                &&
+                (h.OutputTransactionWebService.Technology == WebServiceTechnology.SoapHttpClientProtocol)
+            )
+        {
+            //result += "private "+h.OutputTransactionWebService.WebServiceClassName +" _WebServiceHandler = null; \r\n";
+            result += "private void "+h.OutputTransactionWebService.WebServiceClassName +"_WebServiceSetup() \r\n";
+            result += "{ \r\n";
+            result += " /// Herein should be included all initialization regarding to structures used within the Web Service. \r\n";
+            result += " /// But, DO NOT instantiate the WS handler here, since it should be done on a using() statement on Resolve method. \r\n";
+           // result += "  _WebServiceHandler = new "+                        h.OutputTransactionWebService.WebServiceClassName +"();";
+           // result += "  _WebServiceHandler.Url = "+this.TransactionModel.Name.Replace(" ","") +"Facade.Instance.TL"+h.OutputTransactionWebService.TransactionLayer.Level+"_"+h.OutputTransactionWebService.TransactionLayer.Name.Replace(" ","")+ "_"+h.OutputTransactionWebService.Name.Replace(" ","") +"Url;";
+           // result += "  _WebServiceHandler.Timeout = "+this.TransactionModel.Name.Replace(" ","") +"Facade.Instance.TL"+h.OutputTransactionWebService.TransactionLayer.Level+"_"+h.OutputTransactionWebService.TransactionLayer.Name.Replace(" ","")+ "_"+h.OutputTransactionWebService.Name.Replace(" ","") +"Timeout * 1000;";
+            result += "} \r\n";
+        }
+        //Case #2 -> WCF y Multiple instances
+        else if(
+                (h.OutputTransactionWebService.ArchitecturalPattern == WebServiceArchitecturalPattern.MultipleInstances)
+                &&
+                (h.OutputTransactionWebService.Technology == WebServiceTechnology.WCF)
+            )
+        {
+                    result += "private void "+h.OutputTransactionWebService.WebServiceClassName +"_WebServiceSetup() \r\n";
+                    result += "{ \r\n";
+                    result += " /// Herein should be included all initialization regarding to structures used within the Web Service. \r\n";
+                    result += " /// But, DO NOT instantiate the WS handler here, since it should be done on a using() statement on Resolve method. \r\n";
+                    result += "} \r\n";
+        }
+        //Case #3 -> SOAP y Singleton
+        else if(
+                (h.OutputTransactionWebService.ArchitecturalPattern == WebServiceArchitecturalPattern.Singleton)
+                &&
+                (h.OutputTransactionWebService.Technology == WebServiceTechnology.SoapHttpClientProtocol)
+            )
+        {                    
+                    result += "private void "+h.OutputTransactionWebService.WebServiceClassName +"_WebServiceSetup() \r\n";
+                    result += "{ \r\n";
+                    result += " /// Herein should be included all initialization regarding to structures used within the Web Service. \r\n";
+                    result += " /// But, DO NOT instantiate the WS handler here, since it is done just once. \r\n";
+                    result += "} \r\n";
+        }
+        //Case #4 -> WCF y Singleton
+        else if(
+                (h.OutputTransactionWebService.ArchitecturalPattern == WebServiceArchitecturalPattern.Singleton)
+                &&
+                (h.OutputTransactionWebService.Technology == WebServiceTechnology.WCF)
+            )
+        {
+                    result += "private void "+h.OutputTransactionWebService.WebServiceClassName +"_WebServiceSetup() \r\n";
+                    result += "{ \r\n";
+                    result += " /// Herein should be included all initialization regarding to structures used within the Web Service. \r\n";
+                    result += " /// But, DO NOT instantiate the WS handler here, since it is done just once. \r\n";
+                    result += "} \r\n";
+        }
+
+        return result;
+    }
+ #>
+<#+
+    private bool ValidateModel(TransactionModel m)
+    {
+        return (!String.IsNullOrEmpty(m.Name)) && (!String.IsNullOrEmpty(m.Namespace)) && (m.InstanceId > 0);
+    }
+#>
+<#+
+    private string ClassDefinitionGenerator(TransactionHandler h, string className)
+    {
+        string result= "public partial class "+className+": AbstractTransactionHandler";
+
+        if(h.InputTransactionEngine != null)
+        {
+            result += ",ITransactionHandlerListenable";
+        }
+        if(h.ForwarderTransactionHandlers.Count > 0 || h.OutputTransactionEngine != null || h.OutputTransactionWebService != null)
+        {
+            result += ",ITransactionHandlerForwardable";
+        }
+        if(h.MaintenanceTransactionHandler != null)
+        {
+            result += ",ITransactionHandlerMaintenanceable";
+        }
+        if(h.TransactionSQLServerDataSources.Count > 0)
+        {
+            result += ",ITransactionHandlerPersistable";
+        }
+
+        return result;
+    }
+
+ #>

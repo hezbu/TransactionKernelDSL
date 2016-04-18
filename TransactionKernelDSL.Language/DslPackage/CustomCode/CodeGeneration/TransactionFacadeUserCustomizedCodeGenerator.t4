@@ -1,0 +1,163 @@
+﻿<#@ template inherits="Microsoft.VisualStudio.TextTemplating.VSHost.ModelingTextTransformation" #>
+<#@ parameter name="delimiter" type="System.String" #>
+<#@ parameter name="path" type="System.String" #>
+<#@ import namespace="System.Diagnostics" #>
+<#@ template language="C#v3.5" #>
+<#@ assembly name="System.Core" #>
+<#@ import namespace="System.Linq" #>
+<#@ import namespace="System.Collections.Generic" #>.
+<#@ import namespace="System.IO" #>
+<#@ TrnxDsl processor="TrnxDslDirectiveProcessor" requires="fileName='Test.TrnxDsl'" #>
+<# 
+    if(ValidateModel(this.TransactionModel))
+    {
+        string customCodeLayerPath = path + "\\CustomCode";
+        if(Directory.Exists(customCodeLayerPath) == false) 
+        {
+            Directory.CreateDirectory(customCodeLayerPath);
+        }
+
+        string className= this.TransactionModel.Name.Replace(" ","")+"Facade";   
+#>
+        <#=
+            string.Format(delimiter,"CustomCode\\"+this.TransactionModel.Name.Replace(" ","") + "Facade_UserCustomizedCode")
+            #>
+
+    using System;
+	using System.Collections.Generic;
+	using System.Text;
+    using System.Configuration;
+    using System.Xml;
+    using TransactionKernelDSL.Framework.V1;
+    using log4net.Config;
+    using log4net;
+    using System.Threading;
+
+namespace <#=            this.TransactionModel.Namespace #>
+{
+
+    /// <summary>
+    /// User-Customized Definitions for ransactional facade's solution <#=            this.TransactionModel.Name #>
+    /// </summary>
+    /// <remarks>
+    /// Generated on <#=            DateTime.Now.ToString() #>
+    /// </remarks>
+	public partial class <#=            className #> : AbstractTransactionFacade
+	{
+        ///Herein should be declared every Const string, with a valid and unique definition within this facade.
+        ///For instance:
+        ///   internal const string ConstParameter1 = "ConstParameter1";
+
+        #region User Customized Setup
+        private void <#=            className #>UserCustomizedSetup()
+        {
+             //#region Example Setup
+             //{
+             //   int intDefaultValue = 0;
+             //   if (Int32.TryParse((GetValue("<#= this.TransactionModel.Name.Replace(" ","") #>.General", "ExampleValue") as List<string>)[0], out intDefaultValue) == false)
+             //       intDefaultValue = 0;
+             //   _ExampleValue = intDefaultValue;
+             //}
+             //#endregion 
+        }
+        #endregion
+        
+        #region User Customized Start Engines Method
+        private void <#=            className #>StartEngines_UC()
+        {            
+            ///Herein should be the implementation for all the those manual-start engines in every layer, in order to start them
+            //TLX_XXXLayer_XXXEngine.Instance.Start();
+        }
+        #endregion
+
+        #region User Customized Stop Engines Method
+        private void <#=            className #>StopEngines_UC()
+        {
+            ///Herein should be the implementation for all the those manual-start engines in every layer, in order to stop them
+            //TLX_XXXLayer_XXXEngine.Instance.Stop();
+        }
+        #endregion
+<#
+        switch(this.TransactionModel.GetValueImplementationType)
+        {
+            case PersistableSourceType.NotTyped:
+            #>
+            public override object GetValue(string section, string key = null)
+            {
+                List<string> results = new List<string>();
+                
+                throw new NotImplementedException("GetValue must be implemented");
+
+                return results;
+            }
+<#
+                break;
+        }
+        switch(this.TransactionModel.SequenceFactoryImplementationType)
+        {
+            case PersistableSourceType.NotTyped:
+                        #>
+            public override object SequenceFactory()
+            {
+                throw new NotImplementedException("SequenceFactory must be implemented");
+            }
+<#
+                break;
+        }
+
+          {
+            var outputWebServices = from l in this.TransactionModel.TransactionLayers
+                    let webServices = l.OutputTransactionWebServices
+                    from ws in webServices
+                    where ws.ArchitecturalPattern == WebServiceArchitecturalPattern.Singleton
+                    select ws;
+            #>
+           
+ <#
+					  foreach(OutputTransactionWebService ows in outputWebServices)
+            {
+            #>
+                #region Web Services <#= ows.Name #> Singleton Instances
+                private static <#= ows.WebServiceClassName #> _<#=                    "TL"+ows.TransactionLayer.Level+"_"+ows.TransactionLayer.Name.Replace(" ","")+ "_"+ows.Name.Replace(" ","")#>WebServiceInstance = null; 
+                 
+                public static <#= ows.WebServiceClassName #> <#=                    "TL"+ows.TransactionLayer.Level+"_"+ows.TransactionLayer.Name.Replace(" ","")+ "_"+ows.Name.Replace(" ","")#>WebServiceInstance 
+                { 
+                    get  
+                    { 
+                        if (_<#=                    "TL"+ows.TransactionLayer.Level+"_"+ows.TransactionLayer.Name.Replace(" ","")+ "_"+ows.Name.Replace(" ","")#>WebServiceInstance == null) 
+                        {
+                            _<#=                    "TL"+ows.TransactionLayer.Level+"_"+ows.TransactionLayer.Name.Replace(" ","")+ "_"+ows.Name.Replace(" ","")#>WebServiceInstance = new <#= ows.WebServiceClassName #>(); 
+                            _<#=                    "TL"+ows.TransactionLayer.Level+"_"+ows.TransactionLayer.Name.Replace(" ","")+ "_"+ows.Name.Replace(" ","")#>WebServiceInstance.Url = <#=this.TransactionModel.Name.Replace(" ","")+"Facade" #>.Instance.<#=                    "TL"+ows.TransactionLayer.Level+"_"+ows.TransactionLayer.Name.Replace(" ","")+ "_"+ows.Name.Replace(" ","")#>Url; 
+                            _<#=                    "TL"+ows.TransactionLayer.Level+"_"+ows.TransactionLayer.Name.Replace(" ","")+ "_"+ows.Name.Replace(" ","")#>WebServiceInstance.Timeout = <#=this.TransactionModel.Name.Replace(" ","")+"Facade" #>.Instance.<#=                    "TL"+ows.TransactionLayer.Level+"_"+ows.TransactionLayer.Name.Replace(" ","")+ "_"+ows.Name.Replace(" ","")#>Timeout * 1000; 
+
+                        } 
+
+                        return _<#=                    "TL"+ows.TransactionLayer.Level+"_"+ows.TransactionLayer.Name.Replace(" ","")+ "_"+ows.Name.Replace(" ","")#>WebServiceInstance; 
+                    } 
+                } 
+		
+                #endregion 
+<#
+			}
+
+        }
+    #>
+    }
+}
+<# 
+    }
+#>
+<#+
+    private bool ValidateModel(TransactionModel m)
+    {
+        return (!String.IsNullOrEmpty(m.Name)) && (!String.IsNullOrEmpty(m.Namespace)) && (m.InstanceId > 0);
+    }
+ #>
+
+
+
+
+
+
+
+

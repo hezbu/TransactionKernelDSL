@@ -1,0 +1,1790 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xsd:schema id="TrnxDslSchema" targetNamespace="http://schemas.microsoft.com/dsltools/TrnxDsl" elementFormDefault="qualified" xmlns="http://schemas.microsoft.com/dsltools/TrnxDsl" xmlns:core="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <xsd:import id="CoreSchema" namespace="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" />
+  <!-- TransactionModel -->
+  <xsd:element name="transactionModel" type="TransactionModel" substitutionGroup="core:modelElement" />
+  <xsd:complexType name="TransactionModel">
+    <xsd:annotation>
+      <xsd:documentation>The root in which all other elements are embedded. Appears as a diagram.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="core:ModelElement">
+        <xsd:sequence minOccurs="0" maxOccurs="1">
+          <!-- Relationship: TransactionModelHasTransactionLayers -->
+          <xsd:element name="transactionLayers" minOccurs="0" maxOccurs="1">
+            <xsd:annotation>
+              <xsd:documentation>Instances of TransactionModelHasTransactionLayers</xsd:documentation>
+            </xsd:annotation>
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element ref="transactionModelHasTransactionLayers" minOccurs="0" maxOccurs="unbounded">
+                  <xsd:annotation>
+                    <xsd:documentation>[Instance of TransactionModelHasTransactionLayers needs to be serialized in full-form]</xsd:documentation>
+                  </xsd:annotation>
+                </xsd:element>
+              </xsd:sequence>
+            </xsd:complexType>
+          </xsd:element>
+          <!-- Relationship: TransactionModelHasTransactionEnvironmentLayer -->
+          <xsd:element name="transactionEnvironmentLayer" minOccurs="0" maxOccurs="1">
+            <xsd:annotation>
+              <xsd:documentation>Instance of TransactionModelHasTransactionEnvironmentLayer</xsd:documentation>
+            </xsd:annotation>
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element ref="transactionModelHasTransactionEnvironmentLayer" minOccurs="0" maxOccurs="1">
+                  <xsd:annotation>
+                    <xsd:documentation>[Instance of TransactionModelHasTransactionEnvironmentLayer needs to be serialized in full-form]</xsd:documentation>
+                  </xsd:annotation>
+                </xsd:element>
+              </xsd:sequence>
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:sequence>
+        <!-- Id -->
+        <xsd:attribute name="Id" type="xsd:string">
+          <xsd:annotation>
+            <xsd:documentation>Instance Guid of this element, needed because SerializeId is set to true.</xsd:documentation>
+          </xsd:annotation>
+        </xsd:attribute>
+        <!-- dslVersion -->
+        <xsd:attribute name="dslVersion" type="xsd:string">
+          <xsd:annotation>
+            <xsd:documentation>Version of the model serialized in this file.</xsd:documentation>
+          </xsd:annotation>
+        </xsd:attribute>
+        <!-- Property: Name -->
+        <xsd:attribute name="name" type="xsd:string" >
+          <xsd:annotation>
+            <xsd:documentation>Solution&apos;s name</xsd:documentation>
+          </xsd:annotation>
+        </xsd:attribute>
+        <!-- Property: InstanceId -->
+        <xsd:attribute name="instanceId" type="xsd:string" >
+          <xsd:annotation>
+            <xsd:documentation>Value to uniquely identify the solution within others</xsd:documentation>
+          </xsd:annotation>
+        </xsd:attribute>
+        <!-- Property: Namespace -->
+        <xsd:attribute name="namespace" type="xsd:string" >
+          <xsd:annotation>
+            <xsd:documentation>Base namespace that will be used in every generated code file</xsd:documentation>
+          </xsd:annotation>
+        </xsd:attribute>
+        <!-- Property: GetValueImplementationType -->
+        <xsd:attribute name="getValueImplementationType" type="PersistableSourceType" >
+          <xsd:annotation>
+            <xsd:documentation>GetValue() must be implemented somehow in order to catch initial parameters for the solution to work.</xsd:documentation>
+          </xsd:annotation>
+        </xsd:attribute>
+        <!-- Property: SequenceFactoryImplementationType -->
+        <xsd:attribute name="sequenceFactoryImplementationType" type="PersistableSourceType" >
+          <xsd:annotation>
+            <xsd:documentation>SequenceFactory() must be implemented somehow in order to generate trace number for entrying transactions.</xsd:documentation>
+          </xsd:annotation>
+        </xsd:attribute>
+        <!-- Property: DatabaseServerInstance -->
+        <xsd:attribute name="databaseServerInstance" type="xsd:string" />
+        <!-- Property: DatabaseInitialCatalog -->
+        <xsd:attribute name="databaseInitialCatalog" type="xsd:string" />
+        <!-- Property: DatabaseUser -->
+        <xsd:attribute name="databaseUser" type="xsd:string" />
+        <!-- Property: DatabasePassword -->
+        <xsd:attribute name="databasePassword" type="xsd:string" />
+        <!-- Property: SatelliteInstances -->
+        <xsd:attribute name="satelliteInstances" type="xsd:string" >
+          <xsd:annotation>
+            <xsd:documentation>It is a pipe-separated array of instance numbers, which will be used to </xsd:documentation>
+          </xsd:annotation>
+        </xsd:attribute>
+        <!-- Property: ScriptVersion -->
+        <xsd:attribute name="scriptVersion" type="xsd:string" >
+          <xsd:annotation>
+            <xsd:documentation>Version associated with the script that will be generated automatically by the transformation tool</xsd:documentation>
+          </xsd:annotation>
+        </xsd:attribute>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+  
+  <!-- TransactionModel Moniker -->
+  <xsd:element name="transactionModelMoniker" type="TransactionModelMoniker" substitutionGroup="core:modelElementMoniker" />
+  <xsd:complexType name="TransactionModelMoniker">
+    <xsd:annotation>
+      <xsd:documentation>Moniker for TransactionModel instance.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="core:ModelElementMoniker">
+        <xsd:attribute name="Id" type="xsd:string" >
+          <xsd:annotation>
+            <xsd:documentation>Attribute to store the moniker string.</xsd:documentation>
+          </xsd:annotation>
+        </xsd:attribute>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+  
+  <!-- TransactionHandler -->
+  <xsd:element name="transactionHandler" type="TransactionHandler" substitutionGroup="core:modelElement" />
+  <xsd:complexType name="TransactionHandler">
+    <xsd:annotation>
+      <xsd:documentation>Elements embedded in the model. Appear as boxes on the diagram.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="core:ModelElement">
+        <xsd:sequence minOccurs="0" maxOccurs="1">
+          <!-- Relationship: TransactionHandlerReferencesForwarderTransactionHandlers -->
+          <xsd:element name="forwarderTransactionHandlers" minOccurs="0" maxOccurs="1">
+            <xsd:annotation>
+              <xsd:documentation>Instances of TransactionHandlerReferencesForwarderTransactionHandlers</xsd:documentation>
+            </xsd:annotation>
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element ref="transactionHandlerReferencesForwarderTransactionHandlers" minOccurs="0" maxOccurs="unbounded">
+                  <xsd:annotation>
+                    <xsd:documentation>[Instance of TransactionHandlerReferencesForwarderTransactionHandlers needs to be serialized in full-form]</xsd:documentation>
+                  </xsd:annotation>
+                </xsd:element>
+              </xsd:sequence>
+            </xsd:complexType>
+          </xsd:element>
+          <!-- Relationship: TransactionHandlerReferencesMaintenanceTransactionHandler -->
+          <xsd:element name="maintenanceTransactionHandler" minOccurs="0" maxOccurs="1">
+            <xsd:annotation>
+              <xsd:documentation>Instance of TransactionHandlerReferencesMaintenanceTransactionHandler</xsd:documentation>
+            </xsd:annotation>
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element ref="transactionHandlerReferencesMaintenanceTransactionHandler" minOccurs="0" maxOccurs="1">
+                  <xsd:annotation>
+                    <xsd:documentation>[Instance of TransactionHandlerReferencesMaintenanceTransactionHandler needs to be serialized in full-form]</xsd:documentation>
+                  </xsd:annotation>
+                </xsd:element>
+              </xsd:sequence>
+            </xsd:complexType>
+          </xsd:element>
+          <!-- Relationship: TransactionHandlerReferencesOutputTransactionEngine -->
+          <xsd:element name="outputTransactionEngine" minOccurs="0" maxOccurs="1">
+            <xsd:annotation>
+              <xsd:documentation>Instance of TransactionHandlerReferencesOutputTransactionEngine</xsd:documentation>
+            </xsd:annotation>
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element ref="transactionHandlerReferencesOutputTransactionEngine" minOccurs="0" maxOccurs="1">
+                  <xsd:annotation>
+                    <xsd:documentation>[Instance of TransactionHandlerReferencesOutputTransactionEngine needs to be serialized in full-form]</xsd:documentation>
+                  </xsd:annotation>
+                </xsd:element>
+              </xsd:sequence>
+            </xsd:complexType>
+          </xsd:element>
+          <!-- Relationship: TransactionHandlerReferencesTransactionSQLServerDataSources -->
+          <xsd:element name="transactionSQLServerDataSources" minOccurs="0" maxOccurs="1">
+            <xsd:annotation>
+              <xsd:documentation>Instances of TransactionHandlerReferencesTransactionSQLServerDataSources</xsd:documentation>
+            </xsd:annotation>
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element ref="transactionHandlerReferencesTransactionSQLServerDataSources" minOccurs="0" maxOccurs="unbounded">
+                  <xsd:annotation>
+                    <xsd:documentation>[Instance of TransactionHandlerReferencesTransactionSQLServerDataSources needs to be serialized in full-form]</xsd:documentation>
+                  </xsd:annotation>
+                </xsd:element>
+              </xsd:sequence>
+            </xsd:complexType>
+          </xsd:element>
+          <!-- Relationship: TransactionHandlerReferencesOutputTransactionWebService -->
+          <xsd:element name="outputTransactionWebService" minOccurs="0" maxOccurs="1">
+            <xsd:annotation>
+              <xsd:documentation>Instance of TransactionHandlerReferencesOutputTransactionWebService</xsd:documentation>
+            </xsd:annotation>
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element ref="transactionHandlerReferencesOutputTransactionWebService" minOccurs="0" maxOccurs="1">
+                  <xsd:annotation>
+                    <xsd:documentation>[Instance of TransactionHandlerReferencesOutputTransactionWebService needs to be serialized in full-form]</xsd:documentation>
+                  </xsd:annotation>
+                </xsd:element>
+              </xsd:sequence>
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:sequence>
+        <!-- Id -->
+        <xsd:attribute name="Id" type="xsd:string">
+          <xsd:annotation>
+            <xsd:documentation>Instance Guid of this element, needed because SerializeId is set to true.</xsd:documentation>
+          </xsd:annotation>
+        </xsd:attribute>
+        <!-- Property: Name -->
+        <xsd:attribute name="name" type="xsd:string" >
+          <xsd:annotation>
+            <xsd:documentation>Handler&apos;s Name</xsd:documentation>
+          </xsd:annotation>
+        </xsd:attribute>
+        <!-- Property: TransactionId -->
+        <xsd:attribute name="transactionId" type="xsd:string" >
+          <xsd:annotation>
+            <xsd:documentation>Transaction Id that will be the main identifier of the handler.</xsd:documentation>
+          </xsd:annotation>
+        </xsd:attribute>
+        <!-- Property: LoggerName -->
+        <xsd:attribute name="loggerName" type="xsd:string" >
+          <xsd:annotation>
+            <xsd:documentation>Logger&apos;s name used within this transaction handler</xsd:documentation>
+          </xsd:annotation>
+        </xsd:attribute>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+  
+  <!-- TransactionHandler Moniker -->
+  <xsd:element name="transactionHandlerMoniker" type="TransactionHandlerMoniker" substitutionGroup="core:modelElementMoniker" />
+  <xsd:complexType name="TransactionHandlerMoniker">
+    <xsd:annotation>
+      <xsd:documentation>Moniker for TransactionHandler instance.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="core:ModelElementMoniker">
+        <xsd:attribute name="Id" type="xsd:string" >
+          <xsd:annotation>
+            <xsd:documentation>Attribute to store the moniker string.</xsd:documentation>
+          </xsd:annotation>
+        </xsd:attribute>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+  
+  <!-- TransactionLayer -->
+  <xsd:element name="transactionLayer" type="TransactionLayer" substitutionGroup="core:modelElement" />
+  <xsd:complexType name="TransactionLayer">
+    <xsd:complexContent>
+      <xsd:extension base="core:ModelElement">
+        <xsd:sequence minOccurs="0" maxOccurs="1">
+          <!-- Relationship: TransactionLayerHasTransactionHandlers -->
+          <xsd:element name="transactionHandlers" minOccurs="0" maxOccurs="1">
+            <xsd:annotation>
+              <xsd:documentation>Instances of TransactionLayerHasTransactionHandlers</xsd:documentation>
+            </xsd:annotation>
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element ref="transactionLayerHasTransactionHandlers" minOccurs="0" maxOccurs="unbounded">
+                  <xsd:annotation>
+                    <xsd:documentation>[Instance of TransactionLayerHasTransactionHandlers needs to be serialized in full-form]</xsd:documentation>
+                  </xsd:annotation>
+                </xsd:element>
+              </xsd:sequence>
+            </xsd:complexType>
+          </xsd:element>
+          <!-- Relationship: TransactionLayerHasInputTransactionEngines -->
+          <xsd:element name="inputTransactionEngines" minOccurs="0" maxOccurs="1">
+            <xsd:annotation>
+              <xsd:documentation>Instances of TransactionLayerHasInputTransactionEngines</xsd:documentation>
+            </xsd:annotation>
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element ref="transactionLayerHasInputTransactionEngines" minOccurs="0" maxOccurs="unbounded">
+                  <xsd:annotation>
+                    <xsd:documentation>[Instance of TransactionLayerHasInputTransactionEngines needs to be serialized in full-form]</xsd:documentation>
+                  </xsd:annotation>
+                </xsd:element>
+              </xsd:sequence>
+            </xsd:complexType>
+          </xsd:element>
+          <!-- Relationship: TransactionLayerHasOutputTransactionEngines -->
+          <xsd:element name="outputTransactionEngines" minOccurs="0" maxOccurs="1">
+            <xsd:annotation>
+              <xsd:documentation>Instances of TransactionLayerHasOutputTransactionEngines</xsd:documentation>
+            </xsd:annotation>
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element ref="transactionLayerHasOutputTransactionEngines" minOccurs="0" maxOccurs="unbounded">
+                  <xsd:annotation>
+                    <xsd:documentation>[Instance of TransactionLayerHasOutputTransactionEngines needs to be serialized in full-form]</xsd:documentation>
+                  </xsd:annotation>
+                </xsd:element>
+              </xsd:sequence>
+            </xsd:complexType>
+          </xsd:element>
+          <!-- Relationship: TransactionLayerHasTransactionSQLServerDataSources -->
+          <xsd:element name="transactionSQLServerDataSources" minOccurs="0" maxOccurs="1">
+            <xsd:annotation>
+              <xsd:documentation>Instances of TransactionLayerHasTransactionSQLServerDataSources</xsd:documentation>
+            </xsd:annotation>
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element ref="transactionLayerHasTransactionSQLServerDataSources" minOccurs="0" maxOccurs="unbounded">
+                  <xsd:annotation>
+                    <xsd:documentation>[Instance of TransactionLayerHasTransactionSQLServerDataSources needs to be serialized in full-form]</xsd:documentation>
+                  </xsd:annotation>
+                </xsd:element>
+              </xsd:sequence>
+            </xsd:complexType>
+          </xsd:element>
+          <!-- Relationship: TransactionLayerHasOutputTransactionWebServices -->
+          <xsd:element name="outputTransactionWebServices" minOccurs="0" maxOccurs="1">
+            <xsd:annotation>
+              <xsd:documentation>Instances of TransactionLayerHasOutputTransactionWebServices</xsd:documentation>
+            </xsd:annotation>
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element ref="transactionLayerHasOutputTransactionWebServices" minOccurs="0" maxOccurs="unbounded">
+                  <xsd:annotation>
+                    <xsd:documentation>[Instance of TransactionLayerHasOutputTransactionWebServices needs to be serialized in full-form]</xsd:documentation>
+                  </xsd:annotation>
+                </xsd:element>
+              </xsd:sequence>
+            </xsd:complexType>
+          </xsd:element>
+          <!-- Relationship: TransactionLayerHasTimeTriggers -->
+          <xsd:element name="timeTriggers" minOccurs="0" maxOccurs="1">
+            <xsd:annotation>
+              <xsd:documentation>Instances of TransactionLayerHasTimeTriggers</xsd:documentation>
+            </xsd:annotation>
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element ref="transactionLayerHasTimeTriggers" minOccurs="0" maxOccurs="unbounded">
+                  <xsd:annotation>
+                    <xsd:documentation>[Instance of TransactionLayerHasTimeTriggers needs to be serialized in full-form]</xsd:documentation>
+                  </xsd:annotation>
+                </xsd:element>
+              </xsd:sequence>
+            </xsd:complexType>
+          </xsd:element>
+          <!-- Relationship: TransactionLayerHasTransactionDataSourceSupports -->
+          <xsd:element name="transactionDataSourceSupports" minOccurs="0" maxOccurs="1">
+            <xsd:annotation>
+              <xsd:documentation>Instances of TransactionLayerHasTransactionDataSourceSupports</xsd:documentation>
+            </xsd:annotation>
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element ref="transactionLayerHasTransactionDataSourceSupports" minOccurs="0" maxOccurs="unbounded">
+                  <xsd:annotation>
+                    <xsd:documentation>[Instance of TransactionLayerHasTransactionDataSourceSupports needs to be serialized in full-form]</xsd:documentation>
+                  </xsd:annotation>
+                </xsd:element>
+              </xsd:sequence>
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:sequence>
+        <!-- Id -->
+        <xsd:attribute name="Id" type="xsd:string">
+          <xsd:annotation>
+            <xsd:documentation>Instance Guid of this element, needed because SerializeId is set to true.</xsd:documentation>
+          </xsd:annotation>
+        </xsd:attribute>
+        <!-- Property: Name -->
+        <xsd:attribute name="name" type="xsd:string" use="required" >
+          <xsd:annotation>
+            <xsd:documentation>Layer&apos;s name. It is only figurative.</xsd:documentation>
+          </xsd:annotation>
+        </xsd:attribute>
+        <!-- Property: Level -->
+        <xsd:attribute name="level" type="xsd:string" >
+          <xsd:annotation>
+            <xsd:documentation>Is a value that means the order of a layer. Lower levels mean layers involved catching a requirement, and higher levels mean layers involved in forwarding/resolving the transaction</xsd:documentation>
+          </xsd:annotation>
+        </xsd:attribute>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+  
+  <!-- TransactionLayer Moniker -->
+  <xsd:element name="transactionLayerMoniker" type="TransactionLayerMoniker" substitutionGroup="core:modelElementMoniker" />
+  <xsd:complexType name="TransactionLayerMoniker">
+    <xsd:annotation>
+      <xsd:documentation>Moniker for TransactionLayer instance.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="core:ModelElementMoniker">
+        <xsd:attribute name="name" type="xsd:string" >
+          <xsd:annotation>
+            <xsd:documentation>Attribute to store the moniker string.</xsd:documentation>
+          </xsd:annotation>
+        </xsd:attribute>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+  
+  <!-- InputTransactionEngine -->
+  <xsd:element name="inputTransactionEngine" type="InputTransactionEngine" substitutionGroup="transactionEngine" />
+  <xsd:complexType name="InputTransactionEngine">
+    <xsd:complexContent>
+      <xsd:extension base="TransactionEngine">
+        <xsd:sequence minOccurs="0" maxOccurs="1">
+          <!-- Relationship: InputTransactionEngineReferencesTransactionHandlers -->
+          <xsd:element name="transactionHandlers" minOccurs="0" maxOccurs="1">
+            <xsd:annotation>
+              <xsd:documentation>Instances of InputTransactionEngineReferencesTransactionHandlers</xsd:documentation>
+            </xsd:annotation>
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element ref="inputTransactionEngineReferencesTransactionHandlers" minOccurs="0" maxOccurs="unbounded">
+                  <xsd:annotation>
+                    <xsd:documentation>[Instance of InputTransactionEngineReferencesTransactionHandlers needs to be serialized in full-form]</xsd:documentation>
+                  </xsd:annotation>
+                </xsd:element>
+              </xsd:sequence>
+            </xsd:complexType>
+          </xsd:element>
+          <!-- Relationship: InputTransactionEngineReferencesTimeTriggers -->
+          <xsd:element name="timeTriggers" minOccurs="0" maxOccurs="1">
+            <xsd:annotation>
+              <xsd:documentation>Instances of InputTransactionEngineReferencesTimeTriggers</xsd:documentation>
+            </xsd:annotation>
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element ref="inputTransactionEngineReferencesTimeTriggers" minOccurs="0" maxOccurs="unbounded">
+                  <xsd:annotation>
+                    <xsd:documentation>[Instance of InputTransactionEngineReferencesTimeTriggers needs to be serialized in full-form]</xsd:documentation>
+                  </xsd:annotation>
+                </xsd:element>
+              </xsd:sequence>
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:sequence>
+        <!-- Id -->
+        <xsd:attribute name="Id" type="xsd:string">
+          <xsd:annotation>
+            <xsd:documentation>Instance Guid of this element, needed because SerializeId is set to true.</xsd:documentation>
+          </xsd:annotation>
+        </xsd:attribute>
+        <!-- Property: HasUnitTests -->
+        <xsd:attribute name="hasUnitTests" type="xsd:boolean" >
+          <xsd:annotation>
+            <xsd:documentation>Generates unit testing supporting code for every transaction generated from it</xsd:documentation>
+          </xsd:annotation>
+        </xsd:attribute>
+        <!-- Property: Type -->
+        <xsd:attribute name="type" type="InputEngineType" >
+          <xsd:annotation>
+            <xsd:documentation>Input Transaction Engine&apos;s Type. The type will be associated with an abstract class from TransactionKernelDSL.Framework</xsd:documentation>
+          </xsd:annotation>
+        </xsd:attribute>
+        <!-- Property: GeneratesSequenceNumber -->
+        <xsd:attribute name="generatesSequenceNumber" type="xsd:boolean" >
+          <xsd:annotation>
+            <xsd:documentation>If true, call SequenceFactory into constructor and saves the new trace number in a Context Value</xsd:documentation>
+          </xsd:annotation>
+        </xsd:attribute>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+  
+  <!-- InputTransactionEngine Moniker -->
+  <xsd:element name="inputTransactionEngineMoniker" type="InputTransactionEngineMoniker" substitutionGroup="transactionEngineMoniker" />
+  <xsd:complexType name="InputTransactionEngineMoniker">
+    <xsd:annotation>
+      <xsd:documentation>Moniker for InputTransactionEngine instance.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="TransactionEngineMoniker">
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+  
+  <!-- OutputTransactionEngine -->
+  <xsd:element name="outputTransactionEngine" type="OutputTransactionEngine" substitutionGroup="transactionEngine" />
+  <xsd:complexType name="OutputTransactionEngine">
+    <xsd:complexContent>
+      <xsd:extension base="TransactionEngine">
+        <xsd:sequence minOccurs="0" maxOccurs="1">
+          <!-- Relationship: OutputTransactionEngineReferencesTransactionDataSourceSupport -->
+          <xsd:element name="transactionDataSourceSupport" minOccurs="0" maxOccurs="1">
+            <xsd:annotation>
+              <xsd:documentation>Instance of OutputTransactionEngineReferencesTransactionDataSourceSupport</xsd:documentation>
+            </xsd:annotation>
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element ref="outputTransactionEngineReferencesTransactionDataSourceSupport" minOccurs="0" maxOccurs="1">
+                  <xsd:annotation>
+                    <xsd:documentation>[Instance of OutputTransactionEngineReferencesTransactionDataSourceSupport needs to be serialized in full-form]</xsd:documentation>
+                  </xsd:annotation>
+                </xsd:element>
+              </xsd:sequence>
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:sequence>
+        <!-- Id -->
+        <xsd:attribute name="Id" type="xsd:string">
+          <xsd:annotation>
+            <xsd:documentation>Instance Guid of this element, needed because SerializeId is set to true.</xsd:documentation>
+          </xsd:annotation>
+        </xsd:attribute>
+        <!-- Property: Type -->
+        <xsd:attribute name="type" type="OutputEngineType" >
+          <xsd:annotation>
+            <xsd:documentation>Output Transaction Engine&apos;s Type. The type is associated with an abstract class from TransactionKernelDSL.Framework with built-in functionalities</xsd:documentation>
+          </xsd:annotation>
+        </xsd:attribute>
+        <!-- Property: EngineLoggerName -->
+        <xsd:attribute name="engineLoggerName" type="xsd:string" >
+          <xsd:annotation>
+            <xsd:documentation>Name of the logger used within the engine. Can be the same as MainLogger, but if intended, it can separetely log in another file.</xsd:documentation>
+          </xsd:annotation>
+        </xsd:attribute>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+  
+  <!-- OutputTransactionEngine Moniker -->
+  <xsd:element name="outputTransactionEngineMoniker" type="OutputTransactionEngineMoniker" substitutionGroup="transactionEngineMoniker" />
+  <xsd:complexType name="OutputTransactionEngineMoniker">
+    <xsd:annotation>
+      <xsd:documentation>Moniker for OutputTransactionEngine instance.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="TransactionEngineMoniker">
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+  
+  <!-- TransactionEngine -->
+  <xsd:element name="transactionEngine" type="TransactionEngine" substitutionGroup="core:modelElement" />
+  <xsd:complexType name="TransactionEngine">
+    <xsd:complexContent>
+      <xsd:extension base="core:ModelElement">
+        <!-- Id -->
+        <xsd:attribute name="Id" type="xsd:string">
+          <xsd:annotation>
+            <xsd:documentation>Instance Guid of this element, needed because SerializeId is set to true.</xsd:documentation>
+          </xsd:annotation>
+        </xsd:attribute>
+        <!-- Property: Name -->
+        <xsd:attribute name="name" type="xsd:string" use="required" />
+        <!-- Property: AutoStarts -->
+        <xsd:attribute name="autoStarts" type="xsd:boolean" >
+          <xsd:annotation>
+            <xsd:documentation>If true, it starts within Facade&apos;s Start() method.</xsd:documentation>
+          </xsd:annotation>
+        </xsd:attribute>
+        <!-- Property: Parser -->
+        <xsd:attribute name="parser" type="ParserType" >
+          <xsd:annotation>
+            <xsd:documentation>Type of the parser that will be used</xsd:documentation>
+          </xsd:annotation>
+        </xsd:attribute>
+        <!-- Property: ParserSectionName -->
+        <xsd:attribute name="parserSectionName" type="xsd:string" >
+          <xsd:annotation>
+            <xsd:documentation>Parser Section&apos;s name, that will be linked with a section in app.config with the same name</xsd:documentation>
+          </xsd:annotation>
+        </xsd:attribute>
+        <!-- Property: LoggerName -->
+        <xsd:attribute name="loggerName" type="xsd:string" >
+          <xsd:annotation>
+            <xsd:documentation>MainLogger&apos;s name. By default is &quot;MainLogger&quot;</xsd:documentation>
+          </xsd:annotation>
+        </xsd:attribute>
+        <!-- Property: ParserLoggerName -->
+        <xsd:attribute name="parserLoggerName" type="xsd:string" >
+          <xsd:annotation>
+            <xsd:documentation>Logger&apos;s name used within the parser</xsd:documentation>
+          </xsd:annotation>
+        </xsd:attribute>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+  
+  <!-- TransactionEngine Moniker -->
+  <xsd:element name="transactionEngineMoniker" type="TransactionEngineMoniker" substitutionGroup="core:modelElementMoniker" />
+  <xsd:complexType name="TransactionEngineMoniker">
+    <xsd:annotation>
+      <xsd:documentation>Moniker for TransactionEngine instance.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="core:ModelElementMoniker">
+        <xsd:attribute name="name" type="xsd:string" >
+          <xsd:annotation>
+            <xsd:documentation>Attribute to store the moniker string.</xsd:documentation>
+          </xsd:annotation>
+        </xsd:attribute>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+  
+  <!-- TransactionSQLServerDataSource -->
+  <xsd:element name="transactionSQLServerDataSource" type="TransactionSQLServerDataSource" substitutionGroup="transactionDataSource" />
+  <xsd:complexType name="TransactionSQLServerDataSource">
+    <xsd:complexContent>
+      <xsd:extension base="TransactionDataSource">
+        <!-- Id -->
+        <xsd:attribute name="Id" type="xsd:string">
+          <xsd:annotation>
+            <xsd:documentation>Instance Guid of this element, needed because SerializeId is set to true.</xsd:documentation>
+          </xsd:annotation>
+        </xsd:attribute>
+        <!-- Property: InstanceName -->
+        <xsd:attribute name="instanceName" type="xsd:string" />
+        <!-- Property: DatabaseName -->
+        <xsd:attribute name="databaseName" type="xsd:string" />
+        <!-- Property: ConnectionString -->
+        <xsd:attribute name="connectionString" type="xsd:string" />
+        <!-- Property: StoredProcedure -->
+        <xsd:attribute name="storedProcedure" type="xsd:string" />
+        <!-- Property: ExecutedOnStage -->
+        <xsd:attribute name="executedOnStage" type="PersistableStage" />
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+  
+  <!-- TransactionSQLServerDataSource Moniker -->
+  <xsd:element name="transactionSQLServerDataSourceMoniker" type="TransactionSQLServerDataSourceMoniker" substitutionGroup="transactionDataSourceMoniker" />
+  <xsd:complexType name="TransactionSQLServerDataSourceMoniker">
+    <xsd:annotation>
+      <xsd:documentation>Moniker for TransactionSQLServerDataSource instance.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="TransactionDataSourceMoniker">
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+  
+  <!-- TransactionDataSource -->
+  <xsd:element name="transactionDataSource" type="TransactionDataSource" substitutionGroup="core:modelElement" />
+  <xsd:complexType name="TransactionDataSource">
+    <xsd:complexContent>
+      <xsd:extension base="core:ModelElement">
+        <!-- Id -->
+        <xsd:attribute name="Id" type="xsd:string">
+          <xsd:annotation>
+            <xsd:documentation>Instance Guid of this element, needed because SerializeId is set to true.</xsd:documentation>
+          </xsd:annotation>
+        </xsd:attribute>
+        <!-- Property: Name -->
+        <xsd:attribute name="name" type="xsd:string" use="required" />
+        <!-- Property: StepOrder -->
+        <xsd:attribute name="stepOrder" type="xsd:string" />
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+  
+  <!-- TransactionDataSource Moniker -->
+  <xsd:element name="transactionDataSourceMoniker" type="TransactionDataSourceMoniker" substitutionGroup="core:modelElementMoniker" />
+  <xsd:complexType name="TransactionDataSourceMoniker">
+    <xsd:annotation>
+      <xsd:documentation>Moniker for TransactionDataSource instance.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="core:ModelElementMoniker">
+        <xsd:attribute name="name" type="xsd:string" >
+          <xsd:annotation>
+            <xsd:documentation>Attribute to store the moniker string.</xsd:documentation>
+          </xsd:annotation>
+        </xsd:attribute>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+  
+  <!-- TransactionWebService -->
+  <xsd:element name="transactionWebService" type="TransactionWebService" substitutionGroup="core:modelElement" />
+  <xsd:complexType name="TransactionWebService">
+    <xsd:complexContent>
+      <xsd:extension base="core:ModelElement">
+        <!-- Id -->
+        <xsd:attribute name="Id" type="xsd:string">
+          <xsd:annotation>
+            <xsd:documentation>Instance Guid of this element, needed because SerializeId is set to true.</xsd:documentation>
+          </xsd:annotation>
+        </xsd:attribute>
+        <!-- Property: Name -->
+        <xsd:attribute name="name" type="xsd:string" use="required" >
+          <xsd:annotation>
+            <xsd:documentation>Web Service&apos;s Name</xsd:documentation>
+          </xsd:annotation>
+        </xsd:attribute>
+        <!-- Property: WebServiceClassName -->
+        <xsd:attribute name="webServiceClassName" type="xsd:string" >
+          <xsd:annotation>
+            <xsd:documentation>Name of the proxy class generated from the wsdl. The file with the class must be included in project</xsd:documentation>
+          </xsd:annotation>
+        </xsd:attribute>
+        <!-- Property: Url -->
+        <xsd:attribute name="url" type="xsd:string" >
+          <xsd:annotation>
+            <xsd:documentation>Url of the referenced Web Service</xsd:documentation>
+          </xsd:annotation>
+        </xsd:attribute>
+        <!-- Property: ArchitecturalPattern -->
+        <xsd:attribute name="architecturalPattern" type="WebServiceArchitecturalPattern" >
+          <xsd:annotation>
+            <xsd:documentation>Type of architecture used to implement this outpue WS</xsd:documentation>
+          </xsd:annotation>
+        </xsd:attribute>
+        <!-- Property: Technology -->
+        <xsd:attribute name="technology" type="WebServiceTechnology" >
+          <xsd:annotation>
+            <xsd:documentation>Technology used by remote WS implementation</xsd:documentation>
+          </xsd:annotation>
+        </xsd:attribute>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+  
+  <!-- TransactionWebService Moniker -->
+  <xsd:element name="transactionWebServiceMoniker" type="TransactionWebServiceMoniker" substitutionGroup="core:modelElementMoniker" />
+  <xsd:complexType name="TransactionWebServiceMoniker">
+    <xsd:annotation>
+      <xsd:documentation>Moniker for TransactionWebService instance.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="core:ModelElementMoniker">
+        <xsd:attribute name="name" type="xsd:string" >
+          <xsd:annotation>
+            <xsd:documentation>Attribute to store the moniker string.</xsd:documentation>
+          </xsd:annotation>
+        </xsd:attribute>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+  
+  <!-- OutputTransactionWebService -->
+  <xsd:element name="outputTransactionWebService" type="OutputTransactionWebService" substitutionGroup="transactionWebService" />
+  <xsd:complexType name="OutputTransactionWebService">
+    <xsd:complexContent>
+      <xsd:extension base="TransactionWebService">
+        <!-- Id -->
+        <xsd:attribute name="Id" type="xsd:string">
+          <xsd:annotation>
+            <xsd:documentation>Instance Guid of this element, needed because SerializeId is set to true.</xsd:documentation>
+          </xsd:annotation>
+        </xsd:attribute>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+  
+  <!-- OutputTransactionWebService Moniker -->
+  <xsd:element name="outputTransactionWebServiceMoniker" type="OutputTransactionWebServiceMoniker" substitutionGroup="transactionWebServiceMoniker" />
+  <xsd:complexType name="OutputTransactionWebServiceMoniker">
+    <xsd:annotation>
+      <xsd:documentation>Moniker for OutputTransactionWebService instance.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="TransactionWebServiceMoniker">
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+  
+  <!-- TimeTrigger -->
+  <xsd:element name="timeTrigger" type="TimeTrigger" substitutionGroup="core:modelElement" />
+  <xsd:complexType name="TimeTrigger">
+    <xsd:complexContent>
+      <xsd:extension base="core:ModelElement">
+        <!-- Id -->
+        <xsd:attribute name="Id" type="xsd:string">
+          <xsd:annotation>
+            <xsd:documentation>Instance Guid of this element, needed because SerializeId is set to true.</xsd:documentation>
+          </xsd:annotation>
+        </xsd:attribute>
+        <!-- Property: Name -->
+        <xsd:attribute name="name" type="xsd:string" use="required" >
+          <xsd:annotation>
+            <xsd:documentation>Trigger&apos;s Name</xsd:documentation>
+          </xsd:annotation>
+        </xsd:attribute>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+  
+  <!-- TimeTrigger Moniker -->
+  <xsd:element name="timeTriggerMoniker" type="TimeTriggerMoniker" substitutionGroup="core:modelElementMoniker" />
+  <xsd:complexType name="TimeTriggerMoniker">
+    <xsd:annotation>
+      <xsd:documentation>Moniker for TimeTrigger instance.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="core:ModelElementMoniker">
+        <xsd:attribute name="name" type="xsd:string" >
+          <xsd:annotation>
+            <xsd:documentation>Attribute to store the moniker string.</xsd:documentation>
+          </xsd:annotation>
+        </xsd:attribute>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+  
+  <!-- TransactionDataSourceSupport -->
+  <xsd:element name="transactionDataSourceSupport" type="TransactionDataSourceSupport" substitutionGroup="core:modelElement" />
+  <xsd:complexType name="TransactionDataSourceSupport">
+    <xsd:complexContent>
+      <xsd:extension base="core:ModelElement">
+        <!-- Id -->
+        <xsd:attribute name="Id" type="xsd:string">
+          <xsd:annotation>
+            <xsd:documentation>Instance Guid of this element, needed because SerializeId is set to true.</xsd:documentation>
+          </xsd:annotation>
+        </xsd:attribute>
+        <!-- Property: Name -->
+        <xsd:attribute name="name" type="xsd:string" use="required" />
+        <!-- Property: SupportType -->
+        <xsd:attribute name="supportType" type="DataSourceSupportType" />
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+  
+  <!-- TransactionDataSourceSupport Moniker -->
+  <xsd:element name="transactionDataSourceSupportMoniker" type="TransactionDataSourceSupportMoniker" substitutionGroup="core:modelElementMoniker" />
+  <xsd:complexType name="TransactionDataSourceSupportMoniker">
+    <xsd:annotation>
+      <xsd:documentation>Moniker for TransactionDataSourceSupport instance.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="core:ModelElementMoniker">
+        <xsd:attribute name="name" type="xsd:string" >
+          <xsd:annotation>
+            <xsd:documentation>Attribute to store the moniker string.</xsd:documentation>
+          </xsd:annotation>
+        </xsd:attribute>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+  
+  <!-- TransactionEnvironmentLayer -->
+  <xsd:element name="transactionEnvironmentLayer" type="TransactionEnvironmentLayer" substitutionGroup="core:modelElement" />
+  <xsd:complexType name="TransactionEnvironmentLayer">
+    <xsd:complexContent>
+      <xsd:extension base="core:ModelElement">
+        <xsd:sequence minOccurs="0" maxOccurs="1">
+          <!-- Relationship: TransactionEnvironmentLayerHasTransactionEnvironmentSQLServerVariables -->
+          <xsd:element name="transactionEnvironmentSQLServerVariables" minOccurs="0" maxOccurs="1">
+            <xsd:annotation>
+              <xsd:documentation>Instances of TransactionEnvironmentLayerHasTransactionEnvironmentSQLServerVariables</xsd:documentation>
+            </xsd:annotation>
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element ref="transactionEnvironmentLayerHasTransactionEnvironmentSQLServerVariables" minOccurs="0" maxOccurs="unbounded">
+                  <xsd:annotation>
+                    <xsd:documentation>[Instance of TransactionEnvironmentLayerHasTransactionEnvironmentSQLServerVariables needs to be serialized in full-form]</xsd:documentation>
+                  </xsd:annotation>
+                </xsd:element>
+              </xsd:sequence>
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:sequence>
+        <!-- Id -->
+        <xsd:attribute name="Id" type="xsd:string">
+          <xsd:annotation>
+            <xsd:documentation>Instance Guid of this element, needed because SerializeId is set to true.</xsd:documentation>
+          </xsd:annotation>
+        </xsd:attribute>
+        <!-- Property: Name -->
+        <xsd:attribute name="name" type="xsd:string" use="required" />
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+  
+  <!-- TransactionEnvironmentLayer Moniker -->
+  <xsd:element name="transactionEnvironmentLayerMoniker" type="TransactionEnvironmentLayerMoniker" substitutionGroup="core:modelElementMoniker" />
+  <xsd:complexType name="TransactionEnvironmentLayerMoniker">
+    <xsd:annotation>
+      <xsd:documentation>Moniker for TransactionEnvironmentLayer instance.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="core:ModelElementMoniker">
+        <xsd:attribute name="name" type="xsd:string" >
+          <xsd:annotation>
+            <xsd:documentation>Attribute to store the moniker string.</xsd:documentation>
+          </xsd:annotation>
+        </xsd:attribute>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+  
+  <!-- TransactionEnvironmentSQLServerVariable -->
+  <xsd:element name="transactionEnvironmentSQLServerVariable" type="TransactionEnvironmentSQLServerVariable" substitutionGroup="core:modelElement" />
+  <xsd:complexType name="TransactionEnvironmentSQLServerVariable">
+    <xsd:complexContent>
+      <xsd:extension base="core:ModelElement">
+        <!-- Id -->
+        <xsd:attribute name="Id" type="xsd:string">
+          <xsd:annotation>
+            <xsd:documentation>Instance Guid of this element, needed because SerializeId is set to true.</xsd:documentation>
+          </xsd:annotation>
+        </xsd:attribute>
+        <!-- Property: Name -->
+        <xsd:attribute name="name" type="xsd:string" use="required" />
+        <!-- Property: DefaultValue -->
+        <xsd:attribute name="defaultValue" type="xsd:string" />
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+  
+  <!-- TransactionEnvironmentSQLServerVariable Moniker -->
+  <xsd:element name="transactionEnvironmentSQLServerVariableMoniker" type="TransactionEnvironmentSQLServerVariableMoniker" substitutionGroup="core:modelElementMoniker" />
+  <xsd:complexType name="TransactionEnvironmentSQLServerVariableMoniker">
+    <xsd:annotation>
+      <xsd:documentation>Moniker for TransactionEnvironmentSQLServerVariable instance.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="core:ModelElementMoniker">
+        <xsd:attribute name="name" type="xsd:string" >
+          <xsd:annotation>
+            <xsd:documentation>Attribute to store the moniker string.</xsd:documentation>
+          </xsd:annotation>
+        </xsd:attribute>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+  
+  <!-- TransactionHandlerReferencesForwarderTransactionHandlers -->
+  <xsd:element name="transactionHandlerReferencesForwarderTransactionHandlers" type="TransactionHandlerReferencesForwarderTransactionHandlers" substitutionGroup="core:modelElement" />
+  <xsd:complexType name="TransactionHandlerReferencesForwarderTransactionHandlers">
+    <xsd:annotation>
+      <xsd:documentation>Links one handler to another in a routing or forwarding way.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="core:ModelElement">
+        <xsd:sequence minOccurs="0" maxOccurs="1">
+          <!-- Target end TransactionHandler -->
+          <xsd:element ref="transactionHandlerMoniker" minOccurs="1" maxOccurs="1">
+            <xsd:annotation>
+              <xsd:documentation>[Target role-player]</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+        <!-- Id -->
+        <xsd:attribute name="Id" type="xsd:string">
+          <xsd:annotation>
+            <xsd:documentation>Instance Guid of this element, needed because SerializeId is set to true.</xsd:documentation>
+          </xsd:annotation>
+        </xsd:attribute>
+        <!-- Property: IsRoutingLink -->
+        <xsd:attribute name="isRoutingLink" type="xsd:boolean" >
+          <xsd:annotation>
+            <xsd:documentation>If this link is in Routing Mode, it means source handler might eventually forward to target handler, through a routing algorithm. If it isn&apos;t a Routing Link, it means source and target handlers are always linked, and links ar ordered by Sequence Order</xsd:documentation>
+          </xsd:annotation>
+        </xsd:attribute>
+        <!-- Property: SequenceOrder -->
+        <xsd:attribute name="sequenceOrder" type="xsd:string" >
+          <xsd:annotation>
+            <xsd:documentation>Number which means the order in that the forwarding handler linked here will be instantiated, within a group of others routing handlers</xsd:documentation>
+          </xsd:annotation>
+        </xsd:attribute>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+  
+  <!-- TransactionHandlerReferencesForwarderTransactionHandlers Moniker -->
+  <xsd:element name="transactionHandlerReferencesForwarderTransactionHandlersMoniker" type="TransactionHandlerReferencesForwarderTransactionHandlersMoniker" substitutionGroup="core:modelElementMoniker" />
+  <xsd:complexType name="TransactionHandlerReferencesForwarderTransactionHandlersMoniker">
+    <xsd:annotation>
+      <xsd:documentation>Moniker for TransactionHandlerReferencesForwarderTransactionHandlers instance.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="core:ModelElementMoniker">
+        <xsd:attribute name="Id" type="xsd:string" >
+          <xsd:annotation>
+            <xsd:documentation>Attribute to store the moniker string.</xsd:documentation>
+          </xsd:annotation>
+        </xsd:attribute>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+  
+  <!-- TransactionModelHasTransactionLayers -->
+  <xsd:element name="transactionModelHasTransactionLayers" type="TransactionModelHasTransactionLayers" substitutionGroup="core:modelElement" />
+  <xsd:complexType name="TransactionModelHasTransactionLayers">
+    <xsd:complexContent>
+      <xsd:extension base="core:ModelElement">
+        <xsd:sequence minOccurs="0" maxOccurs="1">
+          <!-- Target end TransactionLayer -->
+          <xsd:element ref="transactionLayer" minOccurs="1" maxOccurs="1">
+            <xsd:annotation>
+              <xsd:documentation>[Target role-player]</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+        <!-- Id -->
+        <xsd:attribute name="Id" type="xsd:string">
+          <xsd:annotation>
+            <xsd:documentation>Instance Guid of this element, needed because SerializeId is set to true.</xsd:documentation>
+          </xsd:annotation>
+        </xsd:attribute>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+  
+  <!-- TransactionModelHasTransactionLayers Moniker -->
+  <xsd:element name="transactionModelHasTransactionLayersMoniker" type="TransactionModelHasTransactionLayersMoniker" substitutionGroup="core:modelElementMoniker" />
+  <xsd:complexType name="TransactionModelHasTransactionLayersMoniker">
+    <xsd:annotation>
+      <xsd:documentation>Moniker for TransactionModelHasTransactionLayers instance.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="core:ModelElementMoniker">
+        <xsd:attribute name="Id" type="xsd:string" >
+          <xsd:annotation>
+            <xsd:documentation>Attribute to store the moniker string.</xsd:documentation>
+          </xsd:annotation>
+        </xsd:attribute>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+  
+  <!-- TransactionLayerHasTransactionHandlers -->
+  <xsd:element name="transactionLayerHasTransactionHandlers" type="TransactionLayerHasTransactionHandlers" substitutionGroup="core:modelElement" />
+  <xsd:complexType name="TransactionLayerHasTransactionHandlers">
+    <xsd:complexContent>
+      <xsd:extension base="core:ModelElement">
+        <xsd:sequence minOccurs="0" maxOccurs="1">
+          <!-- Target end TransactionHandler -->
+          <xsd:element ref="transactionHandler" minOccurs="1" maxOccurs="1">
+            <xsd:annotation>
+              <xsd:documentation>[Target role-player]</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+        <!-- Id -->
+        <xsd:attribute name="Id" type="xsd:string">
+          <xsd:annotation>
+            <xsd:documentation>Instance Guid of this element, needed because SerializeId is set to true.</xsd:documentation>
+          </xsd:annotation>
+        </xsd:attribute>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+  
+  <!-- TransactionLayerHasTransactionHandlers Moniker -->
+  <xsd:element name="transactionLayerHasTransactionHandlersMoniker" type="TransactionLayerHasTransactionHandlersMoniker" substitutionGroup="core:modelElementMoniker" />
+  <xsd:complexType name="TransactionLayerHasTransactionHandlersMoniker">
+    <xsd:annotation>
+      <xsd:documentation>Moniker for TransactionLayerHasTransactionHandlers instance.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="core:ModelElementMoniker">
+        <xsd:attribute name="Id" type="xsd:string" >
+          <xsd:annotation>
+            <xsd:documentation>Attribute to store the moniker string.</xsd:documentation>
+          </xsd:annotation>
+        </xsd:attribute>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+  
+  <!-- TransactionHandlerReferencesMaintenanceTransactionHandler -->
+  <xsd:element name="transactionHandlerReferencesMaintenanceTransactionHandler" type="TransactionHandlerReferencesMaintenanceTransactionHandler" substitutionGroup="core:modelElement" />
+  <xsd:complexType name="TransactionHandlerReferencesMaintenanceTransactionHandler">
+    <xsd:complexContent>
+      <xsd:extension base="core:ModelElement">
+        <xsd:sequence minOccurs="0" maxOccurs="1">
+          <!-- Target end TransactionHandler -->
+          <xsd:element ref="transactionHandlerMoniker" minOccurs="1" maxOccurs="1">
+            <xsd:annotation>
+              <xsd:documentation>[Target role-player]</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+        <!-- Id -->
+        <xsd:attribute name="Id" type="xsd:string">
+          <xsd:annotation>
+            <xsd:documentation>Instance Guid of this element, needed because SerializeId is set to true.</xsd:documentation>
+          </xsd:annotation>
+        </xsd:attribute>
+        <!-- Property: HasCustomCode -->
+        <xsd:attribute name="hasCustomCode" type="xsd:boolean" />
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+  
+  <!-- TransactionHandlerReferencesMaintenanceTransactionHandler Moniker -->
+  <xsd:element name="transactionHandlerReferencesMaintenanceTransactionHandlerMoniker" type="TransactionHandlerReferencesMaintenanceTransactionHandlerMoniker" substitutionGroup="core:modelElementMoniker" />
+  <xsd:complexType name="TransactionHandlerReferencesMaintenanceTransactionHandlerMoniker">
+    <xsd:annotation>
+      <xsd:documentation>Moniker for TransactionHandlerReferencesMaintenanceTransactionHandler instance.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="core:ModelElementMoniker">
+        <xsd:attribute name="Id" type="xsd:string" >
+          <xsd:annotation>
+            <xsd:documentation>Attribute to store the moniker string.</xsd:documentation>
+          </xsd:annotation>
+        </xsd:attribute>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+  
+  <!-- InputTransactionEngineReferencesTransactionHandlers -->
+  <xsd:element name="inputTransactionEngineReferencesTransactionHandlers" type="InputTransactionEngineReferencesTransactionHandlers" substitutionGroup="core:modelElement" />
+  <xsd:complexType name="InputTransactionEngineReferencesTransactionHandlers">
+    <xsd:complexContent>
+      <xsd:extension base="core:ModelElement">
+        <xsd:sequence minOccurs="0" maxOccurs="1">
+          <!-- Target end TransactionHandler -->
+          <xsd:element ref="transactionHandlerMoniker" minOccurs="1" maxOccurs="1">
+            <xsd:annotation>
+              <xsd:documentation>[Target role-player]</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+        <!-- Id -->
+        <xsd:attribute name="Id" type="xsd:string">
+          <xsd:annotation>
+            <xsd:documentation>Instance Guid of this element, needed because SerializeId is set to true.</xsd:documentation>
+          </xsd:annotation>
+        </xsd:attribute>
+        <!-- Property: HasCustomCode -->
+        <xsd:attribute name="hasCustomCode" type="xsd:boolean" />
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+  
+  <!-- InputTransactionEngineReferencesTransactionHandlers Moniker -->
+  <xsd:element name="inputTransactionEngineReferencesTransactionHandlersMoniker" type="InputTransactionEngineReferencesTransactionHandlersMoniker" substitutionGroup="core:modelElementMoniker" />
+  <xsd:complexType name="InputTransactionEngineReferencesTransactionHandlersMoniker">
+    <xsd:annotation>
+      <xsd:documentation>Moniker for InputTransactionEngineReferencesTransactionHandlers instance.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="core:ModelElementMoniker">
+        <xsd:attribute name="Id" type="xsd:string" >
+          <xsd:annotation>
+            <xsd:documentation>Attribute to store the moniker string.</xsd:documentation>
+          </xsd:annotation>
+        </xsd:attribute>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+  
+  <!-- TransactionHandlerReferencesOutputTransactionEngine -->
+  <xsd:element name="transactionHandlerReferencesOutputTransactionEngine" type="TransactionHandlerReferencesOutputTransactionEngine" substitutionGroup="core:modelElement" />
+  <xsd:complexType name="TransactionHandlerReferencesOutputTransactionEngine">
+    <xsd:complexContent>
+      <xsd:extension base="core:ModelElement">
+        <xsd:sequence minOccurs="0" maxOccurs="1">
+          <!-- Target end OutputTransactionEngine -->
+          <xsd:element ref="outputTransactionEngineMoniker" minOccurs="1" maxOccurs="1">
+            <xsd:annotation>
+              <xsd:documentation>[Target role-player]</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+        <!-- Id -->
+        <xsd:attribute name="Id" type="xsd:string">
+          <xsd:annotation>
+            <xsd:documentation>Instance Guid of this element, needed because SerializeId is set to true.</xsd:documentation>
+          </xsd:annotation>
+        </xsd:attribute>
+        <!-- Property: HasCustomCode -->
+        <xsd:attribute name="hasCustomCode" type="xsd:boolean" />
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+  
+  <!-- TransactionHandlerReferencesOutputTransactionEngine Moniker -->
+  <xsd:element name="transactionHandlerReferencesOutputTransactionEngineMoniker" type="TransactionHandlerReferencesOutputTransactionEngineMoniker" substitutionGroup="core:modelElementMoniker" />
+  <xsd:complexType name="TransactionHandlerReferencesOutputTransactionEngineMoniker">
+    <xsd:annotation>
+      <xsd:documentation>Moniker for TransactionHandlerReferencesOutputTransactionEngine instance.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="core:ModelElementMoniker">
+        <xsd:attribute name="Id" type="xsd:string" >
+          <xsd:annotation>
+            <xsd:documentation>Attribute to store the moniker string.</xsd:documentation>
+          </xsd:annotation>
+        </xsd:attribute>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+  
+  <!-- TransactionLayerHasInputTransactionEngines -->
+  <xsd:element name="transactionLayerHasInputTransactionEngines" type="TransactionLayerHasInputTransactionEngines" substitutionGroup="core:modelElement" />
+  <xsd:complexType name="TransactionLayerHasInputTransactionEngines">
+    <xsd:complexContent>
+      <xsd:extension base="core:ModelElement">
+        <xsd:sequence minOccurs="0" maxOccurs="1">
+          <!-- Target end InputTransactionEngine -->
+          <xsd:element ref="inputTransactionEngine" minOccurs="1" maxOccurs="1">
+            <xsd:annotation>
+              <xsd:documentation>[Target role-player]</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+        <!-- Id -->
+        <xsd:attribute name="Id" type="xsd:string">
+          <xsd:annotation>
+            <xsd:documentation>Instance Guid of this element, needed because SerializeId is set to true.</xsd:documentation>
+          </xsd:annotation>
+        </xsd:attribute>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+  
+  <!-- TransactionLayerHasInputTransactionEngines Moniker -->
+  <xsd:element name="transactionLayerHasInputTransactionEnginesMoniker" type="TransactionLayerHasInputTransactionEnginesMoniker" substitutionGroup="core:modelElementMoniker" />
+  <xsd:complexType name="TransactionLayerHasInputTransactionEnginesMoniker">
+    <xsd:annotation>
+      <xsd:documentation>Moniker for TransactionLayerHasInputTransactionEngines instance.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="core:ModelElementMoniker">
+        <xsd:attribute name="Id" type="xsd:string" >
+          <xsd:annotation>
+            <xsd:documentation>Attribute to store the moniker string.</xsd:documentation>
+          </xsd:annotation>
+        </xsd:attribute>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+  
+  <!-- TransactionLayerHasOutputTransactionEngines -->
+  <xsd:element name="transactionLayerHasOutputTransactionEngines" type="TransactionLayerHasOutputTransactionEngines" substitutionGroup="core:modelElement" />
+  <xsd:complexType name="TransactionLayerHasOutputTransactionEngines">
+    <xsd:complexContent>
+      <xsd:extension base="core:ModelElement">
+        <xsd:sequence minOccurs="0" maxOccurs="1">
+          <!-- Target end OutputTransactionEngine -->
+          <xsd:element ref="outputTransactionEngine" minOccurs="1" maxOccurs="1">
+            <xsd:annotation>
+              <xsd:documentation>[Target role-player]</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+        <!-- Id -->
+        <xsd:attribute name="Id" type="xsd:string">
+          <xsd:annotation>
+            <xsd:documentation>Instance Guid of this element, needed because SerializeId is set to true.</xsd:documentation>
+          </xsd:annotation>
+        </xsd:attribute>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+  
+  <!-- TransactionLayerHasOutputTransactionEngines Moniker -->
+  <xsd:element name="transactionLayerHasOutputTransactionEnginesMoniker" type="TransactionLayerHasOutputTransactionEnginesMoniker" substitutionGroup="core:modelElementMoniker" />
+  <xsd:complexType name="TransactionLayerHasOutputTransactionEnginesMoniker">
+    <xsd:annotation>
+      <xsd:documentation>Moniker for TransactionLayerHasOutputTransactionEngines instance.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="core:ModelElementMoniker">
+        <xsd:attribute name="Id" type="xsd:string" >
+          <xsd:annotation>
+            <xsd:documentation>Attribute to store the moniker string.</xsd:documentation>
+          </xsd:annotation>
+        </xsd:attribute>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+  
+  <!-- TransactionHandlerReferencesTransactionSQLServerDataSources -->
+  <xsd:element name="transactionHandlerReferencesTransactionSQLServerDataSources" type="TransactionHandlerReferencesTransactionSQLServerDataSources" substitutionGroup="core:modelElement" />
+  <xsd:complexType name="TransactionHandlerReferencesTransactionSQLServerDataSources">
+    <xsd:complexContent>
+      <xsd:extension base="core:ModelElement">
+        <xsd:sequence minOccurs="0" maxOccurs="1">
+          <!-- Target end TransactionSQLServerDataSource -->
+          <xsd:element ref="transactionSQLServerDataSourceMoniker" minOccurs="1" maxOccurs="1">
+            <xsd:annotation>
+              <xsd:documentation>[Target role-player]</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+        <!-- Id -->
+        <xsd:attribute name="Id" type="xsd:string">
+          <xsd:annotation>
+            <xsd:documentation>Instance Guid of this element, needed because SerializeId is set to true.</xsd:documentation>
+          </xsd:annotation>
+        </xsd:attribute>
+        <!-- Property: HasCustomCode -->
+        <xsd:attribute name="hasCustomCode" type="xsd:boolean" />
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+  
+  <!-- TransactionHandlerReferencesTransactionSQLServerDataSources Moniker -->
+  <xsd:element name="transactionHandlerReferencesTransactionSQLServerDataSourcesMoniker" type="TransactionHandlerReferencesTransactionSQLServerDataSourcesMoniker" substitutionGroup="core:modelElementMoniker" />
+  <xsd:complexType name="TransactionHandlerReferencesTransactionSQLServerDataSourcesMoniker">
+    <xsd:annotation>
+      <xsd:documentation>Moniker for TransactionHandlerReferencesTransactionSQLServerDataSources instance.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="core:ModelElementMoniker">
+        <xsd:attribute name="Id" type="xsd:string" >
+          <xsd:annotation>
+            <xsd:documentation>Attribute to store the moniker string.</xsd:documentation>
+          </xsd:annotation>
+        </xsd:attribute>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+  
+  <!-- TransactionLayerHasTransactionSQLServerDataSources -->
+  <xsd:element name="transactionLayerHasTransactionSQLServerDataSources" type="TransactionLayerHasTransactionSQLServerDataSources" substitutionGroup="core:modelElement" />
+  <xsd:complexType name="TransactionLayerHasTransactionSQLServerDataSources">
+    <xsd:complexContent>
+      <xsd:extension base="core:ModelElement">
+        <xsd:sequence minOccurs="0" maxOccurs="1">
+          <!-- Target end TransactionSQLServerDataSource -->
+          <xsd:element ref="transactionSQLServerDataSource" minOccurs="1" maxOccurs="1">
+            <xsd:annotation>
+              <xsd:documentation>[Target role-player]</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+        <!-- Id -->
+        <xsd:attribute name="Id" type="xsd:string">
+          <xsd:annotation>
+            <xsd:documentation>Instance Guid of this element, needed because SerializeId is set to true.</xsd:documentation>
+          </xsd:annotation>
+        </xsd:attribute>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+  
+  <!-- TransactionLayerHasTransactionSQLServerDataSources Moniker -->
+  <xsd:element name="transactionLayerHasTransactionSQLServerDataSourcesMoniker" type="TransactionLayerHasTransactionSQLServerDataSourcesMoniker" substitutionGroup="core:modelElementMoniker" />
+  <xsd:complexType name="TransactionLayerHasTransactionSQLServerDataSourcesMoniker">
+    <xsd:annotation>
+      <xsd:documentation>Moniker for TransactionLayerHasTransactionSQLServerDataSources instance.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="core:ModelElementMoniker">
+        <xsd:attribute name="Id" type="xsd:string" >
+          <xsd:annotation>
+            <xsd:documentation>Attribute to store the moniker string.</xsd:documentation>
+          </xsd:annotation>
+        </xsd:attribute>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+  
+  <!-- TransactionLayerHasOutputTransactionWebServices -->
+  <xsd:element name="transactionLayerHasOutputTransactionWebServices" type="TransactionLayerHasOutputTransactionWebServices" substitutionGroup="core:modelElement" />
+  <xsd:complexType name="TransactionLayerHasOutputTransactionWebServices">
+    <xsd:complexContent>
+      <xsd:extension base="core:ModelElement">
+        <xsd:sequence minOccurs="0" maxOccurs="1">
+          <!-- Target end OutputTransactionWebService -->
+          <xsd:element ref="outputTransactionWebService" minOccurs="1" maxOccurs="1">
+            <xsd:annotation>
+              <xsd:documentation>[Target role-player]</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+        <!-- Id -->
+        <xsd:attribute name="Id" type="xsd:string">
+          <xsd:annotation>
+            <xsd:documentation>Instance Guid of this element, needed because SerializeId is set to true.</xsd:documentation>
+          </xsd:annotation>
+        </xsd:attribute>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+  
+  <!-- TransactionLayerHasOutputTransactionWebServices Moniker -->
+  <xsd:element name="transactionLayerHasOutputTransactionWebServicesMoniker" type="TransactionLayerHasOutputTransactionWebServicesMoniker" substitutionGroup="core:modelElementMoniker" />
+  <xsd:complexType name="TransactionLayerHasOutputTransactionWebServicesMoniker">
+    <xsd:annotation>
+      <xsd:documentation>Moniker for TransactionLayerHasOutputTransactionWebServices instance.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="core:ModelElementMoniker">
+        <xsd:attribute name="Id" type="xsd:string" >
+          <xsd:annotation>
+            <xsd:documentation>Attribute to store the moniker string.</xsd:documentation>
+          </xsd:annotation>
+        </xsd:attribute>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+  
+  <!-- TransactionHandlerReferencesOutputTransactionWebService -->
+  <xsd:element name="transactionHandlerReferencesOutputTransactionWebService" type="TransactionHandlerReferencesOutputTransactionWebService" substitutionGroup="core:modelElement" />
+  <xsd:complexType name="TransactionHandlerReferencesOutputTransactionWebService">
+    <xsd:complexContent>
+      <xsd:extension base="core:ModelElement">
+        <xsd:sequence minOccurs="0" maxOccurs="1">
+          <!-- Target end OutputTransactionWebService -->
+          <xsd:element ref="outputTransactionWebServiceMoniker" minOccurs="1" maxOccurs="1">
+            <xsd:annotation>
+              <xsd:documentation>[Target role-player]</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+        <!-- Id -->
+        <xsd:attribute name="Id" type="xsd:string">
+          <xsd:annotation>
+            <xsd:documentation>Instance Guid of this element, needed because SerializeId is set to true.</xsd:documentation>
+          </xsd:annotation>
+        </xsd:attribute>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+  
+  <!-- TransactionHandlerReferencesOutputTransactionWebService Moniker -->
+  <xsd:element name="transactionHandlerReferencesOutputTransactionWebServiceMoniker" type="TransactionHandlerReferencesOutputTransactionWebServiceMoniker" substitutionGroup="core:modelElementMoniker" />
+  <xsd:complexType name="TransactionHandlerReferencesOutputTransactionWebServiceMoniker">
+    <xsd:annotation>
+      <xsd:documentation>Moniker for TransactionHandlerReferencesOutputTransactionWebService instance.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="core:ModelElementMoniker">
+        <xsd:attribute name="Id" type="xsd:string" >
+          <xsd:annotation>
+            <xsd:documentation>Attribute to store the moniker string.</xsd:documentation>
+          </xsd:annotation>
+        </xsd:attribute>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+  
+  <!-- TransactionLayerHasTimeTriggers -->
+  <xsd:element name="transactionLayerHasTimeTriggers" type="TransactionLayerHasTimeTriggers" substitutionGroup="core:modelElement" />
+  <xsd:complexType name="TransactionLayerHasTimeTriggers">
+    <xsd:complexContent>
+      <xsd:extension base="core:ModelElement">
+        <xsd:sequence minOccurs="0" maxOccurs="1">
+          <!-- Target end TimeTrigger -->
+          <xsd:element ref="timeTrigger" minOccurs="1" maxOccurs="1">
+            <xsd:annotation>
+              <xsd:documentation>[Target role-player]</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+        <!-- Id -->
+        <xsd:attribute name="Id" type="xsd:string">
+          <xsd:annotation>
+            <xsd:documentation>Instance Guid of this element, needed because SerializeId is set to true.</xsd:documentation>
+          </xsd:annotation>
+        </xsd:attribute>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+  
+  <!-- TransactionLayerHasTimeTriggers Moniker -->
+  <xsd:element name="transactionLayerHasTimeTriggersMoniker" type="TransactionLayerHasTimeTriggersMoniker" substitutionGroup="core:modelElementMoniker" />
+  <xsd:complexType name="TransactionLayerHasTimeTriggersMoniker">
+    <xsd:annotation>
+      <xsd:documentation>Moniker for TransactionLayerHasTimeTriggers instance.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="core:ModelElementMoniker">
+        <xsd:attribute name="Id" type="xsd:string" >
+          <xsd:annotation>
+            <xsd:documentation>Attribute to store the moniker string.</xsd:documentation>
+          </xsd:annotation>
+        </xsd:attribute>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+  
+  <!-- InputTransactionEngineReferencesTimeTriggers -->
+  <xsd:element name="inputTransactionEngineReferencesTimeTriggers" type="InputTransactionEngineReferencesTimeTriggers" substitutionGroup="core:modelElement" />
+  <xsd:complexType name="InputTransactionEngineReferencesTimeTriggers">
+    <xsd:complexContent>
+      <xsd:extension base="core:ModelElement">
+        <xsd:sequence minOccurs="0" maxOccurs="1">
+          <!-- Target end TimeTrigger -->
+          <xsd:element ref="timeTriggerMoniker" minOccurs="1" maxOccurs="1">
+            <xsd:annotation>
+              <xsd:documentation>[Target role-player]</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+        <!-- Id -->
+        <xsd:attribute name="Id" type="xsd:string">
+          <xsd:annotation>
+            <xsd:documentation>Instance Guid of this element, needed because SerializeId is set to true.</xsd:documentation>
+          </xsd:annotation>
+        </xsd:attribute>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+  
+  <!-- InputTransactionEngineReferencesTimeTriggers Moniker -->
+  <xsd:element name="inputTransactionEngineReferencesTimeTriggersMoniker" type="InputTransactionEngineReferencesTimeTriggersMoniker" substitutionGroup="core:modelElementMoniker" />
+  <xsd:complexType name="InputTransactionEngineReferencesTimeTriggersMoniker">
+    <xsd:annotation>
+      <xsd:documentation>Moniker for InputTransactionEngineReferencesTimeTriggers instance.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="core:ModelElementMoniker">
+        <xsd:attribute name="Id" type="xsd:string" >
+          <xsd:annotation>
+            <xsd:documentation>Attribute to store the moniker string.</xsd:documentation>
+          </xsd:annotation>
+        </xsd:attribute>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+  
+  <!-- OutputTransactionEngineReferencesTransactionDataSourceSupport -->
+  <xsd:element name="outputTransactionEngineReferencesTransactionDataSourceSupport" type="OutputTransactionEngineReferencesTransactionDataSourceSupport" substitutionGroup="core:modelElement" />
+  <xsd:complexType name="OutputTransactionEngineReferencesTransactionDataSourceSupport">
+    <xsd:complexContent>
+      <xsd:extension base="core:ModelElement">
+        <xsd:sequence minOccurs="0" maxOccurs="1">
+          <!-- Target end TransactionDataSourceSupport -->
+          <xsd:element ref="transactionDataSourceSupportMoniker" minOccurs="1" maxOccurs="1">
+            <xsd:annotation>
+              <xsd:documentation>[Target role-player]</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+        <!-- Id -->
+        <xsd:attribute name="Id" type="xsd:string">
+          <xsd:annotation>
+            <xsd:documentation>Instance Guid of this element, needed because SerializeId is set to true.</xsd:documentation>
+          </xsd:annotation>
+        </xsd:attribute>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+  
+  <!-- OutputTransactionEngineReferencesTransactionDataSourceSupport Moniker -->
+  <xsd:element name="outputTransactionEngineReferencesTransactionDataSourceSupportMoniker" type="OutputTransactionEngineReferencesTransactionDataSourceSupportMoniker" substitutionGroup="core:modelElementMoniker" />
+  <xsd:complexType name="OutputTransactionEngineReferencesTransactionDataSourceSupportMoniker">
+    <xsd:annotation>
+      <xsd:documentation>Moniker for OutputTransactionEngineReferencesTransactionDataSourceSupport instance.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="core:ModelElementMoniker">
+        <xsd:attribute name="Id" type="xsd:string" >
+          <xsd:annotation>
+            <xsd:documentation>Attribute to store the moniker string.</xsd:documentation>
+          </xsd:annotation>
+        </xsd:attribute>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+  
+  <!-- TransactionLayerHasTransactionDataSourceSupports -->
+  <xsd:element name="transactionLayerHasTransactionDataSourceSupports" type="TransactionLayerHasTransactionDataSourceSupports" substitutionGroup="core:modelElement" />
+  <xsd:complexType name="TransactionLayerHasTransactionDataSourceSupports">
+    <xsd:complexContent>
+      <xsd:extension base="core:ModelElement">
+        <xsd:sequence minOccurs="0" maxOccurs="1">
+          <!-- Target end TransactionDataSourceSupport -->
+          <xsd:element ref="transactionDataSourceSupport" minOccurs="1" maxOccurs="1">
+            <xsd:annotation>
+              <xsd:documentation>[Target role-player]</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+        <!-- Id -->
+        <xsd:attribute name="Id" type="xsd:string">
+          <xsd:annotation>
+            <xsd:documentation>Instance Guid of this element, needed because SerializeId is set to true.</xsd:documentation>
+          </xsd:annotation>
+        </xsd:attribute>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+  
+  <!-- TransactionLayerHasTransactionDataSourceSupports Moniker -->
+  <xsd:element name="transactionLayerHasTransactionDataSourceSupportsMoniker" type="TransactionLayerHasTransactionDataSourceSupportsMoniker" substitutionGroup="core:modelElementMoniker" />
+  <xsd:complexType name="TransactionLayerHasTransactionDataSourceSupportsMoniker">
+    <xsd:annotation>
+      <xsd:documentation>Moniker for TransactionLayerHasTransactionDataSourceSupports instance.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="core:ModelElementMoniker">
+        <xsd:attribute name="Id" type="xsd:string" >
+          <xsd:annotation>
+            <xsd:documentation>Attribute to store the moniker string.</xsd:documentation>
+          </xsd:annotation>
+        </xsd:attribute>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+  
+  <!-- TransactionModelHasTransactionEnvironmentLayer -->
+  <xsd:element name="transactionModelHasTransactionEnvironmentLayer" type="TransactionModelHasTransactionEnvironmentLayer" substitutionGroup="core:modelElement" />
+  <xsd:complexType name="TransactionModelHasTransactionEnvironmentLayer">
+    <xsd:complexContent>
+      <xsd:extension base="core:ModelElement">
+        <xsd:sequence minOccurs="0" maxOccurs="1">
+          <!-- Target end TransactionEnvironmentLayer -->
+          <xsd:element ref="transactionEnvironmentLayer" minOccurs="1" maxOccurs="1">
+            <xsd:annotation>
+              <xsd:documentation>[Target role-player]</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+        <!-- Id -->
+        <xsd:attribute name="Id" type="xsd:string">
+          <xsd:annotation>
+            <xsd:documentation>Instance Guid of this element, needed because SerializeId is set to true.</xsd:documentation>
+          </xsd:annotation>
+        </xsd:attribute>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+  
+  <!-- TransactionModelHasTransactionEnvironmentLayer Moniker -->
+  <xsd:element name="transactionModelHasTransactionEnvironmentLayerMoniker" type="TransactionModelHasTransactionEnvironmentLayerMoniker" substitutionGroup="core:modelElementMoniker" />
+  <xsd:complexType name="TransactionModelHasTransactionEnvironmentLayerMoniker">
+    <xsd:annotation>
+      <xsd:documentation>Moniker for TransactionModelHasTransactionEnvironmentLayer instance.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="core:ModelElementMoniker">
+        <xsd:attribute name="Id" type="xsd:string" >
+          <xsd:annotation>
+            <xsd:documentation>Attribute to store the moniker string.</xsd:documentation>
+          </xsd:annotation>
+        </xsd:attribute>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+  
+  <!-- TransactionEnvironmentLayerHasTransactionEnvironmentSQLServerVariables -->
+  <xsd:element name="transactionEnvironmentLayerHasTransactionEnvironmentSQLServerVariables" type="TransactionEnvironmentLayerHasTransactionEnvironmentSQLServerVariables" substitutionGroup="core:modelElement" />
+  <xsd:complexType name="TransactionEnvironmentLayerHasTransactionEnvironmentSQLServerVariables">
+    <xsd:complexContent>
+      <xsd:extension base="core:ModelElement">
+        <xsd:sequence minOccurs="0" maxOccurs="1">
+          <!-- Target end TransactionEnvironmentSQLServerVariable -->
+          <xsd:element ref="transactionEnvironmentSQLServerVariable" minOccurs="1" maxOccurs="1">
+            <xsd:annotation>
+              <xsd:documentation>[Target role-player]</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+        <!-- Id -->
+        <xsd:attribute name="Id" type="xsd:string">
+          <xsd:annotation>
+            <xsd:documentation>Instance Guid of this element, needed because SerializeId is set to true.</xsd:documentation>
+          </xsd:annotation>
+        </xsd:attribute>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+  
+  <!-- TransactionEnvironmentLayerHasTransactionEnvironmentSQLServerVariables Moniker -->
+  <xsd:element name="transactionEnvironmentLayerHasTransactionEnvironmentSQLServerVariablesMoniker" type="TransactionEnvironmentLayerHasTransactionEnvironmentSQLServerVariablesMoniker" substitutionGroup="core:modelElementMoniker" />
+  <xsd:complexType name="TransactionEnvironmentLayerHasTransactionEnvironmentSQLServerVariablesMoniker">
+    <xsd:annotation>
+      <xsd:documentation>Moniker for TransactionEnvironmentLayerHasTransactionEnvironmentSQLServerVariables instance.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="core:ModelElementMoniker">
+        <xsd:attribute name="Id" type="xsd:string" >
+          <xsd:annotation>
+            <xsd:documentation>Attribute to store the moniker string.</xsd:documentation>
+          </xsd:annotation>
+        </xsd:attribute>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+  
+  <!-- Enum InputEngineType -->
+  <xsd:simpleType name="InputEngineType">
+    <xsd:restriction base="xsd:string">
+      <xsd:enumeration value="InputEngine"/>
+      <xsd:enumeration value="ThreadedInputEngine"/>
+      <xsd:enumeration value="TimeTriggeredInputEngine"/>
+      <xsd:enumeration value="TcpTriggeredMultiThreadedInputEngine"/>
+      <xsd:enumeration value="TcpTriggeredSocketReusableMultiThreadedInputEngine"/>
+    </xsd:restriction>
+  </xsd:simpleType>
+  
+  <!-- Enum PersistableSourceType -->
+  <xsd:simpleType name="PersistableSourceType">
+    <xsd:restriction base="xsd:string">
+      <xsd:enumeration value="SQLServerDatabase"/>
+      <xsd:enumeration value="NotTyped"/>
+    </xsd:restriction>
+  </xsd:simpleType>
+  
+  <!-- Enum OutputEngineType -->
+  <xsd:simpleType name="OutputEngineType">
+    <xsd:restriction base="xsd:string">
+      <xsd:enumeration value="OutputEngine"/>
+      <xsd:enumeration value="FunneledOutputEngine"/>
+      <xsd:enumeration value="StraightOutputEngine"/>
+      <xsd:enumeration value="TcpFunneledOutputEngine"/>
+      <xsd:enumeration value="TcpStraightOutputEngine"/>
+    </xsd:restriction>
+  </xsd:simpleType>
+  
+  <!-- Enum PersistableStage -->
+  <xsd:simpleType name="PersistableStage">
+    <xsd:restriction base="xsd:string">
+      <xsd:enumeration value="PreProcessStage">
+        <xsd:annotation>
+          <xsd:documentation>It defines that the SP will be executed on PreProcessTransaction Method, after receiving a new requirement from the client</xsd:documentation>
+        </xsd:annotation>
+      </xsd:enumeration>
+      <xsd:enumeration value="PostProcessStage">
+        <xsd:annotation>
+          <xsd:documentation>It defines that the SP will be executed on PostProcessTransaction Method, after reply is sent</xsd:documentation>
+        </xsd:annotation>
+      </xsd:enumeration>
+      <xsd:enumeration value="FinalProcessStage">
+        <xsd:annotation>
+          <xsd:documentation>It defines that the SP will be executed on FinalProcessTransaction Method, after the reply is sent, and eventual maintenance is finished</xsd:documentation>
+        </xsd:annotation>
+      </xsd:enumeration>
+    </xsd:restriction>
+  </xsd:simpleType>
+  
+  <!-- Enum ParserType -->
+  <xsd:simpleType name="ParserType">
+    <xsd:restriction base="xsd:string">
+      <xsd:enumeration value="NotTyped"/>
+      <xsd:enumeration value="Iso8583B24"/>
+      <xsd:enumeration value="Iso8583"/>
+      <xsd:enumeration value="Meflur"/>
+      <xsd:enumeration value="PrefixedMeflur">
+        <xsd:annotation>
+          <xsd:documentation>Meflur parser with 2-byte long length prefixing both incoming and outcoming data</xsd:documentation>
+        </xsd:annotation>
+      </xsd:enumeration>
+      <xsd:enumeration value="PropietaryParser"/>
+      <xsd:enumeration value="Beltran">
+        <xsd:annotation>
+          <xsd:documentation>Parser of Type Beltran</xsd:documentation>
+        </xsd:annotation>
+      </xsd:enumeration>
+    </xsd:restriction>
+  </xsd:simpleType>
+  
+  <!-- Enum DataSourceSupportType -->
+  <xsd:simpleType name="DataSourceSupportType">
+    <xsd:restriction base="xsd:string">
+      <xsd:enumeration value="NotTyped"/>
+      <xsd:enumeration value="SQLServerSupport"/>
+    </xsd:restriction>
+  </xsd:simpleType>
+  
+  <!-- Enum WebServiceArchitecturalPattern -->
+  <xsd:simpleType name="WebServiceArchitecturalPattern">
+    <xsd:annotation>
+      <xsd:documentation>The architectural pattern used for implementing the WS&apos;s proxies</xsd:documentation>
+    </xsd:annotation>
+    <xsd:restriction base="xsd:string">
+      <xsd:enumeration value="Singleton">
+        <xsd:annotation>
+          <xsd:documentation>There will be just one instance of this output WS.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:enumeration>
+      <xsd:enumeration value="MultipleInstances">
+        <xsd:annotation>
+          <xsd:documentation>There will as many instances as threads using this output WS</xsd:documentation>
+        </xsd:annotation>
+      </xsd:enumeration>
+    </xsd:restriction>
+  </xsd:simpleType>
+  
+  <!-- Enum WebServiceTechnology -->
+  <xsd:simpleType name="WebServiceTechnology">
+    <xsd:annotation>
+      <xsd:documentation>Technology used by the remote WS implementation.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:restriction base="xsd:string">
+      <xsd:enumeration value="SoapHttpClientProtocol">
+        <xsd:annotation>
+          <xsd:documentation>Technology SoapHttpClientProtocol</xsd:documentation>
+        </xsd:annotation>
+      </xsd:enumeration>
+      <xsd:enumeration value="WCF">
+        <xsd:annotation>
+          <xsd:documentation>Technology WCF</xsd:documentation>
+        </xsd:annotation>
+      </xsd:enumeration>
+    </xsd:restriction>
+  </xsd:simpleType>
+  
+</xsd:schema>
+

@@ -1,0 +1,783 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<logicalClassDesignerModel xmlns:dm0="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" xmlns:dm1="http://schemas.microsoft.com/dsltools/Kernel" xmlns:dm2="http://schemas.microsoft.com/dsltools/Component" xmlns:dm3="http://schemas.microsoft.com/dsltools/Activity" xmlns:dm4="http://schemas.microsoft.com/dsltools/Interaction" xmlns:dm5="http://schemas.microsoft.com/dsltools/UseCase" xmlns:dm6="http://schemas.microsoft.com/dsltools/UmlModelLibrary" xmlns:dm7="http://schemas.microsoft.com/dsltools/UmlDiagrams" xmlns:dm8="http://schemas.microsoft.com/dsltools/ModelStore" dslVersion="1.0.0.0" Id="d0e3c668-3d27-430f-8464-ba289f819877" name="FrameworkClassDiagram" linkedPackageId="b3cc43d7-2e0f-49eb-9ffb-2c4d3fe3361c" xmlns="http://schemas.microsoft.com/dsltools/LogicalClassDesigner">
+  <profileInstances>
+    <packageHasProfileInstances Id="94e772b0-51cf-47ff-bc0a-00616be60ed8">
+      <profileInstance Id="73e1f4de-d4e7-4d00-8008-7615595dabcc" name="StandardProfileL2">
+        <elementDefinition Id="e34d544e-0fea-4ed6-ac5e-1b74119ac791" />
+      </profileInstance>
+      <elementDefinition Id="0caec977-1f8c-4ba3-a7db-8cc9ad9cc73b" />
+    </packageHasProfileInstances>
+    <packageHasProfileInstances Id="85b6761e-a917-48a9-8c9b-b408caa375e8">
+      <profileInstance Id="14bf07a5-f450-4f20-a57e-6d7ed795641f" name="StandardProfileL3">
+        <elementDefinition Id="532ea607-fb19-44b8-8502-3351b05452be" />
+      </profileInstance>
+      <elementDefinition Id="29349502-908c-4fda-9054-c48619c59ed0" />
+    </packageHasProfileInstances>
+    <packageHasProfileInstances Id="83b3d97d-7d8e-4801-9185-91ba4b10202a">
+      <profileInstance Id="df1ae30a-8486-446b-adc2-59dd1c76beb7" name="CSharpProfile">
+        <elementDefinition Id="ccd1d191-0418-40e0-9dbf-b9bbca3c8211" />
+      </profileInstance>
+      <elementDefinition Id="a3f6ddde-25f6-44ec-92ad-f6b7a3ef52eb" />
+    </packageHasProfileInstances>
+  </profileInstances>
+  <packagedElements>
+    <logicalClassDesignerModelHasTypes>
+      <class Id="74f0a0ba-8796-43c3-a628-05fa74630a63" name="AbstractTransactionContext" isAbstract="false" isLeaf="false" isActiveClass="false">
+        <referencesInternal>
+          <reference Id="ce43cd37-48d0-401b-b065-1f2a6fed729c" handle="viewcode://./CodeSchema_Class?Assembly=file:///H:/SANDBOX/Framework/PointPay.Framework/bin/Debug/PointPay.Framework.dll Namespace=PointPay.Framework.V1 Type=AbstractTransactionContext" tag="ViewCode">
+            <elementDefinition Id="406618e7-8b78-4b26-8bae-7303e423ba43" />
+          </reference>
+        </referencesInternal>
+        <appliedStereotypesInternal>
+          <stereotypeInstance Id="23f42dca-5887-4ee9-bb9c-f6f869bead22" name="class" profile="CSharpProfile">
+            <elementDefinition Id="9c229ed1-75a2-4e97-a3fb-5516c137df83" />
+            <propertyInstances>
+              <stereotypeInstanceHasPropertyInstances Id="2dd40d68-3029-4880-8136-e5d7185021ba">
+                <propertyInstance Id="488a0752-2b6f-4a01-81da-d01218497af5" name="ClrAttributes">
+                  <elementDefinition Id="640bf429-efd1-41e1-8560-caf520a844c2" />
+                </propertyInstance>
+                <elementDefinition Id="1e6266b7-dd84-4c73-b723-9edf9c2ee7b7" />
+              </stereotypeInstanceHasPropertyInstances>
+              <stereotypeInstanceHasPropertyInstances Id="f56b9e46-7cb5-4ada-95ea-63ad07640766">
+                <propertyInstance Id="ce1e32a0-ef76-4b28-adc0-7deb0fee37f8" name="IsPartial" value="false">
+                  <elementDefinition Id="5d406fc3-3137-4a5a-9a00-88333cae5fa2" />
+                </propertyInstance>
+                <elementDefinition Id="61609a88-1cf1-488c-80d8-6fd574e9836b" />
+              </stereotypeInstanceHasPropertyInstances>
+              <stereotypeInstanceHasPropertyInstances Id="b4b29722-454e-4d24-a54b-15cfca42ba0d">
+                <propertyInstance Id="c0853040-11d2-41e0-a039-d70e22afd0ad" name="IsStatic" value="False">
+                  <elementDefinition Id="6a54c1fb-909a-44a1-973e-b6e14ac01d2e" />
+                </propertyInstance>
+                <elementDefinition Id="d212f685-ccc2-4c6d-b8f3-90b40994e83d" />
+              </stereotypeInstanceHasPropertyInstances>
+              <stereotypeInstanceHasPropertyInstances Id="b4198157-f90a-4a9e-8ed5-a2e9317f0e49">
+                <propertyInstance Id="964ae4d5-b143-4070-8021-5651dda7e584" name="IsUnsafe" value="false">
+                  <elementDefinition Id="c1f0cc96-18db-48f9-92d6-184bfce707c4" />
+                </propertyInstance>
+                <elementDefinition Id="1c33c302-028f-406c-a9bf-1cc748a9aec4" />
+              </stereotypeInstanceHasPropertyInstances>
+              <stereotypeInstanceHasPropertyInstances Id="66fd554c-f647-437d-8dab-cc384fb8a51b">
+                <propertyInstance Id="d54ad16e-84c3-49c4-9f97-e657c520600f" name="PackageVisibility" value="internal">
+                  <elementDefinition Id="4e59ca98-2f54-4c6e-b0f0-be93c61c2ff2" />
+                </propertyInstance>
+                <elementDefinition Id="92f339c3-4e6f-4a28-a26c-2c12313721b5" />
+              </stereotypeInstanceHasPropertyInstances>
+            </propertyInstances>
+          </stereotypeInstance>
+        </appliedStereotypesInternal>
+        <elementDefinition Id="8cc5af0a-56de-4908-bd21-fce762ab8990" />
+        <ownedAttributesInternal>
+          <property Id="7cdb44cd-d19c-4d74-8398-6b1ead299187" name="TransactionDatetime" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+            <referencesInternal>
+              <reference Id="162fde94-5cae-465e-8ee4-17295c53ac0d" handle="viewcode://./CodeSchema_Property?Assembly=file:///H:/SANDBOX/Framework/PointPay.Framework/bin/Debug/PointPay.Framework.dll Namespace=PointPay.Framework.V1 Type=AbstractTransactionContext Member=TransactionDatetime" tag="ViewCode">
+                <elementDefinition Id="3e867e0e-be01-4450-ad31-b8e489048698" />
+              </reference>
+            </referencesInternal>
+            <appliedStereotypesInternal>
+              <stereotypeInstance Id="ebe7c194-f312-44f7-9b8c-b0d0f3bdc8f7" name="property" profile="CSharpProfile">
+                <elementDefinition Id="d6ce216b-229c-42a4-9c15-5a200db6dc9e" />
+                <propertyInstances>
+                  <stereotypeInstanceHasPropertyInstances Id="2c61f81e-fd83-4ae8-95ac-032dfa65fb73">
+                    <propertyInstance Id="eb5903ac-24de-442e-8a9b-9298e9335053" name="ClrAttributes">
+                      <elementDefinition Id="54aaa70f-8d68-43b3-8d31-c2de9c1a983e" />
+                    </propertyInstance>
+                    <elementDefinition Id="7318a83d-441d-4258-af75-83090d88cc4a" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances Id="1faee3f5-6d27-4500-b1b4-31d6b2cf1eea">
+                    <propertyInstance Id="fe3f0962-56a6-4cec-9976-fdb4a3d42527" name="Get" value="public">
+                      <elementDefinition Id="1636f30d-a721-4cc9-a146-f8f2a9f1efbf" />
+                    </propertyInstance>
+                    <elementDefinition Id="1cdfa121-664f-4d23-9fd9-d7f7d5bb3a16" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances Id="4eb6485a-7cf6-4da4-8b90-8a747274e6cb">
+                    <propertyInstance Id="bc89fe11-7320-4c2e-819c-d043ba03071d" name="HasBody" value="false">
+                      <elementDefinition Id="8dd81045-417a-45ca-b450-731ced448bb7" />
+                    </propertyInstance>
+                    <elementDefinition Id="2d117131-0884-43ff-b146-74797fa22c95" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances Id="275d9a32-e5b9-4fc9-870b-a47136b0e94e">
+                    <propertyInstance Id="9a2f40b3-6625-4b89-8352-4ed238cd445b" name="IsUnsafe" value="false">
+                      <elementDefinition Id="512be222-1eab-4a6b-98c5-2609b797f6b8" />
+                    </propertyInstance>
+                    <elementDefinition Id="15bcd65c-fdad-4e66-b04c-d60009d2b938" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances Id="c76b18f3-8489-49b0-b067-33002c98e483">
+                    <propertyInstance Id="6182a814-4433-4737-9b7b-45c69db78fbe" name="PackageVisibility" value="internal">
+                      <elementDefinition Id="24d0d841-adb6-4dc8-90a3-7268d91e4dcc" />
+                    </propertyInstance>
+                    <elementDefinition Id="e15eb1b4-bd4f-46d0-ae63-f98a3f0f6681" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances Id="fdf886a4-f4b1-4022-be75-1f115aa4aa75">
+                    <propertyInstance Id="581804c8-1228-4d91-aafd-078c68972003" name="Set" value="public">
+                      <elementDefinition Id="7e85ce53-d13c-4c95-b381-9a261bf271e8" />
+                    </propertyInstance>
+                    <elementDefinition Id="6dc06b1f-7873-4692-be36-2b1e6b1cff1f" />
+                  </stereotypeInstanceHasPropertyInstances>
+                </propertyInstances>
+              </stereotypeInstance>
+            </appliedStereotypesInternal>
+            <elementDefinition Id="bfbe4c51-1d52-43e3-8f5b-705a5a91fa61" />
+            <type_NamedElement>
+              <referencedTypeMoniker Id="729e6fdd-a7dd-4962-8701-a68555b1e37c" LastKnownName="DateTime" />
+            </type_NamedElement>
+          </property>
+          <property Id="8cbaecae-e4dc-4b79-a8de-4206d35c247b" name="ErrorCode" isLeaf="false" isStatic="false" isReadOnly="true" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+            <referencesInternal>
+              <reference Id="8f1c2bf4-5b83-46b3-9724-0ee68333869e" handle="viewcode://./CodeSchema_Property?Assembly=file:///H:/SANDBOX/Framework/PointPay.Framework/bin/Debug/PointPay.Framework.dll Namespace=PointPay.Framework.V1 Type=AbstractTransactionContext Member=ErrorCode" tag="ViewCode">
+                <elementDefinition Id="90fab339-31e5-4e56-bb77-b2c09fc58656" />
+              </reference>
+            </referencesInternal>
+            <appliedStereotypesInternal>
+              <stereotypeInstance Id="1e077ffb-ed94-4e64-9a4b-47eff0b1b3a4" name="property" profile="CSharpProfile">
+                <elementDefinition Id="9c3f0917-9295-4c74-9566-3514cfce48ef" />
+                <propertyInstances>
+                  <stereotypeInstanceHasPropertyInstances Id="3d2b9f9a-2e2f-49eb-a935-33f4fb909ac5">
+                    <propertyInstance Id="38e9b54d-a10f-4cac-a3f5-648cbc65c9c2" name="ClrAttributes">
+                      <elementDefinition Id="65fa4584-cded-4798-9f7b-c7b4c07934ec" />
+                    </propertyInstance>
+                    <elementDefinition Id="00beb810-ffc5-42ba-9342-e919d3bf6bb3" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances Id="63c8d9c2-fd05-414e-9b71-44fdac3d3b6f">
+                    <propertyInstance Id="e349c070-a3b0-45ea-8358-da2836a7e323" name="Get" value="public">
+                      <elementDefinition Id="bc94ee60-cae4-45df-bf0d-e51f92f8851e" />
+                    </propertyInstance>
+                    <elementDefinition Id="35550b5b-416d-4954-87bf-7405e7fdd1aa" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances Id="c365c222-bc57-4bf0-ba2a-48c92f749615">
+                    <propertyInstance Id="42c01c3a-9303-4020-b10f-3ae5d74a6a45" name="HasBody" value="false">
+                      <elementDefinition Id="187b37f3-e695-4cc2-bce1-b9d7d83c929c" />
+                    </propertyInstance>
+                    <elementDefinition Id="0943238d-77f8-44f7-ba9c-130d20caae1a" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances Id="a919d405-05c5-4515-b97b-5604ed97f2ae">
+                    <propertyInstance Id="37a8085e-25c4-4a23-bbf4-f6a63de8c5e3" name="IsUnsafe" value="false">
+                      <elementDefinition Id="e4a5cd98-e3f5-468a-8f50-4b027d914c78" />
+                    </propertyInstance>
+                    <elementDefinition Id="532431d9-c0e1-4bcf-86a1-ac3539d312b1" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances Id="ad35334c-b2cd-4141-b177-7374ba78d5bc">
+                    <propertyInstance Id="3cb7cb14-2157-4a73-8f36-71275b8a096e" name="PackageVisibility" value="internal">
+                      <elementDefinition Id="e88d9665-3582-4d10-b52c-a10b257f2cc6" />
+                    </propertyInstance>
+                    <elementDefinition Id="6eade12f-2161-44d3-bac1-655610873f0f" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances Id="0ed708f3-0f97-4aaf-94ee-3cf3cff9b793">
+                    <propertyInstance Id="9729f74d-63f7-4258-8762-a212c196f624" name="Set" value="none">
+                      <elementDefinition Id="993f283d-511d-4877-9bbb-a66784bca08a" />
+                    </propertyInstance>
+                    <elementDefinition Id="99a27f13-9285-4440-a52f-d9073cb5a831" />
+                  </stereotypeInstanceHasPropertyInstances>
+                </propertyInstances>
+              </stereotypeInstance>
+            </appliedStereotypesInternal>
+            <elementDefinition Id="099c90d5-c567-4c12-838c-42789fd87b94" />
+            <type_NamedElement>
+              <referencedTypeMoniker Id="c10c61f3-4b5d-44e0-a9b4-d2a5db005fd7" LastKnownName="String" />
+            </type_NamedElement>
+          </property>
+          <property Id="b0b6a509-f4bf-4ab1-bd35-1a6f80f433e0" name="ErrorMessage" isLeaf="false" isStatic="false" isReadOnly="true" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+            <referencesInternal>
+              <reference Id="57f5a9a7-af12-49a3-b643-015cad358627" handle="viewcode://./CodeSchema_Property?Assembly=file:///H:/SANDBOX/Framework/PointPay.Framework/bin/Debug/PointPay.Framework.dll Namespace=PointPay.Framework.V1 Type=AbstractTransactionContext Member=ErrorMessage" tag="ViewCode">
+                <elementDefinition Id="5d27fbf1-5313-4a9e-9e06-71e32f11108b" />
+              </reference>
+            </referencesInternal>
+            <appliedStereotypesInternal>
+              <stereotypeInstance Id="fb40fa4a-7322-497c-9838-2c799bf8847a" name="property" profile="CSharpProfile">
+                <elementDefinition Id="8640f39e-322f-455c-b6ad-8e91d6bd2bff" />
+                <propertyInstances>
+                  <stereotypeInstanceHasPropertyInstances Id="515ce79c-1a15-42d9-b55f-cc426dc21f48">
+                    <propertyInstance Id="847299f0-88f8-4162-99a1-6749b0a2d115" name="ClrAttributes">
+                      <elementDefinition Id="9d67df7b-00f8-424c-8965-3017efca479b" />
+                    </propertyInstance>
+                    <elementDefinition Id="9d6364e1-839a-4f01-8d3a-d1dd82947ef7" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances Id="e8b93c42-c70f-4d2b-94ef-9771a7762418">
+                    <propertyInstance Id="bc949c99-9995-468f-b968-ef31871dd645" name="Get" value="public">
+                      <elementDefinition Id="a0d89675-7243-4db2-b324-79bd8464cb52" />
+                    </propertyInstance>
+                    <elementDefinition Id="d6149278-c832-442d-b423-b01e025e06fd" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances Id="8854ac4e-9112-4df1-aba0-b2c3b5d0a8b3">
+                    <propertyInstance Id="59091e9b-ea36-4573-ba16-e2721208b00c" name="HasBody" value="false">
+                      <elementDefinition Id="4589d7e9-c926-4490-9527-bf8380f5d6c4" />
+                    </propertyInstance>
+                    <elementDefinition Id="7fe0ffe0-27d1-4a63-9dff-72aa8a053642" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances Id="2e685498-4717-4ed8-924c-4833968d6f68">
+                    <propertyInstance Id="ff568087-acfe-4008-ab96-22f02ae96bb4" name="IsUnsafe" value="false">
+                      <elementDefinition Id="9e7e0d20-acbe-460f-97fa-cc66f4f15b6b" />
+                    </propertyInstance>
+                    <elementDefinition Id="8a81fd03-a524-4468-bc93-3b04a0640e42" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances Id="98981ff2-9379-4f4c-b64a-518be79f556a">
+                    <propertyInstance Id="ac8e152c-5a09-44ea-b598-a7acfe69d795" name="PackageVisibility" value="internal">
+                      <elementDefinition Id="313496c4-7501-432a-8d98-5818824e839e" />
+                    </propertyInstance>
+                    <elementDefinition Id="9b20186f-3942-4c82-8a8b-352e23aedc61" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances Id="3a949160-bef0-4ac3-be94-f50d447ce993">
+                    <propertyInstance Id="59f6f77a-ea03-4cbe-96b8-c107183645c4" name="Set" value="none">
+                      <elementDefinition Id="7d28818a-d698-4e34-8b1f-10ce19966ca5" />
+                    </propertyInstance>
+                    <elementDefinition Id="68d8308d-f77b-4a80-b8f4-bd0f117b15ff" />
+                  </stereotypeInstanceHasPropertyInstances>
+                </propertyInstances>
+              </stereotypeInstance>
+            </appliedStereotypesInternal>
+            <elementDefinition Id="96035aa1-4b90-4fe7-8ff5-c2443168e40a" />
+            <type_NamedElement>
+              <referencedTypeMoniker Id="c10c61f3-4b5d-44e0-a9b4-d2a5db005fd7" LastKnownName="String" />
+            </type_NamedElement>
+          </property>
+          <property Id="c9596fc9-e12c-4dd5-b78c-b7ab81981c81" name="_ContextValues" visibility="Private" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+            <referencesInternal>
+              <reference Id="87d21a4c-d836-42b4-b5c8-1d0a7b235b5e" handle="viewcode://./CodeSchema_Field?Assembly=file:///H:/SANDBOX/Framework/PointPay.Framework/bin/Debug/PointPay.Framework.dll Namespace=PointPay.Framework.V1 Type=AbstractTransactionContext Member=_ContextValues" tag="ViewCode">
+                <elementDefinition Id="58c40e4f-1fdc-4544-a25d-26a56c611661" />
+              </reference>
+            </referencesInternal>
+            <appliedStereotypesInternal>
+              <stereotypeInstance Id="51d72e91-42da-4f34-8c21-a967796ab0ee" name="field" profile="CSharpProfile">
+                <elementDefinition Id="d4b6c7b2-19fe-46c0-b889-46de915cef9d" />
+                <propertyInstances>
+                  <stereotypeInstanceHasPropertyInstances Id="d6646443-9abf-4083-aab5-73c99c402a24">
+                    <propertyInstance Id="4747983c-13bf-455c-9f99-d4c9b7cb0e62" name="ClrAttributes">
+                      <elementDefinition Id="16524184-f2ce-4ecf-bf7e-3b22586b0708" />
+                    </propertyInstance>
+                    <elementDefinition Id="9d533f72-15f4-418d-84ed-1d5904d49ddf" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances Id="1545342b-20cd-41e6-96ba-6edb6a46e4a2">
+                    <propertyInstance Id="010abbb8-8259-42ba-ab15-e2d4e43967ae" name="IsConst" value="false">
+                      <elementDefinition Id="7e5e2af7-62c8-4467-aa66-2e25c7ec8474" />
+                    </propertyInstance>
+                    <elementDefinition Id="c3073a2c-6f90-4152-b0ab-0515b0523877" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances Id="62bd84d2-e2a6-4598-897e-781beb080a87">
+                    <propertyInstance Id="cbec2915-f064-4f49-8412-c5623e7872cb" name="IsNullable" value="false">
+                      <elementDefinition Id="c4d3299b-b2c7-4760-a0ef-97b9850e0285" />
+                    </propertyInstance>
+                    <elementDefinition Id="6c9b4754-ac91-4bb9-9431-bec6fdadf48e" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances Id="0d7c2a7b-4fcf-4bc6-bf81-7c7423944e5a">
+                    <propertyInstance Id="c94d9507-d51d-4464-953a-cf007913062e" name="IsVolatile" value="false">
+                      <elementDefinition Id="34f7ea4d-d249-4f40-b9ab-73dd7e73ff22" />
+                    </propertyInstance>
+                    <elementDefinition Id="8e22ac63-6e1d-4ae9-938c-e43d176b285d" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances Id="12d8818b-87e4-4372-8569-7715c05e0ddb">
+                    <propertyInstance Id="8583dc55-ebf5-4270-b5ba-387e97b89dfc" name="PackageVisibility" value="internal">
+                      <elementDefinition Id="740cc80d-7c5a-4c46-9fee-af51130b161f" />
+                    </propertyInstance>
+                    <elementDefinition Id="edea2adf-04e3-425c-8bbc-c8ad193b8ab9" />
+                  </stereotypeInstanceHasPropertyInstances>
+                </propertyInstances>
+              </stereotypeInstance>
+            </appliedStereotypesInternal>
+            <elementDefinition Id="92036987-1dd4-47aa-8ca9-202332338633" />
+            <type_NamedElement>
+              <referencedTypeMoniker Id="50cd4fef-865d-4a0c-8b6b-1654fa9516b4" LastKnownName="Dictionary&lt;String,String&gt;" />
+            </type_NamedElement>
+          </property>
+          <property Id="007bc4ce-4e35-4ed8-b802-0034be56fdb1" name="_Status" visibility="Private" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+            <referencesInternal>
+              <reference Id="8f697b1f-d4cf-45bf-9d2b-5b4c870a93c2" handle="viewcode://./CodeSchema_Field?Assembly=file:///H:/SANDBOX/Framework/PointPay.Framework/bin/Debug/PointPay.Framework.dll Namespace=PointPay.Framework.V1 Type=AbstractTransactionContext Member=_Status" tag="ViewCode">
+                <elementDefinition Id="07541c07-fc30-44d7-b029-a1ab3a9c2eed" />
+              </reference>
+            </referencesInternal>
+            <appliedStereotypesInternal>
+              <stereotypeInstance Id="f10f1a58-5bf4-4653-8d95-c87423a790f3" name="field" profile="CSharpProfile">
+                <elementDefinition Id="d26e42aa-2c0f-4d10-a2d8-67077ff88040" />
+                <propertyInstances>
+                  <stereotypeInstanceHasPropertyInstances Id="626031bc-a606-4950-8074-b8e9f538ad50">
+                    <propertyInstance Id="3ad87731-5e92-499a-be1e-23865e1f7ab9" name="ClrAttributes">
+                      <elementDefinition Id="cd8b66a0-2be9-4a11-9626-1da4ea09e647" />
+                    </propertyInstance>
+                    <elementDefinition Id="51cb204c-52af-46fa-aed0-ffd96b674e74" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances Id="9a7aecce-0cbc-48d4-a885-c581b44a89d3">
+                    <propertyInstance Id="4c208e85-8857-4f6f-bbcf-731c18d3817e" name="IsConst" value="false">
+                      <elementDefinition Id="34d74b5c-7175-4155-9856-4b1874ba8978" />
+                    </propertyInstance>
+                    <elementDefinition Id="4eb38ee0-c046-4166-9467-0e3ef3f60d6a" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances Id="43ab5604-9afb-47bc-b986-00979398807a">
+                    <propertyInstance Id="95ef221d-bfc8-4bbc-9a67-0179ae3fd8de" name="IsNullable" value="false">
+                      <elementDefinition Id="ba4926cb-f8c5-414f-8728-8c91199c6aa4" />
+                    </propertyInstance>
+                    <elementDefinition Id="eb5f58ad-7a97-4bd4-9a44-1737f2838bba" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances Id="60c18c18-b926-4b47-bbe1-a60e332a84d8">
+                    <propertyInstance Id="3eca3be6-d3d7-4b8c-b108-20351ad844d7" name="IsVolatile" value="false">
+                      <elementDefinition Id="81f50d48-666f-42b9-af27-999be39f361e" />
+                    </propertyInstance>
+                    <elementDefinition Id="9e6b008d-18a4-4d28-ae28-02365a451e9e" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances Id="fd64f38e-05a4-46c8-abbb-359e47faef60">
+                    <propertyInstance Id="f63559bb-21c7-4952-8eec-a34b30deacc7" name="PackageVisibility" value="internal">
+                      <elementDefinition Id="df1f3274-5709-49a1-8797-09f332bcc2af" />
+                    </propertyInstance>
+                    <elementDefinition Id="42b38e2e-9dfd-480f-8b9a-770dcc30a8cd" />
+                  </stereotypeInstanceHasPropertyInstances>
+                </propertyInstances>
+              </stereotypeInstance>
+            </appliedStereotypesInternal>
+            <elementDefinition Id="9c7f7bcd-1461-4513-bdb6-12836a3460da" />
+            <type_NamedElement>
+              <referencedTypeMoniker Id="5ca0875a-8aa8-4d16-97e5-db01fa368ac2" LastKnownName="TransactionStatus" />
+            </type_NamedElement>
+          </property>
+          <property Id="a58554f9-c4c0-49f3-9b78-cb2c85aa3093" name="_TransactionDatetime" visibility="Private" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+            <referencesInternal>
+              <reference Id="c401bda5-48f3-408e-b876-cc7b089a2187" handle="viewcode://./CodeSchema_Field?Assembly=file:///H:/SANDBOX/Framework/PointPay.Framework/bin/Debug/PointPay.Framework.dll Namespace=PointPay.Framework.V1 Type=AbstractTransactionContext Member=_TransactionDatetime" tag="ViewCode">
+                <elementDefinition Id="977b714a-d164-495f-b46e-566ccbed304b" />
+              </reference>
+            </referencesInternal>
+            <appliedStereotypesInternal>
+              <stereotypeInstance Id="b8933a46-9a34-495a-9273-8adc020e4275" name="field" profile="CSharpProfile">
+                <elementDefinition Id="cc7692df-10a6-480f-b9b5-4c04b6317245" />
+                <propertyInstances>
+                  <stereotypeInstanceHasPropertyInstances Id="6d977696-8344-47e8-a61b-6e294aeaf1bb">
+                    <propertyInstance Id="bb9fac80-104f-4e0d-a98c-53c42b5ad770" name="ClrAttributes">
+                      <elementDefinition Id="d2caa0a8-47d7-44ca-86d2-da395800c182" />
+                    </propertyInstance>
+                    <elementDefinition Id="c8b91638-65e2-4493-866c-59f7110494e2" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances Id="e00d6408-2aff-481b-9e73-2addee17d63b">
+                    <propertyInstance Id="e48ee929-1cca-4374-a39d-74993289b91d" name="IsConst" value="false">
+                      <elementDefinition Id="383363ac-e782-40be-9ed9-79675beeac80" />
+                    </propertyInstance>
+                    <elementDefinition Id="c0448a01-7f53-453c-b537-10e4d589440c" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances Id="65580777-038f-4887-9140-3fe395dcb67f">
+                    <propertyInstance Id="1d86d09a-1c9f-483c-86c2-b8570f0e7f02" name="IsNullable" value="false">
+                      <elementDefinition Id="03cdbb4c-1710-4429-b115-303aba017f06" />
+                    </propertyInstance>
+                    <elementDefinition Id="61e82ae5-d90e-4144-af96-979b94019449" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances Id="f331c0ce-efe4-47e3-9772-ee2f22f9db9e">
+                    <propertyInstance Id="30b6c067-c956-4742-bebe-072f0e5b0392" name="IsVolatile" value="false">
+                      <elementDefinition Id="14124320-4044-4206-898e-643d27ca7cb5" />
+                    </propertyInstance>
+                    <elementDefinition Id="f67f443d-9f5a-46ad-9720-6824498884ea" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances Id="06f667f1-0a79-44d0-8de9-30d062c13f58">
+                    <propertyInstance Id="096f7116-7bd5-467b-b598-eaaa0ed6bbe5" name="PackageVisibility" value="internal">
+                      <elementDefinition Id="14ccf156-e2d7-480c-a3e3-ed0703f6d174" />
+                    </propertyInstance>
+                    <elementDefinition Id="f52f551d-2cc9-42c7-8188-dd2e587f405d" />
+                  </stereotypeInstanceHasPropertyInstances>
+                </propertyInstances>
+              </stereotypeInstance>
+            </appliedStereotypesInternal>
+            <elementDefinition Id="b85eb956-dcd3-4916-a975-c664cf5f8723" />
+            <type_NamedElement>
+              <referencedTypeMoniker Id="729e6fdd-a7dd-4962-8701-a68555b1e37c" LastKnownName="DateTime" />
+            </type_NamedElement>
+          </property>
+          <property Id="f29e9f16-cdab-4fd7-9365-85ea4d28e901" name="_ThreadId" visibility="Private" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+            <referencesInternal>
+              <reference Id="41c6ab7e-b9ca-465f-9df7-bc665e6270bc" handle="viewcode://./CodeSchema_Field?Assembly=file:///H:/SANDBOX/Framework/PointPay.Framework/bin/Debug/PointPay.Framework.dll Namespace=PointPay.Framework.V1 Type=AbstractTransactionContext Member=_ThreadId" tag="ViewCode">
+                <elementDefinition Id="853eeb3e-9a47-4c17-a681-b41a8b7f8014" />
+              </reference>
+            </referencesInternal>
+            <appliedStereotypesInternal>
+              <stereotypeInstance Id="13b69737-b0dc-4b87-84c1-871c8a850a2d" name="field" profile="CSharpProfile">
+                <elementDefinition Id="66b8f5ad-27a8-4070-99f5-a69a4ad95908" />
+                <propertyInstances>
+                  <stereotypeInstanceHasPropertyInstances Id="8fde1ae3-6dc9-4a69-a623-b1de04cc22bd">
+                    <propertyInstance Id="1d62061f-f162-46b7-8b62-0f4a865277ec" name="ClrAttributes">
+                      <elementDefinition Id="401559bd-0f60-4aa2-a294-c773d6066cb9" />
+                    </propertyInstance>
+                    <elementDefinition Id="2198d45b-90f3-4937-a806-a2f8c282798b" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances Id="a7c850f9-1f53-44f1-ba0a-13c4bea953be">
+                    <propertyInstance Id="adc5874c-22c6-461a-b7d6-1cf0f6a723a7" name="IsConst" value="false">
+                      <elementDefinition Id="d5054b09-14ad-4d1a-992a-52910f70af54" />
+                    </propertyInstance>
+                    <elementDefinition Id="0600c1aa-e6b8-49df-8667-bf473b87146e" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances Id="a0907e97-197c-4abc-b7d3-67a1b686eaa7">
+                    <propertyInstance Id="385789b7-46ae-45bb-9ce7-0c9540c450af" name="IsNullable" value="false">
+                      <elementDefinition Id="8129b5cf-8382-4625-a761-4f24efda2c75" />
+                    </propertyInstance>
+                    <elementDefinition Id="e19bed24-822e-4145-ac8f-0e556d069be7" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances Id="c9b9cd3b-9b38-4466-aa01-21bc04fd7184">
+                    <propertyInstance Id="1469a04b-1dec-4c30-8fea-9d7addcc5389" name="IsVolatile" value="false">
+                      <elementDefinition Id="eeea42e4-b11c-46a7-abd1-107e16180aca" />
+                    </propertyInstance>
+                    <elementDefinition Id="5b344b10-89fe-4142-93d3-b095c2ce7b26" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances Id="2436500b-e0a1-4e12-a59f-072343d7ce13">
+                    <propertyInstance Id="84bb098b-519f-4af9-a517-1a2f3c07820b" name="PackageVisibility" value="internal">
+                      <elementDefinition Id="f2a20d08-e08d-4845-a119-b67417edcc5c" />
+                    </propertyInstance>
+                    <elementDefinition Id="207c8f79-3cb5-4f6d-a282-f8fbfc9b9ef3" />
+                  </stereotypeInstanceHasPropertyInstances>
+                </propertyInstances>
+              </stereotypeInstance>
+            </appliedStereotypesInternal>
+            <elementDefinition Id="c4cc3f5e-f4e3-472f-9dca-22d421f1eef4" />
+            <type_NamedElement>
+              <referencedTypeMoniker Id="c10c61f3-4b5d-44e0-a9b4-d2a5db005fd7" LastKnownName="String" />
+            </type_NamedElement>
+          </property>
+          <property Id="90081d6b-9a24-4647-8487-6c464a133922" name="_OperationId" visibility="Protected" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+            <referencesInternal>
+              <reference Id="ccd7b8ac-adba-49fa-9cbc-021ea1fc679f" handle="viewcode://./CodeSchema_Field?Assembly=file:///H:/SANDBOX/Framework/PointPay.Framework/bin/Debug/PointPay.Framework.dll Namespace=PointPay.Framework.V1 Type=AbstractTransactionContext Member=_OperationId" tag="ViewCode">
+                <elementDefinition Id="76f8c41e-16fd-42cd-84a9-87dd9aec8a92" />
+              </reference>
+            </referencesInternal>
+            <appliedStereotypesInternal>
+              <stereotypeInstance Id="c0342651-38cf-47f5-8ed2-8d35413b5cae" name="field" profile="CSharpProfile">
+                <elementDefinition Id="a238b2a0-a572-4a6c-a802-aa48b24d16be" />
+                <propertyInstances>
+                  <stereotypeInstanceHasPropertyInstances Id="ab7d844f-715f-407b-b33e-a12325d51f9a">
+                    <propertyInstance Id="22106fd7-1802-40d0-994f-de049082f9bc" name="ClrAttributes">
+                      <elementDefinition Id="78271531-1f33-4285-85cd-f3c38e165758" />
+                    </propertyInstance>
+                    <elementDefinition Id="e71d3bee-118b-46a3-835e-d02052d166f5" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances Id="3ade29fb-e976-4393-95d2-092ccefc3f7b">
+                    <propertyInstance Id="6e95e2e4-4d68-4f8c-8769-26296ecc2ee9" name="IsConst" value="false">
+                      <elementDefinition Id="918e1d66-f40b-4e41-8f56-be334742e434" />
+                    </propertyInstance>
+                    <elementDefinition Id="f10ea825-833b-42b4-9cc5-7ffdabbe4954" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances Id="15654811-7128-4310-83ba-7481c22c414c">
+                    <propertyInstance Id="bed5c905-7167-48a3-9763-3dc00df5a5db" name="IsNullable" value="false">
+                      <elementDefinition Id="9acabc4c-0335-4bbf-81f7-73463a955c45" />
+                    </propertyInstance>
+                    <elementDefinition Id="a12deb95-8474-4dd7-91af-b69434ca7866" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances Id="41dc3f14-0a72-4359-929f-4b6b4b7c7570">
+                    <propertyInstance Id="41f8858a-a884-4da7-b024-a6d504934a8d" name="IsVolatile" value="false">
+                      <elementDefinition Id="77b803d0-4747-48d5-b4be-e071718a493e" />
+                    </propertyInstance>
+                    <elementDefinition Id="85e27b6c-7b27-4592-8f48-8662870dfa86" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances Id="1563577d-653d-4c2c-965c-7ff4c5b6acc3">
+                    <propertyInstance Id="f74e286a-ff9c-47fa-b7da-39a3de7c09c1" name="PackageVisibility" value="internal">
+                      <elementDefinition Id="f6c2f44b-84a8-421c-b95b-12adc75261a8" />
+                    </propertyInstance>
+                    <elementDefinition Id="8acb309a-ecf0-465f-8df0-2560b9f2c33f" />
+                  </stereotypeInstanceHasPropertyInstances>
+                </propertyInstances>
+              </stereotypeInstance>
+            </appliedStereotypesInternal>
+            <elementDefinition Id="e0675f52-4fa2-4a06-a81b-bfde9a558bba" />
+            <type_NamedElement>
+              <referencedTypeMoniker Id="c10c61f3-4b5d-44e0-a9b4-d2a5db005fd7" LastKnownName="String" />
+            </type_NamedElement>
+          </property>
+          <property Id="f4df45cc-3ad6-4185-b3b0-3a389ccb46b5" name="_ErrorCode" visibility="Protected" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+            <referencesInternal>
+              <reference Id="b23d3c0d-842d-4b2f-8bf2-491603e8189f" handle="viewcode://./CodeSchema_Field?Assembly=file:///H:/SANDBOX/Framework/PointPay.Framework/bin/Debug/PointPay.Framework.dll Namespace=PointPay.Framework.V1 Type=AbstractTransactionContext Member=_ErrorCode" tag="ViewCode">
+                <elementDefinition Id="4905dc94-47a7-4067-bd71-ed02d5c139e2" />
+              </reference>
+            </referencesInternal>
+            <appliedStereotypesInternal>
+              <stereotypeInstance Id="77f57774-1296-4667-b05b-f84b9b93822a" name="field" profile="CSharpProfile">
+                <elementDefinition Id="60048158-31da-4af9-b38e-edcbdd20de25" />
+                <propertyInstances>
+                  <stereotypeInstanceHasPropertyInstances Id="508b33fb-827c-4e4f-88a8-9b58155daf36">
+                    <propertyInstance Id="68a7a92f-b1b0-4526-8266-77183c786cb1" name="ClrAttributes">
+                      <elementDefinition Id="eab59f0b-0c62-49c5-92d7-f5ef17c4be70" />
+                    </propertyInstance>
+                    <elementDefinition Id="0446c64b-3010-4828-bacf-cd40de8ff3cc" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances Id="e4ee360c-7334-4263-9c38-b8ed2e308767">
+                    <propertyInstance Id="c7f1de40-672f-41f5-b6c1-233a6cf49697" name="IsConst" value="false">
+                      <elementDefinition Id="beaa9772-9245-4b10-ba3c-56c3676edd16" />
+                    </propertyInstance>
+                    <elementDefinition Id="00f405c5-e1c5-480d-80fb-eac5cba03248" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances Id="dd53e747-60d1-47b5-8414-49e51a0dec14">
+                    <propertyInstance Id="c5b14dd2-1f76-4815-967c-18f39ae50e8c" name="IsNullable" value="false">
+                      <elementDefinition Id="2bccf50b-898d-454d-9f83-aac0d505eaf9" />
+                    </propertyInstance>
+                    <elementDefinition Id="c1e7f275-8472-4dab-a48a-d8e8b71c2009" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances Id="b2e78f34-5e7c-4fbe-90de-301bd795e49c">
+                    <propertyInstance Id="d30b5557-b763-4ace-9dfa-cec857471e73" name="IsVolatile" value="false">
+                      <elementDefinition Id="077ce590-f125-4fd3-9d7e-904419dde5da" />
+                    </propertyInstance>
+                    <elementDefinition Id="ea4140da-3cd0-498f-ba98-a27ddd1c3e55" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances Id="ee749566-a9df-4c72-a1d9-e1c9b8c49b4c">
+                    <propertyInstance Id="4959c3a7-26e6-48a8-be57-c8522741746e" name="PackageVisibility" value="internal">
+                      <elementDefinition Id="6a55944a-d2d7-4707-8d4b-1b4ac388b2b7" />
+                    </propertyInstance>
+                    <elementDefinition Id="2973a105-bd00-48a2-88c4-4912f225ce53" />
+                  </stereotypeInstanceHasPropertyInstances>
+                </propertyInstances>
+              </stereotypeInstance>
+            </appliedStereotypesInternal>
+            <elementDefinition Id="42fb9562-9b7a-4cb4-bf6d-d910094ddc52" />
+            <type_NamedElement>
+              <referencedTypeMoniker Id="c10c61f3-4b5d-44e0-a9b4-d2a5db005fd7" LastKnownName="String" />
+            </type_NamedElement>
+          </property>
+          <property Id="3df40e52-97f6-4beb-b0bd-d41a485bebc9" name="_ErrorMessage" visibility="Protected" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+            <referencesInternal>
+              <reference Id="c1b44a33-4955-46d8-8265-41a2acda01a0" handle="viewcode://./CodeSchema_Field?Assembly=file:///H:/SANDBOX/Framework/PointPay.Framework/bin/Debug/PointPay.Framework.dll Namespace=PointPay.Framework.V1 Type=AbstractTransactionContext Member=_ErrorMessage" tag="ViewCode">
+                <elementDefinition Id="f515dbe3-ab30-45a2-af6d-725ca2fed7af" />
+              </reference>
+            </referencesInternal>
+            <appliedStereotypesInternal>
+              <stereotypeInstance Id="c6cd8a75-8267-4f7f-b402-c65c5470341e" name="field" profile="CSharpProfile">
+                <elementDefinition Id="84befbbf-e004-42d3-a25d-1aee4a51b1a6" />
+                <propertyInstances>
+                  <stereotypeInstanceHasPropertyInstances Id="b49bf274-5830-4c9a-8b06-70a1ead42948">
+                    <propertyInstance Id="2e711aa3-5c2f-48dc-8233-b4b818ba6a54" name="ClrAttributes">
+                      <elementDefinition Id="50b9e160-f11b-4e01-b76e-cf309c4e1c61" />
+                    </propertyInstance>
+                    <elementDefinition Id="f5b81b13-58dc-4e36-bc95-0cab3afbb763" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances Id="bbb306f5-c2b9-42c0-be4c-c1314ba07ec4">
+                    <propertyInstance Id="8645440a-09e6-42ec-8c4d-4586eadd95f4" name="IsConst" value="false">
+                      <elementDefinition Id="6de21e08-a215-4c38-a064-68b3b2245503" />
+                    </propertyInstance>
+                    <elementDefinition Id="3835fbdf-874c-4c8a-a058-426996a6c4f3" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances Id="41d6f785-2da5-434c-a4f2-adcddb1babfe">
+                    <propertyInstance Id="4c291997-d87d-40ce-bdaa-59b7bf4abcf6" name="IsNullable" value="false">
+                      <elementDefinition Id="ac1a3556-a80f-4849-9f37-3cbbb624483a" />
+                    </propertyInstance>
+                    <elementDefinition Id="649b8405-63ff-49d8-ac2e-dbba59dc2b40" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances Id="7217d456-0564-4252-808a-a2109c4681e4">
+                    <propertyInstance Id="a8c4f2df-f7a2-458c-910b-f4dd2ff7d555" name="IsVolatile" value="false">
+                      <elementDefinition Id="b9504cae-de4a-4310-b46f-928b7f7cd4da" />
+                    </propertyInstance>
+                    <elementDefinition Id="d46c2b94-0b2b-4f2c-ad6b-1d9fa9c1fc4a" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances Id="f8f6ac1c-554b-4399-aade-2bac6e19d4af">
+                    <propertyInstance Id="7d4ae685-375c-438a-b107-94905c89261c" name="PackageVisibility" value="internal">
+                      <elementDefinition Id="ccf2918d-79e2-4d20-bcb4-213d5c9b2a67" />
+                    </propertyInstance>
+                    <elementDefinition Id="92a079aa-057c-4243-ac5e-41e314461a3e" />
+                  </stereotypeInstanceHasPropertyInstances>
+                </propertyInstances>
+              </stereotypeInstance>
+            </appliedStereotypesInternal>
+            <elementDefinition Id="01b6ce11-40ab-44cc-9cd7-99b3ce5eea2b" />
+            <type_NamedElement>
+              <referencedTypeMoniker Id="c10c61f3-4b5d-44e0-a9b4-d2a5db005fd7" LastKnownName="String" />
+            </type_NamedElement>
+          </property>
+        </ownedAttributesInternal>
+        <ownedOperationsInternal>
+          <operation Id="a1aa2664-4c5e-4fce-83bb-2a9383b43dcb" name="AbstractTransactionContext" isLeaf="false" isStatic="false" isAbstract="false" concurrency="Sequential" isQuery="false">
+            <referencesInternal>
+              <reference Id="012086f3-8743-461b-bcd8-1bef4d76e53b" handle="viewcode://./CodeSchema_Method?Assembly=file:///H:/SANDBOX/Framework/PointPay.Framework/bin/Debug/PointPay.Framework.dll Namespace=PointPay.Framework.V1 Type=AbstractTransactionContext Member=.ctor" tag="ViewCode">
+                <elementDefinition Id="1f4d8f77-80a1-4a33-8f6d-aa8cf8f61f1c" />
+              </reference>
+            </referencesInternal>
+            <appliedStereotypesInternal>
+              <stereotypeInstance Id="967bc3d2-306b-43df-a32f-87d2433f791c" name="method" profile="CSharpProfile">
+                <elementDefinition Id="ddeb9363-b4b1-46ee-9ad9-91a7647dd5a7" />
+                <propertyInstances>
+                  <stereotypeInstanceHasPropertyInstances Id="87f9cd8b-5b7a-4687-ae97-c0684995627b">
+                    <propertyInstance Id="89dee70d-cca6-423c-9780-2ec4a1f62aa0" name="ClrAttributes">
+                      <elementDefinition Id="e94039a5-b59f-4108-b34b-077cf69ec860" />
+                    </propertyInstance>
+                    <elementDefinition Id="50949275-b1b3-4ca1-a1b0-9f01f37425d0" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances Id="3dbede2e-8d61-40f4-b2ad-186e0bf56ae5">
+                    <propertyInstance Id="272acd42-5cc5-48e5-b44d-55053a764df8" name="IsPartial" value="false">
+                      <elementDefinition Id="66c8e568-0acc-44ab-aace-8bc9268b66db" />
+                    </propertyInstance>
+                    <elementDefinition Id="42028014-3a38-4c24-a041-13d00964ea13" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances Id="ce9786b4-9147-4104-98c9-d16340fe57be">
+                    <propertyInstance Id="25e0bf93-39ee-4be8-bcba-acd1ce1382b5" name="IsUnsafe" value="false">
+                      <elementDefinition Id="0200e5f0-0bc5-4b9e-be92-2886c1f32977" />
+                    </propertyInstance>
+                    <elementDefinition Id="58d3af5f-cf52-4368-8d5a-e811b84564cb" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances Id="f5d52b67-aa49-4ad3-9273-c97bc3058513">
+                    <propertyInstance Id="157a8578-c5e7-4930-83ed-cfc919bd6627" name="PackageVisibility" value="internal">
+                      <elementDefinition Id="e84018aa-1e37-4f49-a5bf-5f7bfdef033b" />
+                    </propertyInstance>
+                    <elementDefinition Id="f915ffc9-cb67-4ee1-9d57-265b3d6d2f04" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances Id="1d3a04f8-977d-4e29-a109-50f798fe1e4c">
+                    <propertyInstance Id="281f5953-74c4-46b5-b93c-ae07b067d5e3" name="params" value="false">
+                      <elementDefinition Id="89de64e3-7a48-465d-933b-f6bb8e7889ec" />
+                    </propertyInstance>
+                    <elementDefinition Id="bec483a8-c251-4802-9344-1f99b2b76c46" />
+                  </stereotypeInstanceHasPropertyInstances>
+                </propertyInstances>
+              </stereotypeInstance>
+            </appliedStereotypesInternal>
+            <elementDefinition Id="41212afd-a800-4716-add3-667ae0005abb" />
+          </operation>
+          <operation Id="612b231f-1dbb-42dd-a3fe-de4d1c07065a" name="SetError" isLeaf="false" isStatic="false" isAbstract="false" concurrency="Sequential" isQuery="false">
+            <referencesInternal>
+              <reference Id="7b35e1fd-91e7-49da-aeba-9128e541f739" handle="viewcode://./CodeSchema_Method?Assembly=file:///H:/SANDBOX/Framework/PointPay.Framework/bin/Debug/PointPay.Framework.dll Namespace=PointPay.Framework.V1 Type=AbstractTransactionContext Member=(Name=SetError OverloadingParameters=[(Assembly=file:///H:/WINDOWS/Microsoft.NET/Framework/v2.0.50727/mscorlib.dll Namespace=System Type=String),(Assembly=file:///H:/WINDOWS/Microsoft.NET/Framework/v2.0.50727/mscorlib.dll Namespace=System Type=String)])" tag="ViewCode">
+                <elementDefinition Id="adc2a84c-0d86-404c-bd71-000dfd7096ab" />
+              </reference>
+            </referencesInternal>
+            <appliedStereotypesInternal>
+              <stereotypeInstance Id="5e157fad-fc44-41a2-a4a9-535148b35711" name="method" profile="CSharpProfile">
+                <elementDefinition Id="948fbf13-30e1-4979-81e8-038b646bc2b7" />
+                <propertyInstances>
+                  <stereotypeInstanceHasPropertyInstances Id="b553b096-9592-4191-a91e-e1ba64cc7041">
+                    <propertyInstance Id="48b3ca64-18fe-4445-91b1-c2a5f055ebf6" name="ClrAttributes">
+                      <elementDefinition Id="79ce8ed3-6bf0-45bf-8d87-aa24eaf2de9c" />
+                    </propertyInstance>
+                    <elementDefinition Id="e4f2df38-0aa1-42b3-a950-05211c73c974" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances Id="cdce4a4a-ff4f-456a-9f94-26a7bad47129">
+                    <propertyInstance Id="927219cb-6b3f-4714-9bbd-6d805696a5cd" name="IsPartial" value="false">
+                      <elementDefinition Id="074cf93a-feb6-40e8-8872-343ab71c628d" />
+                    </propertyInstance>
+                    <elementDefinition Id="c7a58174-338a-4ab1-b3fc-b48158a54bb6" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances Id="26b89d33-840e-4c77-902f-756f27ef14ca">
+                    <propertyInstance Id="da4df553-9cae-423b-8a21-df039fe28319" name="IsUnsafe" value="false">
+                      <elementDefinition Id="8330c4ed-b017-4f52-a4e7-01ca79065604" />
+                    </propertyInstance>
+                    <elementDefinition Id="15f98fa1-6757-4294-a534-e6dd0275b97e" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances Id="0d6e7996-35d5-4f76-b818-eb4ee86e6099">
+                    <propertyInstance Id="e2839577-8907-4d86-8a36-a48b0f837775" name="PackageVisibility" value="internal">
+                      <elementDefinition Id="0255f214-ce87-47bc-87b9-32c443315c43" />
+                    </propertyInstance>
+                    <elementDefinition Id="2f4d8f23-1394-4a10-9fc9-fc44f84ebfce" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances Id="a49de498-0d21-4b60-8555-beaf334bece1">
+                    <propertyInstance Id="4621fc03-484c-41dc-8ce2-d760c5853592" name="params" value="false">
+                      <elementDefinition Id="f4cc681d-14b4-4431-9cf5-0340e0d1cf72" />
+                    </propertyInstance>
+                    <elementDefinition Id="e16fe23c-4d15-47bd-b8b8-a99990a212b9" />
+                  </stereotypeInstanceHasPropertyInstances>
+                </propertyInstances>
+              </stereotypeInstance>
+            </appliedStereotypesInternal>
+            <elementDefinition Id="5acb659e-9dc8-4dcd-a57f-2f115b562d99" />
+            <ownedParameters>
+              <operationHasOwnedParameters>
+                <parameter Id="e6b78f83-423d-4a52-ad96-f1525ca5283b" name="errorCodeParam" direction="In">
+                  <referencesInternal>
+                    <reference Id="d4924ce2-26b6-49f9-875f-9172c35420bb" handle="viewcode://./CodeSchema_Parameter?Assembly=file:///H:/SANDBOX/Framework/PointPay.Framework/bin/Debug/PointPay.Framework.dll Namespace=PointPay.Framework.V1 Type=AbstractTransactionContext Member=(Name=SetError OverloadingParameters=[(Assembly=file:///H:/WINDOWS/Microsoft.NET/Framework/v2.0.50727/mscorlib.dll Namespace=System Type=String),(Assembly=file:///H:/WINDOWS/Microsoft.NET/Framework/v2.0.50727/mscorlib.dll Namespace=System Type=String)]) ParameterIdentifier=errorCodeParam" tag="ViewCode">
+                      <elementDefinition Id="43f34b83-6ef9-4d73-8414-7e4ff3923978" />
+                    </reference>
+                  </referencesInternal>
+                  <elementDefinition Id="c8322410-641e-44e2-9735-1bbab6ae3177" />
+                  <type_NamedElement>
+                    <referencedTypeMoniker Id="c10c61f3-4b5d-44e0-a9b4-d2a5db005fd7" LastKnownName="String" />
+                  </type_NamedElement>
+                </parameter>
+              </operationHasOwnedParameters>
+              <operationHasOwnedParameters>
+                <parameter Id="1c804c97-800d-4736-9301-26458a52e607" name="errorMessageParam" direction="In">
+                  <referencesInternal>
+                    <reference Id="27d4e2d1-fbe9-49c8-aa09-640005df95aa" handle="viewcode://./CodeSchema_Parameter?Assembly=file:///H:/SANDBOX/Framework/PointPay.Framework/bin/Debug/PointPay.Framework.dll Namespace=PointPay.Framework.V1 Type=AbstractTransactionContext Member=(Name=SetError OverloadingParameters=[(Assembly=file:///H:/WINDOWS/Microsoft.NET/Framework/v2.0.50727/mscorlib.dll Namespace=System Type=String),(Assembly=file:///H:/WINDOWS/Microsoft.NET/Framework/v2.0.50727/mscorlib.dll Namespace=System Type=String)]) ParameterIdentifier=errorMessageParam" tag="ViewCode">
+                      <elementDefinition Id="42466172-5ab5-4caa-97df-246610bf1dc2" />
+                    </reference>
+                  </referencesInternal>
+                  <elementDefinition Id="d0836116-b2cf-45ad-bfe4-8e710520975c" />
+                  <type_NamedElement>
+                    <referencedTypeMoniker Id="c10c61f3-4b5d-44e0-a9b4-d2a5db005fd7" LastKnownName="String" />
+                  </type_NamedElement>
+                </parameter>
+              </operationHasOwnedParameters>
+            </ownedParameters>
+          </operation>
+          <operation Id="8ac81edb-1da8-4071-8753-1378c2f4ea37" name="this" isLeaf="false" isStatic="false" isAbstract="false" concurrency="Sequential" isQuery="false">
+            <referencesInternal>
+              <reference Id="0479a883-2722-43ca-863a-6686a464d7de" handle="viewcode://./CodeSchema_Property?Assembly=file:///H:/SANDBOX/Framework/PointPay.Framework/bin/Debug/PointPay.Framework.dll Namespace=PointPay.Framework.V1 Type=AbstractTransactionContext Member=this" tag="ViewCode">
+                <elementDefinition Id="c0450030-e484-4659-b8a7-518bd3cc852b" />
+              </reference>
+            </referencesInternal>
+            <appliedStereotypesInternal>
+              <stereotypeInstance Id="aaa67d9a-7609-43e4-984c-f3e497759191" name="indexer" profile="CSharpProfile">
+                <elementDefinition Id="663ac4dd-3ff9-495c-b86c-4d3574aedc21" />
+                <propertyInstances>
+                  <stereotypeInstanceHasPropertyInstances Id="80100a29-7d0e-428f-ad57-ceb6c93ada2f">
+                    <propertyInstance Id="a8fe2eba-2dc8-410e-9b25-b2cfff7c70a2" name="ClrAttributes">
+                      <elementDefinition Id="9d5e1f3f-4350-47d9-8245-c098f0740259" />
+                    </propertyInstance>
+                    <elementDefinition Id="d1962717-7876-462d-b849-977e26d3e3d0" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances Id="cc1d69a2-1dad-410e-90f7-bea30ff13469">
+                    <propertyInstance Id="309062ca-7aa7-480f-bd53-02602ea56203" name="IsUnsafe" value="false">
+                      <elementDefinition Id="869f5d43-aae0-4728-9a69-fed62600cfee" />
+                    </propertyInstance>
+                    <elementDefinition Id="26669f4f-fd91-419c-8446-fa14b9edc97c" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances Id="3b2e1475-51ed-4726-b2f5-07c58d29ffab">
+                    <propertyInstance Id="50427526-c458-41d2-b9e8-127f9cbcc38e" name="Get" value="public">
+                      <elementDefinition Id="ee4be9d1-c641-4ad0-8fc2-f74716fafa55" />
+                    </propertyInstance>
+                    <elementDefinition Id="44a37e1c-2d63-4037-bbca-24dd580de9af" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances Id="054eb441-6de6-4d70-ac17-28cadca40c7c">
+                    <propertyInstance Id="1c095a04-95ba-433e-9e43-76e21dc11385" name="PackageVisibility" value="internal">
+                      <elementDefinition Id="6970c762-e1ac-4dd5-a374-b793236f4895" />
+                    </propertyInstance>
+                    <elementDefinition Id="5627ccb3-6387-48fb-83c7-c8fc16f7645e" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances Id="9844151c-789f-4c30-b105-636bc258428b">
+                    <propertyInstance Id="cca9f478-9b39-4316-928d-16e0ff13d865" name="Set" value="public">
+                      <elementDefinition Id="726ff9f6-b665-4636-9a3d-a116d166b666" />
+                    </propertyInstance>
+                    <elementDefinition Id="f11b1df1-2bab-4828-b768-fbbaaf14eb28" />
+                  </stereotypeInstanceHasPropertyInstances>
+                </propertyInstances>
+              </stereotypeInstance>
+            </appliedStereotypesInternal>
+            <elementDefinition Id="29672959-6b75-42e5-b946-f09b4cf438c5" />
+            <ownedParameters>
+              <operationHasOwnedParameters>
+                <parameter Id="37533013-8061-4326-bfb0-28767bda3f44" direction="Return">
+                  <elementDefinition Id="e74df954-1707-4840-aae2-6c7d6c5409cc" />
+                  <type_NamedElement>
+                    <referencedTypeMoniker Id="c10c61f3-4b5d-44e0-a9b4-d2a5db005fd7" LastKnownName="String" />
+                  </type_NamedElement>
+                </parameter>
+              </operationHasOwnedParameters>
+              <operationHasOwnedParameters>
+                <parameter Id="b746afb7-716e-48b7-9001-de38199b1cc7" name="keyNameParam" direction="In">
+                  <referencesInternal>
+                    <reference Id="9dfdd976-0839-40a7-965d-1dd95cfe4ecf" handle="viewcode://./CodeSchema_Parameter?Assembly=file:///H:/SANDBOX/Framework/PointPay.Framework/bin/Debug/PointPay.Framework.dll Namespace=PointPay.Framework.V1 Type=AbstractTransactionContext Member=this ParameterIdentifier=keyNameParam" tag="ViewCode">
+                      <elementDefinition Id="f2ad2cea-50db-487c-851c-086ad64ec2b3" />
+                    </reference>
+                  </referencesInternal>
+                  <elementDefinition Id="db032922-91a6-4c97-8205-47c3429e32c8" />
+                  <type_NamedElement>
+                    <referencedTypeMoniker Id="c10c61f3-4b5d-44e0-a9b4-d2a5db005fd7" LastKnownName="String" />
+                  </type_NamedElement>
+                </parameter>
+              </operationHasOwnedParameters>
+            </ownedParameters>
+          </operation>
+        </ownedOperationsInternal>
+      </class>
+    </logicalClassDesignerModelHasTypes>
+    <packageHasNamedElement>
+      <referencedType Id="729e6fdd-a7dd-4962-8701-a68555b1e37c" name="DateTime" isAbstract="false" isLeaf="false" cachedFullName="PointPay.Framework.Modeling::System::DateTime">
+        <elementDefinition Id="128aef64-52e6-4c80-a841-44851e298fdf" />
+      </referencedType>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <referencedType Id="c10c61f3-4b5d-44e0-a9b4-d2a5db005fd7" name="String" isAbstract="false" isLeaf="false" cachedFullName="String">
+        <elementDefinition Id="59259974-6d55-42c6-b7bd-763d77ac8ef9" />
+      </referencedType>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <referencedType Id="50cd4fef-865d-4a0c-8b6b-1654fa9516b4" name="Dictionary&lt;String,String&gt;" isAbstract="false" isLeaf="false" cachedFullName="PointPay.Framework.Modeling::System::Collections::Generic::Dictionary&lt;String,String&gt;">
+        <elementDefinition Id="e7415a8e-d3c7-4aa3-90a0-dd76521f571a" />
+      </referencedType>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <referencedType Id="5ca0875a-8aa8-4d16-97e5-db01fa368ac2" name="TransactionStatus" isAbstract="false" isLeaf="false" cachedFullName="PointPay.Framework.Modeling::PointPay::Framework::V1::TransactionStatus">
+        <elementDefinition Id="cac6490e-e71c-4b3c-bb56-0078cd73c50d" />
+      </referencedType>
+    </packageHasNamedElement>
+  </packagedElements>
+  <package Id="b3cc43d7-2e0f-49eb-9ffb-2c4d3fe3361c" name="PointPay.Framework.Modeling">
+    <elementDefinition Id="ac34776e-b86c-4e52-b65b-6a7f888d5e16" />
+  </package>
+</logicalClassDesignerModel>

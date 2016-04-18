@@ -1,0 +1,366 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="ErrorCtor_TKN04" xml:space="preserve">
+    <value>TKN04 formed bad!</value>
+  </data>
+  <data name="ErrorCtor_TKNC0" xml:space="preserve">
+    <value>TKNC0 formed bad!</value>
+  </data>
+  <data name="ErrorCtor_TKNC4" xml:space="preserve">
+    <value>TKNC4 formed bad!</value>
+  </data>
+  <data name="ErrorCtor_TKNHeader" xml:space="preserve">
+    <value>Token header formed bad!</value>
+  </data>
+  <data name="ErrorCtor_TKNQ1" xml:space="preserve">
+    <value>TKNQ1 formed bad!</value>
+  </data>
+  <data name="ErrorCtor_TKNQ2" xml:space="preserve">
+    <value>TKNQ2 formed bad!</value>
+  </data>
+  <data name="ErrorCtor_TKNQ6" xml:space="preserve">
+    <value>TKNQ6 formed bad!</value>
+  </data>
+  <data name="ErrorCtor_TKNU1" xml:space="preserve">
+    <value>TKNU1 formed bad!</value>
+  </data>
+  <data name="ErrorGet_TKN04_CITY_EXT" xml:space="preserve">
+    <value>CITY_EXT not initialized</value>
+  </data>
+  <data name="ErrorGet_TKN04_COMPLETE_TRACK2_DATA" xml:space="preserve">
+    <value>COMPLETE_TRACK2_DATA not initialized</value>
+  </data>
+  <data name="ErrorGet_TKN04_CRD_VRFY_FLG" xml:space="preserve">
+    <value>CRD_VRFY_FLG not initialized</value>
+  </data>
+  <data name="ErrorGet_TKN04_ERR_FLG" xml:space="preserve">
+    <value>ERR_FLG not initialized</value>
+  </data>
+  <data name="ErrorGet_TKN04_RTE_GRP" xml:space="preserve">
+    <value>RTE_GRP not initialized</value>
+  </data>
+  <data name="ErrorGet_TKN04_UAF_FLG" xml:space="preserve">
+    <value>UAF_FLG not initialized</value>
+  </data>
+  <data name="ErrorGet_TKNC0_ADNL_DATA_IND" xml:space="preserve">
+    <value>ADNL_DATA_IND not initialized</value>
+  </data>
+  <data name="ErrorGet_TKNC0_AUTHN_COLL_IND" xml:space="preserve">
+    <value>AUTHN_COLL_IND not initialized</value>
+  </data>
+  <data name="ErrorGet_TKNC0_CAVV_AAV_RSLT_CDE" xml:space="preserve">
+    <value>CAVV_AAV_RSLT_CDE not initialized</value>
+  </data>
+  <data name="ErrorGet_TKNC0_CMRCL_CRD_TYP" xml:space="preserve">
+    <value>CMRCL_CRD_TYP not initialized</value>
+  </data>
+  <data name="ErrorGet_TKNC0_CVD_FLD" xml:space="preserve">
+    <value>CVD_FLD not initialized</value>
+  </data>
+  <data name="ErrorGet_TKNC0_CVD_FLD_PRESENT" xml:space="preserve">
+    <value>CVD_FLD_PRESENT not initialized</value>
+  </data>
+  <data name="ErrorGet_TKNC0_E_COM_FLG" xml:space="preserve">
+    <value>E_COM_FLG not initialized</value>
+  </data>
+  <data name="ErrorGet_TKNC0_FRD_PRN_FLG" xml:space="preserve">
+    <value>FRD_PRN_FLG not initialized</value>
+  </data>
+  <data name="ErrorGet_TKNC0_MOTO_FLG" xml:space="preserve">
+    <value>MOTO_FLG not initialized</value>
+  </data>
+  <data name="ErrorGet_TKNC0_RESUB_CNTR" xml:space="preserve">
+    <value>RESUB_CNTR not initialized</value>
+  </data>
+  <data name="ErrorGet_TKNC0_RESUB_STAT" xml:space="preserve">
+    <value>RESUB_STAT not initialized</value>
+  </data>
+  <data name="ErrorGet_TKNC0_SAF_OR_FORCE_POST" xml:space="preserve">
+    <value>SAF_OR_FORCE_POST not initialized</value>
+  </data>
+  <data name="ErrorGet_TKNC0_TERM_POSTAL_CDE" xml:space="preserve">
+    <value>TERM_POSTAL_CDE not initialized</value>
+  </data>
+  <data name="ErrorGet_TKNC4_CRDHLDR_ACTVT_TERM_IND" xml:space="preserve">
+    <value>CRDHLDR_ACTVT_TERM_IND not initialized</value>
+  </data>
+  <data name="ErrorGet_TKNC4_CRDHLDR_ID_METHOD" xml:space="preserve">
+    <value>CRDHLDR_ID not initialized</value>
+  </data>
+  <data name="ErrorGet_TKNC4_CRDHLDR_PRESENT_IND" xml:space="preserve">
+    <value>CRDHLDR_PRESENT_IND not initialized</value>
+  </data>
+  <data name="ErrorGet_TKNC4_CRD_CAPTR_IND" xml:space="preserve">
+    <value>CRD_CAPTR_IND not initialized</value>
+  </data>
+  <data name="ErrorGet_TKNC4_CRD_PRESENT_IND" xml:space="preserve">
+    <value>CRD_PRESENT_IND not initialized</value>
+  </data>
+  <data name="ErrorGet_TKNC4_TERM_ATTEND_IND" xml:space="preserve">
+    <value>TERM_ATTEND_IND not initialized</value>
+  </data>
+  <data name="ErrorGet_TKNC4_TERM_INPUT_CAP_IND" xml:space="preserve">
+    <value>TERM_INPUT_CAP_IND not initialized</value>
+  </data>
+  <data name="ErrorGet_TKNC4_TERM_LOC_IND" xml:space="preserve">
+    <value>TERM_LOC_IND not initialized</value>
+  </data>
+  <data name="ErrorGet_TKNC4_TXN_STAT_IND" xml:space="preserve">
+    <value>TXN_STAT_IND not initialized</value>
+  </data>
+  <data name="ErrorGet_TKNQ6_DLY" xml:space="preserve">
+    <value>DLY not initialized</value>
+  </data>
+  <data name="ErrorGet_TKNQ6_INST" xml:space="preserve">
+    <value>INST not initialized</value>
+  </data>
+  <data name="ErrorGet_TKNR1_CORR_PAN" xml:space="preserve">
+    <value>CORR_PAN length must be 16</value>
+  </data>
+  <data name="ErrorGet_TKNU1_CASH_ACCT_BAL" xml:space="preserve">
+    <value>CASH_ACCT_BAL not initialized</value>
+  </data>
+  <data name="ErrorGet_TKNU1_CASH_ACCT_BAL_IND" xml:space="preserve">
+    <value>CASH_ACCT_BAL_IND not initialized</value>
+  </data>
+  <data name="ErrorGet_TKNU1_FOOD_STMP_BAL" xml:space="preserve">
+    <value>FOOD_STMP_BAL not initialized</value>
+  </data>
+  <data name="ErrorGet_TKNU1_FOOD_STMP_BAL_IND" xml:space="preserve">
+    <value>FOOD_STMP_BAL_IND not initialized</value>
+  </data>
+  <data name="ErrorSet_TKN04_CITY_EXT" xml:space="preserve">
+    <value>CITY_EXT length not within 5 chars</value>
+  </data>
+  <data name="ErrorSet_TKN04_COMPLETE_TRACK2_DATA" xml:space="preserve">
+    <value>COMPLETE_TRACK2_DATA length must be 1</value>
+  </data>
+  <data name="ErrorSet_TKN04_CRD_VRFY_FLG" xml:space="preserve">
+    <value>CRD_VRFY_FLG length must be 1</value>
+  </data>
+  <data name="ErrorSet_TKN04_ERR_FLG" xml:space="preserve">
+    <value>ERR_FLG length must be 1</value>
+  </data>
+  <data name="ErrorSet_TKN04_RTE_GRP" xml:space="preserve">
+    <value>RTE_GRP length not within 11 chars</value>
+  </data>
+  <data name="ErrorSet_TKN04_UAF_FLG" xml:space="preserve">
+    <value>UAF_FLG length must be 1</value>
+  </data>
+  <data name="ErrorSet_TKNC0_ADNL_DATA_IND" xml:space="preserve">
+    <value>ADNL_DATA_IND length must be 1</value>
+  </data>
+  <data name="ErrorSet_TKNC0_AUTHN_COLL_IND" xml:space="preserve">
+    <value>AUTHN_COLL_IND length must be 1</value>
+  </data>
+  <data name="ErrorSet_TKNC0_CAVV_AAV_RSLT_CDE" xml:space="preserve">
+    <value>CAVV_AAV_RSLT_CDE length must be 1</value>
+  </data>
+  <data name="ErrorSet_TKNC0_CMRCL_CRD_TYP" xml:space="preserve">
+    <value>CMRCL_CRD_TYP length must be 1</value>
+  </data>
+  <data name="ErrorSet_TKNC0_CVD_FLD" xml:space="preserve">
+    <value>CVD_FLD length not within 4chars</value>
+  </data>
+  <data name="ErrorSet_TKNC0_CVD_FLD_PRESENT" xml:space="preserve">
+    <value>CVD_FLD_PRESENT length must be 1</value>
+  </data>
+  <data name="ErrorSet_TKNC0_E_COM_FLG" xml:space="preserve">
+    <value>E_COM_FLG length must be 1</value>
+  </data>
+  <data name="ErrorSet_TKNC0_FRD_PRN_FLG" xml:space="preserve">
+    <value>FRD_PRN_FLG length must be 1</value>
+  </data>
+  <data name="ErrorSet_TKNC0_MOTO_FLG" xml:space="preserve">
+    <value>MOTO_FLG length must be 1</value>
+  </data>
+  <data name="ErrorSet_TKNC0_RESUB_CNTR" xml:space="preserve">
+    <value>RESUB_CNTR length not within 3 chars</value>
+  </data>
+  <data name="ErrorSet_TKNC0_RESUB_STAT" xml:space="preserve">
+    <value>RESUB_STAT length must be 1</value>
+  </data>
+  <data name="ErrorSet_TKNC0_SAF_OR_FORCE_POST" xml:space="preserve">
+    <value>SAF_OR_FORCE_POST length must be 1</value>
+  </data>
+  <data name="ErrorSet_TKNC0_TERM_POSTAL_CDE" xml:space="preserve">
+    <value>TERM_POSTAL_CDE length not within 10 chars</value>
+  </data>
+  <data name="ErrorSet_TKNC4_CRDHLDR_ACTVT_TERM_IND" xml:space="preserve">
+    <value>CRDHLDR_ACTVT_TERM_IND length must be 1</value>
+  </data>
+  <data name="ErrorSet_TKNC4_CRDHLDR_ID_METHOD" xml:space="preserve">
+    <value>CRDHLDR_ID_METHOD length must be 1</value>
+  </data>
+  <data name="ErrorSet_TKNC4_CRDHLDR_PRESENT_IND" xml:space="preserve">
+    <value>CRDHLDR_PRESENT_IND length must be 1</value>
+  </data>
+  <data name="ErrorSet_TKNC4_CRD_CAPTR_IND" xml:space="preserve">
+    <value>CRD_CAPTR_IND length must be 1</value>
+  </data>
+  <data name="ErrorSet_TKNC4_CRD_PRESENT_IND" xml:space="preserve">
+    <value>CRD_PRESENT_IND length must be 1</value>
+  </data>
+  <data name="ErrorSet_TKNC4_TERM_ATTEND_IND" xml:space="preserve">
+    <value>TERM_ATTEND_IND length must be 1</value>
+  </data>
+  <data name="ErrorSet_TKNC4_TERM_INPUT_CAP_IND" xml:space="preserve">
+    <value>TERM_INPUT_CAP_IND length must be 1</value>
+  </data>
+  <data name="ErrorSet_TKNC4_TERM_LOC_IND" xml:space="preserve">
+    <value>TERM_LOC_IND length must be 1</value>
+  </data>
+  <data name="ErrorSet_TKNC4_TXN_STAT_IND" xml:space="preserve">
+    <value>TXN_STAT_IND length must be 1</value>
+  </data>
+  <data name="ErrorSet_TKNQ1_AUTH_MODE_ID" xml:space="preserve">
+    <value>AUTH_MODE_ID length must be 1</value>
+  </data>
+  <data name="ErrorSet_TKNQ2_ACC_ID" xml:space="preserve">
+    <value>ACC_ID length must be 2</value>
+  </data>
+  <data name="ErrorSet_TKNQ6_DLY" xml:space="preserve">
+    <value>DLY length must be 2</value>
+  </data>
+  <data name="ErrorSet_TKNQ6_INST" xml:space="preserve">
+    <value>INST length must be 2</value>
+  </data>
+  <data name="ErrorSet_TKNQ6_PLAN" xml:space="preserve">
+    <value>PLAN length must be 2</value>
+  </data>
+  <data name="ErrorSet_TKNU1_CASH_ACCT_BAL" xml:space="preserve">
+    <value>CASH_ACCT_BAL length must be within 18</value>
+  </data>
+  <data name="ErrorSet_TKNU1_CASH_ACCT_BAL_IND" xml:space="preserve">
+    <value>CASH_ACCT_BAL_IND length must be 1</value>
+  </data>
+  <data name="ErrorSet_TKNU1_FOOD_STMP_BAL" xml:space="preserve">
+    <value>FOOD_STMP_BAL length must be within 18</value>
+  </data>
+  <data name="ErrorSet_TKNU1_FOOD_STMP_BAL_IND" xml:space="preserve">
+    <value>FOOD_STMP_BAL_IND length must be 1</value>
+  </data>
+  <data name="ErrorToString_TKN" xml:space="preserve">
+    <value>Token couldn't be assembled!</value>
+  </data>
+  <data name="ErrorToString_TKNHeader" xml:space="preserve">
+    <value>Token header values not initialized!</value>
+  </data>
+</root>

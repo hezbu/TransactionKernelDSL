@@ -1,0 +1,178 @@
+﻿<#@ template inherits="Microsoft.VisualStudio.TextTemplating.VSHost.ModelingTextTransformation" #>
+<#@ parameter name="delimiter" type="System.String" #>
+<#@ parameter name="path" type="System.String" #>
+<#@ TrnxDsl processor="TrnxDslDirectiveProcessor" requires="fileName='Test.TrnxDsl'" #>
+<#@ import namespace="System.IO" #>
+<#
+    if(ValidateModel(this.TransactionModel))
+    {
+        string className = null; 
+        // When you change the DSL Definition, some of the code below may not work.
+        foreach(TransactionLayer l in this.TransactionModel.TransactionLayers)
+        {        
+            foreach (TransactionHandler h in l.TransactionHandlers)
+            {
+
+                className = "TL"+l.Level+"_"+l.Name.Replace(" ","")+ "_"+h.Name.Replace(" ","")+"_Handler";            
+                if(h.TransactionSQLServerDataSources.Count > 0)
+                {
+                    foreach(TransactionSQLServerDataSource ds in h.TransactionSQLServerDataSources)
+                    {
+                        if(SQLServerDataSourceStage_HasCustomCode(h,ds.Name) == true)
+                        {
+                                string layerLevelPath = path + "\\TL"+l.Level;
+                                if(Directory.Exists(layerLevelPath) == false) 
+                                {
+                                    Directory.CreateDirectory(layerLevelPath);
+                                }
+        
+                                string layerPath = layerLevelPath + "\\"+l.Name.Replace(" ","");
+                                if(Directory.Exists(layerPath) == false) 
+                                {
+                                    Directory.CreateDirectory(layerPath);
+                                }
+
+                                string customCodeLayerPath = layerPath + "\\CustomCode";
+                                if(Directory.Exists(customCodeLayerPath) == false) 
+                                {
+                                    Directory.CreateDirectory(customCodeLayerPath);
+                                }
+                #>
+<#=                                string.Format(delimiter,"TL"+l.Level+"\\"+l.Name.Replace(" ","")+"\\CustomCode\\"+ className+"_"+ds.Name.Replace(" ","")+"_SQLDataSourceUserCustomizedCode") #>
+	using System;
+	using System.Collections.Generic;
+	using System.Text;
+    using TransactionKernelDSL.Framework.V1;
+    using log4net.Config;
+    using log4net;
+    using System.Threading;
+
+<#
+                            if(h.TransactionSQLServerDataSources.Count > 0)
+                            {
+             #>
+    using System.Data.SqlClient;
+    using System.Data;
+<#
+                            }
+             #>
+
+namespace <#=                                this.TransactionModel.Namespace #>
+{
+
+    /// <summary>
+    /// User-customized helper for <#=                                ds.Name#> data source
+    /// </summary>
+    /// <remarks>
+    /// Generated on <#=                                DateTime.Now.ToString() #>
+    /// </remarks>
+	<#=                                ClassDefinitionGenerator(h,className) #>
+	{                    
+                public bool <#=                                ds.Name.Replace(" ","")#>_UC()
+                {
+                    #region Using SQL Connection
+                    using (SqlConnection objSQLConnection = new SqlConnection())
+                    {
+                        objSQLConnection.ConnectionString = <#=                                ds.TransactionLayer.TransactionModel.Name.Replace(" ","")+"Facade.Instance.ConnectionString;" #>
+                        objSQLConnection.Open();
+
+                        #region Using Sql Command
+                        using (SqlCommand objSQLCommand = new SqlCommand())
+                        {
+                            objSQLCommand.CommandType = CommandType.StoredProcedure;
+                            objSQLCommand.CommandText = <#=                                ds.TransactionLayer.TransactionModel.Name.Replace(" ","")+"Facade.Instance."+ds.Name.Replace(" ","")+"StoredProc;" #>
+
+                            throw new NotImplementedException("Must implement this part in order to set the parameters");
+                            //objSQLCommand.Parameters.Add(new SqlParameter("@cfg_instancia", SqlDbType.Int)).Value = this._InstanceId;
+                            //objSQLCommand.Parameters.Add(new SqlParameter("@cfg_seccion", SqlDbType.VarChar, 30)).Value = section;
+                            //if (key != null) objSQLCommand.Parameters.Add(new SqlParameter("@cfg_clave", SqlDbType.VarChar, 30)).Value = key;
+
+
+                            objSQLCommand.Connection = objSQLConnection;
+
+                            #region Using SqlDataReader
+                            using (SqlDataReader objSQLReader = objSQLCommand.ExecuteReader())
+                            {
+
+                                throw new NotImplementedException("Must implement this part in order to get valid response, if possible");
+                                //  if (objSQLReader.HasRows == true)
+                                //  {
+                                //      while (objSQLReader.Read())
+                                //      {
+                                //          if (!String.IsNullOrEmpty(objSQLReader[0].ToString())) results.Add(objSQLReader[0].ToString());
+                                //          else if (!String.IsNullOrEmpty(objSQLReader[1].ToString())) results.Add(objSQLReader[1].ToString());
+                                //  
+                                //      }
+                                //  }
+                            }
+                            #endregion
+                        }
+                        #endregion
+                        objSQLConnection.Close();
+                    }
+                    #endregion
+
+                    return true;
+                }                       
+	}
+}
+<#
+                        }
+                    }
+                
+                }
+            }
+        }
+    }
+#>
+<#+
+    private bool ValidateModel(TransactionModel m)
+    {
+        return (!String.IsNullOrEmpty(m.Name)) && (!String.IsNullOrEmpty(m.Namespace)) && (m.InstanceId > 0);
+    }
+#>
+<#+ 
+    private bool SQLServerDataSourceStage_HasCustomCode(ModelElement m, string dsName)
+    {
+        foreach(DomainRoleInfo d in m.GetDomainClass().LocalDomainRolesPlayed)
+        {
+            if(d.DisplayName == "Source SQLServer Data Source Transaction Handler")
+            {
+                foreach(TransactionKernelDSL.Framework.Language.TransactionHandlerReferencesTransactionSQLServerDataSources ds in d.GetElementLinks(m))
+                {
+                    if(ds.TransactionSQLServerDataSource.Name == dsName)
+                    {
+                        return ds.HasCustomCode;
+                    }
+                }
+            }            
+        }
+        return false;
+    }
+#>
+<#+
+    private string ClassDefinitionGenerator(TransactionHandler h, string className)
+    {
+        string result= "public partial class "+className+": AbstractTransactionHandler";
+
+        if(h.InputTransactionEngine != null)
+        {
+            result += ",ITransactionHandlerListenable";
+        }
+        if(h.ForwarderTransactionHandlers.Count > 0 || h.OutputTransactionEngine != null || h.OutputTransactionWebService != null)
+        {
+            result += ",ITransactionHandlerForwardable";
+        }
+        if(h.MaintenanceTransactionHandler != null)
+        {
+            result += ",ITransactionHandlerMaintenanceable";
+        }
+        if(h.TransactionSQLServerDataSources.Count > 0)
+        {
+            result += ",ITransactionHandlerPersistable";
+        }
+
+        return result;
+    }
+
+ #>

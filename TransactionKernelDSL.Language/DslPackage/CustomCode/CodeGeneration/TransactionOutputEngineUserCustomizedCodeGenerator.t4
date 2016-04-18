@@ -1,0 +1,356 @@
+﻿<#@ template inherits="Microsoft.VisualStudio.TextTemplating.VSHost.ModelingTextTransformation" #>
+<#@ parameter name="delimiter" type="System.String" #>
+<#@ parameter name="path" type="System.String" #>
+<#@ TrnxDsl processor="TrnxDslDirectiveProcessor" requires="fileName='Test.TrnxDsl'" #>
+<#@ import namespace="System.IO" #>
+<#
+    if(ValidateModel(this.TransactionModel))
+    {
+        string className = null; 
+        // When you change the DSL Definition, some of the code below may not work.
+        foreach(TransactionLayer l in this.TransactionModel.TransactionLayers)
+        {
+            foreach (OutputTransactionEngine e in l.OutputTransactionEngines)
+            {
+                string layerLevelPath = path + "\\TL"+l.Level;
+                if(Directory.Exists(layerLevelPath) == false) 
+                {
+                    Directory.CreateDirectory(layerLevelPath);
+                }
+        
+                string layerPath = layerLevelPath + "\\"+l.Name.Replace(" ","");
+                if(Directory.Exists(layerPath) == false) 
+                {
+                    Directory.CreateDirectory(layerPath);
+                }
+
+                string customCodeLayerPath = layerPath + "\\CustomCode";
+                if(Directory.Exists(customCodeLayerPath) == false) 
+                {
+                    Directory.CreateDirectory(customCodeLayerPath);
+                }
+                className = "TL"+l.Level+"_"+l.Name.Replace(" ","")+ "_"+e.Name.Replace(" ","")+"_Engine";
+#>	
+    <#=                    string.Format(delimiter,"TL"+l.Level+"\\"+l.Name.Replace(" ","")+"\\CustomCode\\"+className+"UserCustomizedCode") #>
+	using System;
+	using System.Collections.Generic;
+	using System.Text;
+    using TransactionKernelDSL.Framework.V1;
+    using log4net.Config;
+    using log4net;
+    using System.Threading;
+	
+namespace <#=                    this.TransactionModel.Namespace #>
+{
+
+    /// <summary>
+    /// A transactional engine named <#=                    e.Name #>
+    /// </summary>
+    /// <remarks>
+    /// Generated on <#=                    DateTime.Now.ToString() #>
+    /// </remarks>
+<#=                    OutputEngineClassDefinitionGenerator(e,className) #>
+	{
+        <# 
+
+                switch(e.Type)
+                {
+					case OutputEngineType.TcpStraightOutputEngine:
+						break;
+                    case OutputEngineType.TcpFunneledOutputEngine:
+  #> 
+                        <#=                            TcpFunneledOutputEngineGenerator(e) #>
+
+                        protected override bool UponReceiptProcess(byte[] msg)
+                        {
+                            throw new NotImplementedException("UponReceiptProcess() must be implemented in order to execute a selected behaviour upon any correct data reception");
+                        }
+                        protected override bool UponLinkProcess()
+                        {
+                            throw new NotImplementedException("UponLinkProcess() must be implemented in order to execute a selected behaviour whenever the connection's link with the client is up");
+                        } 
+                        protected override bool ProcessResponse(AbstractTransactionParser parser)
+                        { 
+                            throw new NotImplementedException("ProcessResponse() must be implemented in order to process the the incoming reply from the client endpoint"); 
+                        } 
+
+                        protected override bool MustWaitForResponse(AbstractTransactionParser parser)
+                        {
+                            throw new NotImplementedException("MustWaitForResponse() must be implemented ");
+                        }
+ <# 
+                        break;           
+                    case OutputEngineType.FunneledOutputEngine:
+                    	#> 
+                        protected override List<byte[]> GetAvailableResponses()
+                        {
+                            throw new NotImplementedException("GetAvailableResponses() must be implemented ");
+                        }
+
+                        protected override bool MustWaitForResponse(AbstractTransactionParser parser)
+                        {
+                            throw new NotImplementedException("MustWaitForResponse() must be implemented ");
+                        }
+
+                        protected override bool UponForwardProcess()
+                        {
+                            throw new NotImplementedException("UponForwardProcess() must be implemented ");
+                        }
+
+                        protected override List<byte[]> PullAvailableRequirements()
+                        {
+                            throw new NotImplementedException("PullAvailableRequirements() must be implemented ");
+                        }
+
+                        protected override bool PullResponse(AbstractTransactionParser parser)
+                        {
+                            throw new NotImplementedException("PullResponse() must be implemented ");
+                        }
+
+                        protected override bool PushRequirement(AbstractTransactionParser parser)
+                        {
+                            throw new NotImplementedException("PushRequirement() must be implemented ");
+                        }
+
+                        protected override bool PushResponse(byte[] msg)
+                        {
+                            throw new NotImplementedException("PushResponse() must be implemented ");
+                        }
+
+                        protected override bool SetRequirement()
+                        {
+                            throw new NotImplementedException("SetRequirement() must be implemented ");
+                        }
+
+                        protected override bool MustWaitForResponse(AbstractTransactionParser parser)
+                        {
+                            throw new NotImplementedException("MustWaitForResponse() must be implemented ");
+                        }
+ <# 
+                        break; 
+                    case OutputEngineType.StraightOutputEngine:
+                    	#> 
+
+                            protected override bool Connect(object handler)
+                            {
+                                throw new NotImplementedException("Connect() must be implemented in order to execute code that is able to connect to the client through the handler parameter");
+                            }
+
+                            protected override bool Disconnect(object handler)
+                            {
+                                throw new NotImplementedException("Disconnect() must be implemented in order to execute code that is able to disconnect from the client through the handler parameter");
+                            }
+
+                            protected override IDisposable OutputHandlerFactory(object state = null)
+                            {
+                                throw new NotImplementedException("OutputHandlerFactory() must be implemented in order to create a valid handler meant to be used as connector to any client, or as a proxy instance for a further object");
+                            }
+
+
+
+ <# 
+                        break;   
+                    case OutputEngineType.OutputEngine:
+                        #> 
+
+                            public override TransmissionStatus Resolve(AbstractTransactionParser parser)
+                            {
+                                throw new NotImplementedException("Resolve() must be implemented as the method that sets a requirement and eventually gets a response");
+                            }
+
+                            public override bool IsEngineOn
+                            {
+                                get { throw new NotImplementedException("Resolve() must be implemented in order to know from other classes whether this engine is working or not"); }
+                            }
+
+                            public override bool Start()
+                            {
+                                throw new NotImplementedException("Start() must be implemented in order to start the engine");
+                            }
+
+                            public override bool Stop()
+                            {
+                                throw new NotImplementedException("Stop() must be implemented in order to stop the engine");
+                            }
+
+                         <#
+                        break;               
+                }#>
+	}
+}
+<#    
+            }
+        }
+    }
+#>
+<#+
+    private string OutputEngineClassDefinitionGenerator(OutputTransactionEngine e, string className)
+    {        
+        switch(e.Type)
+        {
+            case OutputEngineType.FunneledOutputEngine:
+                return "public partial class "+className+": AbstractFunneledOutputTransactionEngine";
+            case OutputEngineType.StraightOutputEngine:                    	
+                return "public partial class "+className+": AbstractStraightOutputTransactionEngine";	
+			case OutputEngineType.TcpStraightOutputEngine:                    	
+                return "public partial class "+className+": AbstractTcpStraightOutputTransactionEngine";		
+            case OutputEngineType.TcpFunneledOutputEngine:                            
+                return "public partial class "+className+": AbstractTcpFunneledOutputTransactionEngine";       
+            default:
+            case OutputEngineType.OutputEngine:                          
+                return "public partial class "+className+": AbstractOutputTransactionEngine";                
+        }
+    }
+
+ #>
+<#+
+    private bool ValidateModel(TransactionModel m)
+    {
+        return (!String.IsNullOrEmpty(m.Name)) && (!String.IsNullOrEmpty(m.Namespace)) && (m.InstanceId > 0);
+    }
+ #>
+<#+
+    private string TcpFunneledOutputEngineGenerator(OutputTransactionEngine e)
+    {
+        string result= "";
+
+        if(e.TransactionDataSourceSupport != null)
+        {
+            switch(e.TransactionDataSourceSupport.SupportType)
+            {
+                case DataSourceSupportType.NotTyped:
+                    result+= "protected override bool PushRequirement(AbstractTransactionParser parser) \r\n"+
+                        "{\r\n"+
+                        "     throw new NotImplementedException(\"PushRequirement() must be implemented in order to push the requirement meant to be sent into any data source\");\r\n"+
+                        "}\r\n"+
+                        "protected override bool PullResponse(AbstractTransactionParser parser)\r\n"+
+                        "{\r\n"+
+                        "     throw new NotImplementedException(\"PullResponse() must be implemented \");\r\n"+
+                        "}\r\n"+
+                        "protected override bool PushResponse(byte[] msg) \r\n"+
+                        "{ \r\n"+
+                        "     throw new NotImplementedException(\"PushResponse() must be implemented \"); \r\n"+
+                        "} \r\n"+
+                        "protected override List<byte[]> PullAvailableRequirements() \r\n"+
+                        "{      \r\n"+
+                        "     throw new NotImplementedException(\"PullAvailableRequirements() must be implemented \"); \r\n"+
+                        "} \r\n"+
+                        "protected override bool UponForwardProcess()\r\n"+ 
+                        "{ \r\n"+
+                        "     throw new NotImplementedException(\"UponForwardProcess() must be implemented \"); \r\n"+
+                        "} \r\n";                       
+
+                    break;
+                default:
+                    result+= "/// <summary> \r\n";
+                    result+= "/// Gets from the parser parameter object, a valid sequence, if possible. If it's not possible to do that, \r\n";
+                    result+= "/// it should return String.Empty / null (former preferable) \r\n";
+                    result+= "/// </summary> \r\n";
+                    result+= "/// <param name=\"parser\">Valid instance of a parser</param> \r\n";
+                    result+= "/// <returns>String with a sequence, otherwise String.Empty or null</returns> \r\n";
+                    result+= "private string GetIncomingMessageSequence(AbstractTransactionParser parser) \r\n";
+                    result+= "{ \r\n";
+                    result+= "  throw new NotImplementedException(\"GetMessageSequence() must be implemented to get a valid sequence from the parser object\"); \r\n";
+                    result+= "} \r\n";
+
+                    result+= "/// <summary> \r\n";
+                    result+= "/// Gets from the parser parameter object, a valid sequence, if possible. If it's not possible to do that, \r\n";
+                    result+= "/// it should return String.Empty / null (former preferable) \r\n";
+                    result+= "/// </summary> \r\n";
+                    result+= "/// <param name=\"parser\">Valid instance of a parser</param> \r\n";
+                    result+= "/// <returns>String with a sequence, otherwise String.Empty or null</returns> \r\n";
+                    result+= "private string GetOutcomingMessageSequence(AbstractTransactionParser parser) \r\n";
+                    result+= "{ \r\n";
+                    result+= "  throw new NotImplementedException(\"GetMessageSequence() must be implemented to get a valid sequence from the parser object\"); \r\n";
+                    result+= "} \r\n";
+
+                    result+= "/// <summary> \r\n";
+                    result+= "/// Gets from the parser parameter object, a valid outcoming messasge, if possible. It must be encoded to be read as ASCII characters,  \r\n";
+                    result+= "/// although it might be BCD encoded, HEXA encoded, etc. \r\n";
+                    result+= "/// </summary> \r\n";
+                    result+= "/// <param name=\"parser\">Valid instance of a parser</param> \r\n";
+                    result+= "/// <returns>String with the outcoming message, encoded according to UTF-8, otherwise String.Empty or null</returns> \r\n";
+                    result+= "private string GetMessageOut(AbstractTransactionParser parser) \r\n";
+                    result+= "{ \r\n";
+                    result+= "  throw new NotImplementedException(\"GetMessageOut() must be implemented to get a valid message from the parser object\"); \r\n";
+                    result+= "} \r\n";
+
+                    result+= "/// <summary> \r\n";
+                    result+= "/// Gets from the parser parameter object, a valid Transaction Id, if possible. If it's not possible to do that, \r\n";
+                    result+= "/// it should return String.Empty / null (former preferable) \r\n";
+                    result+= "/// </summary> \r\n";
+                    result+= "/// <param name=\"parser\">Valid instance of a parser</param> \r\n";
+                    result+= "/// <returns>String with a Transaction Id, otherwise String.Empty or null</returns> \r\n";
+                    result+= "private string GetIncomingMessageTransactionId(AbstractTransactionParser parser) \r\n";
+                    result+= "{ \r\n";
+                    result+= "  throw new NotImplementedException(\"GetMessageTransactionId() must be implemented to get a valid transaction Id from the parser object\"); \r\n";
+                    result+= "} \r\n";
+
+                     result+= "/// <summary> \r\n";
+                    result+= "/// Gets from the parser parameter object, a valid Transaction Id, if possible. If it's not possible to do that, \r\n";
+                    result+= "/// it should return String.Empty / null (former preferable) \r\n";
+                    result+= "/// </summary> \r\n";
+                    result+= "/// <param name=\"parser\">Valid instance of a parser</param> \r\n";
+                    result+= "/// <returns>String with a Transaction Id, otherwise String.Empty or null</returns> \r\n";
+                    result+= "private string GetOutcomingMessageTransactionId(AbstractTransactionParser parser) \r\n";
+                    result+= "{ \r\n";
+                    result+= "  throw new NotImplementedException(\"GetMessageTransactionId() must be implemented to get a valid transaction Id from the parser object\"); \r\n";
+                    result+= "} \r\n";
+
+                    result+= "/// <summary> \r\n";
+                    result+= "/// Gets from the parser parameter object, a valid Reference Code, if possible. If it's not possible to do that, \r\n";
+                    result+= "/// it should return String.Empty / null (former preferable) \r\n";
+                    result+= "/// </summary> \r\n";
+                    result+= "/// <param name=\"parser\">Valid instance of a parser</param> \r\n";
+                    result+= "/// <returns>String with a Reference Code, otherwise String.Empty or null</returns> \r\n";
+                    result+= "private string GetMessageReference(AbstractTransactionParser parser) \r\n";
+                    result+= "{ \r\n";
+                    result+= "  throw new NotImplementedException(\"GetMessageReference() must be implemented to get a valid reference from the parser object\"); \r\n";
+                    result+= "} \r\n";
+
+                    result+= "/// <summary> \r\n";
+                    result+= "/// Gets from the parser parameter object, a valid incoming message, if possible. It must be encoded to be read as ASCII characters,  \r\n";
+                    result+= "/// although it might be BCD encoded, HEXA encoded, etc. \r\n";
+                    result+= "/// </summary> \r\n";
+                    result+= "/// <param name=\"parser\">Valid instance of a parser</param> \r\n";
+                    result+= "/// <returns>String with the incoming message, encoded according to UTF-8, otherwise String.Empty or null</returns> \r\n";
+                    result+= "private string GetMessageIn(AbstractTransactionParser parser) \r\n";
+                    result+= "{ \r\n";
+                    result+= "  throw new NotImplementedException(\"GetMessageIn() must be implemented to get a valid message from the parser object\"); \r\n";
+                    result+= "} \r\n";
+
+                    result+= "/// <summary> \r\n";
+                    result+= "/// Saves a incoming message, into the parser parameter object\r\n";
+                    result+= "/// </summary>\r\n";
+                    result+= "/// <param name=\"parser\">Valid instance of a parser</param>\r\n";
+                    result+= "/// <param name=\"messageIn\">String with the incoming message, encoded according to UTF-8</param>\r\n";
+                    result+= "private void SetMessageIn(AbstractTransactionParser parser, string messageIn) \r\n";
+                    result+= "{ \r\n";
+                    result+= "  throw new NotImplementedException(\"SetMessageIn() must be implemented to set a valid message into the parser object\"); \r\n";
+                    result+= "} \r\n";
+
+                    result+= "private bool UserCustomizedUponForwardProcess(AbstractTransactionParser parser) \r\n";
+                    result+= "{ \r\n";
+                    result+= "  throw new NotImplementedException(\"UserCustomizedUponForwardProcess() must be implemented if any upon-forward process is needed. Otherwise it should return true\"); \r\n";
+                    result+= "} \r\n";
+                    result+= "private byte[] FormatMessageOut(string prospectMsg, string lengthMsg) \r\n";
+                    result+= "{ \r\n";
+                    result+= "  throw new NotImplementedException(\"FormatMessageOut() must be implemented in order to convert a string-typed message to a sendable byte-array-typed message\"); \r\n";
+                    result+= "} \r\n";
+                    break;
+            }
+        }
+
+        return result;
+    }
+ #>
+
+
+
+
+
+
+
+
+
+

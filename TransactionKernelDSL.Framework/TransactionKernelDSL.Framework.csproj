@@ -1,0 +1,106 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{8C6F8E91-5AA2-4BED-8213-10C37D5E85BD}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>TransactionKernelDSL.Framework</RootNamespace>
+    <AssemblyName>TransactionKernelDSL.Framework</AssemblyName>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="log4net, Version=1.2.15.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
+      <HintPath>..\packages\log4net.2.0.5\lib\net45-full\log4net.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.configuration" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="V1\AbstractStraightOutputTransactionEngine.cs" />
+    <Compile Include="V1\AbstractInputTransactionEngine.cs" />
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="V1\AbstractFunneledOutputTransactionEngine.cs" />
+    <Compile Include="V1\AbstractOutputTransactionEngine.cs" />
+    <Compile Include="V1\AbstractTcpFunneledOutputTransactionEngine.cs" />
+    <Compile Include="V1\AbstractTcpStraightOutputTransactionEngine.cs" />
+    <Compile Include="V1\AbstractTcpTriggeredSocketReusableMultiThreadedInputEngine.cs" />
+    <Compile Include="V1\AbstractThreadedInputTransactionEngine.cs" />
+    <Compile Include="V1\AbstractTcpTriggeredMultiThreadedInputTransactionEngine.cs" />
+    <Compile Include="Test\TestEngine.cs" />
+    <Compile Include="V1\AbstractTimeTriggeredInputTransactionEngine.cs" />
+    <Compile Include="V1\AbstractTransactionContext.cs" />
+    <Compile Include="V1\AbstractTransactionEngine.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="V1\AbstractTransactionFacade.cs" />
+    <Compile Include="V1\AbstractTransactionHandler.cs" />
+    <Compile Include="V1\AbstractTransactionParser.cs" />
+    <Compile Include="V1\AbstractTransactionParserField.cs" />
+    <Compile Include="V1\AbstractTransactionParserFieldType.cs" />
+    <Compile Include="V1\AbstractTransactionParserSection.cs" />
+    <Compile Include="V1\AbstractTransactionParserStream.cs" />
+    <Compile Include="V1\AbstractTransactionParserStructure.cs" />
+    <Compile Include="V1\AbstractTransactionParserStructureType.cs" />
+    <Compile Include="V1\AbstractTransactionParserSubfield.cs" />
+    <Compile Include="V1\AbstractTransactionStub.cs" />
+    <Compile Include="V1\FrameworkEnums.cs" />
+    <Compile Include="V1\ITransactionParserCommunicable.cs" />
+    <Compile Include="V1\ITransactionHandlerForwardable.cs" />
+    <Compile Include="V1\ITransactionHandlerListenable.cs" />
+    <Compile Include="V1\ITransactionParserAssembleable.cs" />
+    <Compile Include="V1\ITransactionHandlerMaintanceable.cs" />
+    <Compile Include="V1\ITransactionHandlerPersistable.cs" />
+    <Compile Include="V2\AbstractTransactionClearing.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Modeling\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

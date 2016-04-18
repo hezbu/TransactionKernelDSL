@@ -1,0 +1,30 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<transactionModel xmlns:dm0="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" dslVersion="1.0.0.0" Id="fff89694-63db-4abe-8715-0c19370ec8d6" name="CorrBanc" instanceId="1" namespace="PDS.Switch.CorrBanc" getValueImplementationType="SQLServerDatabase" sequenceFactoryImplementationType="SQLServerDatabase" databaseServerInstance="127.0.0.1" databaseUser="sa" xmlns="http://schemas.microsoft.com/dsltools/TrnxDsl">
+  <transactionLayers>
+    <transactionModelHasTransactionLayers Id="f82fa38d-e195-4d07-8e3d-1d198cdaad70">
+      <transactionLayer Id="9c16ef56-1097-43b1-8975-cf53e6fc32a0" name="Listener Layer" level="0">
+        <transactionHandlers>
+          <transactionLayerHasTransactionHandlers Id="71424765-95ea-471a-a058-92701a616f8d">
+            <transactionHandler Id="34090629-a133-4157-b81b-b715710d83f5" name="Consulta de Saldo" transactionId="0100999999" />
+          </transactionLayerHasTransactionHandlers>
+        </transactionHandlers>
+        <inputTransactionEngines>
+          <transactionLayerHasInputTransactionEngines Id="2b434867-41d0-4711-a5e4-846c0947cbb9">
+            <inputTransactionEngine Id="ecda1edf-b982-43db-9a5d-097e9d36eeea" name="Listener Engine" parser="Iso8583" parserSectionName="ISO" hasUnitTests="true" type="TcpTriggeredMultiThreadedInputEngine">
+              <transactionHandlers>
+                <inputTransactionEngineReferencesTransactionHandlers Id="ec95f193-1dd1-42e7-9252-616f075337d3">
+                  <transactionHandlerMoniker Id="34090629-a133-4157-b81b-b715710d83f5" />
+                </inputTransactionEngineReferencesTransactionHandlers>
+              </transactionHandlers>
+            </inputTransactionEngine>
+          </transactionLayerHasInputTransactionEngines>
+        </inputTransactionEngines>
+      </transactionLayer>
+    </transactionModelHasTransactionLayers>
+  </transactionLayers>
+  <transactionEnvironmentLayer>
+    <transactionModelHasTransactionEnvironmentLayer Id="12f4cc35-466e-4d15-8227-4afaa9cb973b">
+      <transactionEnvironmentLayer Id="ecd8ef8c-9ea0-406a-97f0-3eecfd823af4" name="Environmental Layer" />
+    </transactionModelHasTransactionEnvironmentLayer>
+  </transactionEnvironmentLayer>
+</transactionModel>

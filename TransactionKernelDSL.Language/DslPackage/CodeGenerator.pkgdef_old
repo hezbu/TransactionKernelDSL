@@ -1,0 +1,15 @@
+﻿[$RootKey$\Generators] 
+[$RootKey$\Generators\{FAE04EC1-301F-11d3-BF4B-00C04F79EFBC}] 
+[$RootKey$\Generators\{FAE04EC1-301F-11d3-BF4B-00C04F79EFBC}\PointPayFrameworkLanguageFileCodeGenerator] 
+@="Custom tool that generates C# files for transactional solutions described in .PpayDsl files" 
+"CLSID"="{6613FE18-21CC-4269-8F1C-16EC0542D0E6}" 
+"GeneratesDesignTimeSource"=dword:00000001 
+[$RootKey$\CLSID] 
+[$RootKey$\CLSID\{6613FE18-21CC-4269-8F1C-16EC0542D0E6}]
+@=" Custom tool that generates C# files for transactional solutions described in .PpayDsl files " 
+"Class"=" PointPay.Framework.Language.CodeGenerator" 
+"InprocServer32"="$WinDir$\SYSTEM32\MSCOREE.DLL" 
+"ThreadingModel"="Both"
+"CodeBase"="$PackageFolder$\PointPay.Framework.Language.DslPackage.dll" 
+[$RootKey$\Generators\{FAE04EC1-301F-11d3-BF4B-00C04F79EFBC}\.PpayDsl] 
+@=" PointPayFrameworkLanguageFileCodeGenerator "

@@ -1,0 +1,155 @@
+﻿<#@ template inherits="Microsoft.VisualStudio.TextTemplating.VSHost.ModelingTextTransformation" #>
+<#@ parameter name="delimiter" type="System.String" #>
+<#@ parameter name="path" type="System.String" #>
+<#@ template language="C#v3.5" #>
+<#@ assembly name="System.Core" #>
+<#@ import namespace="System.Linq" #>
+<#@ import namespace="System.Collections.Generic" #>
+<#@ TrnxDsl processor="TrnxDslDirectiveProcessor" requires="fileName='Test.TrnxDsl'" #>
+<#@ import namespace="System.IO" #>
+<#
+    if(ValidateModel(this.TransactionModel))
+    { 
+        string className = null; 
+        // When you change the DSL Definition, some of the code below may not work.
+        foreach(TransactionLayer l in this.TransactionModel.TransactionLayers)
+        {
+            foreach (InputTransactionEngine e in l.InputTransactionEngines)
+            {
+                if(e.Parser == ParserType.PropietaryParser)
+                {
+                   string layerLevelPath = path + "\\UnitTest";
+                    if(Directory.Exists(layerLevelPath) == false) 
+                    {
+                        Directory.CreateDirectory(layerLevelPath);
+                    }
+
+                    className = "TL"+l.Level+"_"+l.Name.Replace(" ","")+ "_"+e.Name.Replace(" ","")+"_Parser_UnitTest";
+
+                    #>
+                    <#=                    string.Format(delimiter,"UnitTest\\"+className) #>
+                    using System;
+	                using System.Collections.Generic;
+	                using System.Text;
+                    using TransactionKernelDSL.Framework.V1;
+                    using log4net.Config;
+                    using log4net;
+                    using System.Threading;
+                    using NUnit.Framework;
+					using System.Diagnostics;
+                    #if DEBUG == true
+                    namespace <#=                    this.TransactionModel.Namespace #>
+                    {
+
+                        /// <summary>
+                        /// A transactional unit test class named <#=                    className #>
+                        /// </summary>
+                        /// <remarks>
+                        /// Generated on <#=                    DateTime.Now.ToString() #>
+                        /// </remarks>
+                        [TestFixture]
+                        public partial class <#=                    className #>
+	                    {
+                            [Test]
+                            public void <#=                    className #>_Assemble_Test()
+                            {
+                                    
+                                    <#= "TL"+l.Level+"_"+l.Name.Replace(" ","")+ "_"+e.Name.Replace(" ","")+"_Parser" #> parser = new <#= "TL"+l.Level+"_"+l.Name.Replace(" ","")+ "_"+e.Name.Replace(" ","")+"_Parser" #>();
+
+                                    parser.ResponseStructure = <#= className #>Input.GetResponseStructure();
+                                    Assert.True(parser.AssembleMethod());
+                                    Debug.WriteLine(parser.ResponseStream.ToString());
+                            }
+
+                            [Test]
+                            public void <#=                    className #>_Disassemble_Test()
+                            {
+                                     <#= "TL"+l.Level+"_"+l.Name.Replace(" ","")+ "_"+e.Name.Replace(" ","")+"_Parser" #> parser = new <#= "TL"+l.Level+"_"+l.Name.Replace(" ","")+ "_"+e.Name.Replace(" ","")+"_Parser" #>();
+                                    
+                                    parser.RequestStream = <#= className #>Input.GetRequestStream();
+                                    Assert.True(parser.DisassembleMethod());
+                                    Debug.WriteLine(parser.RequestStructure.ToString());
+                            }
+                        }
+                    }
+                    #endif
+<#
+                    
+                }
+            }
+            //---------------------------------------------------------------------------------------
+            //---------------------------------------------------------------------------------------
+            //---------------------------------------------------------------------------------------
+            //---------------------------------------------------------------------------------------
+            foreach (OutputTransactionEngine e in l.OutputTransactionEngines)
+            {
+                if(e.Parser == ParserType.PropietaryParser)
+                {
+                    string layerLevelPath = path + "\\UnitTest";
+                    if(Directory.Exists(layerLevelPath) == false) 
+                    {
+                        Directory.CreateDirectory(layerLevelPath);
+                    }
+        
+                    
+
+                    className = "TL"+l.Level+"_"+l.Name.Replace(" ","")+ "_"+e.Name.Replace(" ","")+"_Parser_UnitTest";
+                    #>	
+    <#=                    string.Format(delimiter,"UnitTest\\"+className) #>
+                    using System;
+	                using System.Collections.Generic;
+	                using System.Text;
+                    using TransactionKernelDSL.Framework.V1;
+                    using log4net.Config;
+                    using log4net;
+                    using System.Threading;
+                    using NUnit.Framework;
+					using System.Diagnostics;
+                    #if DEBUG == true
+                    namespace <#=                    this.TransactionModel.Namespace #>
+                    {
+
+                        /// <summary>
+                        /// A transactional unit test class named <#=                    className #>
+                        /// </summary>
+                        /// <remarks>
+                        /// Generated on <#=                    DateTime.Now.ToString() #>
+                        /// </remarks>
+                        [TestFixture]
+                        public partial class <#=                    className #>
+	                    {
+                            [Test]
+                            public void <#=                    className #>_Assemble_Test()
+                            {
+                                    
+                                    <#= "TL"+l.Level+"_"+l.Name.Replace(" ","")+ "_"+e.Name.Replace(" ","")+"_Parser" #> parser = new <#= "TL"+l.Level+"_"+l.Name.Replace(" ","")+ "_"+e.Name.Replace(" ","")+"_Parser" #>();
+
+                                    parser.ResponseStructure = <#= className #>Input.GetResponseStructure();
+                                    Assert.True(parser.AssembleMethod());
+                                    Debug.WriteLine(parser.ResponseStream.ToString());
+                            }
+
+                            [Test]
+                            public void <#=                    className #>_Disassemble_Test()
+                            {
+                                     <#= "TL"+l.Level+"_"+l.Name.Replace(" ","")+ "_"+e.Name.Replace(" ","")+"_Parser" #> parser = new <#= "TL"+l.Level+"_"+l.Name.Replace(" ","")+ "_"+e.Name.Replace(" ","")+"_Parser" #>();
+                                    
+                                    parser.RequestStream = <#= className #>Input.GetRequestStream();
+                                    Assert.True(parser.DisassembleMethod());
+                                    Debug.WriteLine(parser.RequestStructure.ToString());
+                            }
+                        }
+                    }
+                    #endif
+                    <#
+                }    
+            }
+        }
+    }
+#>
+<#+
+    private bool ValidateModel(TransactionModel m)
+    {
+        return (!String.IsNullOrEmpty(m.Name)) && (!String.IsNullOrEmpty(m.Namespace)) && (m.InstanceId > 0);
+    }
+ #>

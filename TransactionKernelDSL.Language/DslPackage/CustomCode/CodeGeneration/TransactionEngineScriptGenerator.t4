@@ -1,0 +1,979 @@
+﻿<#@ template inherits="Microsoft.VisualStudio.TextTemplating.VSHost.ModelingTextTransformation" #>
+<#@ parameter name="delimiter" type="System.String" #>
+<#@ parameter name="path" type="System.String" #>
+<#@ TrnxDsl processor="TrnxDslDirectiveProcessor" requires="fileName='Test.TrnxDsl'" #>
+<#@ import namespace="System.IO" #>
+<#
+    if(ValidateModel(this.TransactionModel))
+    { 
+        bool configTableCreated = false;
+        foreach(TransactionLayer l in this.TransactionModel.TransactionLayers)
+        {
+            foreach (InputTransactionEngine e in l.InputTransactionEngines)
+            {
+                string scriptsPath = path + "\\Scripts";
+                if(Directory.Exists(scriptsPath) == false) 
+                {
+                    Directory.CreateDirectory(scriptsPath);
+                }
+
+                string scriptName= "TL"+l.Level+"_"+l.Name.Replace(" ","")+ "_"+e.Name.Replace(" ","")+"_Script";
+                #>
+                  <#=                    string.Format(delimiter,"Scripts\\"+scriptName) #>
+                    USE [<#= this.TransactionModel.DatabaseInitialCatalog #>]
+                    GO
+                <#=                    ConfigTableGenerator(configTableCreated, this.TransactionModel.ScriptVersion) #>
+                <#=                    InputEngineSetup(e, this.TransactionModel.ScriptVersion) #>                
+                <#
+            }
+            foreach(OutputTransactionEngine e in l.OutputTransactionEngines)
+            {
+                string scriptsPath = path + "\\Scripts";
+                if(Directory.Exists(scriptsPath) == false) 
+                {
+                    Directory.CreateDirectory(scriptsPath);
+                }
+
+                string scriptName= "TL"+l.Level+"_"+l.Name.Replace(" ","")+ "_"+e.Name.Replace(" ","")+"_Script";
+                #>
+                  <#=                    string.Format(delimiter,"Scripts\\"+scriptName) #>
+                    USE [<#= this.TransactionModel.DatabaseInitialCatalog #>]
+                    GO
+                <#=                    ConfigTableGenerator(configTableCreated, this.TransactionModel.ScriptVersion) #>
+                <#=                    OutputEngineSetup(e, this.TransactionModel.ScriptVersion) #>
+                <#
+            }
+        }
+    }
+#>
+<#+
+    private bool ValidateModel(TransactionModel m)
+    {
+        return (!String.IsNullOrEmpty(m.Name)) && (!String.IsNullOrEmpty(m.Namespace)) && (m.InstanceId > 0);
+    }
+ #>
+<#+
+    private string ConfigTableGenerator(bool configTableCreated, int scriptVersion)
+    {
+        string result= "";
+        if(configTableCreated == false)
+        {
+			switch(scriptVersion)
+            {
+				default:
+						{
+						configTableCreated = true;
+						result+= " IF OBJECT_ID('CONFIGURACION') IS NULL \r\n\t";
+						result+= " BEGIN \r\n\t";
+						result+= " CREATE TABLE [dbo].[CONFIGURACION]( \r\n\t";
+						result+= " [cfg_instancia] [int] NOT NULL DEFAULT ((0)), \r\n\t";
+						result+= "  [cfg_seccion] [varchar](100) NOT NULL, \r\n\t";
+						result+= "  [cfg_clave] [varchar](100) NOT NULL, \r\n\t";
+						result+= "  [cfg_numero] [int] NULL, \r\n\t";
+						result+= "  [cfg_cadena] [varchar](1000) NULL, \r\n\t";
+						result+= "  [cfg_descripcion] [varchar](255) NULL, \r\n\t";
+						result+= "  CONSTRAINT [XPKCONFIGURACION] PRIMARY KEY CLUSTERED  \r\n\t";
+						result+= "  ( \r\n\t";
+						result+= "  [cfg_instancia] ASC, \r\n\t";
+						result+= "  [cfg_seccion] ASC, \r\n\t";
+						result+= "  [cfg_clave] ASC \r\n\t";
+						result+= "  ) \r\n\t";
+						result+= "  WITH (PAD_INDEX  = OFF, STATISTICS_NORECOMPUTE  = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS  = ON, ALLOW_PAGE_LOCKS  = ON) ON [PRIMARY] \r\n\t";
+						result+= "  ) ON [PRIMARY] \r\n\t";
+						result+= "  END \r\n\t";
+						}
+						break;
+				case 2:
+						{
+						configTableCreated = true;
+						result+= " IF OBJECT_ID('Configuraciones') IS NULL \r\n\t";
+						result+= " BEGIN \r\n\t";
+						result+= "CREATE TABLE [dbo].[Configuraciones](  \r\n\t";
+						result+= "[Instancia] [int] NOT NULL DEFAULT ((0)),  \r\n\t";
+						result+= "[Seccion] [varchar](1000) NOT NULL,  \r\n\t";
+						result+= "[Clave] [varchar](1000) NOT NULL,  \r\n\t";
+						result+= "[Numero] [int] NULL,  \r\n\t";
+						result+= "[Cadena] [varchar](1000) NULL, \r\n\t";
+						result+= "[Descripcion] [varchar](255) NULL,  \r\n\t ";
+						result+= "CONSTRAINT [XPKConfiguraciones] PRIMARY KEY CLUSTERED   \r\n\t ";
+						result+= "(  \r\n\t";
+						result+= "	[Instancia] ASC,  \r\n\t";
+						result+= "	[Seccion] ASC,  \r\n\t";
+						result+= "	[Clave] ASC  \r\n\t";
+						result+= ")WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]  \r\n\t";
+						result+= ") ON [PRIMARY]  \r\n\t";
+						result+= "  END \r\n\t";
+						}
+						break;
+
+            }
+          
+        }
+        return result;
+    }
+ #>
+<#+
+    private string InputEngineSetup(InputTransactionEngine e, int scriptVersion)
+    {
+        string result= "";
+
+        switch(e.Type)
+        {
+            case InputEngineType.TimeTriggeredInputEngine:
+
+                foreach(TimeTrigger tt in e.TimeTriggers)
+                {  
+					switch(scriptVersion)
+                    {
+						default:
+							{
+								result += "IF NOT EXISTS (SELECT cfg_instancia FROM CONFIGURACION WHERE cfg_seccion = '"+this.TransactionModel.Name.Replace(" ","")+".General' and cfg_clave = '"+e.Name.Replace(" ","")+"_"+tt.Name.Replace(" ","")+"DueTime' and cfg_instancia = "+e.TransactionLayer.TransactionModel.InstanceId+") \r\n\t";
+								result += "BEGIN \r\n\t";
+								result += "INSERT INTO [CONFIGURACION] \r\n\t";
+								result += "  ([cfg_instancia] \r\n\t";
+								result += "  ,[cfg_seccion] \r\n\t";
+								result += "  ,[cfg_clave] \r\n\t";
+								result += "  ,[cfg_numero] \r\n\t";
+								result += "  ,[cfg_cadena] \r\n\t";
+								result += "  ,[cfg_descripcion]) \r\n\t";
+								result += " VALUES \r\n\t";
+								result += " ("+e.TransactionLayer.TransactionModel.InstanceId+"\r\n\t";
+								result += " ,'"+e.TransactionLayer.TransactionModel.Name.Replace(" ","")+".General'\r\n\t";
+								result += " ,'"+e.Name.Replace(" ","")+"_"+tt.Name.Replace(" ","")+"DueTime'\r\n\t";                    
+								result += " ,60\r\n\t";                    
+								result += " ,NULL\r\n\t";                    
+								result += " ,'Time trigger due time interval')\r\n\t";        
+								result += "END \r\n\t"; 
+							}
+							break;
+						case 2:
+							{
+								result += "IF NOT EXISTS (SELECT Instancia FROM Configuraciones WHERE Seccion = '"+this.TransactionModel.Name.Replace(" ","")+".General' and Clave = '"+e.Name.Replace(" ","")+"_"+tt.Name.Replace(" ","")+"DueTime' and Instancia = "+e.TransactionLayer.TransactionModel.InstanceId+") \r\n\t";
+								result += "BEGIN \r\n\t";
+								result += "INSERT INTO [Configuraciones] \r\n\t";
+								result += "  ([Instancia] \r\n\t";
+								result += "  ,[Seccion] \r\n\t";
+								result += "  ,[Clave] \r\n\t";
+								result += "  ,[Numero] \r\n\t";
+								result += "  ,[Cadena] \r\n\t";
+								result += "  ,[Descripcion]) \r\n\t";
+								result += " VALUES \r\n\t";
+								result += " ("+e.TransactionLayer.TransactionModel.InstanceId+"\r\n\t";
+								result += " ,'"+e.TransactionLayer.TransactionModel.Name.Replace(" ","")+".General'\r\n\t";
+								result += " ,'"+e.Name.Replace(" ","")+"_"+tt.Name.Replace(" ","")+"DueTime'\r\n\t";                    
+								result += " ,60\r\n\t";                    
+								result += " ,NULL\r\n\t";                    
+								result += " ,'Time trigger due time interval')\r\n\t";        
+								result += "END \r\n\t"; 
+							}
+							break;
+                    }
+                      
+                }                
+                break;
+            case InputEngineType.TcpTriggeredMultiThreadedInputEngine:
+			case InputEngineType.TcpTriggeredSocketReusableMultiThreadedInputEngine:
+                    switch(scriptVersion)
+                    {
+						default:
+							{
+								    result += "IF NOT EXISTS (SELECT cfg_instancia FROM CONFIGURACION WHERE cfg_seccion = '"+e.TransactionLayer.TransactionModel.Name.Replace(" ","")+".General' and cfg_clave = '"+e.Name.Replace(" ","")+"_ServerTCPPort' and cfg_instancia = "+e.TransactionLayer.TransactionModel.InstanceId+") \r\n\t";
+									result += "BEGIN \r\n\t";
+									result += "INSERT INTO [CONFIGURACION] \r\n\t";
+									result += "  ([cfg_instancia] \r\n\t";
+									result += "  ,[cfg_seccion] \r\n\t";
+									result += "  ,[cfg_clave] \r\n\t";
+									result += "  ,[cfg_numero] \r\n\t";
+									result += "  ,[cfg_cadena] \r\n\t";
+									result += "  ,[cfg_descripcion]) \r\n\t";
+									result += " VALUES \r\n\t";
+									result += " ("+e.TransactionLayer.TransactionModel.InstanceId+"\r\n\t";
+									result += " ,'"+e.TransactionLayer.TransactionModel.Name.Replace(" ","")+".General'\r\n\t";
+									result += " ,'"+e.Name.Replace(" ","")+"_ServerTCPPort'\r\n\t";                    
+									result += " ,8888\r\n\t";                    
+									result += " ,NULL\r\n\t";                    
+									result += " ,'Server listenable Tcp Port')\r\n\t";        
+									result += "END \r\n\t";     
+
+									result += "IF NOT EXISTS (SELECT cfg_instancia FROM CONFIGURACION WHERE cfg_seccion = '"+e.TransactionLayer.TransactionModel.Name.Replace(" ","")+".General' and cfg_clave = '"+e.Name.Replace(" ","")+"_ServerIPAddress' and cfg_instancia = "+e.TransactionLayer.TransactionModel.InstanceId+") \r\n\t";
+									result += "BEGIN \r\n\t";
+									result += "INSERT INTO [CONFIGURACION] \r\n\t";
+									result += "  ([cfg_instancia] \r\n\t";
+									result += "  ,[cfg_seccion] \r\n\t";
+									result += "  ,[cfg_clave] \r\n\t";
+									result += "  ,[cfg_numero] \r\n\t";
+									result += "  ,[cfg_cadena] \r\n\t";
+									result += "  ,[cfg_descripcion]) \r\n\t";
+									result += " VALUES \r\n\t";
+									result += " ("+e.TransactionLayer.TransactionModel.InstanceId+"\r\n\t";
+									result += " ,'"+e.TransactionLayer.TransactionModel.Name.Replace(" ","")+".General'\r\n\t";
+									result += " ,'"+e.Name.Replace(" ","")+"_ServerIPAddress'\r\n\t";                    
+									result += " ,NULL\r\n\t";                    
+									result += " ,'127.0.0.1'\r\n\t";                    
+									result += " ,'Server listenable Ip Address')\r\n\t";        
+									result += "END \r\n\t";  
+   
+									result += "IF NOT EXISTS (SELECT cfg_instancia FROM CONFIGURACION WHERE cfg_seccion = '"+e.TransactionLayer.TransactionModel.Name.Replace(" ","")+".General' and cfg_clave = '"+e.Name.Replace(" ","")+"ServerTimeoutSec' and cfg_instancia = "+e.TransactionLayer.TransactionModel.InstanceId+") \r\n\t";
+									result += "BEGIN \r\n\t";
+									result += "INSERT INTO [CONFIGURACION] \r\n\t";
+									result += "  ([cfg_instancia] \r\n\t";
+									result += "  ,[cfg_seccion] \r\n\t";
+									result += "  ,[cfg_clave] \r\n\t";
+									result += "  ,[cfg_numero] \r\n\t";
+									result += "  ,[cfg_cadena] \r\n\t";
+									result += "  ,[cfg_descripcion]) \r\n\t";
+									result += " VALUES \r\n\t";
+									result += " ("+e.TransactionLayer.TransactionModel.InstanceId+"\r\n\t";
+									result += " ,'"+e.TransactionLayer.TransactionModel.Name.Replace(" ","")+".General'\r\n\t";
+									result += " ,'"+e.Name.Replace(" ","")+"ServerTimeoutSec'\r\n\t";                    
+									result += " ,60\r\n\t";                    
+									result += " ,NULL\r\n\t";                    
+									result += " ,'Server Time Out in seconds')\r\n\t";        
+									result += "END \r\n\t";     
+
+									result += "IF NOT EXISTS (SELECT cfg_instancia FROM CONFIGURACION WHERE cfg_seccion = '"+e.TransactionLayer.TransactionModel.Name.Replace(" ","")+".General' and cfg_clave = '"+e.Name.Replace(" ","")+"MaxCompletionWorkThread' and cfg_instancia = "+e.TransactionLayer.TransactionModel.InstanceId+") \r\n\t";
+									result += "BEGIN \r\n\t";
+									result += "INSERT INTO [CONFIGURACION] \r\n\t";
+									result += "  ([cfg_instancia] \r\n\t";
+									result += "  ,[cfg_seccion] \r\n\t";
+									result += "  ,[cfg_clave] \r\n\t";
+									result += "  ,[cfg_numero] \r\n\t";
+									result += "  ,[cfg_cadena] \r\n\t";
+									result += "  ,[cfg_descripcion]) \r\n\t";
+									result += " VALUES \r\n\t";
+									result += " ("+e.TransactionLayer.TransactionModel.InstanceId+"\r\n\t";
+									result += " ,'"+e.TransactionLayer.TransactionModel.Name.Replace(" ","")+".General'\r\n\t";
+									result += " ,'"+e.Name.Replace(" ","")+"MaxCompletionWorkThread'\r\n\t";                    
+									result += " ,1000\r\n\t";                    
+									result += " ,NULL\r\n\t";                    
+									result += " ,'Maximum completion work threads')\r\n\t";        
+									result += "END \r\n\t";     
+
+									result += "IF NOT EXISTS (SELECT cfg_instancia FROM CONFIGURACION WHERE cfg_seccion = '"+e.TransactionLayer.TransactionModel.Name.Replace(" ","")+".General' and cfg_clave = '"+e.Name.Replace(" ","")+"MinThread' and cfg_instancia = "+e.TransactionLayer.TransactionModel.InstanceId+") \r\n\t";
+									result += "BEGIN \r\n\t";
+									result += "INSERT INTO [CONFIGURACION] \r\n\t";
+									result += "  ([cfg_instancia] \r\n\t";
+									result += "  ,[cfg_seccion] \r\n\t";
+									result += "  ,[cfg_clave] \r\n\t";
+									result += "  ,[cfg_numero] \r\n\t";
+									result += "  ,[cfg_cadena] \r\n\t";
+									result += "  ,[cfg_descripcion]) \r\n\t";
+									result += " VALUES \r\n\t";
+									result += " ("+e.TransactionLayer.TransactionModel.InstanceId+"\r\n\t";
+									result += " ,'"+e.TransactionLayer.TransactionModel.Name.Replace(" ","")+".General'\r\n\t";
+									result += " ,'"+e.Name.Replace(" ","")+"MinThread'\r\n\t";                    
+									result += " ,50\r\n\t";                    
+									result += " ,NULL\r\n\t";                    
+									result += " ,'Threads available in thread pool')\r\n\t";        
+									result += "END \r\n\t";    
+                            }
+							break;
+						case 2:
+							{
+								 result += "IF NOT EXISTS (SELECT Instancia FROM Configuraciones WHERE Seccion = '"+e.TransactionLayer.TransactionModel.Name.Replace(" ","")+".General' and Clave = '"+e.Name.Replace(" ","")+"_ServerTCPPort' and Instancia = "+e.TransactionLayer.TransactionModel.InstanceId+") \r\n\t";
+									result += "BEGIN \r\n\t";
+									result += "INSERT INTO [Configuraciones] \r\n\t";
+									result += "  ([Instancia] \r\n\t";
+									result += "  ,[Seccion] \r\n\t";
+									result += "  ,[Clave] \r\n\t";
+									result += "  ,[Numero] \r\n\t";
+									result += "  ,[Cadena] \r\n\t";
+									result += "  ,[Descripcion]) \r\n\t";
+									result += " VALUES \r\n\t";
+									result += " ("+e.TransactionLayer.TransactionModel.InstanceId+"\r\n\t";
+									result += " ,'"+e.TransactionLayer.TransactionModel.Name.Replace(" ","")+".General'\r\n\t";
+									result += " ,'"+e.Name.Replace(" ","")+"_ServerTCPPort'\r\n\t";                    
+									result += " ,8888\r\n\t";                    
+									result += " ,NULL\r\n\t";                    
+									result += " ,'Server listenable Tcp Port')\r\n\t";        
+									result += "END \r\n\t";     
+
+									result += "IF NOT EXISTS (SELECT Instancia FROM Configuraciones WHERE Seccion = '"+e.TransactionLayer.TransactionModel.Name.Replace(" ","")+".General' and Clave = '"+e.Name.Replace(" ","")+"_ServerIPAddress' and Instancia = "+e.TransactionLayer.TransactionModel.InstanceId+") \r\n\t";
+									result += "BEGIN \r\n\t";
+									result += "INSERT INTO [Configuraciones] \r\n\t";
+									result += "  ([Instancia] \r\n\t";
+									result += "  ,[Seccion] \r\n\t";
+									result += "  ,[Clave] \r\n\t";
+									result += "  ,[Numero] \r\n\t";
+									result += "  ,[Cadena] \r\n\t";
+									result += "  ,[Descripcion]) \r\n\t";
+									result += " VALUES \r\n\t";
+									result += " ("+e.TransactionLayer.TransactionModel.InstanceId+"\r\n\t";
+									result += " ,'"+e.TransactionLayer.TransactionModel.Name.Replace(" ","")+".General'\r\n\t";
+									result += " ,'"+e.Name.Replace(" ","")+"_ServerIPAddress'\r\n\t";                    
+									result += " ,NULL\r\n\t";                    
+									result += " ,'127.0.0.1'\r\n\t";                    
+									result += " ,'Server listenable Ip Address')\r\n\t";        
+									result += "END \r\n\t";  
+   
+									result += "IF NOT EXISTS (SELECT Instancia FROM Configuraciones WHERE Seccion = '"+e.TransactionLayer.TransactionModel.Name.Replace(" ","")+".General' and Clave = '"+e.Name.Replace(" ","")+"ServerTimeoutSec' and Instancia = "+e.TransactionLayer.TransactionModel.InstanceId+") \r\n\t";
+									result += "BEGIN \r\n\t";
+									result += "INSERT INTO [Configuraciones] \r\n\t";
+									result += "  ([Instancia] \r\n\t";
+									result += "  ,[Seccion] \r\n\t";
+									result += "  ,[Clave] \r\n\t";
+									result += "  ,[Numero] \r\n\t";
+									result += "  ,[Cadena] \r\n\t";
+									result += "  ,[Descripcion]) \r\n\t";
+									result += " VALUES \r\n\t";
+									result += " ("+e.TransactionLayer.TransactionModel.InstanceId+"\r\n\t";
+									result += " ,'"+e.TransactionLayer.TransactionModel.Name.Replace(" ","")+".General'\r\n\t";
+									result += " ,'"+e.Name.Replace(" ","")+"ServerTimeoutSec'\r\n\t";                    
+									result += " ,60\r\n\t";                    
+									result += " ,NULL\r\n\t";                    
+									result += " ,'Server Time Out in seconds')\r\n\t";        
+									result += "END \r\n\t";     
+
+									result += "IF NOT EXISTS (SELECT Instancia FROM Configuraciones WHERE Seccion = '"+e.TransactionLayer.TransactionModel.Name.Replace(" ","")+".General' and Clave = '"+e.Name.Replace(" ","")+"MaxCompletionWorkThread' and Instancia = "+e.TransactionLayer.TransactionModel.InstanceId+") \r\n\t";
+									result += "BEGIN \r\n\t";
+									result += "INSERT INTO [Configuraciones] \r\n\t";
+									result += "  ([Instancia] \r\n\t";
+									result += "  ,[Seccion] \r\n\t";
+									result += "  ,[Clave] \r\n\t";
+									result += "  ,[Numero] \r\n\t";
+									result += "  ,[Cadena] \r\n\t";
+									result += "  ,[Descripcion]) \r\n\t";
+									result += " VALUES \r\n\t";
+									result += " ("+e.TransactionLayer.TransactionModel.InstanceId+"\r\n\t";
+									result += " ,'"+e.TransactionLayer.TransactionModel.Name.Replace(" ","")+".General'\r\n\t";
+									result += " ,'"+e.Name.Replace(" ","")+"MaxCompletionWorkThread'\r\n\t";                    
+									result += " ,1000\r\n\t";                    
+									result += " ,NULL\r\n\t";                    
+									result += " ,'Maximum completion work threads')\r\n\t";        
+									result += "END \r\n\t";     
+
+									result += "IF NOT EXISTS (SELECT Instancia FROM Configuraciones WHERE Seccion = '"+e.TransactionLayer.TransactionModel.Name.Replace(" ","")+".General' and Clave = '"+e.Name.Replace(" ","")+"MinThread' and Instancia = "+e.TransactionLayer.TransactionModel.InstanceId+") \r\n\t";
+									result += "BEGIN \r\n\t";
+									result += "INSERT INTO [Configuraciones] \r\n\t";
+									result += "  ([Instancia] \r\n\t";
+									result += "  ,[Seccion] \r\n\t";
+									result += "  ,[Clave] \r\n\t";
+									result += "  ,[Numero] \r\n\t";
+									result += "  ,[Cadena] \r\n\t";
+									result += "  ,[Descripcion]) \r\n\t";
+									result += " VALUES \r\n\t";
+									result += " ("+e.TransactionLayer.TransactionModel.InstanceId+"\r\n\t";
+									result += " ,'"+e.TransactionLayer.TransactionModel.Name.Replace(" ","")+".General'\r\n\t";
+									result += " ,'"+e.Name.Replace(" ","")+"MinThread'\r\n\t";                    
+									result += " ,50\r\n\t";                    
+									result += " ,NULL\r\n\t";                    
+									result += " ,'Threads available in thread pool')\r\n\t";        
+									result += "END \r\n\t";  
+							}
+							break;
+                    }
+               
+               
+                break;
+        }
+
+        return result;
+    }
+#>
+<#+
+    private string OutputEngineSetup(OutputTransactionEngine e, int scriptVersion)
+    {
+        string result= "";
+
+        switch(e.Type)
+        {
+            case OutputEngineType.TcpStraightOutputEngine:
+				switch(scriptVersion)
+				{
+					default:
+						{
+							result += "IF NOT EXISTS (SELECT cfg_instancia FROM CONFIGURACION WHERE cfg_seccion = '"+this.TransactionModel.Name.Replace(" ","")+".General' and cfg_clave = 'TL"+e.TransactionLayer.Level+"_"+e.TransactionLayer.Name.Replace(" ","")+ "_"+e.Name.Replace(" ","")+"_Engine.Timeout' and cfg_instancia = "+e.TransactionLayer.TransactionModel.InstanceId+") \r\n\t";
+							result += "BEGIN \r\n\t";
+							result += "INSERT INTO [CONFIGURACION] \r\n\t";
+							result += "  ([cfg_instancia] \r\n\t";
+							result += "  ,[cfg_seccion] \r\n\t";
+							result += "  ,[cfg_clave] \r\n\t";
+							result += "  ,[cfg_numero] \r\n\t";
+							result += "  ,[cfg_cadena] \r\n\t";
+							result += "  ,[cfg_descripcion]) \r\n\t";
+							result += " VALUES \r\n\t";
+							result += " ("+e.TransactionLayer.TransactionModel.InstanceId+"\r\n\t";
+							result += " ,'"+e.TransactionLayer.TransactionModel.Name.Replace(" ","")+".General'\r\n\t";
+							result += " ,'TL"+e.TransactionLayer.Level+"_"+e.TransactionLayer.Name.Replace(" ","")+ "_"+e.Name.Replace(" ","")+"_Engine.Timeout'\r\n\t";                    
+							result += " ,60\r\n\t";                    
+							result += " ,NULL\r\n\t";                    
+							result += " ,'Client timeout for engine "+e.Name.Replace(" ","")+"')\r\n\t";        
+							result += "END \r\n\t";     
+
+							result += "IF NOT EXISTS (SELECT cfg_instancia FROM CONFIGURACION WHERE cfg_seccion = '"+this.TransactionModel.Name.Replace(" ","")+".General' and cfg_clave = 'TL"+e.TransactionLayer.Level+"_"+e.TransactionLayer.Name.Replace(" ","")+ "_"+e.Name.Replace(" ","")+"_Engine.IpAddress' and cfg_instancia = "+e.TransactionLayer.TransactionModel.InstanceId+") \r\n\t";
+							result += "BEGIN \r\n\t";
+							result += "INSERT INTO [CONFIGURACION] \r\n\t";
+							result += "  ([cfg_instancia] \r\n\t";
+							result += "  ,[cfg_seccion] \r\n\t";
+							result += "  ,[cfg_clave] \r\n\t";
+							result += "  ,[cfg_numero] \r\n\t";
+							result += "  ,[cfg_cadena] \r\n\t";
+							result += "  ,[cfg_descripcion]) \r\n\t";
+							result += " VALUES \r\n\t";
+							result += " ("+e.TransactionLayer.TransactionModel.InstanceId+"\r\n\t";
+							result += " ,'"+e.TransactionLayer.TransactionModel.Name.Replace(" ","")+".General'\r\n\t";
+							result += " ,'TL"+e.TransactionLayer.Level+"_"+e.TransactionLayer.Name.Replace(" ","")+ "_"+e.Name.Replace(" ","")+"_Engine.IpAddress'\r\n\t";                    
+							result += " ,NULL\r\n\t";                    
+							result += " ,'127.0.0.1'\r\n\t";                    
+							result += " ,'Client IP Address for engine "+e.Name.Replace(" ","")+"')\r\n\t";        
+							result += "END \r\n\t";    
+ 
+							result += "IF NOT EXISTS (SELECT cfg_instancia FROM CONFIGURACION WHERE cfg_seccion = '"+this.TransactionModel.Name.Replace(" ","")+".General' and cfg_clave = 'TL"+e.TransactionLayer.Level+"_"+e.TransactionLayer.Name.Replace(" ","")+ "_"+e.Name.Replace(" ","")+"_Engine.TcpPort' and cfg_instancia = "+e.TransactionLayer.TransactionModel.InstanceId+") \r\n\t";
+							result += "BEGIN \r\n\t";
+							result += "INSERT INTO [CONFIGURACION] \r\n\t";
+							result += "  ([cfg_instancia] \r\n\t";
+							result += "  ,[cfg_seccion] \r\n\t";
+							result += "  ,[cfg_clave] \r\n\t";
+							result += "  ,[cfg_numero] \r\n\t";
+							result += "  ,[cfg_cadena] \r\n\t";
+							result += "  ,[cfg_descripcion]) \r\n\t";
+							result += " VALUES \r\n\t";
+							result += " ("+e.TransactionLayer.TransactionModel.InstanceId+"\r\n\t";
+							result += " ,'"+e.TransactionLayer.TransactionModel.Name.Replace(" ","")+".General'\r\n\t";
+							result += " ,'TL"+e.TransactionLayer.Level+"_"+e.TransactionLayer.Name.Replace(" ","")+ "_"+e.Name.Replace(" ","")+"_Engine.TcpPort'\r\n\t";                    
+							result += " ,8889\r\n\t";                    
+							result += " ,NULL\r\n\t";                    
+							result += " ,'Client IP Address for engine "+e.Name.Replace(" ","")+"')\r\n\t";        
+							result += "END \r\n\t";   
+						}
+						break;
+						case 2:
+						{
+							result += "IF NOT EXISTS (SELECT Instancia FROM Configuraciones WHERE Seccion = '"+this.TransactionModel.Name.Replace(" ","")+".General' and Clave = 'TL"+e.TransactionLayer.Level+"_"+e.TransactionLayer.Name.Replace(" ","")+ "_"+e.Name.Replace(" ","")+"_Engine.Timeout' and Instancia = "+e.TransactionLayer.TransactionModel.InstanceId+") \r\n\t";
+							result += "BEGIN \r\n\t";
+							result += "INSERT INTO [Configuraciones] \r\n\t";
+							result += "  ([Instancia] \r\n\t";
+							result += "  ,[Seccion] \r\n\t";
+							result += "  ,[Clave] \r\n\t";
+							result += "  ,[Numero] \r\n\t";
+							result += "  ,[Cadena] \r\n\t";
+							result += "  ,[Descripcion]) \r\n\t";
+							result += " VALUES \r\n\t";
+							result += " ("+e.TransactionLayer.TransactionModel.InstanceId+"\r\n\t";
+							result += " ,'"+e.TransactionLayer.TransactionModel.Name.Replace(" ","")+".General'\r\n\t";
+							result += " ,'TL"+e.TransactionLayer.Level+"_"+e.TransactionLayer.Name.Replace(" ","")+ "_"+e.Name.Replace(" ","")+"_Engine.Timeout'\r\n\t";                    
+							result += " ,60\r\n\t";                    
+							result += " ,NULL\r\n\t";                    
+							result += " ,'Client timeout for engine "+e.Name.Replace(" ","")+"')\r\n\t";        
+							result += "END \r\n\t";     
+
+							result += "IF NOT EXISTS (SELECT Instancia FROM Configuraciones WHERE Seccion = '"+this.TransactionModel.Name.Replace(" ","")+".General' and Clave = 'TL"+e.TransactionLayer.Level+"_"+e.TransactionLayer.Name.Replace(" ","")+ "_"+e.Name.Replace(" ","")+"_Engine.IpAddress' and Instancia = "+e.TransactionLayer.TransactionModel.InstanceId+") \r\n\t";
+							result += "BEGIN \r\n\t";
+							result += "INSERT INTO [Configuraciones] \r\n\t";
+							result += "  ([Instancia] \r\n\t";
+							result += "  ,[Seccion] \r\n\t";
+							result += "  ,[Clave] \r\n\t";
+							result += "  ,[Numero] \r\n\t";
+							result += "  ,[Cadena] \r\n\t";
+							result += "  ,[Descripcion]) \r\n\t";
+							result += " VALUES \r\n\t";
+							result += " ("+e.TransactionLayer.TransactionModel.InstanceId+"\r\n\t";
+							result += " ,'"+e.TransactionLayer.TransactionModel.Name.Replace(" ","")+".General'\r\n\t";
+							result += " ,'TL"+e.TransactionLayer.Level+"_"+e.TransactionLayer.Name.Replace(" ","")+ "_"+e.Name.Replace(" ","")+"_Engine.IpAddress'\r\n\t";                    
+							result += " ,NULL\r\n\t";                    
+							result += " ,'127.0.0.1'\r\n\t";                    
+							result += " ,'Client IP Address for engine "+e.Name.Replace(" ","")+"')\r\n\t";        
+							result += "END \r\n\t";    
+ 
+							result += "IF NOT EXISTS (SELECT Instancia FROM Configuraciones WHERE Seccion = '"+this.TransactionModel.Name.Replace(" ","")+".General' and Clave = 'TL"+e.TransactionLayer.Level+"_"+e.TransactionLayer.Name.Replace(" ","")+ "_"+e.Name.Replace(" ","")+"_Engine.TcpPort' and Instancia = "+e.TransactionLayer.TransactionModel.InstanceId+") \r\n\t";
+							result += "BEGIN \r\n\t";
+							result += "INSERT INTO [Configuraciones] \r\n\t";
+							result += "  ([Instancia] \r\n\t";
+							result += "  ,[Seccion] \r\n\t";
+							result += "  ,[Clave] \r\n\t";
+							result += "  ,[Numero] \r\n\t";
+							result += "  ,[Cadena] \r\n\t";
+							result += "  ,[Descripcion]) \r\n\t";
+							result += " VALUES \r\n\t";
+							result += " ("+e.TransactionLayer.TransactionModel.InstanceId+"\r\n\t";
+							result += " ,'"+e.TransactionLayer.TransactionModel.Name.Replace(" ","")+".General'\r\n\t";
+							result += " ,'TL"+e.TransactionLayer.Level+"_"+e.TransactionLayer.Name.Replace(" ","")+ "_"+e.Name.Replace(" ","")+"_Engine.TcpPort'\r\n\t";                    
+							result += " ,8889\r\n\t";                    
+							result += " ,NULL\r\n\t";                    
+							result += " ,'Client IP Address for engine "+e.Name.Replace(" ","")+"')\r\n\t";        
+							result += "END \r\n\t";
+						}
+						break;
+				}
+
+                   
+                break;
+            case OutputEngineType.TcpFunneledOutputEngine:
+				switch(scriptVersion)
+				{
+					default:
+							{
+								    result += "IF NOT EXISTS (SELECT cfg_instancia FROM CONFIGURACION WHERE cfg_seccion = '"+this.TransactionModel.Name.Replace(" ","")+".General' and cfg_clave = 'TL"+e.TransactionLayer.Level+"_"+e.TransactionLayer.Name.Replace(" ","")+ "_"+e.Name.Replace(" ","")+"_Engine.Timeout' and cfg_instancia = "+e.TransactionLayer.TransactionModel.InstanceId+") \r\n\t";
+									result += "BEGIN \r\n\t";
+									result += "INSERT INTO [CONFIGURACION] \r\n\t";
+									result += "  ([cfg_instancia] \r\n\t";
+									result += "  ,[cfg_seccion] \r\n\t";
+									result += "  ,[cfg_clave] \r\n\t";
+									result += "  ,[cfg_numero] \r\n\t";
+									result += "  ,[cfg_cadena] \r\n\t";
+									result += "  ,[cfg_descripcion]) \r\n\t";
+									result += " VALUES \r\n\t";
+									result += " ("+e.TransactionLayer.TransactionModel.InstanceId+"\r\n\t";
+									result += " ,'"+e.TransactionLayer.TransactionModel.Name.Replace(" ","")+".General'\r\n\t";
+									result += " ,'TL"+e.TransactionLayer.Level+"_"+e.TransactionLayer.Name.Replace(" ","")+ "_"+e.Name.Replace(" ","")+"_Engine.Timeout'\r\n\t";                    
+									result += " ,60\r\n\t";                    
+									result += " ,NULL\r\n\t";                    
+									result += " ,'Client timeout for engine "+e.Name.Replace(" ","")+"')\r\n\t";        
+									result += "END \r\n\t";     
+
+									result += "IF NOT EXISTS (SELECT cfg_instancia FROM CONFIGURACION WHERE cfg_seccion = '"+this.TransactionModel.Name.Replace(" ","")+".General' and cfg_clave = 'TL"+e.TransactionLayer.Level+"_"+e.TransactionLayer.Name.Replace(" ","")+ "_"+e.Name.Replace(" ","")+"_Engine.IpAddress' and cfg_instancia = "+e.TransactionLayer.TransactionModel.InstanceId+") \r\n\t";
+									result += "BEGIN \r\n\t";
+									result += "INSERT INTO [CONFIGURACION] \r\n\t";
+									result += "  ([cfg_instancia] \r\n\t";
+									result += "  ,[cfg_seccion] \r\n\t";
+									result += "  ,[cfg_clave] \r\n\t";
+									result += "  ,[cfg_numero] \r\n\t";
+									result += "  ,[cfg_cadena] \r\n\t";
+									result += "  ,[cfg_descripcion]) \r\n\t";
+									result += " VALUES \r\n\t";
+									result += " ("+e.TransactionLayer.TransactionModel.InstanceId+"\r\n\t";
+									result += " ,'"+e.TransactionLayer.TransactionModel.Name.Replace(" ","")+".General'\r\n\t";
+									result += " ,'TL"+e.TransactionLayer.Level+"_"+e.TransactionLayer.Name.Replace(" ","")+ "_"+e.Name.Replace(" ","")+"_Engine.IpAddress'\r\n\t";                    
+									result += " ,NULL\r\n\t";                    
+									result += " ,'127.0.0.1'\r\n\t";                    
+									result += " ,'Client IP Address for engine "+e.Name.Replace(" ","")+"')\r\n\t";        
+									result += "END \r\n\t";    
+ 
+									result += "IF NOT EXISTS (SELECT cfg_instancia FROM CONFIGURACION WHERE cfg_seccion = '"+this.TransactionModel.Name.Replace(" ","")+".General' and cfg_clave = 'TL"+e.TransactionLayer.Level+"_"+e.TransactionLayer.Name.Replace(" ","")+ "_"+e.Name.Replace(" ","")+"_Engine.TcpPort' and cfg_instancia = "+e.TransactionLayer.TransactionModel.InstanceId+") \r\n\t";
+									result += "BEGIN \r\n\t";
+									result += "INSERT INTO [CONFIGURACION] \r\n\t";
+									result += "  ([cfg_instancia] \r\n\t";
+									result += "  ,[cfg_seccion] \r\n\t";
+									result += "  ,[cfg_clave] \r\n\t";
+									result += "  ,[cfg_numero] \r\n\t";
+									result += "  ,[cfg_cadena] \r\n\t";
+									result += "  ,[cfg_descripcion]) \r\n\t";
+									result += " VALUES \r\n\t";
+									result += " ("+e.TransactionLayer.TransactionModel.InstanceId+"\r\n\t";
+									result += " ,'"+e.TransactionLayer.TransactionModel.Name.Replace(" ","")+".General'\r\n\t";
+									result += " ,'TL"+e.TransactionLayer.Level+"_"+e.TransactionLayer.Name.Replace(" ","")+ "_"+e.Name.Replace(" ","")+"_Engine.TcpPort'\r\n\t";                    
+									result += " ,8889\r\n\t";                    
+									result += " ,NULL\r\n\t";                    
+									result += " ,'Client IP Address for engine "+e.Name.Replace(" ","")+"')\r\n\t";        
+									result += "END \r\n\t";    
+ 
+									result += OutputEngineTransactionDataSourceSupportGenerator(e);
+							}
+							break;
+					case 2:
+                            {
+									result += "IF NOT EXISTS (SELECT instancia FROM Configuraciones WHERE seccion = '"+this.TransactionModel.Name.Replace(" ","")+".General' and Clave = 'TL"+e.TransactionLayer.Level+"_"+e.TransactionLayer.Name.Replace(" ","")+ "_"+e.Name.Replace(" ","")+"_Engine.Timeout' and instancia = "+e.TransactionLayer.TransactionModel.InstanceId+") \r\n\t";
+									result += "BEGIN \r\n\t";
+									result += "INSERT INTO [Configuraciones] \r\n\t";
+									result += "  ([instancia] \r\n\t";
+									result += "  ,[seccion] \r\n\t";
+									result += "  ,[Clave] \r\n\t";
+									result += "  ,[Numero] \r\n\t";
+									result += "  ,[Cadena] \r\n\t";
+									result += "  ,[Descripcion]) \r\n\t";
+									result += " VALUES \r\n\t";
+									result += " ("+e.TransactionLayer.TransactionModel.InstanceId+"\r\n\t";
+									result += " ,'"+e.TransactionLayer.TransactionModel.Name.Replace(" ","")+".General'\r\n\t";
+									result += " ,'TL"+e.TransactionLayer.Level+"_"+e.TransactionLayer.Name.Replace(" ","")+ "_"+e.Name.Replace(" ","")+"_Engine.Timeout'\r\n\t";                    
+									result += " ,60\r\n\t";                    
+									result += " ,NULL\r\n\t";                    
+									result += " ,'Client timeout for engine "+e.Name.Replace(" ","")+"')\r\n\t";        
+									result += "END \r\n\t";     
+
+									result += "IF NOT EXISTS (SELECT instancia FROM Configuraciones WHERE seccion = '"+this.TransactionModel.Name.Replace(" ","")+".General' and Clave = 'TL"+e.TransactionLayer.Level+"_"+e.TransactionLayer.Name.Replace(" ","")+ "_"+e.Name.Replace(" ","")+"_Engine.IpAddress' and instancia = "+e.TransactionLayer.TransactionModel.InstanceId+") \r\n\t";
+									result += "BEGIN \r\n\t";
+									result += "INSERT INTO [Configuraciones] \r\n\t";
+									result += "  ([instancia] \r\n\t";
+									result += "  ,[seccion] \r\n\t";
+									result += "  ,[Clave] \r\n\t";
+									result += "  ,[Numero] \r\n\t";
+									result += "  ,[Cadena] \r\n\t";
+									result += "  ,[Descripcion]) \r\n\t";
+									result += " VALUES \r\n\t";
+									result += " ("+e.TransactionLayer.TransactionModel.InstanceId+"\r\n\t";
+									result += " ,'"+e.TransactionLayer.TransactionModel.Name.Replace(" ","")+".General'\r\n\t";
+									result += " ,'TL"+e.TransactionLayer.Level+"_"+e.TransactionLayer.Name.Replace(" ","")+ "_"+e.Name.Replace(" ","")+"_Engine.IpAddress'\r\n\t";                    
+									result += " ,NULL\r\n\t";                    
+									result += " ,'127.0.0.1'\r\n\t";                    
+									result += " ,'Client IP Address for engine "+e.Name.Replace(" ","")+"')\r\n\t";        
+									result += "END \r\n\t";    
+ 
+									result += "IF NOT EXISTS (SELECT instancia FROM Configuraciones WHERE seccion = '"+this.TransactionModel.Name.Replace(" ","")+".General' and Clave = 'TL"+e.TransactionLayer.Level+"_"+e.TransactionLayer.Name.Replace(" ","")+ "_"+e.Name.Replace(" ","")+"_Engine.TcpPort' and instancia = "+e.TransactionLayer.TransactionModel.InstanceId+") \r\n\t";
+									result += "BEGIN \r\n\t";
+									result += "INSERT INTO [Configuraciones] \r\n\t";
+									result += "  ([instancia] \r\n\t";
+									result += "  ,[seccion] \r\n\t";
+									result += "  ,[Clave] \r\n\t";
+									result += "  ,[Numero] \r\n\t";
+									result += "  ,[Cadena] \r\n\t";
+									result += "  ,[Descripcion]) \r\n\t";
+									result += " VALUES \r\n\t";
+									result += " ("+e.TransactionLayer.TransactionModel.InstanceId+"\r\n\t";
+									result += " ,'"+e.TransactionLayer.TransactionModel.Name.Replace(" ","")+".General'\r\n\t";
+									result += " ,'TL"+e.TransactionLayer.Level+"_"+e.TransactionLayer.Name.Replace(" ","")+ "_"+e.Name.Replace(" ","")+"_Engine.TcpPort'\r\n\t";                    
+									result += " ,8889\r\n\t";                    
+									result += " ,NULL\r\n\t";                    
+									result += " ,'Client IP Address for engine "+e.Name.Replace(" ","")+"')\r\n\t";        
+									result += "END \r\n\t";    
+ 
+									result += OutputEngineTransactionDataSourceSupportGenerator(e);
+                            }
+							break;
+
+                }
+            
+                
+
+                break;
+        }
+
+        return result;
+    }
+#>
+<#+
+    private string OutputEngineTransactionDataSourceSupportGenerator(OutputTransactionEngine e)
+    {
+        string result = "";
+        if(e.TransactionDataSourceSupport != null)
+        {
+            switch(e.TransactionDataSourceSupport.SupportType)
+            {
+                case DataSourceSupportType.SQLServerSupport:
+                    result += FunneledMessagesStatusesTableGenerator(e.TransactionLayer.TransactionModel.Name.Replace(" ","")) +
+                        FunneledMessagesTableGenerator(e.TransactionLayer.TransactionModel.Name.Replace(" ","")) +
+                        FunneledUnmatchedMessagesTableGenerator(e.TransactionLayer.TransactionModel.Name.Replace(" ",""))+
+                        "GO \r\n"+
+                        "IF (EXISTS (SELECT * FROM sysobjects where name='Sp_"+e.TransactionLayer.TransactionModel.Name.Replace(" ","")+"FunneledEnginePushRequirementStoredProc')) \r\n"+
+                        "BEGIN  \r\n"+
+                        "    DROP PROCEDURE Sp_"+e.TransactionLayer.TransactionModel.Name.Replace(" ","")+"FunneledEnginePushRequirementStoredProc \r\n"+
+                        "end \r\n"+
+                        "GO		 \r\n"+
+                        "-- =============================================\r\n"+
+                        "-- Author:		TransactionKernelDSL                         \r\n"+
+                        "-- Create date: "+DateTime.Now.Day.ToString()+"-"+DateTime.Now.Month.ToString()+"-"+DateTime.Now.Year.ToString()  +"     \r\n"+
+                        "-- Description:	Empuja un mensaje a la tabla Mensajes, de modo que pueda ser enviado \r\n"+
+                        "-- ============================================= \r\n"+
+                        "CREATE PROCEDURE [Sp_"+e.TransactionLayer.TransactionModel.Name.Replace(" ","")+"FunneledEnginePushRequirementStoredProc] \r\n"+
+                        "	( \r\n"+                      
+                        "		@msg_seq int, \r\n"+
+                        "		@msg_out varchar(1500), \r\n"+
+                        "		@men_TransactionId varchar(100), \r\n"+
+                        "		@msg_ref varchar(30) = NULL, \r\n"+
+                        "		@msg_in varchar(1500) = NULL \r\n"+
+                        "	) \r\n"+
+	
+                        "AS \r\n"+
+                        "BEGIN \r\n"+
+	
+                        "IF @msg_in IS NULL \r\n"+
+                        "BEGIN \r\n"+
+                        "		INSERT INTO ["+e.TransactionLayer.TransactionModel.Name.Replace(" ","")+"FunneledMessages] \r\n"+
+                        "				   ([sec] \r\n"+
+                        "				   ,[msg_out]    \r\n"+    
+                        "				   ,[date_out] \r\n"+
+                        "				   ,[status]          \r\n"+
+                        "				   ,[men_TransactionId]		\r\n"+		  
+                        "				   ,[msg_out_len]  \r\n"+                       
+                        "				   ,[reference])		\r\n"+
+                        "			SELECT  @msg_seq \r\n"+
+                        "				   ,@msg_out \r\n"+
+                        "				   ,GETDATE() \r\n"+
+                        "				   ,men_est_id \r\n"+
+                        "				   ,@men_TransactionId \r\n"+
+                        "				   ,LEN(@msg_out)  \r\n"+                       
+                        "				   ,@msg_ref \r\n"+
+                        "			FROM "+e.TransactionLayer.TransactionModel.Name.Replace(" ","")+"FunneledMessagesStatuses with(nolock) \r\n"+
+                        "			WHERE men_est_code = 1 \r\n"+
+                        "END \r\n"+
+                        "ELSE \r\n"+
+                        "BEGIN \r\n"+
+                        "		INSERT INTO ["+e.TransactionLayer.TransactionModel.Name.Replace(" ","")+"FunneledMessages] \r\n"+
+                        "				   ([sec] \r\n"+
+                        "				   ,[msg_out]   \r\n"+
+                        "				   ,[msg_in]    \r\n"+
+                        "				   ,[date_out]\r\n"+
+                        "				   ,[date_in] \r\n"+
+                        "				   ,[status]         \r\n"+
+                        "				   ,[men_TransactionId] \r\n"+
+                        "				   ,[msg_out_len]  \r\n"+
+                        "				   ,[msg_in_len]  \r\n"+                    
+                        "				   ,[reference]) \r\n"+		
+                        "	SELECT  @msg_seq \r\n"+
+                        "				   ,@msg_out \r\n"+
+                        "				   ,@msg_in \r\n"+
+                        "				   ,GETDATE() \r\n"+
+                        "				   ,GETDATE() \r\n"+
+                        "				   ,men_est_id \r\n"+
+                        "				   ,@men_TransactionId \r\n"+				    
+                        "				   ,LEN(@msg_out)   \r\n"+        
+                        "				   ,LEN(@msg_in)   \r\n"+                        
+                        "				   ,@msg_ref \r\n"+
+                        "			FROM "+e.TransactionLayer.TransactionModel.Name.Replace(" ","")+"FunneledMessagesStatuses with(nolock) \r\n"+
+                        "			WHERE men_est_code = 5 \r\n"+
+                        "END \r\n"+
+                        "SELECT @@IDENTITY \r\n"+
+                        "END \r\n"+
+                        "GO \r\n"+
+                        "IF (EXISTS (SELECT * FROM sysobjects where name='Sp_"+e.TransactionLayer.TransactionModel.Name.Replace(" ","")+"FunneledEngineUponForwardingProcessStoredProc')) \r\n"+
+                        "BEGIN  \r\n"+
+                        "    DROP PROCEDURE Sp_"+e.TransactionLayer.TransactionModel.Name.Replace(" ","")+"FunneledEngineUponForwardingProcessStoredProc \r\n"+
+                        "end \r\n"+
+                        "GO		 \r\n"+
+                        "-- ============================================= \r\n"+
+                        "-- Author:		TransactionKernelDSL \r\n"+
+                        "-- Create date: "+DateTime.Now.Day.ToString()+"-"+DateTime.Now.Month.ToString()+"-"+DateTime.Now.Year.ToString()  +" \r\n"+
+                        "-- Description:	Cambia el estado de un mensaje enviado \r\n"+
+                        "-- ============================================= \r\n"+
+                        "CREATE PROCEDURE [dbo].[Sp_"+e.TransactionLayer.TransactionModel.Name.Replace(" ","")+"FunneledEngineUponForwardingProcessStoredProc] \r\n"+
+                        "                    ( \r\n"+                       
+                        "                        @msgOut	varchar(1500)		\r\n"+			
+                        "                    ) \r\n"+
+                        "AS \r\n"+
+                        "BEGIN \r\n"+
+                        "    DECLARE @rowcount as int	 \r\n"+
+                        "    UPDATE "+e.TransactionLayer.TransactionModel.Name.Replace(" ","")+"FunneledMessages \r\n"+
+                        "    SET [status] = (SELECT men_est_id FROM "+e.TransactionLayer.TransactionModel.Name.Replace(" ","")+"FunneledMessagesStatuses with(nolock) WHERE men_est_code = 2 ) \r\n"+
+                        "    WHERE msg_out = @msgOut	 \r\n"+
+                        "    and [status] = (SELECT men_est_id FROM "+e.TransactionLayer.TransactionModel.Name.Replace(" ","")+"FunneledMessagesStatuses with(nolock) WHERE men_est_code = 1 )\r\n"+
+                        "    SET @rowcount = @@ROWCOUNT \r\n"+
+                        "    IF @rowcount = 0 \r\n"+
+                        "    BEGIN \r\n"+
+                        "\r\n"+
+                        "    UPDATE "+e.TransactionLayer.TransactionModel.Name.Replace(" ","")+"FunneledMessages \r\n"+
+                        "    SET [status] = (SELECT men_est_id FROM "+e.TransactionLayer.TransactionModel.Name.Replace(" ","")+"FunneledMessagesStatuses with(nolock) WHERE men_est_code = 6 ) \r\n"+
+                        "    WHERE msg_out = @msgOut	\r\n"+
+                        "    and [status] = (SELECT men_est_id FROM "+e.TransactionLayer.TransactionModel.Name.Replace(" ","")+"FunneledMessagesStatuses with(nolock) WHERE men_est_code = 5 ) \r\n"+
+                        "	\r\n"+
+                        "    SET @rowcount = @@ROWCOUNT \r\n"+
+                        " \r\n"+
+                        "    END \r\n"+
+                        "     \r\n"+
+                        "    SELECT @rowcount \r\n"+
+                        " END \r\n"+
+                        "GO \r\n"+
+                        "IF (EXISTS (SELECT * FROM sysobjects where name='Sp_"+e.TransactionLayer.TransactionModel.Name.Replace(" ","")+"FunneledEnginePullResponseStoredProc')) \r\n"+
+                        "BEGIN  \r\n"+
+                        "    DROP PROCEDURE Sp_"+e.TransactionLayer.TransactionModel.Name.Replace(" ","")+"FunneledEnginePullResponseStoredProc \r\n"+
+                        "end \r\n"+
+                        "GO		 \r\n"+
+                        "-- TransactionKernelDSL \r\n"+
+                        "-- Author:		TransactionKernelDSL	 \r\n"+
+                        "-- Create date: "+DateTime.Now.Day.ToString()+"-"+DateTime.Now.Month.ToString()+"-"+DateTime.Now.Year.ToString()  +" \r\n"+
+                        "-- Description:	Obtiene un mensaje de respuesta segun los parametros de entrada y el estado interno del mensaje,  \r\n"+
+                        "--				si es que existe \r\n"+
+                        "-- ============================================= \r\n"+
+                        "CREATE PROCEDURE [dbo].[Sp_"+e.TransactionLayer.TransactionModel.Name.Replace(" ","")+"FunneledEnginePullResponseStoredProc] \r\n"+
+                        "										( \r\n"+                      
+                        "										@msg_seq varchar(6), \r\n"+
+                        "										@men_TransactionId varchar(100) \r\n"+
+                        "										) \r\n"+
+                        "AS \r\n"+
+                        "BEGIN \r\n"+
+                        "	\r\n"+
+                        "	SELECT TOP 1 msg_in, msg_in_len, date_in FROM "+e.TransactionLayer.TransactionModel.Name.Replace(" ","")+"FunneledMessages with(nolock) \r\n"+
+                        "	WHERE sec = @msg_seq \r\n"+
+                        "	and men_TransactionId = @men_TransactionId		 \r\n"+                        
+                        "	and status = (SELECT men_est_id FROM "+e.TransactionLayer.TransactionModel.Name.Replace(" ","")+"FunneledMessagesStatuses with(nolock) WHERE men_est_code = 3)  \r\n"+
+                        "	and date_in >= DATEADD(hh,-1,GETDATE()) \r\n"+
+                        "	ORDER by men_id desc \r\n"+
+                        "END \r\n"+
+                        "GO \r\n"+
+                        "IF (EXISTS (SELECT * FROM sysobjects where name='Sp_"+e.TransactionLayer.TransactionModel.Name.Replace(" ","")+"FunneledEnginePushResponseStoredProc')) \r\n"+
+                        "BEGIN  \r\n"+
+                        "    DROP PROCEDURE Sp_"+e.TransactionLayer.TransactionModel.Name.Replace(" ","")+"FunneledEnginePushResponseStoredProc \r\n"+
+                        "end \r\n"+
+                        "GO		 \r\n"+
+                        "-- =============================================\r\n"+
+                        "-- Author:		Point Pay\r\n"+
+                        "-- Create date: "+DateTime.Now.Day.ToString()+"-"+DateTime.Now.Month.ToString()+"-"+DateTime.Now.Year.ToString()  +" \r\n"+
+                        "-- Description:	<Intenta asociar el mensaje que se pasa por parametros a un requerimiento que esté \r\n"+
+                        "--				esperando una respuesta. Si no se puede asociar, se coloca en una tabla de mensajes \r\n"+
+                        "--				desapareados> \r\n"+
+                        "-- ============================================= \r\n"+
+                        "CREATE PROCEDURE [dbo].[Sp_"+e.TransactionLayer.TransactionModel.Name.Replace(" ","")+"FunneledEnginePushResponseStoredProc] \r\n"+
+                        "				(					 \r\n"+
+                        "					@msg_in varchar(1500), \r\n"+
+                        "					@men_TransactionId varchar(100), \r\n"+
+                        "					@msg_seq varchar(6) \r\n"+
+                        "				)  \r\n"+
+                        "AS \r\n"+
+                        "BEGIN \r\n"+
+                        " \r\n"+
+                        "	 \r\n"+
+                        "	UPDATE "+e.TransactionLayer.TransactionModel.Name.Replace(" ","")+"FunneledMessages \r\n"+
+                        "	SET [status] = (SELECT men_est_id FROM "+e.TransactionLayer.TransactionModel.Name.Replace(" ","")+"FunneledMessagesStatuses with(nolock) WHERE men_est_code = 3),  \r\n"+
+                        "	date_in = GETDATE(),  \r\n"+
+                        "	msg_in = @msg_in,  \r\n"+
+                        "	msg_in_len = LEN(@msg_in) \r\n"+
+                        "	WHERE [status] = (SELECT men_est_id FROM "+e.TransactionLayer.TransactionModel.Name.Replace(" ","")+"FunneledMessagesStatuses with(nolock) WHERE men_est_code = 2) \r\n"+
+                        "	and men_TransactionId = @men_TransactionId				 \r\n"+
+                        "	and sec = @msg_seq \r\n"+
+                        "	and date_out >= DATEADD(hh, -1, GETDATE())	 \r\n"+
+                        " \r\n"+
+                        "	DECLARE @rowCount as int SET @rowCount = @@ROWCOUNT \r\n"+
+                        " \r\n"+
+                        "	IF @rowCount = 0 \r\n"+
+                        "	BEGIN \r\n"+
+                        " \r\n"+
+                        "		INSERT INTO "+e.TransactionLayer.TransactionModel.Name.Replace(" ","")+"FunneledUnmatchedMessages \r\n"+
+                        "          ([date] \r\n"+
+                        "   		,[msg] \r\n"+
+                        "			,[msg_len]    \r\n"+        
+                        "			) \r\n"+
+                        "		 VALUES \r\n"+
+                        "			   (GETDATE() \r\n"+
+                        "			   ,@msg_in \r\n"+
+                        "				,LEN(@msg_in) \r\n"+				
+                        "				) \r\n"+
+                        "		\r\n"+
+                        "	END \r\n"+
+                        "	\r\n"+
+                        "	SELECT @rowCount \r\n"+
+                        "	 \r\n"+
+                        "END \r\n"+
+                        "GO \r\n"+
+                        "IF (EXISTS (SELECT * FROM sysobjects where name='Sp_"+e.TransactionLayer.TransactionModel.Name.Replace(" ","")+"FunneledEnginePullAvailableRequirementsStoredProc')) \r\n"+
+                        "BEGIN  \r\n"+
+                        "    DROP PROCEDURE Sp_"+e.TransactionLayer.TransactionModel.Name.Replace(" ","")+"FunneledEnginePullAvailableRequirementsStoredProc \r\n"+
+                        "end \r\n"+
+                        "GO		 \r\n"+
+                        "-- ============================================= \r\n"+
+                        "-- Author:		Point Pay\r\n"+
+                        "-- Create date: "+DateTime.Now.Day.ToString()+"-"+DateTime.Now.Month.ToString()+"-"+DateTime.Now.Year.ToString()  +" \r\n"+
+                        "-- Description:	Busca Mensajes disponibles para enviar \r\n"+
+                        "-- ============================================= \r\n"+
+                        "CREATE PROCEDURE [dbo].[Sp_"+e.TransactionLayer.TransactionModel.Name.Replace(" ","")+"FunneledEnginePullAvailableRequirementsStoredProc]  \r\n"+
+                        "AS \r\n"+
+                        "BEGIN \r\n"+
+                        "	SELECT msg_out,msg_out_len FROM "+e.TransactionLayer.TransactionModel.Name.Replace(" ","")+"FunneledMessages with(nolock) \r\n"+
+                        "	WHERE [status] in (1,5) \r\n"+
+                        "	ORDER by men_id DESC \r\n"+
+                        "END \r\n";
+
+
+
+
+                break;
+            }
+        }
+        return result;
+    }
+ #>
+<#+
+    private string FunneledMessagesStatusesTableGenerator(string facade)
+    {
+        string result= "";
+        
+        result+= " IF OBJECT_ID('"+facade+"FunneledMessagesStatuses') IS NULL \r\n\t";
+        result+= " BEGIN \r\n\t";
+        result+= "CREATE TABLE [dbo].["+facade+"FunneledMessagesStatuses]( \r\n\t";
+        result+= " [men_est_id] [int] IDENTITY(1,1) NOT NULL, \r\n\t";
+        result+= "  [men_est_code] [int] NOT NULL, \r\n\t";
+        result+= "  [st_descr] [varchar](100) NOT NULL	 \r\n\t";       
+        result+= "  CONSTRAINT [PK_"+facade+"FunneledMessagesStatuses] PRIMARY KEY CLUSTERED   \r\n\t";
+        result+= "  ( \r\n\t";
+        result+= "  [men_est_id] ASC \r\n\t";      
+        result+= "  ) \r\n\t";
+        result+= "  WITH (PAD_INDEX  = OFF, STATISTICS_NORECOMPUTE  = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS  = ON, ALLOW_PAGE_LOCKS  = ON) ON [PRIMARY] \r\n\t";
+        result+= "  ) ON [PRIMARY] \r\n\t";
+        result+= "INSERT INTO ["+facade+"FunneledMessagesStatuses]\r\n\t";
+        result+="           ([men_est_code]\r\n\t";
+        result+="           ,[st_descr])\r\n\t";
+        result+="     VALUES\r\n\t";
+        result+="           (1\r\n\t";
+        result+="           ,'In query to be sent, must wait for reply')\r\n\t";
+        result+="INSERT INTO ["+facade+"FunneledMessagesStatuses]\r\n\t";
+        result+="           ([men_est_code]\r\n\t";
+        result+="           ,[st_descr])\r\n\t";
+        result+="     VALUES\r\n\t";
+        result+="           (2\r\n\t";
+        result+="           ,'Sent, no reply yet')\r\n\t";
+        result+="INSERT INTO ["+facade+"FunneledMessagesStatuses]\r\n\t";
+        result+="           ([men_est_code]\r\n\t";
+        result+="           ,[st_descr])\r\n\t";
+        result+="     VALUES\r\n\t";
+        result+="           (3\r\n\t";
+        result+="           ,'Reply received, finished')\r\n\t";
+        result+="INSERT INTO ["+facade+"FunneledMessagesStatuses]\r\n\t";
+        result+="           ([men_est_code]\r\n\t";
+        result+="           ,[st_descr])\r\n\t";
+        result+="     VALUES\r\n\t";
+        result+="           (4\r\n\t";
+        result+="           ,'Cancelled')\r\n\t";
+        result+="INSERT INTO ["+facade+"FunneledMessagesStatuses]\r\n\t";
+        result+="           ([men_est_code]\r\n\t";
+        result+="           ,[st_descr])\r\n\t";
+        result+="     VALUES\r\n\t";
+        result+="           (5\r\n\t";
+        result+="           ,'In query to be sent, must not wait for any reply')\r\n\t";
+        result+="INSERT INTO ["+facade+"FunneledMessagesStatuses]\r\n\t";
+        result+="           ([men_est_code]\r\n\t";
+        result+="           ,[st_descr])\r\n\t";
+        result+="     VALUES\r\n\t";
+        result+="           (6\r\n\t";
+        result+="           ,'Sent, no reply needed')\r\n\t"; 
+        result+= "  END \r\n\t";
+      
+        return result;
+    }
+ #>
+<#+
+    private string FunneledMessagesTableGenerator(string facade)
+    {
+        string result= "";
+        
+        result+= " IF OBJECT_ID('"+facade+"FunneledMessages') IS NULL \r\n\t";
+        result+= " BEGIN \r\n\t";
+        result+= " CREATE TABLE [dbo].["+facade+"FunneledMessages]( \r\n";
+        result+= " [men_id] [bigint] IDENTITY(1,1) NOT NULL, \r\n";
+        result+= " [sec] [int] NOT NULL, \r\n";
+        result+= "  [msg_out] [varchar](1500) NOT NULL, \r\n";
+        result+= " [msg_in] [varchar](1500) NULL, \r\n";
+        result+= "[date_in] [datetime] NULL, \r\n";
+        result+= "[date_out] [datetime] NOT NULL, \r\n";
+        result+= "[status] [int] NOT NULL, \r\n ";
+        result+= "[men_asoc_id] [bigint] NULL, ";
+        result+= "[men_TransactionId] [varchar](100) NOT NULL,  \r\n";
+        result+= "[msg_out_len] [int] NOT NULL, \r\n ";
+        result+= "[msg_in_len] [int] NULL,  \r\n";
+        result+= "[reference] [varchar](30) NULL  \r\n";
+        result+= "CONSTRAINT [PK_"+facade+"FunneledMessages] PRIMARY KEY CLUSTERED  \r\n";
+        result+= "(  \r\n";
+        result+= "[men_id] ASC \r\n";
+        result+= " )WITH (PAD_INDEX  = OFF, STATISTICS_NORECOMPUTE  = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS  = ON, ALLOW_PAGE_LOCKS  = ON) ON [PRIMARY] \r\n";
+        result+= " ) ON [PRIMARY] \r\n";
+        result+= "ALTER TABLE [dbo].["+facade+"FunneledMessages]  WITH CHECK ADD  CONSTRAINT [FK_"+facade+"FunneledMessages_"+facade+"FunneledMessages] FOREIGN KEY([men_asoc_id]) \r\n";
+        result+= "REFERENCES [dbo].["+facade+"FunneledMessages] ([men_id]) \r\n";        
+        result+= "ALTER TABLE [dbo].["+facade+"FunneledMessages] CHECK CONSTRAINT [FK_"+facade+"FunneledMessages_"+facade+"FunneledMessages] \r\n";        
+        result+= "ALTER TABLE [dbo].["+facade+"FunneledMessages]  WITH CHECK ADD  CONSTRAINT [FK_"+facade+"FunneledMessages_"+facade+"FunneledMessagesStatuses] FOREIGN KEY([status]) \r\n";
+        result+= "REFERENCES [dbo].["+facade+"FunneledMessagesStatuses] ([men_est_id]) \r\n";        
+        result+= "ALTER TABLE [dbo].["+facade+"FunneledMessages] CHECK CONSTRAINT [FK_"+facade+"FunneledMessages_"+facade+"FunneledMessagesStatuses] \r\n";
+
+        result+= "  END \r\n\t";
+      
+ 
+        return result;
+    }
+ #>
+<#+
+    private string FunneledUnmatchedMessagesTableGenerator(string facade)
+    {
+        string result= "";
+        
+        result+= " IF OBJECT_ID('"+facade+"FunneledUnmatchedMessages') IS NULL \r\n\t";
+        result+= " BEGIN \r\n\t";
+        result+= " CREATE TABLE [dbo].["+facade+"FunneledUnmatchedMessages]( \r\n\t";
+	    result+= "[men_des_id] [int] IDENTITY(1,1) NOT NULL, \r\n\t";
+	    result+= "[date] [datetime] NOT NULL, \r\n\t";
+	    result+= "[msg] [varchar](1500) NOT NULL, \r\n\t";
+	    result+= "[msg_len] [int] NOT NULL \r\n\t";
+        result+= "CONSTRAINT [PK_"+facade+"FunneledUnmatchedMessages] PRIMARY KEY CLUSTERED  \r\n\t";
+        result+= "( \r\n\t"; 
+	    result+= "[men_des_id] ASC \r\n\t";
+        result+= ")WITH (PAD_INDEX  = OFF, STATISTICS_NORECOMPUTE  = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS  = ON, ALLOW_PAGE_LOCKS  = ON) ON [PRIMARY] \r\n\t";
+        result+= ") ON [PRIMARY] \r\n\t";
+        result+= "  END \r\n\t";
+      
+        return result;
+    }
+ #>

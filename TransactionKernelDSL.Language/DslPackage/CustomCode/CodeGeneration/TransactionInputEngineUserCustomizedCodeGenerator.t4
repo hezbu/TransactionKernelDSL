@@ -1,0 +1,155 @@
+﻿<#@ template inherits="Microsoft.VisualStudio.TextTemplating.VSHost.ModelingTextTransformation" #>
+<#@ parameter name="delimiter" type="System.String" #>
+<#@ parameter name="path" type="System.String" #>
+<#@ TrnxDsl processor="TrnxDslDirectiveProcessor" requires="fileName='Test.TrnxDsl'" #>
+<#@ import namespace="System.IO" #>
+<#
+    if(ValidateModel(this.TransactionModel))
+    {
+        string className = null; 
+        // When you change the DSL Definition, some of the code below may not work.
+        foreach(TransactionLayer l in this.TransactionModel.TransactionLayers)
+        {
+            foreach (InputTransactionEngine e in l.InputTransactionEngines)
+            {
+                string layerLevelPath = path + "\\TL"+l.Level;
+                if(Directory.Exists(layerLevelPath) == false) 
+                {
+                    Directory.CreateDirectory(layerLevelPath);
+                }
+        
+                string layerPath = layerLevelPath + "\\"+l.Name.Replace(" ","");
+                if(Directory.Exists(layerPath) == false) 
+                {
+                    Directory.CreateDirectory(layerPath);
+                }
+
+                string customCodeLayerPath = layerPath + "\\CustomCode";
+                if(Directory.Exists(customCodeLayerPath) == false) 
+                {
+                    Directory.CreateDirectory(customCodeLayerPath);
+                }
+                className = "TL"+l.Level+"_"+l.Name.Replace(" ","")+ "_"+e.Name.Replace(" ","")+"_Engine";
+#>	
+    <#=                    string.Format(delimiter,"TL"+l.Level+"\\"+l.Name.Replace(" ","")+"\\CustomCode\\"+className+"UserCustomizedCode") #>
+	using System;
+	using System.Collections.Generic;
+	using System.Text;
+    using TransactionKernelDSL.Framework.V1;
+    using log4net.Config;
+    using log4net;
+    using System.Threading;
+	
+namespace <#=                    this.TransactionModel.Namespace #>
+{
+
+    /// <summary>
+    /// User-customized code for transactional engine <#=                    e.Name #>
+    /// </summary>
+    /// <remarks>
+    /// Generated on <#=                    DateTime.Now.ToString() #>
+    /// </remarks>
+<#=                    InputEngineClassDefinitionGenerator(e,className) #>
+	{
+        <# 
+                if(e.TransactionHandlers.Count == 0)
+                {
+                    #>
+                        protected override AbstractTransactionHandler TransactionHandlerFactory(object transactionId)
+                        {
+                            throw new NotImplementedException("TransactionHandlerFactory() must be implemented in <#=className #>");
+                        }
+<#
+                }
+                if(e.Parser == ParserType.NotTyped)
+                {
+                    #>
+                        protected override AbstractTransactionParser ParserFactory(object state = null)
+                        {
+                            throw new NotImplementedException("ParserFactory() must be implemented in <#=className #>");
+                        }
+<#
+                }
+                switch(e.Type)
+                {
+                    case InputEngineType.InputEngine:
+                        #>  
+                       
+                        public override bool IsEngineOn
+                        {
+                            get { throw new NotImplementedException("get{IsEngineOn} must be implemented in <#=className #>"); }
+                        }
+
+                        public override bool Start()
+                        {
+                             throw new NotImplementedException("Start() must be implemented in <#=className #>");
+                        }
+
+                        public override bool Stop()
+                        {
+                            throw new NotImplementedException("Stop() must be implemented in <#=className #>");
+                        }
+<#
+                        break;   
+                    case InputEngineType.TcpTriggeredMultiThreadedInputEngine:
+					case InputEngineType.TcpTriggeredSocketReusableMultiThreadedInputEngine:
+                        break;        
+                    case InputEngineType.TimeTriggeredInputEngine:
+                        #>
+                        /// <summary>
+                        /// Creates and returns a new AbstractTransactionParser-inherited instance.
+                        /// If the engine has a type "TimeTriggeredInputEngine", this method should create also
+                        /// the requirements meant to be initiated by this engine engine.
+                        /// </summary>
+                        /// <param name="state">An object with a state, for internal use. In TimeTriggered Input Engines, it is a TimeTriggeredTransactionEngineContext valid instance</param>
+                        /// <returns>An AbstractTransactionParser-inherited instance, created within the method</returns>
+                        protected override AbstractTransactionParser ParserFactory(object state = null)
+                        {
+                           throw new NotImplementedException("ParserFactory() must be implemented in order to create a time-tireggered requirement");
+                        }
+                <#
+                        break;
+
+                }#>
+	}
+}
+<#    
+            }
+        }
+    }
+#>
+<#+
+    private bool ValidateModel(TransactionModel m)
+    {
+        return (!String.IsNullOrEmpty(m.Name)) && (!String.IsNullOrEmpty(m.Namespace)) && (m.InstanceId > 0);
+    }
+ #>
+<#+
+    private string InputEngineClassDefinitionGenerator(InputTransactionEngine e, string className)
+    {
+        switch(e.Type)
+        {                               
+            case InputEngineType.TcpTriggeredMultiThreadedInputEngine:                        
+                return "public partial class "+className+": AbstractTcpTriggeredMultiThreadedInputTransactionEngine";                    
+			case InputEngineType.TcpTriggeredSocketReusableMultiThreadedInputEngine:                        
+                return "public partial class "+className+": AbstractTcpTriggeredSocketReusableMultiThreadedInputTransactionEngine";                    
+            case InputEngineType.ThreadedInputEngine:                        
+                return "public partial class "+className+": AbstractThreadedInputTransactionEngine";                                        
+            case InputEngineType.TimeTriggeredInputEngine:                      
+                return "public partial class "+className+": AbstractTimeTriggeredInputTransactionEngine";                                                            
+			default:
+			case InputEngineType.InputEngine:
+                return "public partial class "+className+": AbstractInputTransactionEngine";  
+        }
+    }
+ #>
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,16 @@
+﻿<!--DSL Tools Language Template-->
+<VSTemplate Version="3.0.0" Type="Item" xmlns="http://schemas.microsoft.com/developer/vstemplate/2005" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<TemplateData>
+		<Name Package="{5baeeeac-b2c5-4218-965b-88e4d10181bb}" ID="103"/>
+		<Description Package="{5baeeeac-b2c5-4218-965b-88e4d10181bb}" ID="102"/>
+		<Icon Package="{5baeeeac-b2c5-4218-965b-88e4d10181bb}" ID="201" />
+		<ProjectType>VisualBasic</ProjectType>
+		<SortOrder>360</SortOrder>
+		<DefaultName>PPayDsl.PpayDsl</DefaultName>
+	</TemplateData>
+	<TemplateContent>
+		<ProjectItem TargetFileName="$fileinputname$.PpayDsl">PpayDsl.PpayDsl</ProjectItem>
+		<ProjectItem TargetFileName="$fileinputname$.PpayDsl.diagram">PpayDsl.diagram</ProjectItem>
+	</TemplateContent>
+</VSTemplate>
+

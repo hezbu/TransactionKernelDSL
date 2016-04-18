@@ -1,0 +1,151 @@
+﻿<#@ template inherits="Microsoft.VisualStudio.TextTemplating.VSHost.ModelingTextTransformation" #>
+<#@ parameter name="delimiter" type="System.String" #>
+<#@ parameter name="path" type="System.String" #>
+<#@ template language="C#v3.5" #>
+<#@ assembly name="System.Core" #>
+<#@ import namespace="System.Linq" #>
+<#@ import namespace="System.Collections.Generic" #>
+<#@ TrnxDsl processor="TrnxDslDirectiveProcessor" requires="fileName='Test.TrnxDsl'" #>
+<#@ import namespace="System.IO" #>
+<#
+    if(ValidateModel(this.TransactionModel))
+    { 
+        string className = null; 
+        // When you change the DSL Definition, some of the code below may not work.
+        foreach(TransactionLayer l in this.TransactionModel.TransactionLayers)
+        {
+            foreach (InputTransactionEngine e in l.InputTransactionEngines)
+            {
+                if(e.Parser == ParserType.PropietaryParser)
+                {
+                    string layerLevelPath = path + "\\UnitTest";
+                    if(Directory.Exists(layerLevelPath) == false) 
+                    {
+                        Directory.CreateDirectory(layerLevelPath);
+                    }
+        
+                    string layerPath = layerLevelPath + "\\CustomCode";
+                    if(Directory.Exists(layerPath) == false) 
+                    {
+                        Directory.CreateDirectory(layerPath);
+                    }
+
+                    className = "TL"+l.Level+"_"+l.Name.Replace(" ","")+ "_"+e.Name.Replace(" ","")+"_Parser_UnitTestInput";
+
+                    #>
+                    <#=                    string.Format(delimiter,"UnitTest\\CustomCode\\"+className) #>
+                    using System;
+	                using System.Collections.Generic;
+	                using System.Text;
+                    using TransactionKernelDSL.Framework.V1;
+                    using log4net.Config;
+                    using log4net;
+                    using System.Threading;
+                    using NUnit.Framework;
+                    #if DEBUG == true
+                    namespace <#=                    this.TransactionModel.Namespace #>
+                    {
+
+                        /// <summary>
+                        /// A transactional unit test input named <#=                    className #>
+                        /// </summary>
+                        /// <remarks>
+                        /// Generated on <#=                    DateTime.Now.ToString() #>
+                        /// </remarks>                        
+                        public partial class <#=                    className #>
+	                    {
+                           
+                            public static <#= "TL"+l.Level+"_"+l.Name.Replace(" ","")+ "_"+e.Name.Replace(" ","")+"_ParserStructure" #> GetResponseStructure()
+                            {
+                                    <#= "TL"+l.Level+"_"+l.Name.Replace(" ","")+ "_"+e.Name.Replace(" ","")+"_ParserStructure" #> respSt = new <#= "TL"+l.Level+"_"+l.Name.Replace(" ","")+ "_"+e.Name.Replace(" ","")+"_ParserStructure" #>();
+                                    throw new NotImplementedException("It is mandatory to fill up a Response Structure for this test");
+                                    return respSt;
+                            }
+
+                            public static <#= "TL"+l.Level+"_"+l.Name.Replace(" ","")+ "_"+e.Name.Replace(" ","")+"_ParserStream" #> GetRequestStream()
+                            {
+                                    <#= "TL"+l.Level+"_"+l.Name.Replace(" ","")+ "_"+e.Name.Replace(" ","")+"_ParserStream" #> reqSt = new <#= "TL"+l.Level+"_"+l.Name.Replace(" ","")+ "_"+e.Name.Replace(" ","")+"_ParserStream" #>();
+                                    throw new NotImplementedException("It is mandatory to fill up a Request Stream for this test");
+                                    return reqSt;
+                            }
+                            
+                        }
+                    }
+                    #endif
+<#
+                    
+                }
+            }
+            //---------------------------------------------------------------------------------------
+            //---------------------------------------------------------------------------------------
+            //---------------------------------------------------------------------------------------
+            //---------------------------------------------------------------------------------------
+            foreach (OutputTransactionEngine e in l.OutputTransactionEngines)
+            {
+                if(e.Parser == ParserType.PropietaryParser)
+                {
+                    string layerLevelPath = path + "\\UnitTest";
+                    if(Directory.Exists(layerLevelPath) == false) 
+                    {
+                        Directory.CreateDirectory(layerLevelPath);
+                    }
+        
+                    string layerPath = layerLevelPath + "\\CustomCode";
+                    if(Directory.Exists(layerPath) == false) 
+                    {
+                        Directory.CreateDirectory(layerPath);
+                    }
+
+                    className = "TL"+l.Level+"_"+l.Name.Replace(" ","")+ "_"+e.Name.Replace(" ","")+"_Parser_UnitTestInput";
+                    #>	
+    <#=                    string.Format(delimiter,"UnitTest\\CustomCode\\"+className) #>
+                    using System;
+	                using System.Collections.Generic;
+	                using System.Text;
+                    using TransactionKernelDSL.Framework.V1;
+                    using log4net.Config;
+                    using log4net;
+                    using System.Threading;
+                    using NUnit.Framework;
+                    #if DEBUG == true
+                    namespace <#=                    this.TransactionModel.Namespace #>
+                    {
+
+                         /// <summary>
+                        /// A transactional unit test input named <#=                    className #>
+                        /// </summary>
+                        /// <remarks>
+                        /// Generated on <#=                    DateTime.Now.ToString() #>
+                        /// </remarks>                        
+                        public partial class <#=                    className #>
+	                    {
+                           
+                            public static <#= "TL"+l.Level+"_"+l.Name.Replace(" ","")+ "_"+e.Name.Replace(" ","")+"_ParserStructure" #> GetResponseStructure()
+                            {
+                                    <#= "TL"+l.Level+"_"+l.Name.Replace(" ","")+ "_"+e.Name.Replace(" ","")+"_ParserStructure" #> respSt = new <#= "TL"+l.Level+"_"+l.Name.Replace(" ","")+ "_"+e.Name.Replace(" ","")+"_ParserStructure" #>();
+                                    throw new NotImplementedException("It is mandatory to fill up a Response Structure for this test");
+                                    return respSt;
+                            }
+
+                            public static <#= "TL"+l.Level+"_"+l.Name.Replace(" ","")+ "_"+e.Name.Replace(" ","")+"_ParserStream" #> GetRequestStream()
+                            {
+                                    <#= "TL"+l.Level+"_"+l.Name.Replace(" ","")+ "_"+e.Name.Replace(" ","")+"_ParserStream" #> reqSt = new <#= "TL"+l.Level+"_"+l.Name.Replace(" ","")+ "_"+e.Name.Replace(" ","")+"_ParserStream" #>();
+                                    throw new NotImplementedException("It is mandatory to fill up a Request Stream for this test");
+                                    return reqSt;
+                            }
+                            
+                        }
+                    }
+                    #endif
+                    <#
+                }    
+            }
+        }
+    }
+#>
+<#+
+    private bool ValidateModel(TransactionModel m)
+    {
+        return (!String.IsNullOrEmpty(m.Name)) && (!String.IsNullOrEmpty(m.Namespace)) && (m.InstanceId > 0);
+    }
+ #>

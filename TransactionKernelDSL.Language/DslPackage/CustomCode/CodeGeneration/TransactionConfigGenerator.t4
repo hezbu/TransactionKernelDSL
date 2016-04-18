@@ -1,0 +1,564 @@
+﻿<#@ template inherits="Microsoft.VisualStudio.TextTemplating.VSHost.ModelingTextTransformation" #>
+<#@ parameter name="delimiter" type="System.String" #>
+<#@ parameter name="path" type="System.String" #>
+<#@ template language="C#v3.5" #>
+<#@ assembly name="System.Core" #>
+<#@ import namespace="System.Linq" #>
+<#@ import namespace="System.Collections.Generic" #>
+<#@ TrnxDsl processor="TrnxDslDirectiveProcessor" requires="fileName='Test.TrnxDsl'" #>
+<#@ import namespace="System.IO" #>
+<# 
+    if(ValidateModel(this.TransactionModel))
+    {  
+#>
+<#=            string.Format(delimiter,"App") #><?xml version="1.0" encoding="utf-8" ?>
+<configuration>	
+    <configSections>
+	    <#=            ParserConfigGenerator() #>
+	</configSections>
+	<appSettings>
+        <#= InstanceGenerator(this.TransactionModel) #>
+		       <#
+        if(this.TransactionModel.GetValueImplementationType == PersistableSourceType.SQLServerDatabase)
+        {
+        #>
+        <add key="GetValueStoredProcedure" value="Sp_GetValue"/>
+<#
+        }
+        if(this.TransactionModel.SequenceFactoryImplementationType == PersistableSourceType.SQLServerDatabase)
+        {
+        #>
+        <add key="SequenceFactoryStoredProcedure" value="Sp_SequenceFactory"/>
+<#
+        }
+
+        foreach(TransactionLayer l in this.TransactionModel.TransactionLayers)
+        {
+            foreach(TransactionSQLServerDataSource ds in l.TransactionSQLServerDataSources)
+            {
+                #><add key="<#=                    ds.Name.Replace(" ","")#>StoredProcedure" value="Sp_<#=                    ds.Name.Replace(" ","")#>"/><#
+            }
+            
+            var dssOeList = from dss in l.TransactionDataSourceSupports
+                    where (dss.SupportType == DataSourceSupportType.SQLServerSupport
+                        && dss.OutputTransactionEngines.Count > 0
+                        )
+                    let oes = dss.OutputTransactionEngines
+                    from oe in oes
+                    select oe;
+
+            foreach(OutputTransactionEngine oe in dssOeList)
+            {
+                switch(oe.Type)
+                {
+                    case OutputEngineType.TcpFunneledOutputEngine:
+  
+                        #><add key="<#=                            "TL"+oe.TransactionLayer.Level+"_"+oe.TransactionLayer.Name.Replace(" ","")+ "_"+oe.Name.Replace(" ","")+"_Engine_"   #>PushRequirementStoredProcedure" value="Sp_<#=                            oe.TransactionLayer.TransactionModel.Name.Replace(" ","") #>FunneledEnginePushRequirementStoredProc"/><#=                            "\r\n" #><#
+                        #><add key="<#=                            "TL"+oe.TransactionLayer.Level+"_"+oe.TransactionLayer.Name.Replace(" ","")+ "_"+oe.Name.Replace(" ","")+"_Engine_"   #>PullResponseStoredProcedure" value="Sp_<#=                            oe.TransactionLayer.TransactionModel.Name.Replace(" ","") #>FunneledEnginePullResponseStoredProc"/><#=                            "\r\n" #><#
+                        #><add key="<#=                            "TL"+oe.TransactionLayer.Level+"_"+oe.TransactionLayer.Name.Replace(" ","")+ "_"+oe.Name.Replace(" ","")+"_Engine_"   #>UponForwardingProcessStoredProcedure" value="Sp_<#=                            oe.TransactionLayer.TransactionModel.Name.Replace(" ","") #>FunneledEngineUponForwardingProcessStoredProc"/><#=                            "\r\n" #><#
+                        #><add key="<#=                            "TL"+oe.TransactionLayer.Level+"_"+oe.TransactionLayer.Name.Replace(" ","")+ "_"+oe.Name.Replace(" ","")+"_Engine_"   #>PushResponseStoredProcedure" value="Sp_<#=                            oe.TransactionLayer.TransactionModel.Name.Replace(" ","") #>FunneledEnginePushResponseStoredProc"/><#=                            "\r\n" #><#
+                        #><add key="<#=                            "TL"+oe.TransactionLayer.Level+"_"+oe.TransactionLayer.Name.Replace(" ","")+ "_"+oe.Name.Replace(" ","")+"_Engine_"   #>PullAvailableRequirementsStoredProcedure" value="Sp_<#=                            oe.TransactionLayer.TransactionModel.Name.Replace(" ","") #>FunneledEnginePullAvailableRequirementsStoredProc"/><#=                            "\r\n" #><#
+                        break;
+                }
+            }
+        }
+ #>
+	</appSettings>    
+   <#=            ConnectionStringGenerator()   #>
+    <system.net>
+    <connectionManagement>
+      <add address="*" maxconnection="100" />
+    </connectionManagement>
+    </system.net>
+   <#=            ParserSectionConfigGenerator() #>       
+</configuration>
+<# 
+    }
+#>
+<#+
+    private string ConnectionStringGenerator()
+    {
+        string result = "";
+        if(String.IsNullOrEmpty(this.TransactionModel.DatabaseServerInstance) == false)
+        {
+            result += "<connectionStrings>\r\n\t<add name=\"MainConnection\" connectionString=\"";
+            result += "data source="+this.TransactionModel.DatabaseServerInstance+";integrated security=false;";
+            if(String.IsNullOrEmpty(this.TransactionModel.DatabaseInitialCatalog) == false) result+= "initial catalog="+this.TransactionModel.DatabaseInitialCatalog+";";
+            else  result+= "initial catalog={database name};";
+
+            if(String.IsNullOrEmpty(this.TransactionModel.DatabaseUser) == false) result+= " User ID="+this.TransactionModel.DatabaseUser+";";
+            else result+= " User ID={username};";
+            
+            
+            if(String.IsNullOrEmpty(this.TransactionModel.DatabasePassword) == false) result+= " pwd="+this.TransactionModel.DatabasePassword+";";
+            else result+= " pwd={password};";
+
+            result += "\"/>\r\n</connectionStrings>";
+        }
+
+        return result; 
+    }
+ #>
+<#+
+    private string InstanceGenerator(TransactionModel m)
+    {
+        string result= "<add key=\"InstanceId\" value=\""+m.InstanceId.ToString()+"\" />\r\n";
+        if (String.IsNullOrEmpty(m.SatelliteInstances) == false)
+            {
+                foreach (string s in m.SatelliteInstances.Split(new char[] { '|' }))
+                {
+                    int instanceTest = 0;
+                    if (Int32.TryParse(s, out instanceTest) == true)
+                    {
+                    result+= "<!--<add key=\"InstanceId\" value=\""+instanceTest.ToString()+"\" />--> <!-- Satellite Instance, activate it on a different app.config file-->\r\n";;
+                    }
+                }
+                
+            }
+        return result;
+    }
+ #>
+<#+
+    private bool ValidateModel(TransactionModel m)
+    {
+        return (!String.IsNullOrEmpty(m.Name)) && (!String.IsNullOrEmpty(m.Namespace)) && (m.InstanceId > 0);
+    }
+ #>
+<#+
+    private string ParserConfigGenerator()
+    {
+        string result="";
+
+        var inputList = from layer in this.TransactionModel.TransactionLayers
+                let engines = layer.InputTransactionEngines
+                from engine in engines
+                where ((engine.Parser != ParserType.NotTyped) && (engine.Parser != ParserType.PropietaryParser))
+                select engine; 
+   
+        foreach (InputTransactionEngine e in inputList)
+        {
+            string sectionName = (String.IsNullOrEmpty(e.ParserSectionName)?e.Parser.ToString():e.ParserSectionName);
+            if(result.Contains("name=\""+sectionName+"\"") == false)
+            {
+                result += "<section name=\""+sectionName+"\"   type=\"TransactionKernelDSL.Framework.V1.AbstractTransactionParserSection, TransactionKernelDSL.Framework, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null\" allowDefinition=\"Everywhere\" allowExeDefinition=\"MachineToApplication\" restartOnExternalChanges=\"true\"/>\r\n\t";        
+            }
+        }        
+
+        var outputList = from layer in this.TransactionModel.TransactionLayers
+                let engines = layer.OutputTransactionEngines
+                from engine in engines
+                where ((engine.Parser != ParserType.NotTyped) && (engine.Parser != ParserType.PropietaryParser))
+                select engine; 
+
+        foreach (OutputTransactionEngine e in outputList)
+        {
+            string sectionName = (String.IsNullOrEmpty(e.ParserSectionName)?e.Parser.ToString():e.ParserSectionName);
+            if(result.Contains("name=\""+sectionName+"\"") == false)
+            {
+                result += "<section name=\""+sectionName+"\"   type=\"TransactionKernelDSL.Framework.V1.AbstractTransactionParserSection, TransactionKernelDSL.Framework, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null\" allowDefinition=\"Everywhere\" allowExeDefinition=\"MachineToApplication\" restartOnExternalChanges=\"true\"/>\r\n\t";        
+            }
+        }        
+
+        return result;
+    }
+ #>
+<#+
+    private string ParserSectionConfigGenerator()
+    {
+        string result="";
+
+        var list = (from layer in this.TransactionModel.TransactionLayers
+                let engines = layer.InputTransactionEngines
+                from engine in engines
+                where ((engine.Parser != ParserType.NotTyped) && (engine.Parser != ParserType.PropietaryParser))
+                select engine as TransactionEngine)
+            .Union(from layer in this.TransactionModel.TransactionLayers
+                let engines = layer.OutputTransactionEngines
+                from engine in engines
+                where ((engine.Parser != ParserType.NotTyped) && (engine.Parser != ParserType.PropietaryParser))
+                select engine as TransactionEngine);
+   
+        foreach (TransactionEngine e in list)
+        {
+            string sectionName = (String.IsNullOrEmpty(e.ParserSectionName)?e.Parser.ToString():e.ParserSectionName);
+            if(result.Contains("<"+sectionName+">") == false)
+            {
+                result += "<"+sectionName+">\r\n\t";        
+                switch(e.Parser)
+                {
+                    case ParserType.PrefixedMeflur:
+                    case ParserType.Meflur:
+                        result+= "<DefaultRequestFields>\r\n"+
+                            "<field id=\"0\" keyName=\"Tipo\" type=\"ASCII\" length=\"1\" IsRequired=\"true\" descr=\"Tipo de Trama\"></field>\r\n"+
+                            "<field id=\"1\" keyName=\"Version\" type=\"ASCII\" length=\"2\" IsRequired=\"true\" descr=\"Versión de la Trama\"></field>\r\n"+
+                            "<field id=\"2\" keyName=\"Fecha\" type=\"ASCII\" length=\"8\" IsRequired=\"true\" descr=\"Fecha de la transaccion\"></field>\r\n"+
+                            "<field id=\"3\" keyName=\"Hora\" type=\"ASCII\" length=\"9\" IsRequired=\"true\" descr=\"Hora de la transaccion\"></field>\r\n"+
+                            "<field id=\"4\" keyName=\"Comercio\" type=\"ASCII\" length=\"8\" IsRequired=\"true\" descr=\"Comercio\"></field>\r\n"+
+                            "<field id=\"5\" keyName=\"Terminal\" type=\"ASCII\" length=\"8\" IsRequired=\"true\" descr=\"Terminal\"></field>\r\n"+
+                            "<field id=\"6\" keyName=\"Transaccion\" type=\"ASCII\" length=\"1\" IsRequired=\"true\" descr=\"Codigo de Operación\" IsTransactionIdentifier=\"true\"></field>\r\n"+
+                            "<field id=\"7\" keyName=\"ResultadoAnterior\" type=\"ASCII\" length=\"1\" IsRequired=\"true\" descr=\"Resultado de la última operación\"></field>\r\n"+
+                            "<field id=\"8\" keyName=\"0\" type=\"ASCII\" length=\"255\" descr=\"Campo Dinámico de Uso General\"></field>\r\n"+
+                            "<field id=\"9\" keyName=\"1\" type=\"ASCII\" length=\"255\" descr=\"Campo Dinámico de Uso General\"></field>\r\n"+
+                            "<field id=\"10\" keyName=\"2\" type=\"ASCII\" length=\"255\" descr=\"Campo Dinámico de Uso General\"></field>\r\n"+
+                            "<field id=\"11\" keyName=\"3\" type=\"ASCII\" length=\"255\" descr=\"Campo Dinámico de Uso General\"></field>\r\n"+
+                            "<field id=\"12\" keyName=\"4\" type=\"ASCII\" length=\"255\" descr=\"Campo Dinámico de Uso General\"></field>\r\n"+
+                            "<field id=\"13\" keyName=\"5\" type=\"ASCII\" length=\"255\" descr=\"Campo Dinámico de Uso General\"></field>\r\n"+
+                            "<field id=\"14\" keyName=\"6\" type=\"ASCII\" length=\"255\" descr=\"Campo Dinámico de Uso General\"></field>\r\n"+
+                            "<field id=\"15\" keyName=\"7\" type=\"ASCII\" length=\"255\" descr=\"Campo Dinámico de Uso General\"></field>\r\n"+
+                            "<field id=\"16\" keyName=\"8\" type=\"ASCII\" length=\"255\" descr=\"Campo Dinámico de Uso General\"></field>\r\n"+
+                            "<field id=\"17\" keyName=\"9\" type=\"ASCII\" length=\"255\" descr=\"Campo Dinámico de Uso General\"></field>\r\n"+
+                            "<field id=\"18\" keyName=\"10\" type=\"ASCII\" length=\"255\" descr=\"Campo Dinámico de Uso General\"></field>\r\n"+
+                            "<field id=\"19\" keyName=\"11\" type=\"ASCII\" length=\"255\" descr=\"Campo Dinámico de Uso General\"></field>\r\n"+
+                            "<field id=\"20\" keyName=\"12\" type=\"ASCII\" length=\"255\" descr=\"Campo Dinámico de Uso General\"></field>\r\n"+
+                            "<field id=\"21\" keyName=\"13\" type=\"ASCII\" length=\"255\" descr=\"Campo Dinámico de Uso General\"></field>\r\n"+
+                            "<field id=\"22\" keyName=\"14\" type=\"ASCII\" length=\"255\" descr=\"Campo Dinámico de Uso General\"></field>\r\n"+
+                            "<field id=\"23\" keyName=\"15\" type=\"ASCII\" length=\"255\" descr=\"Campo Dinámico de Uso General\"></field>\r\n"+
+                            "<field id=\"24\" keyName=\"16\" type=\"ASCII\" length=\"255\" descr=\"Campo Dinámico de Uso General\"></field>\r\n"+
+                            "<field id=\"25\" keyName=\"17\" type=\"ASCII\" length=\"255\" descr=\"Campo Dinámico de Uso General\"></field>\r\n"+
+                            "<field id=\"26\" keyName=\"18\" type=\"ASCII\" length=\"255\" descr=\"Campo Dinámico de Uso General\"></field>\r\n"+
+                            "<field id=\"27\" keyName=\"19\" type=\"ASCII\" length=\"255\" descr=\"Campo Dinámico de Uso General\"></field>\r\n"+
+                            "<field id=\"28\" keyName=\"20\" type=\"ASCII\" length=\"255\" descr=\"Campo Dinámico de Uso General\"></field>\r\n"+
+                            "<field id=\"29\" keyName=\"21\" type=\"ASCII\" length=\"255\" descr=\"Campo Dinámico de Uso General\"></field>\r\n"+
+                            "<field id=\"30\" keyName=\"22\" type=\"ASCII\" length=\"255\" descr=\"Campo Dinámico de Uso General\"></field>\r\n"+
+                            "<field id=\"31\" keyName=\"23\" type=\"ASCII\" length=\"255\" descr=\"Campo Dinámico de Uso General\"></field>\r\n"+
+                            "<field id=\"32\" keyName=\"24\" type=\"ASCII\" length=\"255\" descr=\"Campo Dinámico de Uso General\"></field>\r\n"+
+                            "<field id=\"33\" keyName=\"25\" type=\"ASCII\" length=\"255\" descr=\"Campo Dinámico de Uso General\"></field>\r\n"+
+                            "<field id=\"34\" keyName=\"26\" type=\"ASCII\" length=\"255\" descr=\"Campo Dinámico de Uso General\"></field>\r\n"+
+                            "<field id=\"35\" keyName=\"27\" type=\"ASCII\" length=\"255\" descr=\"Campo Dinámico de Uso General\"></field>\r\n"+
+                            "<field id=\"36\" keyName=\"28\" type=\"ASCII\" length=\"255\" descr=\"Campo Dinámico de Uso General\"></field>\r\n"+
+                            "<field id=\"37\" keyName=\"29\" type=\"ASCII\" length=\"255\" descr=\"Campo Dinámico de Uso General\"></field>\r\n"+
+                            "<field id=\"38\" keyName=\"30\" type=\"ASCII\" length=\"255\" descr=\"Campo Dinámico de Uso General\"></field>\r\n"+
+                            "<field id=\"39\" keyName=\"31\" type=\"ASCII\" length=\"255\" descr=\"Campo Dinámico de Uso General\"></field>\r\n"+
+                            "</DefaultRequestFields>\r\n"+
+                            "<DefaultResponseFields>\r\n"+
+                            "<field id=\"0\" keyName=\"Transaccion\" type=\"ASCII\" length=\"1\" IsRequired=\"true\" IsTransactionIdentifier=\"true\" descr=\"Codigo de Operación\"></field>\r\n"+
+                            "<field id=\"1\" keyName=\"0\" type=\"ASCII\" length=\"255\" descr=\"Campo Dinámico de Uso General\"></field>\r\n"+
+                            "<field id=\"2\" keyName=\"1\" type=\"ASCII\" length=\"255\" descr=\"Campo Dinámico de Uso General\"></field>\r\n"+
+                            "<field id=\"3\" keyName=\"2\" type=\"ASCII\" length=\"255\" descr=\"Campo Dinámico de Uso General\"></field>\r\n"+
+                            "<field id=\"4\" keyName=\"3\" type=\"ASCII\" length=\"255\" descr=\"Campo Dinámico de Uso General\"></field>\r\n"+
+                            "<field id=\"5\" keyName=\"4\" type=\"ASCII\" length=\"255\" descr=\"Campo Dinámico de Uso General\"></field>\r\n"+
+                            "<field id=\"6\" keyName=\"5\" type=\"ASCII\" length=\"255\" descr=\"Campo Dinámico de Uso General\"></field>\r\n"+
+                            "<field id=\"7\" keyName=\"6\" type=\"ASCII\" length=\"255\" descr=\"Campo Dinámico de Uso General\"></field>\r\n"+
+                            "<field id=\"8\" keyName=\"7\" type=\"ASCII\" length=\"255\" descr=\"Campo Dinámico de Uso General\"></field>\r\n"+
+                            "<field id=\"9\" keyName=\"8\" type=\"ASCII\" length=\"255\" descr=\"Campo Dinámico de Uso General\"></field>\r\n"+
+                            "<field id=\"10\" keyName=\"9\" type=\"ASCII\" length=\"255\" descr=\"Campo Dinámico de Uso General\"></field>\r\n"+
+                            "<field id=\"11\" keyName=\"10\" type=\"ASCII\" length=\"255\" descr=\"Campo Dinámico de Uso General\"></field>\r\n"+
+                            "<field id=\"12\" keyName=\"11\" type=\"ASCII\" length=\"255\" descr=\"Campo Dinámico de Uso General\"></field>\r\n"+
+                            "<field id=\"13\" keyName=\"12\" type=\"ASCII\" length=\"255\" descr=\"Campo Dinámico de Uso General\"></field>\r\n"+
+                            "<field id=\"14\" keyName=\"13\" type=\"ASCII\" length=\"255\" descr=\"Campo Dinámico de Uso General\"></field>\r\n"+
+                            "<field id=\"15\" keyName=\"14\" type=\"ASCII\" length=\"255\" descr=\"Campo Dinámico de Uso General\"></field>\r\n"+
+                            "<field id=\"16\" keyName=\"15\" type=\"ASCII\" length=\"255\" descr=\"Campo Dinámico de Uso General\"></field>\r\n"+
+                            "<field id=\"17\" keyName=\"16\" type=\"ASCII\" length=\"255\" descr=\"Campo Dinámico de Uso General\"></field>\r\n"+
+                            "<field id=\"18\" keyName=\"17\" type=\"ASCII\" length=\"255\" descr=\"Campo Dinámico de Uso General\"></field>\r\n"+
+                            "<field id=\"19\" keyName=\"18\" type=\"ASCII\" length=\"255\" descr=\"Campo Dinámico de Uso General\"></field>\r\n"+
+                            "<field id=\"20\" keyName=\"19\" type=\"ASCII\" length=\"255\" descr=\"Campo Dinámico de Uso General\"></field>\r\n"+
+                            "<field id=\"21\" keyName=\"20\" type=\"ASCII\" length=\"255\" descr=\"Campo Dinámico de Uso General\"></field>\r\n"+
+                            "<field id=\"22\" keyName=\"21\" type=\"ASCII\" length=\"255\" descr=\"Campo Dinámico de Uso General\"></field>\r\n"+
+                            "<field id=\"23\" keyName=\"22\" type=\"ASCII\" length=\"255\" descr=\"Campo Dinámico de Uso General\"></field>\r\n"+
+                            "<field id=\"24\" keyName=\"23\" type=\"ASCII\" length=\"255\" descr=\"Campo Dinámico de Uso General\"></field>\r\n"+
+                            "<field id=\"25\" keyName=\"24\" type=\"ASCII\" length=\"255\" descr=\"Campo Dinámico de Uso General\"></field>\r\n"+
+                            "<field id=\"26\" keyName=\"25\" type=\"ASCII\" length=\"255\" descr=\"Campo Dinámico de Uso General\"></field>\r\n"+
+                            "<field id=\"27\" keyName=\"26\" type=\"ASCII\" length=\"255\" descr=\"Campo Dinámico de Uso General\"></field>\r\n"+
+                            "<field id=\"28\" keyName=\"27\" type=\"ASCII\" length=\"255\" descr=\"Campo Dinámico de Uso General\"></field>\r\n"+
+                            "<field id=\"29\" keyName=\"28\" type=\"ASCII\" length=\"255\" descr=\"Campo Dinámico de Uso General\"></field>\r\n"+
+                            "<field id=\"30\" keyName=\"29\" type=\"ASCII\" length=\"255\" descr=\"Campo Dinámico de Uso General\"></field>\r\n"+
+                            "<field id=\"31\" keyName=\"30\" type=\"ASCII\" length=\"255\" descr=\"Campo Dinámico de Uso General\"></field>\r\n"+
+                            "<field id=\"32\" keyName=\"31\" type=\"ASCII\" length=\"255\" descr=\"Campo Dinámico de Uso General\"></field>\r\n"+
+                            "</DefaultResponseFields>\r\n";
+                        break;
+                    case ParserType.Iso8583:
+                        result += "<DefaultRequestFields>\r\n"+
+                            "<field id=\"0\" keyName=\"LENGTH\" type=\"BCD\" length=\"2\" ></field>\r\n"+
+                            "<field id=\"1\" keyName=\"TPDU\" type=\"BCD\" length=\"5\" ></field>\r\n"+
+                            "<field id=\"2\" keyName=\"MSGID\" type=\"BCD\" length=\"2\"  IsTransactionIdentifier=\"true\"></field>\r\n"+
+                            "<field id=\"3\" keyName=\"BITMAP\" type=\"BIN\" length=\"8\" ></field>\r\n"+
+                            "<field id=\"4\" keyName=\"1\" type=\"BIN\" length=\"8\"></field>\r\n"+
+                            "<field id=\"5\" keyName=\"2\" type=\"LVAR\" length=\"50\" ></field>\r\n"+
+                            "<field id=\"6\" keyName=\"3\" type=\"BCD\" length=\"3\"  IsTransactionIdentifier=\"true\"></field>\r\n"+
+                            "<field id=\"7\" keyName=\"4\" type=\"BCD\" length=\"6\" ></field>\r\n"+
+                            "<field id=\"8\" keyName=\"6\" type=\"BCD\" length=\"6\" ></field>\r\n"+
+                            "<field id=\"9\" keyName=\"7\" type=\"BCD\" length=\"5\" ></field>\r\n"+
+                            "<field id=\"10\" keyName=\"11\" type=\"BCD\" length=\"3\" ></field>\r\n"+
+                            "<field id=\"11\" keyName=\"12\" type=\"BCD\" length=\"3\" ></field>\r\n"+
+                            "<field id=\"12\" keyName=\"13\" type=\"BCD\" length=\"2\" ></field>\r\n"+
+                            "<field id=\"13\" keyName=\"14\" type=\"BCD\" length=\"2\" ></field>\r\n"+
+                            "<field id=\"14\" keyName=\"15\" type=\"BCD\" length=\"2\" ></field>\r\n"+
+                            "<field id=\"15\" keyName=\"17\" type=\"BCD\" length=\"2\" ></field>\r\n"+
+                            "<field id=\"16\" keyName=\"22\" type=\"BCD\" length=\"2\" ></field>\r\n"+
+                            "<field id=\"17\" keyName=\"23\" type=\"BCD\" length=\"2\" ></field>\r\n"+
+                            "<field id=\"18\" keyName=\"24\" type=\"BCD\" length=\"2\" ></field>\r\n"+
+                            "<field id=\"19\" keyName=\"25\" type=\"BCD\" length=\"1\" ></field>\r\n"+
+                            "<field id=\"20\" keyName=\"35\" type=\"LVAR\" length=\"40\" ></field>\r\n"+
+                            "<field id=\"21\" keyName=\"37\" type=\"ASCII\" length=\"12\" ></field>\r\n"+
+                            "<field id=\"22\" keyName=\"38\" type=\"ASCII\" length=\"6\" ></field>\r\n"+
+                            "<field id=\"23\" keyName=\"39\" type=\"ASCII\" length=\"2\" ></field>\r\n"+
+                            "<field id=\"24\" keyName=\"41\" type=\"ASCII\" length=\"8\" ></field>\r\n"+
+                            "<field id=\"25\" keyName=\"42\" type=\"ASCII\" length=\"15\" ></field>\r\n"+
+                            "<field id=\"26\" keyName=\"48\" type=\"LLVAR\" length=\"999\" ></field>\r\n"+
+                            "<field id=\"27\" keyName=\"49\" type=\"BCD\" length=\"2\" ></field>\r\n"+
+                            "<field id=\"28\" keyName=\"52\" type=\"ASCII\" length=\"8\" ></field>\r\n"+
+                            "<field id=\"29\" keyName=\"54\" type=\"LLVAR\" length=\"999\" ></field>\r\n"+
+                            "<field id=\"30\" keyName=\"55\" type=\"LLVAR\" length=\"999\" ></field>\r\n"+
+                            "<field id=\"31\" keyName=\"58\" type=\"LLVAR\" length=\"999\" ></field>\r\n"+
+                            "<field id=\"32\" keyName=\"60\" type=\"LLVAR\" length=\"999\" ></field>\r\n"+
+                            "<field id=\"33\" keyName=\"61\" type=\"LLVAR\" length=\"999\" ></field>\r\n"+
+                            "<field id=\"34\" keyName=\"62\" type=\"LLVAR\" length=\"999\" ></field>\r\n"+
+                            "<field id=\"35\" keyName=\"63\" type=\"LLVAR\" length=\"999\" ></field>\r\n"+
+                            "</DefaultRequestFields>\r\n"+
+                            "<DefaultResponseFields>\r\n"+
+                             "<field id=\"0\" keyName=\"LENGTH\" type=\"BCD\" length=\"2\" ></field>\r\n"+
+                            "<field id=\"1\" keyName=\"TPDU\" type=\"BCD\" length=\"5\" ></field>\r\n"+
+                            "<field id=\"2\" keyName=\"MSGID\" type=\"BCD\" length=\"2\"  IsTransactionIdentifier=\"true\"></field>\r\n"+
+                            "<field id=\"3\" keyName=\"BITMAP\" type=\"BIN\" length=\"8\" ></field>\r\n"+
+                            "<field id=\"4\" keyName=\"1\" type=\"BIN\" length=\"8\"></field>\r\n"+
+                            "<field id=\"5\" keyName=\"2\" type=\"LVAR\" length=\"50\" ></field>\r\n"+
+                            "<field id=\"6\" keyName=\"3\" type=\"BCD\" length=\"3\"  IsTransactionIdentifier=\"true\"></field>\r\n"+
+                            "<field id=\"7\" keyName=\"4\" type=\"BCD\" length=\"6\" ></field>\r\n"+
+                            "<field id=\"8\" keyName=\"6\" type=\"BCD\" length=\"6\" ></field>\r\n"+
+                            "<field id=\"9\" keyName=\"7\" type=\"BCD\" length=\"5\" ></field>\r\n"+
+                            "<field id=\"10\" keyName=\"11\" type=\"BCD\" length=\"3\" ></field>\r\n"+
+                            "<field id=\"11\" keyName=\"12\" type=\"BCD\" length=\"3\" ></field>\r\n"+
+                            "<field id=\"12\" keyName=\"13\" type=\"BCD\" length=\"2\" ></field>\r\n"+
+                            "<field id=\"13\" keyName=\"14\" type=\"BCD\" length=\"2\" ></field>\r\n"+
+                            "<field id=\"14\" keyName=\"15\" type=\"BCD\" length=\"2\" ></field>\r\n"+
+                            "<field id=\"15\" keyName=\"17\" type=\"BCD\" length=\"2\" ></field>\r\n"+
+                            "<field id=\"16\" keyName=\"22\" type=\"BCD\" length=\"2\" ></field>\r\n"+
+                            "<field id=\"17\" keyName=\"23\" type=\"BCD\" length=\"2\" ></field>\r\n"+
+                            "<field id=\"18\" keyName=\"24\" type=\"BCD\" length=\"2\" ></field>\r\n"+
+                            "<field id=\"19\" keyName=\"25\" type=\"BCD\" length=\"1\" ></field>\r\n"+
+                            "<field id=\"20\" keyName=\"35\" type=\"LVAR\" length=\"40\" ></field>\r\n"+
+                            "<field id=\"21\" keyName=\"37\" type=\"ASCII\" length=\"12\" ></field>\r\n"+
+                            "<field id=\"22\" keyName=\"38\" type=\"ASCII\" length=\"6\" ></field>\r\n"+
+                            "<field id=\"23\" keyName=\"39\" type=\"ASCII\" length=\"2\" ></field>\r\n"+
+                            "<field id=\"24\" keyName=\"41\" type=\"ASCII\" length=\"8\" ></field>\r\n"+
+                            "<field id=\"25\" keyName=\"42\" type=\"ASCII\" length=\"15\" ></field>\r\n"+
+                            "<field id=\"26\" keyName=\"48\" type=\"LLVAR\" length=\"999\" ></field>\r\n"+
+                             "<field id=\"27\" keyName=\"49\" type=\"BCD\" length=\"2\" ></field>\r\n"+
+                            "<field id=\"28\" keyName=\"52\" type=\"ASCII\" length=\"8\" ></field>\r\n"+
+                            "<field id=\"29\" keyName=\"54\" type=\"LLVAR\" length=\"999\" ></field>\r\n"+
+                            "<field id=\"30\" keyName=\"55\" type=\"LLVAR\" length=\"999\" ></field>\r\n"+
+                            "<field id=\"31\" keyName=\"58\" type=\"LLVAR\" length=\"999\" ></field>\r\n"+
+                            "<field id=\"32\" keyName=\"60\" type=\"LLVAR\" length=\"999\" ></field>\r\n"+
+                            "<field id=\"33\" keyName=\"61\" type=\"LLVAR\" length=\"999\" ></field>\r\n"+
+                            "<field id=\"34\" keyName=\"62\" type=\"LLVAR\" length=\"999\" ></field>\r\n"+
+                            "<field id=\"35\" keyName=\"63\" type=\"LLVAR\" length=\"999\" ></field>\r\n"+
+                            "</DefaultResponseFields>\r\n";
+                        break;
+                    case ParserType.Iso8583B24:
+                        result +=   "<DefaultRequestFields>\r\n" +
+                            "<!-- Header Fields-->\r\n"+
+                            "<field id=\"0\" keyName=\"LENGTH\" type=\"BCD\" length=\"2\" ></field>\r\n"+
+                            "<field id=\"1\" keyName=\"DataPrefix\" type=\"ASCII\" length=\"9\"></field>\r\n"+
+                            "<field id=\"2\" keyName=\"IMS_CICS_TransactionCode\" type=\"ASCII\" length=\"9\"></field>\r\n"+
+                            "<field id=\"3\" keyName=\"StartSignature\" type=\"ASCII\" length=\"3\" DefaultValue=\"ISO\"></field>\r\n"+
+                            "<field id=\"4\" keyName=\"Base24Header\" type=\"ASCII\" length=\"9\" ></field>\r\n"+
+                            "<field id=\"5\" keyName=\"MessageType\" type=\"ASCII\" length=\"4\" IsTransactionIdentifier=\"true\"></field>\r\n"+
+                            "<field id=\"6\"   keyName=\"PrimaryBitmap\" type=\"ASCII\" length=\"16\" DefaultValue=\"0000000000000000\" ></field>\r\n"+
+                            "<!-- Primary Fields-->\r\n"+
+                            "<field id=\"7\"   keyName=\"1\"   type=\"ASCII\"      length=\"16\" DefaultValue=\"0000000000000000\" ></field>\r\n"+
+                            "<field id=\"8\"   keyName=\"2\"   type=\"ASCII\"      length=\"999\" ></field>\r\n"+
+                            "<field id=\"9\"   keyName=\"3\"   type=\"ASCII\"      length=\"6\"></field>\r\n"+
+                            "<field id=\"10\"   keyName=\"4\"   type=\"ASCII\"      length=\"12\" ></field>\r\n"+
+                            "<field id=\"11\"  keyName=\"5\"   type=\"ASCII\"      length=\"12\" ></field>\r\n"+
+                            "<field id=\"12\"  keyName=\"6\"   type=\"ASCII\"      length=\"12\" ></field>\r\n"+
+                            "<field id=\"13\"  keyName=\"7\"   type=\"ASCII\"      length=\"10\" ></field>\r\n"+
+                            "<field id=\"14\"  keyName=\"8\"   type=\"ASCII\"      length=\"999\" ></field>\r\n"+
+                            "<field id=\"15\"  keyName=\"9\"   type=\"ASCII\"      length=\"8\" ></field>\r\n"+
+                            "<field id=\"16\"  keyName=\"10\"  type=\"ASCII\"      length=\"8\" ></field>\r\n"+
+                            "<field id=\"17\"  keyName=\"11\"  type=\"ASCII\"      length=\"6\" ></field>\r\n"+
+                            "<field id=\"18\"  keyName=\"12\"  type=\"ASCII\"      length=\"6\" ></field>\r\n"+
+                            "<field id=\"19\"  keyName=\"13\"  type=\"ASCII\"      length=\"4\" ></field>\r\n"+
+                            "<field id=\"20\"  keyName=\"14\"  type=\"ASCII\"      length=\"4\" ></field>\r\n"+
+                            "<field id=\"21\"  keyName=\"15\"  type=\"ASCII\"      length=\"4\" ></field>\r\n"+
+                            "<field id=\"22\"  keyName=\"16\"  type=\"ASCII\"      length=\"999\" ></field>\r\n"+
+                            "<field id=\"23\"  keyName=\"17\"  type=\"ASCII\"      length=\"4\" ></field>\r\n"+
+                            "<field id=\"24\"  keyName=\"18\"  type=\"ASCII\"      length=\"4\" ></field>\r\n"+
+                            "<field id=\"25\"  keyName=\"19\"  type=\"ASCII\"      length=\"999\" ></field>\r\n"+
+                            "<field id=\"26\"  keyName=\"20\"  type=\"ASCII\"      length=\"999\" ></field>\r\n"+
+                            "<field id=\"27\"  keyName=\"21\"  type=\"ASCII\"      length=\"999\" ></field>\r\n"+
+                            "<field id=\"28\"  keyName=\"22\"  type=\"ASCII\"      length=\"3\" ></field>\r\n"+
+                            "<field id=\"29\"  keyName=\"23\"  type=\"ASCII\"      length=\"999\" ></field>\r\n"+
+                            "<field id=\"30\"  keyName=\"24\"  type=\"ASCII\"      length=\"999\" ></field>\r\n"+
+                            "<field id=\"31\"  keyName=\"25\"  type=\"ASCII\"      length=\"2\" ></field>\r\n"+
+                            "<field id=\"32\"  keyName=\"26\"  type=\"ASCII\"      length=\"999\" ></field>\r\n"+
+                            "<field id=\"33\"  keyName=\"27\"  type=\"ASCII\"      length=\"1\" ></field>\r\n"+
+                            "<field id=\"34\"  keyName=\"32\"  type=\"LLVAR\" length=\"13\" ></field>\r\n"+
+                            "<field id=\"35\"  keyName=\"35\"  type=\"LLVAR\" length=\"39\" ></field>\r\n"+
+                            "<field id=\"36\"  keyName=\"37\"  type=\"ASCII\"      length=\"12\"></field>\r\n"+
+                            "<field id=\"37\"  keyName=\"38\"  type=\"ASCII\"      length=\"6\"></field>\r\n"+
+                            "<field id=\"38\"  keyName=\"39\"  type=\"ASCII\"      length=\"2\"></field>\r\n"+
+                            "<field id=\"39\"  keyName=\"41\"  type=\"ASCII\"      length=\"16\"></field>\r\n"+
+                            "<field id=\"40\"  keyName=\"42\"  type=\"ASCII\"      length=\"15\"></field>\r\n"+
+                            "<field id=\"41\"  keyName=\"43\"  type=\"ASCII\"      length=\"40\"></field>\r\n"+
+                            "<field id=\"42\"  keyName=\"45\"  type=\"LLVAR\" length=\"78\"></field>\r\n"+
+                            "<field id=\"43\"  keyName=\"48\"  type=\"LLLVAR\"      length=\"30\"></field>\r\n"+
+                            "<field id=\"44\"  keyName=\"49\"  type=\"ASCII\"      length=\"3\"></field>\r\n"+
+                            "<field id=\"45\"  keyName=\"50\"  type=\"ASCII\"      length=\"3\"></field>\r\n"+
+                            "<field id=\"46\"  keyName=\"51\"  type=\"ASCII\"      length=\"3\"></field>\r\n"+
+                            "<field id=\"47\"  keyName=\"52\"  type=\"ASCII\"      length=\"16\"></field>\r\n"+
+                            "<field id=\"48\"  keyName=\"54\"  type=\"ASCII\"      length=\"15\"></field>\r\n"+
+                            "<field id=\"49\"  keyName=\"55\"  type=\"LLLVAR\"      length=\"999\"></field>\r\n"+                            
+                            "<field id=\"50\"  keyName=\"58\"  type=\"LLLVAR\"      length=\"999\"></field>\r\n"+
+                            "<field id=\"51\"  keyName=\"60\"  type=\"ASCII\"      length=\"19\"></field>\r\n"+
+                            "<field id=\"52\"  keyName=\"61\"  type=\"ASCII\"      length=\"22\"></field>\r\n"+
+                            "<field id=\"53\"  keyName=\"62\"  type=\"ASCII\"      length=\"13\"></field>\r\n"+
+                            "<field id=\"54\"  keyName=\"63\"  type=\"LLLVAR\"		length=\"600\"></field>\r\n"+
+                            "<field id=\"55\"  keyName=\"64\"  type=\"ASCII\"      length=\"16\"></field>\r\n"+
+                            "<!-- Secondary Fields-->\r\n"+
+                            "<field id=\"56\"  keyName=\"70\"  type=\"ASCII\"      length=\"3\"></field>\r\n"+
+                            "<field id=\"57\"  keyName=\"90\"  type=\"ASCII\"      length=\"42\"></field>\r\n"+
+                            "<field id=\"58\"  keyName=\"95\"  type=\"ASCII\"      length=\"42\"></field>\r\n"+
+                            "<field id=\"59\"  keyName=\"100\"  type=\"LLVAR\" length=\"13\"></field>\r\n"+
+                            "<field id=\"60\"  keyName=\"102\"  type=\"LLVAR\" length=\"28\"></field>\r\n"+
+                            "<field id=\"61\"  keyName=\"103\"  type=\"LLVAR\" length=\"28\"></field>\r\n"+
+                            "<field id=\"62\"  keyName=\"120\"  type=\"LLLVAR\" length=\"999\"></field>\r\n"+
+                            "<field id=\"63\"  keyName=\"121\"  type=\"ASCII\" length=\"23\"></field>\r\n"+
+                            "<field id=\"64\"  keyName=\"122\"  type=\"ASCII\" length=\"14\"></field>\r\n"+
+                            "<field id=\"65\"  keyName=\"123\"  type=\"ASCII\" length=\"23\"></field>\r\n"+
+                            "<field id=\"66\"  keyName=\"124\"  type=\"ASCII\" length=\"12\"></field>\r\n"+
+                            "<field id=\"67\"  keyName=\"125\"  type=\"ASCII\" length=\"15\"></field>\r\n"+
+                            "<field id=\"68\"  keyName=\"126\"  type=\"ASCII\" length=\"41\"></field>\r\n"+
+                            "<field id=\"69\"  keyName=\"128\"  type=\"ASCII\" length=\"16\"></field>\r\n"+
+                            "</DefaultRequestFields>\r\n"+
+                            "<DefaultResponseFields>\r\n"+
+                            "<!-- Header Fields-->\r\n"+
+                            "<field id=\"0\" keyName=\"LENGTH\" type=\"BCD\" length=\"2\" ></field>\r\n"+
+                            "<field id=\"1\" keyName=\"DataPrefix\" type=\"ASCII\" length=\"9\"></field>\r\n"+
+                            "<field id=\"2\" keyName=\"IMS_CICS_TransactionCode\" type=\"ASCII\" length=\"9\"></field>\r\n"+
+                            "<field id=\"3\" keyName=\"StartSignature\" type=\"ASCII\" length=\"3\" DefaultValue=\"ISO\"></field>\r\n"+
+                            "<field id=\"4\" keyName=\"Base24Header\" type=\"ASCII\" length=\"9\" ></field>\r\n"+
+                            "<field id=\"5\" keyName=\"MessageType\" type=\"ASCII\" length=\"4\" IsTransactionIdentifier=\"true\"></field>\r\n"+
+                            "<field id=\"6\"   keyName=\"PrimaryBitmap\" type=\"ASCII\" length=\"16\" ></field>\r\n"+
+                            "<!-- Primary Fields-->\r\n"+
+                            "<field id=\"7\"   keyName=\"1\"   type=\"ASCII\"      length=\"16\" ></field>\r\n"+
+                            "<field id=\"8\"   keyName=\"2\"   type=\"ASCII\"      length=\"999\" ></field>\r\n"+
+                            "<field id=\"9\"   keyName=\"3\"   type=\"ASCII\"      length=\"6\"></field>\r\n"+
+                            "<field id=\"10\"   keyName=\"4\"   type=\"ASCII\"      length=\"12\" ></field>\r\n"+
+                            "<field id=\"11\"  keyName=\"5\"   type=\"ASCII\"      length=\"12\" ></field>\r\n"+
+                            "<field id=\"12\"  keyName=\"6\"   type=\"ASCII\"      length=\"12\" ></field>\r\n"+
+                            "<field id=\"13\"  keyName=\"7\"   type=\"ASCII\"      length=\"10\" ></field>\r\n"+
+                            "<field id=\"14\"  keyName=\"8\"   type=\"ASCII\"      length=\"999\" ></field>\r\n"+
+                            "<field id=\"15\"  keyName=\"9\"   type=\"ASCII\"      length=\"8\" ></field>\r\n"+
+                            "<field id=\"16\"  keyName=\"10\"  type=\"ASCII\"      length=\"8\" ></field>\r\n"+
+                            "<field id=\"17\"  keyName=\"11\"  type=\"ASCII\"      length=\"6\" ></field>\r\n"+
+                            "<field id=\"18\"  keyName=\"12\"  type=\"ASCII\"      length=\"6\" ></field>\r\n"+
+                            "<field id=\"19\"  keyName=\"13\"  type=\"ASCII\"      length=\"4\" ></field>\r\n"+
+                            "<field id=\"20\"  keyName=\"14\"  type=\"ASCII\"      length=\"4\" ></field>\r\n"+
+                            "<field id=\"21\"  keyName=\"15\"  type=\"ASCII\"      length=\"4\" ></field>\r\n"+
+                            "<field id=\"22\"  keyName=\"16\"  type=\"ASCII\"      length=\"999\" ></field>\r\n"+
+                            "<field id=\"23\"  keyName=\"17\"  type=\"ASCII\"      length=\"4\" ></field>\r\n"+
+                            "<field id=\"24\"  keyName=\"18\"  type=\"ASCII\"      length=\"4\" ></field>\r\n"+
+                            "<field id=\"25\"  keyName=\"19\"  type=\"ASCII\"      length=\"999\" ></field>\r\n"+
+                            "<field id=\"26\"  keyName=\"20\"  type=\"ASCII\"      length=\"999\" ></field>\r\n"+
+                            "<field id=\"27\"  keyName=\"21\"  type=\"ASCII\"      length=\"999\" ></field>\r\n"+
+                            "<field id=\"28\"  keyName=\"22\"  type=\"ASCII\"      length=\"3\" ></field>\r\n"+
+                            "<field id=\"29\"  keyName=\"23\"  type=\"ASCII\"      length=\"999\" ></field>\r\n"+
+                            "<field id=\"30\"  keyName=\"24\"  type=\"ASCII\"      length=\"999\" ></field>\r\n"+
+                            "<field id=\"31\"  keyName=\"25\"  type=\"ASCII\"      length=\"2\" ></field>\r\n"+
+                            "<field id=\"32\"  keyName=\"26\"  type=\"ASCII\"      length=\"999\" ></field>\r\n"+
+                            "<field id=\"33\"  keyName=\"27\"  type=\"ASCII\"      length=\"1\" ></field>\r\n"+
+                            "<field id=\"34\"  keyName=\"32\"  type=\"LLVAR\" length=\"13\" ></field>\r\n"+
+                            "<field id=\"35\"  keyName=\"35\"  type=\"LLVAR\" length=\"39\" ></field>\r\n"+
+                            "<field id=\"36\"  keyName=\"37\"  type=\"ASCII\"      length=\"12\"></field>\r\n"+
+                            "<field id=\"37\"  keyName=\"38\"  type=\"ASCII\"      length=\"6\"></field>\r\n"+
+                            "<field id=\"38\"  keyName=\"39\"  type=\"ASCII\"      length=\"2\"></field>\r\n"+
+                            "<field id=\"39\"  keyName=\"41\"  type=\"ASCII\"      length=\"16\"></field>\r\n"+
+                            "<field id=\"40\"  keyName=\"42\"  type=\"ASCII\"      length=\"15\"></field>\r\n"+
+                            "<field id=\"41\"  keyName=\"43\"  type=\"ASCII\"      length=\"40\"></field>\r\n"+
+                            "<field id=\"42\"  keyName=\"45\"  type=\"LLVAR\" length=\"78\"></field>\r\n"+
+                            "<field id=\"43\"  keyName=\"48\"  type=\"LLLVAR\"      length=\"30\"></field>\r\n"+
+                            "<field id=\"44\"  keyName=\"49\"  type=\"ASCII\"      length=\"3\"></field>\r\n"+
+                            "<field id=\"45\"  keyName=\"50\"  type=\"ASCII\"      length=\"3\"></field>\r\n"+
+                            "<field id=\"46\"  keyName=\"51\"  type=\"ASCII\"      length=\"3\"></field>\r\n"+
+                            "<field id=\"47\"  keyName=\"52\"  type=\"ASCII\"      length=\"16\"></field>\r\n"+
+                            "<field id=\"48\"  keyName=\"54\"  type=\"ASCII\"      length=\"15\"></field>\r\n"+
+                            "<field id=\"49\"  keyName=\"55\"  type=\"LLLVAR\"      length=\"999\"></field>\r\n"+                            
+                            "<field id=\"50\"  keyName=\"58\"  type=\"LLLVAR\"      length=\"999\"></field>\r\n"+
+                            "<field id=\"51\"  keyName=\"60\"  type=\"ASCII\"      length=\"19\"></field>\r\n"+
+                            "<field id=\"52\"  keyName=\"61\"  type=\"ASCII\"      length=\"22\"></field>\r\n"+
+                            "<field id=\"53\"  keyName=\"62\"  type=\"ASCII\"      length=\"13\"></field>\r\n"+
+                            "<field id=\"54\"  keyName=\"63\"  type=\"LLLVAR\"		length=\"600\"></field>\r\n"+
+                            "<field id=\"55\"  keyName=\"64\"  type=\"ASCII\"      length=\"16\"></field>\r\n"+
+                            "<!-- Secondary Fields-->\r\n"+
+                            "<field id=\"56\"  keyName=\"70\"  type=\"ASCII\"      length=\"3\"></field>\r\n"+
+                            "<field id=\"57\"  keyName=\"90\"  type=\"ASCII\"      length=\"42\"></field>\r\n"+
+                            "<field id=\"58\"  keyName=\"95\"  type=\"ASCII\"      length=\"42\"></field>\r\n"+
+                            "<field id=\"59\"  keyName=\"100\"  type=\"LLVAR\" length=\"13\"></field>\r\n"+
+                            "<field id=\"60\"  keyName=\"102\"  type=\"LLVAR\" length=\"28\"></field>\r\n"+
+                            "<field id=\"61\"  keyName=\"103\"  type=\"LLVAR\" length=\"28\"></field>\r\n"+
+                            "<field id=\"62\"  keyName=\"120\"  type=\"LLLVAR\" length=\"999\"></field>\r\n"+
+                            "<field id=\"63\"  keyName=\"121\"  type=\"ASCII\" length=\"23\"></field>\r\n"+
+                            "<field id=\"64\"  keyName=\"122\"  type=\"ASCII\" length=\"14\"></field>\r\n"+
+                            "<field id=\"65\"  keyName=\"123\"  type=\"ASCII\" length=\"23\"></field>\r\n"+
+                            "<field id=\"66\"  keyName=\"124\"  type=\"ASCII\" length=\"12\"></field>\r\n"+
+                            "<field id=\"67\"  keyName=\"125\"  type=\"ASCII\" length=\"15\"></field>\r\n"+
+                            "<field id=\"68\"  keyName=\"126\"  type=\"ASCII\" length=\"41\"></field>\r\n"+
+                            "<field id=\"69\"  keyName=\"128\"  type=\"ASCII\" length=\"16\"></field>\r\n"+
+                            "</DefaultResponseFields>\r\n";
+                        break;
+						case ParserType.Beltran:
+                        result+= "<DefaultRequestFields>\r\n"+
+                            "<field id=\"0\" keyName=\"0\" type=\"ASCII\" length=\"7\" IsRequired=\"true\" IsTransactionIdentifier=\"true\" descr=\"Tipo mensaje\"></field>\r\n"+
+                            "<field id=\"1\" keyName=\"1\" type=\"ASCII\" length=\"6\" IsRequired=\"true\" IsTransactionIdentifier=\"true\" descr=\"Tipo procesamiento\"></field>\r\n"+
+                            "<field id=\"2\" keyName=\"2\" type=\"ASCII\" length=\"8\" descr=\"Comercio id\"></field>\r\n"+
+                            "<field id=\"3\" keyName=\"3\" type=\"ASCII\" length=\"8\" descr=\"Terminal id\"></field>\r\n"+
+                            "<field id=\"4\" keyName=\"4\" type=\"ASCII\" length=\"4\" descr=\"Clave venta\"></field>\r\n"+
+                            "<field id=\"5\" keyName=\"5\" type=\"ASCII\" length=\"5\" descr=\"Transaccion id\"></field>\r\n"+
+                            "<field id=\"6\" keyName=\"6\" type=\"ASCII\" length=\"14\" descr=\"Dia y Hora\"></field>\r\n"+
+                            "<field id=\"7\" keyName=\"7\" type=\"ASCII\" length=\"255\" descr=\"Campor variable Nro 1\"></field>\r\n"+
+                            "<field id=\"8\" keyName=\"8\" type=\"ASCII\" length=\"255\" descr=\"Campor variable Nro 2\"></field>\r\n"+
+                            "<field id=\"9\" keyName=\"9\" type=\"ASCII\" length=\"255\" descr=\"Campor variable Nro 3\"></field>\r\n"+
+							"<field id=\"10\" keyName=\"10\" type=\"ASCII\" length=\"255\" descr=\"Campor variable Nro 4\"></field>\r\n"+
+                            "<field id=\"11\" keyName=\"11\" type=\"ASCII\" length=\"255\" descr=\"Campor variable Nro 5\"></field>\r\n"+
+                            "<field id=\"12\" keyName=\"12\" type=\"ASCII\" length=\"255\" descr=\"Campor variable Nro 6\"></field>\r\n"+
+							"<field id=\"13\" keyName=\"13\" type=\"ASCII\" length=\"255\" descr=\"Campor variable Nro 7\"></field>\r\n"+
+                            "<field id=\"14\" keyName=\"14\" type=\"ASCII\" length=\"255\" descr=\"Campor variable Nro 8\"></field>\r\n"+
+                            "<field id=\"15\" keyName=\"15\" type=\"ASCII\" length=\"255\" descr=\"Campor variable Nro 9\"></field>\r\n"+
+							"<field id=\"16\" keyName=\"16\" type=\"ASCII\" length=\"255\" descr=\"Campor variable Nro 10\"></field>\r\n"+
+                            "<field id=\"17\" keyName=\"17\" type=\"ASCII\" length=\"255\" descr=\"Campor variable Nro 11\"></field>\r\n"+
+                            "<field id=\"18\" keyName=\"18\" type=\"ASCII\" length=\"255\" descr=\"Campor variable Nro 12\"></field>\r\n"+
+							"<field id=\"19\" keyName=\"19\" type=\"ASCII\" length=\"255\" descr=\"Campor variable Nro 13\"></field>\r\n"+
+                            "<field id=\"20\" keyName=\"20\" type=\"ASCII\" length=\"255\" descr=\"Campor variable Nro 14\"></field>\r\n"+
+                            "<field id=\"21\" keyName=\"21\" type=\"ASCII\" length=\"255\" descr=\"Campor variable Nro 15\"></field>\r\n"+
+							"<field id=\"22\" keyName=\"22\" type=\"ASCII\" length=\"255\" descr=\"Campor variable Nro 16\"></field>\r\n"+
+                            "<field id=\"23\" keyName=\"23\" type=\"ASCII\" length=\"255\" descr=\"Campor variable Nro 17\"></field>\r\n"+
+                            "<field id=\"24\" keyName=\"24\" type=\"ASCII\" length=\"255\" descr=\"Campor variable Nro 18\"></field>\r\n"+
+							"<field id=\"25\" keyName=\"25\" type=\"ASCII\" length=\"255\" descr=\"Campor variable Nro 19\"></field>\r\n"+
+                            "</DefaultRequestFields>\r\n"+
+                            "<DefaultResponseFields>\r\n"+
+                            "<field id=\"0\" keyName=\"0\" type=\"ASCII\" length=\"7\" IsRequired=\"true\" IsTransactionIdentifier=\"true\" descr=\"Codigo de Operación\"></field>\r\n"+
+                            "<field id=\"1\" keyName=\"1\" type=\"ASCII\" length=\"6\" IsRequired=\"true\" IsTransactionIdentifier=\"true\" descr=\"Campo Dinámico de Uso General\"></field>\r\n"+
+                            "<field id=\"2\" keyName=\"2\" type=\"ASCII\" length=\"8\" descr=\"Campo Dinámico de Uso General\"></field>\r\n"+
+                            "<field id=\"3\" keyName=\"3\" type=\"ASCII\" length=\"8\" descr=\"Campo Dinámico de Uso General\"></field>\r\n"+
+                            "<field id=\"4\" keyName=\"4\" type=\"ASCII\" length=\"4\" descr=\"Campo Dinámico de Uso General\"></field>\r\n"+
+                            "<field id=\"5\" keyName=\"5\" type=\"ASCII\" length=\"5\" descr=\"Campo Dinámico de Uso General\"></field>\r\n"+
+                            "<field id=\"6\" keyName=\"6\" type=\"ASCII\" length=\"14\" descr=\"Campo Dinámico de Uso General\"></field>\r\n"+
+							"<field id=\"7\" keyName=\"7\" type=\"ASCII\" length=\"255\" descr=\"Campor variable Nro 1\"></field>\r\n"+
+                            "<field id=\"8\" keyName=\"8\" type=\"ASCII\" length=\"255\" descr=\"Campor variable Nro 2\"></field>\r\n"+
+                            "<field id=\"9\" keyName=\"9\" type=\"ASCII\" length=\"255\" descr=\"Campor variable Nro 3\"></field>\r\n"+
+							"<field id=\"10\" keyName=\"10\" type=\"ASCII\" length=\"255\" descr=\"Campor variable Nro 4\"></field>\r\n"+
+                            "<field id=\"11\" keyName=\"11\" type=\"ASCII\" length=\"255\" descr=\"Campor variable Nro 5\"></field>\r\n"+
+                            "<field id=\"12\" keyName=\"12\" type=\"ASCII\" length=\"255\" descr=\"Campor variable Nro 6\"></field>\r\n"+
+							"<field id=\"13\" keyName=\"13\" type=\"ASCII\" length=\"255\" descr=\"Campor variable Nro 7\"></field>\r\n"+
+                            "<field id=\"14\" keyName=\"14\" type=\"ASCII\" length=\"255\" descr=\"Campor variable Nro 8\"></field>\r\n"+
+                            "<field id=\"15\" keyName=\"15\" type=\"ASCII\" length=\"255\" descr=\"Campor variable Nro 9\"></field>\r\n"+
+							"<field id=\"16\" keyName=\"16\" type=\"ASCII\" length=\"255\" descr=\"Campor variable Nro 10\"></field>\r\n"+
+                            "<field id=\"17\" keyName=\"17\" type=\"ASCII\" length=\"255\" descr=\"Campor variable Nro 11\"></field>\r\n"+
+                            "<field id=\"18\" keyName=\"18\" type=\"ASCII\" length=\"255\" descr=\"Campor variable Nro 12\"></field>\r\n"+
+							"<field id=\"19\" keyName=\"19\" type=\"ASCII\" length=\"255\" descr=\"Campor variable Nro 13\"></field>\r\n"+
+                            "<field id=\"20\" keyName=\"20\" type=\"ASCII\" length=\"255\" descr=\"Campor variable Nro 14\"></field>\r\n"+
+                            "<field id=\"21\" keyName=\"21\" type=\"ASCII\" length=\"255\" descr=\"Campor variable Nro 15\"></field>\r\n"+
+							"<field id=\"22\" keyName=\"22\" type=\"ASCII\" length=\"255\" descr=\"Campor variable Nro 16\"></field>\r\n"+
+                            "<field id=\"23\" keyName=\"23\" type=\"ASCII\" length=\"255\" descr=\"Campor variable Nro 17\"></field>\r\n"+
+                            "<field id=\"24\" keyName=\"24\" type=\"ASCII\" length=\"255\" descr=\"Campor variable Nro 18\"></field>\r\n"+
+							"<field id=\"25\" keyName=\"25\" type=\"ASCII\" length=\"255\" descr=\"Campor variable Nro 19\"></field>\r\n"+
+                            "</DefaultResponseFields>\r\n";
+                        break;
+                }
+                result += "</"+sectionName+">\r\n\t";        
+            }
+        }        
+
+        return result;
+    }
+#>

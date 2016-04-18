@@ -1,0 +1,2271 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="TransactionKernelDSL.Framework.Language.TrnxDslDomainModel.Description" xml:space="preserve">
+    <value>Transaction Kernel DSL</value>
+    <comment>Description for DslLibrary &apos;TrnxDsl&apos;</comment>
+  </data>
+  <data name="TransactionKernelDSL.Framework.Language.TrnxDslDomainModel.DisplayName" xml:space="preserve">
+    <value>Transaction Kernel DSL</value>
+    <comment>DisplayName for DslLibrary &apos;TrnxDsl&apos;</comment>
+  </data>
+  <data name="TransactionKernelDSL.Framework.Language.TransactionModel.Description" xml:space="preserve">
+    <value>The root in which all other elements are embedded. Appears as a diagram.</value>
+    <comment>Description for DomainClass &apos;TransactionModel&apos;</comment>
+  </data>
+  <data name="TransactionKernelDSL.Framework.Language.TransactionModel.DisplayName" xml:space="preserve">
+    <value>Transaction Model</value>
+    <comment>DisplayName for DomainClass &apos;TransactionModel&apos;</comment>
+  </data>
+  <data name="TransactionKernelDSL.Framework.Language.TransactionModel/Name.Description" xml:space="preserve">
+    <value>Solution&apos;s name</value>
+    <comment>Description for DomainProperty &apos;Name&apos; on DomainClass &apos;TransactionModel&apos;</comment>
+  </data>
+  <data name="TransactionKernelDSL.Framework.Language.TransactionModel/Name.DisplayName" xml:space="preserve">
+    <value>Name</value>
+    <comment>DisplayName for DomainProperty &apos;Name&apos; on DomainClass &apos;TransactionModel&apos;</comment>
+  </data>
+  <data name="TransactionKernelDSL.Framework.Language.TransactionModel/Name.Category" xml:space="preserve">
+    <value>Setup</value>
+    <comment>Category for DomainProperty &apos;Name&apos; on DomainClass &apos;TransactionModel&apos;</comment>
+  </data>
+  <data name="TransactionKernelDSL.Framework.Language.TransactionModel/InstanceId.Description" xml:space="preserve">
+    <value>Value to uniquely identify the solution within others</value>
+    <comment>Description for DomainProperty &apos;InstanceId&apos; on DomainClass &apos;TransactionModel&apos;</comment>
+  </data>
+  <data name="TransactionKernelDSL.Framework.Language.TransactionModel/InstanceId.DisplayName" xml:space="preserve">
+    <value>Instance Id</value>
+    <comment>DisplayName for DomainProperty &apos;InstanceId&apos; on DomainClass &apos;TransactionModel&apos;</comment>
+  </data>
+  <data name="TransactionKernelDSL.Framework.Language.TransactionModel/InstanceId.Category" xml:space="preserve">
+    <value>Setup</value>
+    <comment>Category for DomainProperty &apos;InstanceId&apos; on DomainClass &apos;TransactionModel&apos;</comment>
+  </data>
+  <data name="TransactionKernelDSL.Framework.Language.TransactionModel/Namespace.Description" xml:space="preserve">
+    <value>Base namespace that will be used in every generated code file</value>
+    <comment>Description for DomainProperty &apos;Namespace&apos; on DomainClass &apos;TransactionModel&apos;</comment>
+  </data>
+  <data name="TransactionKernelDSL.Framework.Language.TransactionModel/Namespace.DisplayName" xml:space="preserve">
+    <value>Namespace</value>
+    <comment>DisplayName for DomainProperty &apos;Namespace&apos; on DomainClass &apos;TransactionModel&apos;</comment>
+  </data>
+  <data name="TransactionKernelDSL.Framework.Language.TransactionModel/Namespace.Category" xml:space="preserve">
+    <value>Setup</value>
+    <comment>Category for DomainProperty &apos;Namespace&apos; on DomainClass &apos;TransactionModel&apos;</comment>
+  </data>
+  <data name="TransactionKernelDSL.Framework.Language.TransactionModel/GetValueImplementationType.Description" xml:space="preserve">
+    <value>GetValue() must be implemented somehow in order to catch initial parameters for the solution to work.</value>
+    <comment>Description for DomainProperty &apos;GetValueImplementationType&apos; on DomainClass &apos;TransactionModel&apos;</comment>
+  </data>
+  <data name="TransactionKernelDSL.Framework.Language.TransactionModel/GetValueImplementationType.DisplayName" xml:space="preserve">
+    <value>Get Value Implementation Type</value>
+    <comment>DisplayName for DomainProperty &apos;GetValueImplementationType&apos; on DomainClass &apos;TransactionModel&apos;</comment>
+  </data>
+  <data name="TransactionKernelDSL.Framework.Language.TransactionModel/GetValueImplementationType.Category" xml:space="preserve">
+    <value>Data Source Setup</value>
+    <comment>Category for DomainProperty &apos;GetValueImplementationType&apos; on DomainClass &apos;TransactionModel&apos;</comment>
+  </data>
+  <data name="TransactionKernelDSL.Framework.Language.TransactionModel/SequenceFactoryImplementationType.Description" xml:space="preserve">
+    <value>SequenceFactory() must be implemented somehow in order to generate trace number for entrying transactions.</value>
+    <comment>Description for DomainProperty &apos;SequenceFactoryImplementationType&apos; on DomainClass &apos;TransactionModel&apos;</comment>
+  </data>
+  <data name="TransactionKernelDSL.Framework.Language.TransactionModel/SequenceFactoryImplementationType.DisplayName" xml:space="preserve">
+    <value>Sequence Factory Implementation Type</value>
+    <comment>DisplayName for DomainProperty &apos;SequenceFactoryImplementationType&apos; on DomainClass &apos;TransactionModel&apos;</comment>
+  </data>
+  <data name="TransactionKernelDSL.Framework.Language.TransactionModel/SequenceFactoryImplementationType.Category" xml:space="preserve">
+    <value>Data Source Setup</value>
+    <comment>Category for DomainProperty &apos;SequenceFactoryImplementationType&apos; on DomainClass &apos;TransactionModel&apos;</comment>
+  </data>
+  <data name="TransactionKernelDSL.Framework.Language.TransactionModel/DatabaseServerInstance.Description" xml:space="preserve">
+    <value>Description for TransactionKernelDSL.Framework.Language.TransactionModel.Database Server Instance</value>
+    <comment>Description for DomainProperty &apos;DatabaseServerInstance&apos; on DomainClass &apos;TransactionModel&apos;</comment>
+  </data>
+  <data name="TransactionKernelDSL.Framework.Language.TransactionModel/DatabaseServerInstance.DisplayName" xml:space="preserve">
+    <value>Database Server Instance</value>
+    <comment>DisplayName for DomainProperty &apos;DatabaseServerInstance&apos; on DomainClass &apos;TransactionModel&apos;</comment>
+  </data>
+  <data name="TransactionKernelDSL.Framework.Language.TransactionModel/DatabaseServerInstance.Category" xml:space="preserve">
+    <value>Database Setup</value>
+    <comment>Category for DomainProperty &apos;DatabaseServerInstance&apos; on DomainClass &apos;TransactionModel&apos;</comment>
+  </data>
+  <data name="TransactionKernelDSL.Framework.Language.TransactionModel/DatabaseInitialCatalog.Description" xml:space="preserve">
+    <value>Description for TransactionKernelDSL.Framework.Language.TransactionModel.Database Initial Catalog</value>
+    <comment>Description for DomainProperty &apos;DatabaseInitialCatalog&apos; on DomainClass &apos;TransactionModel&apos;</comment>
+  </data>
+  <data name="TransactionKernelDSL.Framework.Language.TransactionModel/DatabaseInitialCatalog.DisplayName" xml:space="preserve">
+    <value>Database Initial Catalog</value>
+    <comment>DisplayName for DomainProperty &apos;DatabaseInitialCatalog&apos; on DomainClass &apos;TransactionModel&apos;</comment>
+  </data>
+  <data name="TransactionKernelDSL.Framework.Language.TransactionModel/DatabaseInitialCatalog.Category" xml:space="preserve">
+    <value>Database Setup</value>
+    <comment>Category for DomainProperty &apos;DatabaseInitialCatalog&apos; on DomainClass &apos;TransactionModel&apos;</comment>
+  </data>
+  <data name="TransactionKernelDSL.Framework.Language.TransactionModel/DatabaseUser.Description" xml:space="preserve">
+    <value>Description for TransactionKernelDSL.Framework.Language.TransactionModel.Database User</value>
+    <comment>Description for DomainProperty &apos;DatabaseUser&apos; on DomainClass &apos;TransactionModel&apos;</comment>
+  </data>
+  <data name="TransactionKernelDSL.Framework.Language.TransactionModel/DatabaseUser.DisplayName" xml:space="preserve">
+    <value>Database User</value>
+    <comment>DisplayName for DomainProperty &apos;DatabaseUser&apos; on DomainClass &apos;TransactionModel&apos;</comment>
+  </data>
+  <data name="TransactionKernelDSL.Framework.Language.TransactionModel/DatabaseUser.Category" xml:space="preserve">
+    <value>Database Setup</value>
+    <comment>Category for DomainProperty &apos;DatabaseUser&apos; on DomainClass &apos;TransactionModel&apos;</comment>
+  </data>
+  <data name="TransactionKernelDSL.Framework.Language.TransactionModel/DatabasePassword.Description" xml:space="preserve">
+    <value>Description for TransactionKernelDSL.Framework.Language.TransactionModel.Database Password</value>
+    <comment>Description for DomainProperty &apos;DatabasePassword&apos; on DomainClass &apos;TransactionModel&apos;</comment>
+  </data>
+  <data name="TransactionKernelDSL.Framework.Language.TransactionModel/DatabasePassword.DisplayName" xml:space="preserve">
+    <value>Database Password</value>
+    <comment>DisplayName for DomainProperty &apos;DatabasePassword&apos; on DomainClass &apos;TransactionModel&apos;</comment>
+  </data>
+  <data name="TransactionKernelDSL.Framework.Language.TransactionModel/DatabasePassword.Category" xml:space="preserve">
+    <value>Database Setup</value>
+    <comment>Category for DomainProperty &apos;DatabasePassword&apos; on DomainClass &apos;TransactionModel&apos;</comment>
+  </data>
+  <data name="TransactionKernelDSL.Framework.Language.TransactionModel/SatelliteInstances.Description" xml:space="preserve">
+    <value>It is a pipe-separated array of instance numbers, which will be used to </value>
+    <comment>Description for DomainProperty &apos;SatelliteInstances&apos; on DomainClass &apos;TransactionModel&apos;</comment>
+  </data>
+  <data name="TransactionKernelDSL.Framework.Language.TransactionModel/SatelliteInstances.DisplayName" xml:space="preserve">
+    <value>Satellite Instances</value>
+    <comment>DisplayName for DomainProperty &apos;SatelliteInstances&apos; on DomainClass &apos;TransactionModel&apos;</comment>
+  </data>
+  <data name="TransactionKernelDSL.Framework.Language.TransactionModel/SatelliteInstances.Category" xml:space="preserve">
+    <value>Misc</value>
+    <comment>Category for DomainProperty &apos;SatelliteInstances&apos; on DomainClass &apos;TransactionModel&apos;</comment>
+  </data>
+  <data name="TransactionKernelDSL.Framework.Language.TransactionModel/ScriptVersion.Description" xml:space="preserve">
+    <value>Version associated with the script that will be generated automatically by the transformation tool</value>
+    <comment>Description for DomainProperty &apos;ScriptVersion&apos; on DomainClass &apos;TransactionModel&apos;</comment>
+  </data>
+  <data name="TransactionKernelDSL.Framework.Language.TransactionModel/ScriptVersion.DisplayName" xml:space="preserve">
+    <value>Script Version</value>
+    <comment>DisplayName for DomainProperty &apos;ScriptVersion&apos; on DomainClass &apos;TransactionModel&apos;</comment>
+  </data>
+  <data name="TransactionKernelDSL.Framework.Language.TransactionHandler.Description" xml:space="preserve">
+    <value>Elements embedded in the model. Appear as boxes on the diagram.</value>
+    <comment>Description for DomainClass &apos;TransactionHandler&apos;</comment>
+  </data>
+  <data name="TransactionKernelDSL.Framework.Language.TransactionHandler.DisplayName" xml:space="preserve">
+    <value>Transaction Handler</value>
+    <comment>DisplayName for DomainClass &apos;TransactionHandler&apos;</comment>
+  </data>
+  <data name="TransactionKernelDSL.Framework.Language.TransactionHandler/Name.Description" xml:space="preserve">
+    <value>Handler&apos;s Name</value>
+    <comment>Description for DomainProperty &apos;Name&apos; on DomainClass &apos;TransactionHandler&apos;</comment>
+  </data>
+  <data name="TransactionKernelDSL.Framework.Language.TransactionHandler/Name.DisplayName" xml:space="preserve">
+    <value>Name</value>
+    <comment>DisplayName for DomainProperty &apos;Name&apos; on DomainClass &apos;TransactionHandler&apos;</comment>
+  </data>
+  <data name="TransactionKernelDSL.Framework.Language.TransactionHandler/Name.Category" xml:space="preserve">
+    <value>Setup</value>
+    <comment>Category for DomainProperty &apos;Name&apos; on DomainClass &apos;TransactionHandler&apos;</comment>
+  </data>
+  <data name="TransactionKernelDSL.Framework.Language.TransactionHandler/TransactionId.Description" xml:space="preserve">
+    <value>Transaction Id that will be the main identifier of the handler.</value>
+    <comment>Description for DomainProperty &apos;TransactionId&apos; on DomainClass &apos;TransactionHandler&apos;</comment>
+  </data>
+  <data name="TransactionKernelDSL.Framework.Language.TransactionHandler/TransactionId.DisplayName" xml:space="preserve">
+    <value>Transaction Id</value>
+    <comment>DisplayName for DomainProperty &apos;TransactionId&apos; on DomainClass &apos;TransactionHandler&apos;</comment>
+  </data>
+  <data name="TransactionKernelDSL.Framework.Language.TransactionHandler/TransactionId.Category" xml:space="preserve">
+    <value>Setup</value>
+    <comment>Category for DomainProperty &apos;TransactionId&apos; on DomainClass &apos;TransactionHandler&apos;</comment>
+  </data>
+  <data name="TransactionKernelDSL.Framework.Language.TransactionHandler/LoggerName.Description" xml:space="preserve">
+    <value>Logger&apos;s name used within this transaction handler</value>
+    <comment>Description for DomainProperty &apos;LoggerName&apos; on DomainClass &apos;TransactionHandler&apos;</comment>
+  </data>
+  <data name="TransactionKernelDSL.Framework.Language.TransactionHandler/LoggerName.DisplayName" xml:space="preserve">
+    <value>Logger Name</value>
+    <comment>DisplayName for DomainProperty &apos;LoggerName&apos; on DomainClass &apos;TransactionHandler&apos;</comment>
+  </data>
+  <data name="TransactionKernelDSL.Framework.Language.TransactionHandler/LoggerName.Category" xml:space="preserve">
+    <value>Log Setup</value>
+    <comment>Category for DomainProperty &apos;LoggerName&apos; on DomainClass &apos;TransactionHandler&apos;</comment>
+  </data>
+  <data name="TransactionKernelDSL.Framework.Language.TransactionLayer.Description" xml:space="preserve">
+    <value>Description for TransactionKernelDSL.Framework.Language.TransactionLayer</value>
+    <comment>Description for DomainClass &apos;TransactionLayer&apos;</comment>
+  </data>
+  <data name="TransactionKernelDSL.Framework.Language.TransactionLayer.DisplayName" xml:space="preserve">
+    <value>Transaction Layer</value>
+    <comment>DisplayName for DomainClass &apos;TransactionLayer&apos;</comment>
+  </data>
+  <data name="TransactionKernelDSL.Framework.Language.TransactionLayer/Name.Description" xml:space="preserve">
+    <value>Layer&apos;s name. It is only figurative.</value>
+    <comment>Description for DomainProperty &apos;Name&apos; on DomainClass &apos;TransactionLayer&apos;</comment>
+  </data>
+  <data name="TransactionKernelDSL.Framework.Language.TransactionLayer/Name.DisplayName" xml:space="preserve">
+    <value>Name</value>
+    <comment>DisplayName for DomainProperty &apos;Name&apos; on DomainClass &apos;TransactionLayer&apos;</comment>
+  </data>
+  <data name="TransactionKernelDSL.Framework.Language.TransactionLayer/Level.Description" xml:space="preserve">
+    <value>Is a value that means the order of a layer. Lower levels mean layers involved catching a requirement, and higher levels mean layers involved in forwarding/resolving the transaction</value>
+    <comment>Description for DomainProperty &apos;Level&apos; on DomainClass &apos;TransactionLayer&apos;</comment>
+  </data>
+  <data name="TransactionKernelDSL.Framework.Language.TransactionLayer/Level.DisplayName" xml:space="preserve">
+    <value>Level</value>
+    <comment>DisplayName for DomainProperty &apos;Level&apos; on DomainClass &apos;TransactionLayer&apos;</comment>
+  </data>
+  <data name="TransactionKernelDSL.Framework.Language.InputTransactionEngine.Description" xml:space="preserve">
+    <value>Description for TransactionKernelDSL.Framework.Language.InputTransactionEngine</value>
+    <comment>Description for DomainClass &apos;InputTransactionEngine&apos;</comment>
+  </data>
+  <data name="TransactionKernelDSL.Framework.Language.InputTransactionEngine.DisplayName" xml:space="preserve">
+    <value>Input Transaction Engine</value>
+    <comment>DisplayName for DomainClass &apos;InputTransactionEngine&apos;</comment>
+  </data>
+  <data name="TransactionKernelDSL.Framework.Language.InputTransactionEngine/HasUnitTests.Description" xml:space="preserve">
+    <value>Generates unit testing supporting code for every transaction generated from it</value>
+    <comment>Description for DomainProperty &apos;HasUnitTests&apos; on DomainClass &apos;InputTransactionEngine&apos;</comment>
+  </data>
+  <data name="TransactionKernelDSL.Framework.Language.InputTransactionEngine/HasUnitTests.DisplayName" xml:space="preserve">
+    <value>Has Unit Tests</value>
+    <comment>DisplayName for DomainProperty &apos;HasUnitTests&apos; on DomainClass &apos;InputTransactionEngine&apos;</comment>
+  </data>
+  <data name="TransactionKernelDSL.Framework.Language.InputTransactionEngine/Type.Description" xml:space="preserve">
+    <value>Input Transaction Engine&apos;s Type. The type will be associated with an abstract class from TransactionKernelDSL.Framework</value>
+    <comment>Description for DomainProperty &apos;Type&apos; on DomainClass &apos;InputTransactionEngine&apos;</comment>
+  </data>
+  <data name="TransactionKernelDSL.Framework.Language.InputTransactionEngine/Type.DisplayName" xml:space="preserve">
+    <value>Type</value>
+    <comment>DisplayName for DomainProperty &apos;Type&apos; on DomainClass &apos;InputTransactionEngine&apos;</comment>
+  </data>
+  <data name="TransactionKernelDSL.Framework.Language.InputTransactionEngine/GeneratesSequenceNumber.Description" xml:space="preserve">
+    <value>If true, call SequenceFactory into constructor and saves the new trace number in a Context Value</value>
+    <comment>Description for DomainProperty &apos;GeneratesSequenceNumber&apos; on DomainClass &apos;InputTransactionEngine&apos;</comment>
+  </data>
+  <data name="TransactionKernelDSL.Framework.Language.InputTransactionEngine/GeneratesSequenceNumber.DisplayName" xml:space="preserve">
+    <value>Generates Sequence Number</value>
+    <comment>DisplayName for DomainProperty &apos;GeneratesSequenceNumber&apos; on DomainClass &apos;InputTransactionEngine&apos;</comment>
+  </data>
+  <data name="TransactionKernelDSL.Framework.Language.OutputTransactionEngine.Description" xml:space="preserve">
+    <value>Description for TransactionKernelDSL.Framework.Language.OutputTransactionEngine</value>
+    <comment>Description for DomainClass &apos;OutputTransactionEngine&apos;</comment>
+  </data>
+  <data name="TransactionKernelDSL.Framework.Language.OutputTransactionEngine.DisplayName" xml:space="preserve">
+    <value>Output Transaction Engine</value>
+    <comment>DisplayName for DomainClass &apos;OutputTransactionEngine&apos;</comment>
+  </data>
+  <data name="TransactionKernelDSL.Framework.Language.OutputTransactionEngine/Type.Description" xml:space="preserve">
+    <value>Output Transaction Engine&apos;s Type. The type is associated with an abstract class from TransactionKernelDSL.Framework with built-in functionalities</value>
+    <comment>Description for DomainProperty &apos;Type&apos; on DomainClass &apos;OutputTransactionEngine&apos;</comment>
+  </data>
+  <data name="TransactionKernelDSL.Framework.Language.OutputTransactionEngine/Type.DisplayName" xml:space="preserve">
+    <value>Type</value>
+    <comment>DisplayName for DomainProperty &apos;Type&apos; on DomainClass &apos;OutputTransactionEngine&apos;</comment>
+  </data>
+  <data name="TransactionKernelDSL.Framework.Language.OutputTransactionEngine/EngineLoggerName.Description" xml:space="preserve">
+    <value>Name of the logger used within the engine. Can be the same as MainLogger, but if intended, it can separetely log in another file.</value>
+    <comment>Description for DomainProperty &apos;EngineLoggerName&apos; on DomainClass &apos;OutputTransactionEngine&apos;</comment>
+  </data>
+  <data name="TransactionKernelDSL.Framework.Language.OutputTransactionEngine/EngineLoggerName.DisplayName" xml:space="preserve">
+    <value>Engine Logger Name</value>
+    <comment>DisplayName for DomainProperty &apos;EngineLoggerName&apos; on DomainClass &apos;OutputTransactionEngine&apos;</comment>
+  </data>
+  <data name="TransactionKernelDSL.Framework.Language.OutputTransactionEngine/EngineLoggerName.Category" xml:space="preserve">
+    <value>Associated Logger</value>
+    <comment>Category for DomainProperty &apos;EngineLoggerName&apos; on DomainClass &apos;OutputTransactionEngine&apos;</comment>
+  </data>
+  <data name="TransactionKernelDSL.Framework.Language.TransactionEngine.Description" xml:space="preserve">
+    <value>Description for TransactionKernelDSL.Framework.Language.TransactionEngine</value>
+    <comment>Description for DomainClass &apos;TransactionEngine&apos;</comment>
+  </data>
+  <data name="TransactionKernelDSL.Framework.Language.TransactionEngine.DisplayName" xml:space="preserve">
+    <value>Transaction Engine</value>
+    <comment>DisplayName for DomainClass &apos;TransactionEngine&apos;</comment>
+  </data>
+  <data name="TransactionKernelDSL.Framework.Language.TransactionEngine/Name.Description" xml:space="preserve">
+    <value>Description for TransactionKernelDSL.Framework.Language.TransactionEngine.Name</value>
+    <comment>Description for DomainProperty &apos;Name&apos; on DomainClass &apos;TransactionEngine&apos;</comment>
+  </data>
+  <data name="TransactionKernelDSL.Framework.Language.TransactionEngine/Name.DisplayName" xml:space="preserve">
+    <value>Name</value>
+    <comment>DisplayName for DomainProperty &apos;Name&apos; on DomainClass &apos;TransactionEngine&apos;</comment>
+  </data>
+  <data name="TransactionKernelDSL.Framework.Language.TransactionEngine/AutoStarts.Description" xml:space="preserve">
+    <value>If true, it starts within Facade&apos;s Start() method.</value>
+    <comment>Description for DomainProperty &apos;AutoStarts&apos; on DomainClass &apos;TransactionEngine&apos;</comment>
+  </data>
+  <data name="TransactionKernelDSL.Framework.Language.TransactionEngine/AutoStarts.DisplayName" xml:space="preserve">
+    <value>Auto Starts</value>
+    <comment>DisplayName for DomainProperty &apos;AutoStarts&apos; on DomainClass &apos;TransactionEngine&apos;</comment>
+  </data>
+  <data name="TransactionKernelDSL.Framework.Language.TransactionEngine/Parser.Description" xml:space="preserve">
+    <value>Type of the parser that will be used</value>
+    <comment>Description for DomainProperty &apos;Parser&apos; on DomainClass &apos;TransactionEngine&apos;</comment>
+  </data>
+  <data name="TransactionKernelDSL.Framework.Language.TransactionEngine/Parser.DisplayName" xml:space="preserve">
+    <value>Parser</value>
+    <comment>DisplayName for DomainProperty &apos;Parser&apos; on DomainClass &apos;TransactionEngine&apos;</comment>
+  </data>
+  <data name="TransactionKernelDSL.Framework.Language.TransactionEngine/Parser.Category" xml:space="preserve">
+    <value>Associated Parser</value>
+    <comment>Category for DomainProperty &apos;Parser&apos; on DomainClass &apos;TransactionEngine&apos;</comment>
+  </data>
+  <data name="TransactionKernelDSL.Framework.Language.TransactionEngine/ParserSectionName.Description" xml:space="preserve">
+    <value>Parser Section&apos;s name, that will be linked with a section in app.config with the same name</value>
+    <comment>Description for DomainProperty &apos;ParserSectionName&apos; on DomainClass &apos;TransactionEngine&apos;</comment>
+  </data>
+  <data name="TransactionKernelDSL.Framework.Language.TransactionEngine/ParserSectionName.DisplayName" xml:space="preserve">
+    <value>Parser Section Name</value>
+    <comment>DisplayName for DomainProperty &apos;ParserSectionName&apos; on DomainClass &apos;TransactionEngine&apos;</comment>
+  </data>
+  <data name="TransactionKernelDSL.Framework.Language.TransactionEngine/ParserSectionName.Category" xml:space="preserve">
+    <value>Associated Parser</value>
+    <comment>Category for DomainProperty &apos;ParserSectionName&apos; on DomainClass &apos;TransactionEngine&apos;</comment>
+  </data>
+  <data name="TransactionKernelDSL.Framework.Language.TransactionEngine/LoggerName.Description" xml:space="preserve">
+    <value>MainLogger&apos;s name. By default is &quot;MainLogger&quot;</value>
+    <comment>Description for DomainProperty &apos;LoggerName&apos; on DomainClass &apos;TransactionEngine&apos;</comment>
+  </data>
+  <data name="TransactionKernelDSL.Framework.Language.TransactionEngine/LoggerName.DisplayName" xml:space="preserve">
+    <value>Logger Name</value>
+    <comment>DisplayName for DomainProperty &apos;LoggerName&apos; on DomainClass &apos;TransactionEngine&apos;</comment>
+  </data>
+  <data name="TransactionKernelDSL.Framework.Language.TransactionEngine/LoggerName.Category" xml:space="preserve">
+    <value>Associated Logger</value>
+    <comment>Category for DomainProperty &apos;LoggerName&apos; on DomainClass &apos;TransactionEngine&apos;</comment>
+  </data>
+  <data name="TransactionKernelDSL.Framework.Language.TransactionEngine/ParserLoggerName.Description" xml:space="preserve">
+    <value>Logger&apos;s name used within the parser</value>
+    <comment>Description for DomainProperty &apos;ParserLoggerName&apos; on DomainClass &apos;TransactionEngine&apos;</comment>
+  </data>
+  <data name="TransactionKernelDSL.Framework.Language.TransactionEngine/ParserLoggerName.DisplayName" xml:space="preserve">
+    <value>Parser Logger Name</value>
+    <comment>DisplayName for DomainProperty &apos;ParserLoggerName&apos; on DomainClass &apos;TransactionEngine&apos;</comment>
+  </data>
+  <data name="TransactionKernelDSL.Framework.Language.TransactionEngine/ParserLoggerName.Category" xml:space="preserve">
+    <value>Associated Parser</value>
+    <comment>Category for DomainProperty &apos;ParserLoggerName&apos; on DomainClass &apos;TransactionEngine&apos;</comment>
+  </data>
+  <data name="TransactionKernelDSL.Framework.Language.TransactionSQLServerDataSource.Description" xml:space="preserve">
+    <value>Description for TransactionKernelDSL.Framework.Language.TransactionSQLServerDataSource</value>
+    <comment>Description for DomainClass &apos;TransactionSQLServerDataSource&apos;</comment>
+  </data>
+  <data name="TransactionKernelDSL.Framework.Language.TransactionSQLServerDataSource.DisplayName" xml:space="preserve">
+    <value>Transaction SQLServer Data Source</value>
+    <comment>DisplayName for DomainClass &apos;TransactionSQLServerDataSource&apos;</comment>
+  </data>
+  <data name="TransactionKernelDSL.Framework.Language.TransactionSQLServerDataSource/InstanceName.Description" xml:space="preserve">
+    <value>Description for TransactionKernelDSL.Framework.Language.TransactionSQLServerDataSource.Instance Name</value>
+    <comment>Description for DomainProperty &apos;InstanceName&apos; on DomainClass &apos;TransactionSQLServerDataSource&apos;</comment>
+  </data>
+  <data name="TransactionKernelDSL.Framework.Language.TransactionSQLServerDataSource/InstanceName.DisplayName" xml:space="preserve">
+    <value>Instance Name</value>
+    <comment>DisplayName for DomainProperty &apos;InstanceName&apos; on DomainClass &apos;TransactionSQLServerDataSource&apos;</comment>
+  </data>
+  <data name="TransactionKernelDSL.Framework.Language.TransactionSQLServerDataSource/InstanceName.Category" xml:space="preserve">
+    <value>SQLServer Data Source Setup</value>
+    <comment>Category for DomainProperty &apos;InstanceName&apos; on DomainClass &apos;TransactionSQLServerDataSource&apos;</comment>
+  </data>
+  <data name="TransactionKernelDSL.Framework.Language.TransactionSQLServerDataSource/DatabaseName.Description" xml:space="preserve">
+    <value>Description for TransactionKernelDSL.Framework.Language.TransactionSQLServerDataSource.Database Name</value>
+    <comment>Description for DomainProperty &apos;DatabaseName&apos; on DomainClass &apos;TransactionSQLServerDataSource&apos;</comment>
+  </data>
+  <data name="TransactionKernelDSL.Framework.Language.TransactionSQLServerDataSource/DatabaseName.DisplayName" xml:space="preserve">
+    <value>Database Name</value>
+    <comment>DisplayName for DomainProperty &apos;DatabaseName&apos; on DomainClass &apos;TransactionSQLServerDataSource&apos;</comment>
+  </data>
+  <data name="TransactionKernelDSL.Framework.Language.TransactionSQLServerDataSource/DatabaseName.Category" xml:space="preserve">
+    <value>SQLServer Data Source Setup</value>
+    <comment>Category for DomainProperty &apos;DatabaseName&apos; on DomainClass &apos;TransactionSQLServerDataSource&apos;</comment>
+  </data>
+  <data name="TransactionKernelDSL.Framework.Language.TransactionSQLServerDataSource/ConnectionString.Description" xml:space="preserve">
+    <value>Description for TransactionKernelDSL.Framework.Language.TransactionSQLServerDataSource.Connection String</value>
+    <comment>Description for DomainProperty &apos;ConnectionString&apos; on DomainClass &apos;TransactionSQLServerDataSource&apos;</comment>
+  </data>
+  <data name="TransactionKernelDSL.Framework.Language.TransactionSQLServerDataSource/ConnectionString.DisplayName" xml:space="preserve">
+    <value>Connection String</value>
+    <comment>DisplayName for DomainProperty &apos;ConnectionString&apos; on DomainClass &apos;TransactionSQLServerDataSource&apos;</comment>
+  </data>
+  <data name="TransactionKernelDSL.Framework.Language.TransactionSQLServerDataSource/ConnectionString.Category" xml:space="preserve">
+    <value>SQLServer Data Source Setup</value>
+    <comment>Category for DomainProperty &apos;ConnectionString&apos; on DomainClass &apos;TransactionSQLServerDataSource&apos;</comment>
+  </data>
+  <data name="TransactionKernelDSL.Framework.Language.TransactionSQLServerDataSource/StoredProcedure.Description" xml:space="preserve">
+    <value>Description for TransactionKernelDSL.Framework.Language.TransactionSQLServerDataSource.Stored Procedure</value>
+    <comment>Description for DomainProperty &apos;StoredProcedure&apos; on DomainClass &apos;TransactionSQLServerDataSource&apos;</comment>
+  </data>
+  <data name="TransactionKernelDSL.Framework.Language.TransactionSQLServerDataSource/StoredProcedure.DisplayName" xml:space="preserve">
+    <value>Stored Procedure</value>
+    <comment>DisplayName for DomainProperty &apos;StoredProcedure&apos; on DomainClass &apos;TransactionSQLServerDataSource&apos;</comment>
+  </data>
+  <data name="TransactionKernelDSL.Framework.Language.TransactionSQLServerDataSource/StoredProcedure.Category" xml:space="preserve">
+    <value>Data Setup</value>
+    <comment>Category for DomainProperty &apos;StoredProcedure&apos; on DomainClass &apos;TransactionSQLServerDataSource&apos;</comment>
+  </data>
+  <data name="TransactionKernelDSL.Framework.Language.TransactionSQLServerDataSource/ExecutedOnStage.Description" xml:space="preserve">
+    <value>Description for TransactionKernelDSL.Framework.Language.TransactionSQLServerDataSource.Executed On Stage</value>
+    <comment>Description for DomainProperty &apos;ExecutedOnStage&apos; on DomainClass &apos;TransactionSQLServerDataSource&apos;</comment>
+  </data>
+  <data name="TransactionKernelDSL.Framework.Language.TransactionSQLServerDataSource/ExecutedOnStage.DisplayName" xml:space="preserve">
+    <value>Executed On Stage</value>
+    <comment>DisplayName for DomainProperty &apos;ExecutedOnStage&apos; on DomainClass &apos;TransactionSQLServerDataSource&apos;</comment>
+  </data>
+  <data name="TransactionKernelDSL.Framework.Language.TransactionSQLServerDataSource/ExecutedOnStage.Category" xml:space="preserve">
+    <value>Data Setup</value>
+    <comment>Category for DomainProperty &apos;ExecutedOnStage&apos; on DomainClass &apos;TransactionSQLServerDataSource&apos;</comment>
+  </data>
+  <data name="TransactionKernelDSL.Framework.Language.TransactionDataSource.Description" xml:space="preserve">
+    <value>Description for TransactionKernelDSL.Framework.Language.TransactionDataSource</value>
+    <comment>Description for DomainClass &apos;TransactionDataSource&apos;</comment>
+  </data>
+  <data name="TransactionKernelDSL.Framework.Language.TransactionDataSource.DisplayName" xml:space="preserve">
+    <value>Transaction Data Source</value>
+    <comment>DisplayName for DomainClass &apos;TransactionDataSource&apos;</comment>
+  </data>
+  <data name="TransactionKernelDSL.Framework.Language.TransactionDataSource/Name.Description" xml:space="preserve">
+    <value>Description for TransactionKernelDSL.Framework.Language.TransactionDataSource.Name</value>
+    <comment>Description for DomainProperty &apos;Name&apos; on DomainClass &apos;TransactionDataSource&apos;</comment>
+  </data>
+  <data name="TransactionKernelDSL.Framework.Language.TransactionDataSource/Name.DisplayName" xml:space="preserve">
+    <value>Name</value>
+    <comment>DisplayName for DomainProperty &apos;Name&apos; on DomainClass &apos;TransactionDataSource&apos;</comment>
+  </data>
+  <data name="TransactionKernelDSL.Framework.Language.TransactionDataSource/StepOrder.Description" xml:space="preserve">
+    <value>Description for TransactionKernelDSL.Framework.Language.TransactionDataSource.Step Order</value>
+    <comment>Description for DomainProperty &apos;StepOrder&apos; on DomainClass &apos;TransactionDataSource&apos;</comment>
+  </data>
+  <data name="TransactionKernelDSL.Framework.Language.TransactionDataSource/StepOrder.DisplayName" xml:space="preserve">
+    <value>Step Order</value>
+    <comment>DisplayName for DomainProperty &apos;StepOrder&apos; on DomainClass &apos;TransactionDataSource&apos;</comment>
+  </data>
+  <data name="TransactionKernelDSL.Framework.Language.TransactionWebService.Description" xml:space="preserve">
+    <value>Description for TransactionKernelDSL.Framework.Language.TransactionWebService</value>
+    <comment>Description for DomainClass &apos;TransactionWebService&apos;</comment>
+  </data>
+  <data name="TransactionKernelDSL.Framework.Language.TransactionWebService.DisplayName" xml:space="preserve">
+    <value>Transaction Web Service</value>
+    <comment>DisplayName for DomainClass &apos;TransactionWebService&apos;</comment>
+  </data>
+  <data name="TransactionKernelDSL.Framework.Language.TransactionWebService/Name.Description" xml:space="preserve">
+    <value>Web Service&apos;s Name</value>
+    <comment>Description for DomainProperty &apos;Name&apos; on DomainClass &apos;TransactionWebService&apos;</comment>
+  </data>
+  <data name="TransactionKernelDSL.Framework.Language.TransactionWebService/Name.DisplayName" xml:space="preserve">
+    <value>Name</value>
+    <comment>DisplayName for DomainProperty &apos;Name&apos; on DomainClass &apos;TransactionWebService&apos;</comment>
+  </data>
+  <data name="TransactionKernelDSL.Framework.Language.TransactionWebService/WebServiceClassName.Description" xml:space="preserve">
+    <value>Name of the proxy class generated from the wsdl. The file with the class must be included in project</value>
+    <comment>Description for DomainProperty &apos;WebServiceClassName&apos; on DomainClass &apos;TransactionWebService&apos;</comment>
+  </data>
+  <data name="TransactionKernelDSL.Framework.Language.TransactionWebService/WebServiceClassName.DisplayName" xml:space="preserve">
+    <value>Web Service Class Name</value>
+    <comment>DisplayName for DomainProperty &apos;WebServiceClassName&apos; on DomainClass &apos;TransactionWebService&apos;</comment>
+  </data>
+  <data name="TransactionKernelDSL.Framework.Language.TransactionWebService/Url.Description" xml:space="preserve">
+    <value>Url of the referenced Web Service</value>
+    <comment>Description for DomainProperty &apos;Url&apos; on DomainClass &apos;TransactionWebService&apos;</comment>
+  </data>
+  <data name="TransactionKernelDSL.Framework.Language.TransactionWebService/Url.DisplayName" xml:space="preserve">
+    <value>Url</value>
+    <comment>DisplayName for DomainProperty &apos;Url&apos; on DomainClass &apos;TransactionWebService&apos;</comment>
+  </data>
+  <data name="TransactionKernelDSL.Framework.Language.TransactionWebService/ArchitecturalPattern.Description" xml:space="preserve">
+    <value>Type of architecture used to implement this outpue WS</value>
+    <comment>Description for DomainProperty &apos;ArchitecturalPattern&apos; on DomainClass &apos;TransactionWebService&apos;</comment>
+  </data>
+  <data name="TransactionKernelDSL.Framework.Language.TransactionWebService/ArchitecturalPattern.DisplayName" xml:space="preserve">
+    <value>Architectural Pattern</value>
+    <comment>DisplayName for DomainProperty &apos;ArchitecturalPattern&apos; on DomainClass &apos;TransactionWebService&apos;</comment>
+  </data>
+  <data name="TransactionKernelDSL.Framework.Language.TransactionWebService/ArchitecturalPattern.Category" xml:space="preserve">
+    <value>Design</value>
+    <comment>Category for DomainProperty &apos;ArchitecturalPattern&apos; on DomainClass &apos;TransactionWebService&apos;</comment>
+  </data>
+  <data name="TransactionKernelDSL.Framework.Language.TransactionWebService/Technology.Description" xml:space="preserve">
+    <value>Technology used by remote WS implementation</value>
+    <comment>Description for DomainProperty &apos;Technology&apos; on DomainClass &apos;TransactionWebService&apos;</comment>
+  </data>
+  <data name="TransactionKernelDSL.Framework.Language.TransactionWebService/Technology.DisplayName" xml:space="preserve">
+    <value>Technology</value>
+    <comment>DisplayName for DomainProperty &apos;Technology&apos; on DomainClass &apos;TransactionWebService&apos;</comment>
+  </data>
+  <data name="TransactionKernelDSL.Framework.Language.TransactionWebService/Technology.Category" xml:space="preserve">
+    <value>Design</value>
+    <comment>Category for DomainProperty &apos;Technology&apos; on DomainClass &apos;TransactionWebService&apos;</comment>
+  </data>
+  <data name="TransactionKernelDSL.Framework.Language.OutputTransactionWebService.Description" xml:space="preserve">
+    <value>Description for TransactionKernelDSL.Framework.Language.OutputTransactionWebService</value>
+    <comment>Description for DomainClass &apos;OutputTransactionWebService&apos;</comment>
+  </data>
+  <data name="TransactionKernelDSL.Framework.Language.OutputTransactionWebService.DisplayName" xml:space="preserve">
+    <value>Output Transaction Web Service</value>
+    <comment>DisplayName for DomainClass &apos;OutputTransactionWebService&apos;</comment>
+  </data>
+  <data name="TransactionKernelDSL.Framework.Language.TimeTrigger.Description" xml:space="preserve">
+    <value>Description for TransactionKernelDSL.Framework.Language.TimeTrigger</value>
+    <comment>Description for DomainClass &apos;TimeTrigger&apos;</comment>
+  </data>
+  <data name="TransactionKernelDSL.Framework.Language.TimeTrigger.DisplayName" xml:space="preserve">
+    <value>Time Trigger</value>
+    <comment>DisplayName for DomainClass &apos;TimeTrigger&apos;</comment>
+  </data>
+  <data name="TransactionKernelDSL.Framework.Language.TimeTrigger/Name.Description" xml:space="preserve">
+    <value>Trigger&apos;s Name</value>
+    <comment>Description for DomainProperty &apos;Name&apos; on DomainClass &apos;TimeTrigger&apos;</comment>
+  </data>
+  <data name="TransactionKernelDSL.Framework.Language.TimeTrigger/Name.DisplayName" xml:space="preserve">
+    <value>Name</value>
+    <comment>DisplayName for DomainProperty &apos;Name&apos; on DomainClass &apos;TimeTrigger&apos;</comment>
+  </data>
+  <data name="TransactionKernelDSL.Framework.Language.TransactionDataSourceSupport.Description" xml:space="preserve">
+    <value>Description for TransactionKernelDSL.Framework.Language.TransactionDataSourceSupport</value>
+    <comment>Description for DomainClass &apos;TransactionDataSourceSupport&apos;</comment>
+  </data>
+  <data name="TransactionKernelDSL.Framework.Language.TransactionDataSourceSupport.DisplayName" xml:space="preserve">
+    <value>Transaction Data Source Support</value>
+    <comment>DisplayName for DomainClass &apos;TransactionDataSourceSupport&apos;</comment>
+  </data>
+  <data name="TransactionKernelDSL.Framework.Language.TransactionDataSourceSupport/Name.Description" xml:space="preserve">
+    <value>Description for TransactionKernelDSL.Framework.Language.TransactionDataSourceSupport.Name</value>
+    <comment>Description for DomainProperty &apos;Name&apos; on DomainClass &apos;TransactionDataSourceSupport&apos;</comment>
+  </data>
+  <data name="TransactionKernelDSL.Framework.Language.TransactionDataSourceSupport/Name.DisplayName" xml:space="preserve">
+    <value>Name</value>
+    <comment>DisplayName for DomainProperty &apos;Name&apos; on DomainClass &apos;TransactionDataSourceSupport&apos;</comment>
+  </data>
+  <data name="TransactionKernelDSL.Framework.Language.TransactionDataSourceSupport/SupportType.Description" xml:space="preserve">
+    <value>Description for TransactionKernelDSL.Framework.Language.TransactionDataSourceSupport.Support Type</value>
+    <comment>Description for DomainProperty &apos;SupportType&apos; on DomainClass &apos;TransactionDataSourceSupport&apos;</comment>
+  </data>
+  <data name="TransactionKernelDSL.Framework.Language.TransactionDataSourceSupport/SupportType.DisplayName" xml:space="preserve">
+    <value>Support Type</value>
+    <comment>DisplayName for DomainProperty &apos;SupportType&apos; on DomainClass &apos;TransactionDataSourceSupport&apos;</comment>
+  </data>
+  <data name="TransactionKernelDSL.Framework.Language.TransactionEnvironmentLayer.Description" xml:space="preserve">
+    <value>Description for TransactionKernelDSL.Framework.Language.TransactionEnvironmentLayer</value>
+    <comment>Description for DomainClass &apos;TransactionEnvironmentLayer&apos;</comment>
+  </data>
+  <data name="TransactionKernelDSL.Framework.Language.TransactionEnvironmentLayer.DisplayName" xml:space="preserve">
+    <value>Transaction Environment Layer</value>
+    <comment>DisplayName for DomainClass &apos;TransactionEnvironmentLayer&apos;</comment>
+  </data>
+  <data name="TransactionKernelDSL.Framework.Language.TransactionEnvironmentLayer/Name.Description" xml:space="preserve">
+    <value>Description for TransactionKernelDSL.Framework.Language.TransactionEnvironmentLayer.Name</value>
+    <comment>Description for DomainProperty &apos;Name&apos; on DomainClass &apos;TransactionEnvironmentLayer&apos;</comment>
+  </data>
+  <data name="TransactionKernelDSL.Framework.Language.TransactionEnvironmentLayer/Name.DisplayName" xml:space="preserve">
+    <value>Name</value>
+    <comment>DisplayName for DomainProperty &apos;Name&apos; on DomainClass &apos;TransactionEnvironmentLayer&apos;</comment>
+  </data>
+  <data name="TransactionKernelDSL.Framework.Language.TransactionEnvironmentSQLServerVariable.Description" xml:space="preserve">
+    <value>Description for TransactionKernelDSL.Framework.Language.TransactionEnvironmentSQLServerVariable</value>
+    <comment>Description for DomainClass &apos;TransactionEnvironmentSQLServerVariable&apos;</comment>
+  </data>
+  <data name="TransactionKernelDSL.Framework.Language.TransactionEnvironmentSQLServerVariable.DisplayName" xml:space="preserve">
+    <value>Transaction Environment SQLServer Variable</value>
+    <comment>DisplayName for DomainClass &apos;TransactionEnvironmentSQLServerVariable&apos;</comment>
+  </data>
+  <data name="TransactionKernelDSL.Framework.Language.TransactionEnvironmentSQLServerVariable/Name.Description" xml:space="preserve">
+    <value>Description for TransactionKernelDSL.Framework.Language.TransactionEnvironmentSQLServerVariable.Name</value>
+    <comment>Description for DomainProperty &apos;Name&apos; on DomainClass &apos;TransactionEnvironmentSQLServerVariable&apos;</comment>
+  </data>
+  <data name="TransactionKernelDSL.Framework.Language.TransactionEnvironmentSQLServerVariable/Name.DisplayName" xml:space="preserve">
+    <value>Name</value>
+    <comment>DisplayName for DomainProperty &apos;Name&apos; on DomainClass &apos;TransactionEnvironmentSQLServerVariable&apos;</comment>
+  </data>
+  <data name="TransactionKernelDSL.Framework.Language.TransactionEnvironmentSQLServerVariable/DefaultValue.Description" xml:space="preserve">
+    <value>Description for TransactionKernelDSL.Framework.Language.TransactionEnvironmentSQLServerVariable.Default Value</value>
+    <comment>Description for DomainProperty &apos;DefaultValue&apos; on DomainClass &apos;TransactionEnvironmentSQLServerVariable&apos;</comment>
+  </data>
+  <data name="TransactionKernelDSL.Framework.Language.TransactionEnvironmentSQLServerVariable/DefaultValue.DisplayName" xml:space="preserve">
+    <value>Default Value</value>
+    <comment>DisplayName for DomainProperty &apos;DefaultValue&apos; on DomainClass &apos;TransactionEnvironmentSQLServerVariable&apos;</comment>
+  </data>
+  <data name="TransactionKernelDSL.Framework.Language.TransactionHandlerReferencesForwarderTransactionHandlers.Description" xml:space="preserve">
+    <value>Links one handler to another in a routing or forwarding way.</value>
+    <comment>Description for DomainClass &apos;TransactionHandlerReferencesForwarderTransactionHandlers&apos;</comment>
+  </data>
+  <data name="TransactionKernelDSL.Framework.Language.TransactionHandlerReferencesForwarderTransactionHandlers.DisplayName" xml:space="preserve">
+    <value>Transaction Handler References Forwarder Transaction Handlers</value>
+    <comment>DisplayName for DomainClass &apos;TransactionHandlerReferencesForwarderTransactionHandlers&apos;</comment>
+  </data>
+  <data name="TransactionKernelDSL.Framework.Language.TransactionHandlerReferencesForwarderTransactionHandlers/IsRoutingLink.Description" xml:space="preserve">
+    <value>If this link is in Routing Mode, it means source handler might eventually forward to target handler, through a routing algorithm. If it isn&apos;t a Routing Link, it means source and target handlers are always linked, and links ar ordered by Sequence Order</value>
+    <comment>Description for DomainProperty &apos;IsRoutingLink&apos; on DomainClass &apos;TransactionHandlerReferencesForwarderTransactionHandlers&apos;</comment>
+  </data>
+  <data name="TransactionKernelDSL.Framework.Language.TransactionHandlerReferencesForwarderTransactionHandlers/IsRoutingLink.DisplayName" xml:space="preserve">
+    <value>Is Routing Link</value>
+    <comment>DisplayName for DomainProperty &apos;IsRoutingLink&apos; on DomainClass &apos;TransactionHandlerReferencesForwarderTransactionHandlers&apos;</comment>
+  </data>
+  <data name="TransactionKernelDSL.Framework.Language.TransactionHandlerReferencesForwarderTransactionHandlers/IsRoutingLink.Category" xml:space="preserve">
+    <value>Working Mode</value>
+    <comment>Category for DomainProperty &apos;IsRoutingLink&apos; on DomainClass &apos;TransactionHandlerReferencesForwarderTransactionHandlers&apos;</comment>
+  </data>
+  <data name="TransactionKernelDSL.Framework.Language.TransactionHandlerReferencesForwarderTransactionHandlers/SequenceOrder.Description" xml:space="preserve">
+    <value>Number which means the order in that the forwarding handler linked here will be instantiated, within a group of others routing handlers</value>
+    <comment>Description for DomainProperty &apos;SequenceOrder&apos; on DomainClass &apos;TransactionHandlerReferencesForwarderTransactionHandlers&apos;</comment>
+  </data>
+  <data name="TransactionKernelDSL.Framework.Language.TransactionHandlerReferencesForwarderTransactionHandlers/SequenceOrder.DisplayName" xml:space="preserve">
+    <value>Sequence Order</value>
+    <comment>DisplayName for DomainProperty &apos;SequenceOrder&apos; on DomainClass &apos;TransactionHandlerReferencesForwarderTransactionHandlers&apos;</comment>
+  </data>
+  <data name="TransactionKernelDSL.Framework.Language.TransactionHandlerReferencesForwarderTransactionHandlers/SequenceOrder.Category" xml:space="preserve">
+    <value>Misc</value>
+    <comment>Category for DomainProperty &apos;SequenceOrder&apos; on DomainClass &apos;TransactionHandlerReferencesForwarderTransactionHandlers&apos;</comment>
+  </data>
+  <data name="TransactionKernelDSL.Framework.Language.TransactionHandlerReferencesForwarderTransactionHandlers/SourceForwardingTransactionHandler.Description" xml:space="preserve">
+    <value>Description for TransactionKernelDSL.Framework.Language.ExampleRelationship.Target</value>
+    <comment>Description for DomainRole &apos;SourceForwardingTransactionHandler&apos; on DomainRelationship &apos;TransactionHandlerReferencesForwarderTransactionHandlers&apos;</comment>
+  </data>
+  <data name="TransactionKernelDSL.Framework.Language.TransactionHandlerReferencesForwarderTransactionHandlers/SourceForwardingTransactionHandler.DisplayName" xml:space="preserve">
+    <value>Source Forwarding Transaction Handler</value>
+    <comment>DisplayName for DomainRole &apos;SourceForwardingTransactionHandler&apos; on DomainRelationship &apos;TransactionHandlerReferencesForwarderTransactionHandlers&apos;</comment>
+  </data>
+  <data name="TransactionKernelDSL.Framework.Language.TransactionHandlerReferencesForwarderTransactionHandlers/SourceForwardingTransactionHandler.Category" xml:space="preserve">
+    <value>Links</value>
+    <comment>Category for DomainRole &apos;SourceForwardingTransactionHandler&apos; on DomainRelationship &apos;TransactionHandlerReferencesForwarderTransactionHandlers&apos;</comment>
+  </data>
+  <data name="TransactionKernelDSL.Framework.Language.TransactionHandlerReferencesForwarderTransactionHandlers/SourceForwardingTransactionHandler.PropertyDisplayName" xml:space="preserve">
+    <value>Forwarder Transaction Handlers</value>
+    <comment>PropertyDisplayName for DomainRole &apos;SourceForwardingTransactionHandler&apos; on DomainRelationship &apos;TransactionHandlerReferencesForwarderTransactionHandlers&apos;</comment>
+  </data>
+  <data name="TransactionKernelDSL.Framework.Language.TransactionHandlerReferencesForwarderTransactionHandlers/TargetForwardingTransactionHandler.Description" xml:space="preserve">
+    <value>Description for TransactionKernelDSL.Framework.Language.ExampleRelationship.Source</value>
+    <comment>Description for DomainRole &apos;TargetForwardingTransactionHandler&apos; on DomainRelationship &apos;TransactionHandlerReferencesForwarderTransactionHandlers&apos;</comment>
+  </data>
+  <data name="TransactionKernelDSL.Framework.Language.TransactionHandlerReferencesForwarderTransactionHandlers/TargetForwardingTransactionHandler.DisplayName" xml:space="preserve">
+    <value>Target Forwarding Transaction Handler</value>
+    <comment>DisplayName for DomainRole &apos;TargetForwardingTransactionHandler&apos; on DomainRelationship &apos;TransactionHandlerReferencesForwarderTransactionHandlers&apos;</comment>
+  </data>
+  <data name="TransactionKernelDSL.Framework.Language.TransactionHandlerReferencesForwarderTransactionHandlers/TargetForwardingTransactionHandler.PropertyDisplayName" xml:space="preserve">
+    <value>Backward Transaction Handlers</value>
+    <comment>PropertyDisplayName for DomainRole &apos;TargetForwardingTransactionHandler&apos; on DomainRelationship &apos;TransactionHandlerReferencesForwarderTransactionHandlers&apos;</comment>
+  </data>
+  <data name="TransactionKernelDSL.Framework.Language.TransactionModelHasTransactionLayers.Description" xml:space="preserve">
+    <value>Description for TransactionKernelDSL.Framework.Language.TransactionModelHasTransactionLayers</value>
+    <comment>Description for DomainClass &apos;TransactionModelHasTransactionLayers&apos;</comment>
+  </data>
+  <data name="TransactionKernelDSL.Framework.Language.TransactionModelHasTransactionLayers.DisplayName" xml:space="preserve">
+    <value>Transaction Model Has Transaction Layers</value>
+    <comment>DisplayName for DomainClass &apos;TransactionModelHasTransactionLayers&apos;</comment>
+  </data>
+  <data name="TransactionKernelDSL.Framework.Language.TransactionModelHasTransactionLayers/TransactionModel.Description" xml:space="preserve">
+    <value>Description for TransactionKernelDSL.Framework.Language.TransactionModelHasTransactionLayers.TransactionModel</value>
+    <comment>Description for DomainRole &apos;TransactionModel&apos; on DomainRelationship &apos;TransactionModelHasTransactionLayers&apos;</comment>
+  </data>
+  <data name="TransactionKernelDSL.Framework.Language.TransactionModelHasTransactionLayers/TransactionModel.DisplayName" xml:space="preserve">
+    <value>Transaction Model</value>
+    <comment>DisplayName for DomainRole &apos;TransactionModel&apos; on DomainRelationship &apos;TransactionModelHasTransactionLayers&apos;</comment>
+  </data>
+  <data name="TransactionKernelDSL.Framework.Language.TransactionModelHasTransactionLayers/TransactionModel.PropertyDisplayName" xml:space="preserve">
+    <value>Transaction Layers</value>
+    <comment>PropertyDisplayName for DomainRole &apos;TransactionModel&apos; on DomainRelationship &apos;TransactionModelHasTransactionLayers&apos;</comment>
+  </data>
+  <data name="TransactionKernelDSL.Framework.Language.TransactionModelHasTransactionLayers/TransactionLayer.Description" xml:space="preserve">
+    <value>Description for TransactionKernelDSL.Framework.Language.TransactionModelHasTransactionLayers.TransactionLayer</value>
+    <comment>Description for DomainRole &apos;TransactionLayer&apos; on DomainRelationship &apos;TransactionModelHasTransactionLayers&apos;</comment>
+  </data>
+  <data name="TransactionKernelDSL.Framework.Language.TransactionModelHasTransactionLayers/TransactionLayer.DisplayName" xml:space="preserve">
+    <value>Transaction Layer</value>
+    <comment>DisplayName for DomainRole &apos;TransactionLayer&apos; on DomainRelationship &apos;TransactionModelHasTransactionLayers&apos;</comment>
+  </data>
+  <data name="TransactionKernelDSL.Framework.Language.TransactionModelHasTransactionLayers/TransactionLayer.PropertyDisplayName" xml:space="preserve">
+    <value>Transaction Model</value>
+    <comment>PropertyDisplayName for DomainRole &apos;TransactionLayer&apos; on DomainRelationship &apos;TransactionModelHasTransactionLayers&apos;</comment>
+  </data>
+  <data name="TransactionKernelDSL.Framework.Language.TransactionLayerHasTransactionHandlers.Description" xml:space="preserve">
+    <value>Description for TransactionKernelDSL.Framework.Language.TransactionLayerHasTransactionHandlers</value>
+    <comment>Description for DomainClass &apos;TransactionLayerHasTransactionHandlers&apos;</comment>
+  </data>
+  <data name="TransactionKernelDSL.Framework.Language.TransactionLayerHasTransactionHandlers.DisplayName" xml:space="preserve">
+    <value>Transaction Layer Has Transaction Handlers</value>
+    <comment>DisplayName for DomainClass &apos;TransactionLayerHasTransactionHandlers&apos;</comment>
+  </data>
+  <data name="TransactionKernelDSL.Framework.Language.TransactionLayerHasTransactionHandlers/TransactionLayer.Description" xml:space="preserve">
+    <value>Description for TransactionKernelDSL.Framework.Language.TransactionLayerHasTransactionHandlers.TransactionLayer</value>
+    <comment>Description for DomainRole &apos;TransactionLayer&apos; on DomainRelationship &apos;TransactionLayerHasTransactionHandlers&apos;</comment>
+  </data>
+  <data name="TransactionKernelDSL.Framework.Language.TransactionLayerHasTransactionHandlers/TransactionLayer.DisplayName" xml:space="preserve">
+    <value>Source TransactionLayerHasTransactionHandlers</value>
+    <comment>DisplayName for DomainRole &apos;TransactionLayer&apos; on DomainRelationship &apos;TransactionLayerHasTransactionHandlers&apos;</comment>
+  </data>
+  <data name="TransactionKernelDSL.Framework.Language.TransactionLayerHasTransactionHandlers/TransactionLayer.PropertyDisplayName" xml:space="preserve">
+    <value>Transaction Handlers</value>
+    <comment>PropertyDisplayName for DomainRole &apos;TransactionLayer&apos; on DomainRelationship &apos;TransactionLayerHasTransactionHandlers&apos;</comment>
+  </data>
+  <data name="TransactionKernelDSL.Framework.Language.TransactionLayerHasTransactionHandlers/TransactionHandler.Description" xml:space="preserve">
+    <value>Description for TransactionKernelDSL.Framework.Language.TransactionLayerHasTransactionHandlers.TransactionHandler</value>
+    <comment>Description for DomainRole &apos;TransactionHandler&apos; on DomainRelationship &apos;TransactionLayerHasTransactionHandlers&apos;</comment>
+  </data>
+  <data name="TransactionKernelDSL.Framework.Language.TransactionLayerHasTransactionHandlers/TransactionHandler.DisplayName" xml:space="preserve">
+    <value>Target TransactionLayerHasTransactionHandlers</value>
+    <comment>DisplayName for DomainRole &apos;TransactionHandler&apos; on DomainRelationship &apos;TransactionLayerHasTransactionHandlers&apos;</comment>
+  </data>
+  <data name="TransactionKernelDSL.Framework.Language.TransactionLayerHasTransactionHandlers/TransactionHandler.PropertyDisplayName" xml:space="preserve">
+    <value>Transaction Layer</value>
+    <comment>PropertyDisplayName for DomainRole &apos;TransactionHandler&apos; on DomainRelationship &apos;TransactionLayerHasTransactionHandlers&apos;</comment>
+  </data>
+  <data name="TransactionKernelDSL.Framework.Language.TransactionHandlerReferencesMaintenanceTransactionHandler.Description" xml:space="preserve">
+    <value>Description for TransactionKernelDSL.Framework.Language.TransactionHandlerReferencesMaintenanceTransactionHandler</value>
+    <comment>Description for DomainClass &apos;TransactionHandlerReferencesMaintenanceTransactionHandler&apos;</comment>
+  </data>
+  <data name="TransactionKernelDSL.Framework.Language.TransactionHandlerReferencesMaintenanceTransactionHandler.DisplayName" xml:space="preserve">
+    <value>Transaction Handler References Maintenance Transaction Handler</value>
+    <comment>DisplayName for DomainClass &apos;TransactionHandlerReferencesMaintenanceTransactionHandler&apos;</comment>
+  </data>
+  <data name="TransactionKernelDSL.Framework.Language.TransactionHandlerReferencesMaintenanceTransactionHandler/HasCustomCode.Description" xml:space="preserve">
+    <value>Description for TransactionKernelDSL.Framework.Language.TransactionHandlerReferencesMaintenanceTransactionHandler.Has Custom Code</value>
+    <comment>Description for DomainProperty &apos;HasCustomCode&apos; on DomainClass &apos;TransactionHandlerReferencesMaintenanceTransactionHandler&apos;</comment>
+  </data>
+  <data name="TransactionKernelDSL.Framework.Language.TransactionHandlerReferencesMaintenanceTransactionHandler/HasCustomCode.DisplayName" xml:space="preserve">
+    <value>Has Custom Code</value>
+    <comment>DisplayName for DomainProperty &apos;HasCustomCode&apos; on DomainClass &apos;TransactionHandlerReferencesMaintenanceTransactionHandler&apos;</comment>
+  </data>
+  <data name="TransactionKernelDSL.Framework.Language.TransactionHandlerReferencesMaintenanceTransactionHandler/SourceMaintenanceTransactionHandler.Description" xml:space="preserve">
+    <value>Description for TransactionKernelDSL.Framework.Language.TransactionHandlerReferencesMaintenanceTransactionHandler.SourceMaintenanceTransactionHandler</value>
+    <comment>Description for DomainRole &apos;SourceMaintenanceTransactionHandler&apos; on DomainRelationship &apos;TransactionHandlerReferencesMaintenanceTransactionHandler&apos;</comment>
+  </data>
+  <data name="TransactionKernelDSL.Framework.Language.TransactionHandlerReferencesMaintenanceTransactionHandler/SourceMaintenanceTransactionHandler.DisplayName" xml:space="preserve">
+    <value>Source Maintenance Transaction Handler</value>
+    <comment>DisplayName for DomainRole &apos;SourceMaintenanceTransactionHandler&apos; on DomainRelationship &apos;TransactionHandlerReferencesMaintenanceTransactionHandler&apos;</comment>
+  </data>
+  <data name="TransactionKernelDSL.Framework.Language.TransactionHandlerReferencesMaintenanceTransactionHandler/SourceMaintenanceTransactionHandler.Category" xml:space="preserve">
+    <value>Links</value>
+    <comment>Category for DomainRole &apos;SourceMaintenanceTransactionHandler&apos; on DomainRelationship &apos;TransactionHandlerReferencesMaintenanceTransactionHandler&apos;</comment>
+  </data>
+  <data name="TransactionKernelDSL.Framework.Language.TransactionHandlerReferencesMaintenanceTransactionHandler/SourceMaintenanceTransactionHandler.PropertyDisplayName" xml:space="preserve">
+    <value>Maintenance Transaction Handler</value>
+    <comment>PropertyDisplayName for DomainRole &apos;SourceMaintenanceTransactionHandler&apos; on DomainRelationship &apos;TransactionHandlerReferencesMaintenanceTransactionHandler&apos;</comment>
+  </data>
+  <data name="TransactionKernelDSL.Framework.Language.TransactionHandlerReferencesMaintenanceTransactionHandler/TargetMaintenanceTransactionHandler.Description" xml:space="preserve">
+    <value>Description for TransactionKernelDSL.Framework.Language.TransactionHandlerReferencesMaintenanceTransactionHandler.TargetMaintenanceTransactionHandler</value>
+    <comment>Description for DomainRole &apos;TargetMaintenanceTransactionHandler&apos; on DomainRelationship &apos;TransactionHandlerReferencesMaintenanceTransactionHandler&apos;</comment>
+  </data>
+  <data name="TransactionKernelDSL.Framework.Language.TransactionHandlerReferencesMaintenanceTransactionHandler/TargetMaintenanceTransactionHandler.DisplayName" xml:space="preserve">
+    <value>Target Maintenance Transaction Handler</value>
+    <comment>DisplayName for DomainRole &apos;TargetMaintenanceTransactionHandler&apos; on DomainRelationship &apos;TransactionHandlerReferencesMaintenanceTransactionHandler&apos;</comment>
+  </data>
+  <data name="TransactionKernelDSL.Framework.Language.TransactionHandlerReferencesMaintenanceTransactionHandler/TargetMaintenanceTransactionHandler.PropertyDisplayName" xml:space="preserve">
+    <value>Caller Transaction Handlers</value>
+    <comment>PropertyDisplayName for DomainRole &apos;TargetMaintenanceTransactionHandler&apos; on DomainRelationship &apos;TransactionHandlerReferencesMaintenanceTransactionHandler&apos;</comment>
+  </data>
+  <data name="TransactionKernelDSL.Framework.Language.InputTransactionEngineReferencesTransactionHandlers.Description" xml:space="preserve">
+    <value>Description for TransactionKernelDSL.Framework.Language.InputTransactionEngineReferencesTransactionHandlers</value>
+    <comment>Description for DomainClass &apos;InputTransactionEngineReferencesTransactionHandlers&apos;</comment>
+  </data>
+  <data name="TransactionKernelDSL.Framework.Language.InputTransactionEngineReferencesTransactionHandlers.DisplayName" xml:space="preserve">
+    <value>Input Transaction Engine References Transaction Handlers</value>
+    <comment>DisplayName for DomainClass &apos;InputTransactionEngineReferencesTransactionHandlers&apos;</comment>
+  </data>
+  <data name="TransactionKernelDSL.Framework.Language.InputTransactionEngineReferencesTransactionHandlers/HasCustomCode.Description" xml:space="preserve">
+    <value>Description for TransactionKernelDSL.Framework.Language.InputTransactionEngineReferencesTransactionHandlers.Has Custom Code</value>
+    <comment>Description for DomainProperty &apos;HasCustomCode&apos; on DomainClass &apos;InputTransactionEngineReferencesTransactionHandlers&apos;</comment>
+  </data>
+  <data name="TransactionKernelDSL.Framework.Language.InputTransactionEngineReferencesTransactionHandlers/HasCustomCode.DisplayName" xml:space="preserve">
+    <value>Has Custom Code</value>
+    <comment>DisplayName for DomainProperty &apos;HasCustomCode&apos; on DomainClass &apos;InputTransactionEngineReferencesTransactionHandlers&apos;</comment>
+  </data>
+  <data name="TransactionKernelDSL.Framework.Language.InputTransactionEngineReferencesTransactionHandlers/InputTransactionEngine.Description" xml:space="preserve">
+    <value>Description for TransactionKernelDSL.Framework.Language.InputTransactionEngineReferencesTransactionHandlers.InputTransactionEngine</value>
+    <comment>Description for DomainRole &apos;InputTransactionEngine&apos; on DomainRelationship &apos;InputTransactionEngineReferencesTransactionHandlers&apos;</comment>
+  </data>
+  <data name="TransactionKernelDSL.Framework.Language.InputTransactionEngineReferencesTransactionHandlers/InputTransactionEngine.DisplayName" xml:space="preserve">
+    <value>Source Input Engine Transaction Handler</value>
+    <comment>DisplayName for DomainRole &apos;InputTransactionEngine&apos; on DomainRelationship &apos;InputTransactionEngineReferencesTransactionHandlers&apos;</comment>
+  </data>
+  <data name="TransactionKernelDSL.Framework.Language.InputTransactionEngineReferencesTransactionHandlers/InputTransactionEngine.PropertyDisplayName" xml:space="preserve">
+    <value>Transaction Handlers</value>
+    <comment>PropertyDisplayName for DomainRole &apos;InputTransactionEngine&apos; on DomainRelationship &apos;InputTransactionEngineReferencesTransactionHandlers&apos;</comment>
+  </data>
+  <data name="TransactionKernelDSL.Framework.Language.InputTransactionEngineReferencesTransactionHandlers/TransactionHandler.Description" xml:space="preserve">
+    <value>Description for TransactionKernelDSL.Framework.Language.InputTransactionEngineReferencesTransactionHandlers.TransactionHandler</value>
+    <comment>Description for DomainRole &apos;TransactionHandler&apos; on DomainRelationship &apos;InputTransactionEngineReferencesTransactionHandlers&apos;</comment>
+  </data>
+  <data name="TransactionKernelDSL.Framework.Language.InputTransactionEngineReferencesTransactionHandlers/TransactionHandler.DisplayName" xml:space="preserve">
+    <value>Target Input Engine Transaction Handler</value>
+    <comment>DisplayName for DomainRole &apos;TransactionHandler&apos; on DomainRelationship &apos;InputTransactionEngineReferencesTransactionHandlers&apos;</comment>
+  </data>
+  <data name="TransactionKernelDSL.Framework.Language.InputTransactionEngineReferencesTransactionHandlers/TransactionHandler.PropertyDisplayName" xml:space="preserve">
+    <value>Input Transaction Engine</value>
+    <comment>PropertyDisplayName for DomainRole &apos;TransactionHandler&apos; on DomainRelationship &apos;InputTransactionEngineReferencesTransactionHandlers&apos;</comment>
+  </data>
+  <data name="TransactionKernelDSL.Framework.Language.TransactionHandlerReferencesOutputTransactionEngine.Description" xml:space="preserve">
+    <value>Description for TransactionKernelDSL.Framework.Language.TransactionHandlerReferencesOutputTransactionEngine</value>
+    <comment>Description for DomainClass &apos;TransactionHandlerReferencesOutputTransactionEngine&apos;</comment>
+  </data>
+  <data name="TransactionKernelDSL.Framework.Language.TransactionHandlerReferencesOutputTransactionEngine.DisplayName" xml:space="preserve">
+    <value>Transaction Handler References Output Transaction Engine</value>
+    <comment>DisplayName for DomainClass &apos;TransactionHandlerReferencesOutputTransactionEngine&apos;</comment>
+  </data>
+  <data name="TransactionKernelDSL.Framework.Language.TransactionHandlerReferencesOutputTransactionEngine/HasCustomCode.Description" xml:space="preserve">
+    <value>Description for TransactionKernelDSL.Framework.Language.TransactionHandlerReferencesOutputTransactionEngine.Has Custom Code</value>
+    <comment>Description for DomainProperty &apos;HasCustomCode&apos; on DomainClass &apos;TransactionHandlerReferencesOutputTransactionEngine&apos;</comment>
+  </data>
+  <data name="TransactionKernelDSL.Framework.Language.TransactionHandlerReferencesOutputTransactionEngine/HasCustomCode.DisplayName" xml:space="preserve">
+    <value>Has Custom Code</value>
+    <comment>DisplayName for DomainProperty &apos;HasCustomCode&apos; on DomainClass &apos;TransactionHandlerReferencesOutputTransactionEngine&apos;</comment>
+  </data>
+  <data name="TransactionKernelDSL.Framework.Language.TransactionHandlerReferencesOutputTransactionEngine/SourceTransactionHandlerOutputEngine.Description" xml:space="preserve">
+    <value>Description for TransactionKernelDSL.Framework.Language.TransactionHandlerReferencesOutputTransactionEngine.SourceTransactionHandlerOutputEngine</value>
+    <comment>Description for DomainRole &apos;SourceTransactionHandlerOutputEngine&apos; on DomainRelationship &apos;TransactionHandlerReferencesOutputTransactionEngine&apos;</comment>
+  </data>
+  <data name="TransactionKernelDSL.Framework.Language.TransactionHandlerReferencesOutputTransactionEngine/SourceTransactionHandlerOutputEngine.DisplayName" xml:space="preserve">
+    <value>Source Transaction Handler Output Engine</value>
+    <comment>DisplayName for DomainRole &apos;SourceTransactionHandlerOutputEngine&apos; on DomainRelationship &apos;TransactionHandlerReferencesOutputTransactionEngine&apos;</comment>
+  </data>
+  <data name="TransactionKernelDSL.Framework.Language.TransactionHandlerReferencesOutputTransactionEngine/SourceTransactionHandlerOutputEngine.Category" xml:space="preserve">
+    <value>Links</value>
+    <comment>Category for DomainRole &apos;SourceTransactionHandlerOutputEngine&apos; on DomainRelationship &apos;TransactionHandlerReferencesOutputTransactionEngine&apos;</comment>
+  </data>
+  <data name="TransactionKernelDSL.Framework.Language.TransactionHandlerReferencesOutputTransactionEngine/SourceTransactionHandlerOutputEngine.PropertyDisplayName" xml:space="preserve">
+    <value>Output Transaction Engine</value>
+    <comment>PropertyDisplayName for DomainRole &apos;SourceTransactionHandlerOutputEngine&apos; on DomainRelationship &apos;TransactionHandlerReferencesOutputTransactionEngine&apos;</comment>
+  </data>
+  <data name="TransactionKernelDSL.Framework.Language.TransactionHandlerReferencesOutputTransactionEngine/OutputTransactionEngine.Description" xml:space="preserve">
+    <value>Description for TransactionKernelDSL.Framework.Language.TransactionHandlerReferencesOutputTransactionEngine.OutputTransactionEngine</value>
+    <comment>Description for DomainRole &apos;OutputTransactionEngine&apos; on DomainRelationship &apos;TransactionHandlerReferencesOutputTransactionEngine&apos;</comment>
+  </data>
+  <data name="TransactionKernelDSL.Framework.Language.TransactionHandlerReferencesOutputTransactionEngine/OutputTransactionEngine.DisplayName" xml:space="preserve">
+    <value>Target Transaction Handler Output Engine</value>
+    <comment>DisplayName for DomainRole &apos;OutputTransactionEngine&apos; on DomainRelationship &apos;TransactionHandlerReferencesOutputTransactionEngine&apos;</comment>
+  </data>
+  <data name="TransactionKernelDSL.Framework.Language.TransactionHandlerReferencesOutputTransactionEngine/OutputTransactionEngine.PropertyDisplayName" xml:space="preserve">
+    <value>Source Transaction Handler Output Engines</value>
+    <comment>PropertyDisplayName for DomainRole &apos;OutputTransactionEngine&apos; on DomainRelationship &apos;TransactionHandlerReferencesOutputTransactionEngine&apos;</comment>
+  </data>
+  <data name="TransactionKernelDSL.Framework.Language.TransactionLayerHasInputTransactionEngines.Description" xml:space="preserve">
+    <value>Description for TransactionKernelDSL.Framework.Language.TransactionLayerHasInputTransactionEngines</value>
+    <comment>Description for DomainClass &apos;TransactionLayerHasInputTransactionEngines&apos;</comment>
+  </data>
+  <data name="TransactionKernelDSL.Framework.Language.TransactionLayerHasInputTransactionEngines.DisplayName" xml:space="preserve">
+    <value>Transaction Layer Has Input Transaction Engines</value>
+    <comment>DisplayName for DomainClass &apos;TransactionLayerHasInputTransactionEngines&apos;</comment>
+  </data>
+  <data name="TransactionKernelDSL.Framework.Language.TransactionLayerHasInputTransactionEngines/TransactionLayer.Description" xml:space="preserve">
+    <value>Description for TransactionKernelDSL.Framework.Language.TransactionLayerHasInputTransactionEngines.TransactionLayer</value>
+    <comment>Description for DomainRole &apos;TransactionLayer&apos; on DomainRelationship &apos;TransactionLayerHasInputTransactionEngines&apos;</comment>
+  </data>
+  <data name="TransactionKernelDSL.Framework.Language.TransactionLayerHasInputTransactionEngines/TransactionLayer.DisplayName" xml:space="preserve">
+    <value>Transaction Layer</value>
+    <comment>DisplayName for DomainRole &apos;TransactionLayer&apos; on DomainRelationship &apos;TransactionLayerHasInputTransactionEngines&apos;</comment>
+  </data>
+  <data name="TransactionKernelDSL.Framework.Language.TransactionLayerHasInputTransactionEngines/TransactionLayer.PropertyDisplayName" xml:space="preserve">
+    <value>Input Engines</value>
+    <comment>PropertyDisplayName for DomainRole &apos;TransactionLayer&apos; on DomainRelationship &apos;TransactionLayerHasInputTransactionEngines&apos;</comment>
+  </data>
+  <data name="TransactionKernelDSL.Framework.Language.TransactionLayerHasInputTransactionEngines/InputTransactionEngine.Description" xml:space="preserve">
+    <value>Description for TransactionKernelDSL.Framework.Language.TransactionLayerHasInputTransactionEngines.InputTransactionEngine</value>
+    <comment>Description for DomainRole &apos;InputTransactionEngine&apos; on DomainRelationship &apos;TransactionLayerHasInputTransactionEngines&apos;</comment>
+  </data>
+  <data name="TransactionKernelDSL.Framework.Language.TransactionLayerHasInputTransactionEngines/InputTransactionEngine.DisplayName" xml:space="preserve">
+    <value>Input Transaction Engine</value>
+    <comment>DisplayName for DomainRole &apos;InputTransactionEngine&apos; on DomainRelationship &apos;TransactionLayerHasInputTransactionEngines&apos;</comment>
+  </data>
+  <data name="TransactionKernelDSL.Framework.Language.TransactionLayerHasInputTransactionEngines/InputTransactionEngine.PropertyDisplayName" xml:space="preserve">
+    <value>Transaction Layer</value>
+    <comment>PropertyDisplayName for DomainRole &apos;InputTransactionEngine&apos; on DomainRelationship &apos;TransactionLayerHasInputTransactionEngines&apos;</comment>
+  </data>
+  <data name="TransactionKernelDSL.Framework.Language.TransactionLayerHasOutputTransactionEngines.Description" xml:space="preserve">
+    <value>Description for TransactionKernelDSL.Framework.Language.TransactionLayerHasOutputTransactionEngines</value>
+    <comment>Description for DomainClass &apos;TransactionLayerHasOutputTransactionEngines&apos;</comment>
+  </data>
+  <data name="TransactionKernelDSL.Framework.Language.TransactionLayerHasOutputTransactionEngines.DisplayName" xml:space="preserve">
+    <value>Transaction Layer Has Output Transaction Engines</value>
+    <comment>DisplayName for DomainClass &apos;TransactionLayerHasOutputTransactionEngines&apos;</comment>
+  </data>
+  <data name="TransactionKernelDSL.Framework.Language.TransactionLayerHasOutputTransactionEngines/TransactionLayer.Description" xml:space="preserve">
+    <value>Description for TransactionKernelDSL.Framework.Language.TransactionLayerHasOutputTransactionEngines.TransactionLayer</value>
+    <comment>Description for DomainRole &apos;TransactionLayer&apos; on DomainRelationship &apos;TransactionLayerHasOutputTransactionEngines&apos;</comment>
+  </data>
+  <data name="TransactionKernelDSL.Framework.Language.TransactionLayerHasOutputTransactionEngines/TransactionLayer.DisplayName" xml:space="preserve">
+    <value>Transaction Layer</value>
+    <comment>DisplayName for DomainRole &apos;TransactionLayer&apos; on DomainRelationship &apos;TransactionLayerHasOutputTransactionEngines&apos;</comment>
+  </data>
+  <data name="TransactionKernelDSL.Framework.Language.TransactionLayerHasOutputTransactionEngines/TransactionLayer.PropertyDisplayName" xml:space="preserve">
+    <value>Output Engines</value>
+    <comment>PropertyDisplayName for DomainRole &apos;TransactionLayer&apos; on DomainRelationship &apos;TransactionLayerHasOutputTransactionEngines&apos;</comment>
+  </data>
+  <data name="TransactionKernelDSL.Framework.Language.TransactionLayerHasOutputTransactionEngines/OutputTransactionEngine.Description" xml:space="preserve">
+    <value>Description for TransactionKernelDSL.Framework.Language.TransactionLayerHasOutputTransactionEngines.OutputTransactionEngine</value>
+    <comment>Description for DomainRole &apos;OutputTransactionEngine&apos; on DomainRelationship &apos;TransactionLayerHasOutputTransactionEngines&apos;</comment>
+  </data>
+  <data name="TransactionKernelDSL.Framework.Language.TransactionLayerHasOutputTransactionEngines/OutputTransactionEngine.DisplayName" xml:space="preserve">
+    <value>Output Transaction Engine</value>
+    <comment>DisplayName for DomainRole &apos;OutputTransactionEngine&apos; on DomainRelationship &apos;TransactionLayerHasOutputTransactionEngines&apos;</comment>
+  </data>
+  <data name="TransactionKernelDSL.Framework.Language.TransactionLayerHasOutputTransactionEngines/OutputTransactionEngine.PropertyDisplayName" xml:space="preserve">
+    <value>Transaction Layer</value>
+    <comment>PropertyDisplayName for DomainRole &apos;OutputTransactionEngine&apos; on DomainRelationship &apos;TransactionLayerHasOutputTransactionEngines&apos;</comment>
+  </data>
+  <data name="TransactionKernelDSL.Framework.Language.TransactionHandlerReferencesTransactionSQLServerDataSources.Description" xml:space="preserve">
+    <value>Description for TransactionKernelDSL.Framework.Language.TransactionHandlerReferencesTransactionSQLServerDataSources</value>
+    <comment>Description for DomainClass &apos;TransactionHandlerReferencesTransactionSQLServerDataSources&apos;</comment>
+  </data>
+  <data name="TransactionKernelDSL.Framework.Language.TransactionHandlerReferencesTransactionSQLServerDataSources.DisplayName" xml:space="preserve">
+    <value>Transaction Handler References Transaction SQLServer Data Sources</value>
+    <comment>DisplayName for DomainClass &apos;TransactionHandlerReferencesTransactionSQLServerDataSources&apos;</comment>
+  </data>
+  <data name="TransactionKernelDSL.Framework.Language.TransactionHandlerReferencesTransactionSQLServerDataSources/HasCustomCode.Description" xml:space="preserve">
+    <value>Description for TransactionKernelDSL.Framework.Language.TransactionHandlerReferencesTransactionSQLServerDataSources.Has Custom Code</value>
+    <comment>Description for DomainProperty &apos;HasCustomCode&apos; on DomainClass &apos;TransactionHandlerReferencesTransactionSQLServerDataSources&apos;</comment>
+  </data>
+  <data name="TransactionKernelDSL.Framework.Language.TransactionHandlerReferencesTransactionSQLServerDataSources/HasCustomCode.DisplayName" xml:space="preserve">
+    <value>Has Custom Code</value>
+    <comment>DisplayName for DomainProperty &apos;HasCustomCode&apos; on DomainClass &apos;TransactionHandlerReferencesTransactionSQLServerDataSources&apos;</comment>
+  </data>
+  <data name="TransactionKernelDSL.Framework.Language.TransactionHandlerReferencesTransactionSQLServerDataSources/TransactionHandler.Description" xml:space="preserve">
+    <value>Description for TransactionKernelDSL.Framework.Language.TransactionHandlerReferencesTransactionSQLServerDataSources.TransactionHandler</value>
+    <comment>Description for DomainRole &apos;TransactionHandler&apos; on DomainRelationship &apos;TransactionHandlerReferencesTransactionSQLServerDataSources&apos;</comment>
+  </data>
+  <data name="TransactionKernelDSL.Framework.Language.TransactionHandlerReferencesTransactionSQLServerDataSources/TransactionHandler.DisplayName" xml:space="preserve">
+    <value>Source SQLServer Data Source Transaction Handler</value>
+    <comment>DisplayName for DomainRole &apos;TransactionHandler&apos; on DomainRelationship &apos;TransactionHandlerReferencesTransactionSQLServerDataSources&apos;</comment>
+  </data>
+  <data name="TransactionKernelDSL.Framework.Language.TransactionHandlerReferencesTransactionSQLServerDataSources/TransactionHandler.Category" xml:space="preserve">
+    <value>Links</value>
+    <comment>Category for DomainRole &apos;TransactionHandler&apos; on DomainRelationship &apos;TransactionHandlerReferencesTransactionSQLServerDataSources&apos;</comment>
+  </data>
+  <data name="TransactionKernelDSL.Framework.Language.TransactionHandlerReferencesTransactionSQLServerDataSources/TransactionHandler.PropertyDisplayName" xml:space="preserve">
+    <value>Transaction SQLServer Data Sources</value>
+    <comment>PropertyDisplayName for DomainRole &apos;TransactionHandler&apos; on DomainRelationship &apos;TransactionHandlerReferencesTransactionSQLServerDataSources&apos;</comment>
+  </data>
+  <data name="TransactionKernelDSL.Framework.Language.TransactionHandlerReferencesTransactionSQLServerDataSources/TransactionSQLServerDataSource.Description" xml:space="preserve">
+    <value>Description for TransactionKernelDSL.Framework.Language.TransactionHandlerReferencesTransactionSQLServerDataSources.TransactionSQLServerDataSource</value>
+    <comment>Description for DomainRole &apos;TransactionSQLServerDataSource&apos; on DomainRelationship &apos;TransactionHandlerReferencesTransactionSQLServerDataSources&apos;</comment>
+  </data>
+  <data name="TransactionKernelDSL.Framework.Language.TransactionHandlerReferencesTransactionSQLServerDataSources/TransactionSQLServerDataSource.DisplayName" xml:space="preserve">
+    <value>Target SQLServer Data Source Transaction Handler </value>
+    <comment>DisplayName for DomainRole &apos;TransactionSQLServerDataSource&apos; on DomainRelationship &apos;TransactionHandlerReferencesTransactionSQLServerDataSources&apos;</comment>
+  </data>
+  <data name="TransactionKernelDSL.Framework.Language.TransactionHandlerReferencesTransactionSQLServerDataSources/TransactionSQLServerDataSource.PropertyDisplayName" xml:space="preserve">
+    <value>Transaction Handlers</value>
+    <comment>PropertyDisplayName for DomainRole &apos;TransactionSQLServerDataSource&apos; on DomainRelationship &apos;TransactionHandlerReferencesTransactionSQLServerDataSources&apos;</comment>
+  </data>
+  <data name="TransactionKernelDSL.Framework.Language.TransactionLayerHasTransactionSQLServerDataSources.Description" xml:space="preserve">
+    <value>Description for TransactionKernelDSL.Framework.Language.TransactionLayerHasTransactionSQLServerDataSources</value>
+    <comment>Description for DomainClass &apos;TransactionLayerHasTransactionSQLServerDataSources&apos;</comment>
+  </data>
+  <data name="TransactionKernelDSL.Framework.Language.TransactionLayerHasTransactionSQLServerDataSources.DisplayName" xml:space="preserve">
+    <value>Transaction Layer Has Transaction SQLServer Data Sources</value>
+    <comment>DisplayName for DomainClass &apos;TransactionLayerHasTransactionSQLServerDataSources&apos;</comment>
+  </data>
+  <data name="TransactionKernelDSL.Framework.Language.TransactionLayerHasTransactionSQLServerDataSources/TransactionLayer.Description" xml:space="preserve">
+    <value>Description for TransactionKernelDSL.Framework.Language.TransactionLayerHasTransactionSQLServerDataSources.TransactionLayer</value>
+    <comment>Description for DomainRole &apos;TransactionLayer&apos; on DomainRelationship &apos;TransactionLayerHasTransactionSQLServerDataSources&apos;</comment>
+  </data>
+  <data name="TransactionKernelDSL.Framework.Language.TransactionLayerHasTransactionSQLServerDataSources/TransactionLayer.DisplayName" xml:space="preserve">
+    <value>Transaction Layer</value>
+    <comment>DisplayName for DomainRole &apos;TransactionLayer&apos; on DomainRelationship &apos;TransactionLayerHasTransactionSQLServerDataSources&apos;</comment>
+  </data>
+  <data name="TransactionKernelDSL.Framework.Language.TransactionLayerHasTransactionSQLServerDataSources/TransactionLayer.PropertyDisplayName" xml:space="preserve">
+    <value>SQLServer Data Sources</value>
+    <comment>PropertyDisplayName for DomainRole &apos;TransactionLayer&apos; on DomainRelationship &apos;TransactionLayerHasTransactionSQLServerDataSources&apos;</comment>
+  </data>
+  <data name="TransactionKernelDSL.Framework.Language.TransactionLayerHasTransactionSQLServerDataSources/TransactionSQLServerDataSource.Description" xml:space="preserve">
+    <value>Description for TransactionKernelDSL.Framework.Language.TransactionLayerHasTransactionSQLServerDataSources.TransactionSQLServerDataSource</value>
+    <comment>Description for DomainRole &apos;TransactionSQLServerDataSource&apos; on DomainRelationship &apos;TransactionLayerHasTransactionSQLServerDataSources&apos;</comment>
+  </data>
+  <data name="TransactionKernelDSL.Framework.Language.TransactionLayerHasTransactionSQLServerDataSources/TransactionSQLServerDataSource.DisplayName" xml:space="preserve">
+    <value>Transaction SQLServer Data Source</value>
+    <comment>DisplayName for DomainRole &apos;TransactionSQLServerDataSource&apos; on DomainRelationship &apos;TransactionLayerHasTransactionSQLServerDataSources&apos;</comment>
+  </data>
+  <data name="TransactionKernelDSL.Framework.Language.TransactionLayerHasTransactionSQLServerDataSources/TransactionSQLServerDataSource.PropertyDisplayName" xml:space="preserve">
+    <value>Transaction Layer</value>
+    <comment>PropertyDisplayName for DomainRole &apos;TransactionSQLServerDataSource&apos; on DomainRelationship &apos;TransactionLayerHasTransactionSQLServerDataSources&apos;</comment>
+  </data>
+  <data name="TransactionKernelDSL.Framework.Language.TransactionLayerHasOutputTransactionWebServices.Description" xml:space="preserve">
+    <value>Description for TransactionKernelDSL.Framework.Language.TransactionLayerHasOutputTransactionWebServices</value>
+    <comment>Description for DomainClass &apos;TransactionLayerHasOutputTransactionWebServices&apos;</comment>
+  </data>
+  <data name="TransactionKernelDSL.Framework.Language.TransactionLayerHasOutputTransactionWebServices.DisplayName" xml:space="preserve">
+    <value>Transaction Layer Has Output Transaction Web Services</value>
+    <comment>DisplayName for DomainClass &apos;TransactionLayerHasOutputTransactionWebServices&apos;</comment>
+  </data>
+  <data name="TransactionKernelDSL.Framework.Language.TransactionLayerHasOutputTransactionWebServices/TransactionLayer.Description" xml:space="preserve">
+    <value>Description for TransactionKernelDSL.Framework.Language.TransactionLayerHasOutputTransactionWebServices.TransactionLayer</value>
+    <comment>Description for DomainRole &apos;TransactionLayer&apos; on DomainRelationship &apos;TransactionLayerHasOutputTransactionWebServices&apos;</comment>
+  </data>
+  <data name="TransactionKernelDSL.Framework.Language.TransactionLayerHasOutputTransactionWebServices/TransactionLayer.DisplayName" xml:space="preserve">
+    <value>Transaction Layer</value>
+    <comment>DisplayName for DomainRole &apos;TransactionLayer&apos; on DomainRelationship &apos;TransactionLayerHasOutputTransactionWebServices&apos;</comment>
+  </data>
+  <data name="TransactionKernelDSL.Framework.Language.TransactionLayerHasOutputTransactionWebServices/TransactionLayer.PropertyDisplayName" xml:space="preserve">
+    <value>Output Web Services</value>
+    <comment>PropertyDisplayName for DomainRole &apos;TransactionLayer&apos; on DomainRelationship &apos;TransactionLayerHasOutputTransactionWebServices&apos;</comment>
+  </data>
+  <data name="TransactionKernelDSL.Framework.Language.TransactionLayerHasOutputTransactionWebServices/OutputTransactionWebService.Description" xml:space="preserve">
+    <value>Description for TransactionKernelDSL.Framework.Language.TransactionLayerHasOutputTransactionWebServices.OutputTransactionWebService</value>
+    <comment>Description for DomainRole &apos;OutputTransactionWebService&apos; on DomainRelationship &apos;TransactionLayerHasOutputTransactionWebServices&apos;</comment>
+  </data>
+  <data name="TransactionKernelDSL.Framework.Language.TransactionLayerHasOutputTransactionWebServices/OutputTransactionWebService.DisplayName" xml:space="preserve">
+    <value>Output Transaction Web Service</value>
+    <comment>DisplayName for DomainRole &apos;OutputTransactionWebService&apos; on DomainRelationship &apos;TransactionLayerHasOutputTransactionWebServices&apos;</comment>
+  </data>
+  <data name="TransactionKernelDSL.Framework.Language.TransactionLayerHasOutputTransactionWebServices/OutputTransactionWebService.PropertyDisplayName" xml:space="preserve">
+    <value>Transaction Layer</value>
+    <comment>PropertyDisplayName for DomainRole &apos;OutputTransactionWebService&apos; on DomainRelationship &apos;TransactionLayerHasOutputTransactionWebServices&apos;</comment>
+  </data>
+  <data name="TransactionKernelDSL.Framework.Language.TransactionHandlerReferencesOutputTransactionWebService.Description" xml:space="preserve">
+    <value>Description for TransactionKernelDSL.Framework.Language.TransactionHandlerReferencesOutputTransactionWebService</value>
+    <comment>Description for DomainClass &apos;TransactionHandlerReferencesOutputTransactionWebService&apos;</comment>
+  </data>
+  <data name="TransactionKernelDSL.Framework.Language.TransactionHandlerReferencesOutputTransactionWebService.DisplayName" xml:space="preserve">
+    <value>Transaction Handler References Output Transaction Web Service</value>
+    <comment>DisplayName for DomainClass &apos;TransactionHandlerReferencesOutputTransactionWebService&apos;</comment>
+  </data>
+  <data name="TransactionKernelDSL.Framework.Language.TransactionHandlerReferencesOutputTransactionWebService/TransactionHandler.Description" xml:space="preserve">
+    <value>Description for TransactionKernelDSL.Framework.Language.TransactionHandlerReferencesOutputTransactionWebService.TransactionHandler</value>
+    <comment>Description for DomainRole &apos;TransactionHandler&apos; on DomainRelationship &apos;TransactionHandlerReferencesOutputTransactionWebService&apos;</comment>
+  </data>
+  <data name="TransactionKernelDSL.Framework.Language.TransactionHandlerReferencesOutputTransactionWebService/TransactionHandler.DisplayName" xml:space="preserve">
+    <value>Source Output WebService Transaction Handler</value>
+    <comment>DisplayName for DomainRole &apos;TransactionHandler&apos; on DomainRelationship &apos;TransactionHandlerReferencesOutputTransactionWebService&apos;</comment>
+  </data>
+  <data name="TransactionKernelDSL.Framework.Language.TransactionHandlerReferencesOutputTransactionWebService/TransactionHandler.Category" xml:space="preserve">
+    <value>Links</value>
+    <comment>Category for DomainRole &apos;TransactionHandler&apos; on DomainRelationship &apos;TransactionHandlerReferencesOutputTransactionWebService&apos;</comment>
+  </data>
+  <data name="TransactionKernelDSL.Framework.Language.TransactionHandlerReferencesOutputTransactionWebService/TransactionHandler.PropertyDisplayName" xml:space="preserve">
+    <value>Output Transaction Web Service</value>
+    <comment>PropertyDisplayName for DomainRole &apos;TransactionHandler&apos; on DomainRelationship &apos;TransactionHandlerReferencesOutputTransactionWebService&apos;</comment>
+  </data>
+  <data name="TransactionKernelDSL.Framework.Language.TransactionHandlerReferencesOutputTransactionWebService/OutputTransactionWebService.Description" xml:space="preserve">
+    <value>Description for TransactionKernelDSL.Framework.Language.TransactionHandlerReferencesOutputTransactionWebService.OutputTransactionWebService</value>
+    <comment>Description for DomainRole &apos;OutputTransactionWebService&apos; on DomainRelationship &apos;TransactionHandlerReferencesOutputTransactionWebService&apos;</comment>
+  </data>
+  <data name="TransactionKernelDSL.Framework.Language.TransactionHandlerReferencesOutputTransactionWebService/OutputTransactionWebService.DisplayName" xml:space="preserve">
+    <value>Target Output WebService Transaction Output Web Service</value>
+    <comment>DisplayName for DomainRole &apos;OutputTransactionWebService&apos; on DomainRelationship &apos;TransactionHandlerReferencesOutputTransactionWebService&apos;</comment>
+  </data>
+  <data name="TransactionKernelDSL.Framework.Language.TransactionHandlerReferencesOutputTransactionWebService/OutputTransactionWebService.PropertyDisplayName" xml:space="preserve">
+    <value>Transaction Handlers</value>
+    <comment>PropertyDisplayName for DomainRole &apos;OutputTransactionWebService&apos; on DomainRelationship &apos;TransactionHandlerReferencesOutputTransactionWebService&apos;</comment>
+  </data>
+  <data name="TransactionKernelDSL.Framework.Language.TransactionLayerHasTimeTriggers.Description" xml:space="preserve">
+    <value>Description for TransactionKernelDSL.Framework.Language.TransactionLayerHasTimeTriggers</value>
+    <comment>Description for DomainClass &apos;TransactionLayerHasTimeTriggers&apos;</comment>
+  </data>
+  <data name="TransactionKernelDSL.Framework.Language.TransactionLayerHasTimeTriggers.DisplayName" xml:space="preserve">
+    <value>Transaction Layer Has Time Triggers</value>
+    <comment>DisplayName for DomainClass &apos;TransactionLayerHasTimeTriggers&apos;</comment>
+  </data>
+  <data name="TransactionKernelDSL.Framework.Language.TransactionLayerHasTimeTriggers/TransactionLayer.Description" xml:space="preserve">
+    <value>Description for TransactionKernelDSL.Framework.Language.TransactionLayerHasTimeTriggers.TransactionLayer</value>
+    <comment>Description for DomainRole &apos;TransactionLayer&apos; on DomainRelationship &apos;TransactionLayerHasTimeTriggers&apos;</comment>
+  </data>
+  <data name="TransactionKernelDSL.Framework.Language.TransactionLayerHasTimeTriggers/TransactionLayer.DisplayName" xml:space="preserve">
+    <value>Transaction Layer</value>
+    <comment>DisplayName for DomainRole &apos;TransactionLayer&apos; on DomainRelationship &apos;TransactionLayerHasTimeTriggers&apos;</comment>
+  </data>
+  <data name="TransactionKernelDSL.Framework.Language.TransactionLayerHasTimeTriggers/TransactionLayer.PropertyDisplayName" xml:space="preserve">
+    <value>Time Triggers</value>
+    <comment>PropertyDisplayName for DomainRole &apos;TransactionLayer&apos; on DomainRelationship &apos;TransactionLayerHasTimeTriggers&apos;</comment>
+  </data>
+  <data name="TransactionKernelDSL.Framework.Language.TransactionLayerHasTimeTriggers/TimeTrigger.Description" xml:space="preserve">
+    <value>Description for TransactionKernelDSL.Framework.Language.TransactionLayerHasTimeTriggers.TimeTrigger</value>
+    <comment>Description for DomainRole &apos;TimeTrigger&apos; on DomainRelationship &apos;TransactionLayerHasTimeTriggers&apos;</comment>
+  </data>
+  <data name="TransactionKernelDSL.Framework.Language.TransactionLayerHasTimeTriggers/TimeTrigger.DisplayName" xml:space="preserve">
+    <value>Time Trigger</value>
+    <comment>DisplayName for DomainRole &apos;TimeTrigger&apos; on DomainRelationship &apos;TransactionLayerHasTimeTriggers&apos;</comment>
+  </data>
+  <data name="TransactionKernelDSL.Framework.Language.TransactionLayerHasTimeTriggers/TimeTrigger.PropertyDisplayName" xml:space="preserve">
+    <value>Transaction Layer</value>
+    <comment>PropertyDisplayName for DomainRole &apos;TimeTrigger&apos; on DomainRelationship &apos;TransactionLayerHasTimeTriggers&apos;</comment>
+  </data>
+  <data name="TransactionKernelDSL.Framework.Language.InputTransactionEngineReferencesTimeTriggers.Description" xml:space="preserve">
+    <value>Description for TransactionKernelDSL.Framework.Language.InputTransactionEngineReferencesTimeTriggers</value>
+    <comment>Description for DomainClass &apos;InputTransactionEngineReferencesTimeTriggers&apos;</comment>
+  </data>
+  <data name="TransactionKernelDSL.Framework.Language.InputTransactionEngineReferencesTimeTriggers.DisplayName" xml:space="preserve">
+    <value>Input Transaction Engine References Time Triggers</value>
+    <comment>DisplayName for DomainClass &apos;InputTransactionEngineReferencesTimeTriggers&apos;</comment>
+  </data>
+  <data name="TransactionKernelDSL.Framework.Language.InputTransactionEngineReferencesTimeTriggers/InputTransactionEngine.Description" xml:space="preserve">
+    <value>Description for TransactionKernelDSL.Framework.Language.InputTransactionEngineReferencesTimeTriggers.InputTransactionEngine</value>
+    <comment>Description for DomainRole &apos;InputTransactionEngine&apos; on DomainRelationship &apos;InputTransactionEngineReferencesTimeTriggers&apos;</comment>
+  </data>
+  <data name="TransactionKernelDSL.Framework.Language.InputTransactionEngineReferencesTimeTriggers/InputTransactionEngine.DisplayName" xml:space="preserve">
+    <value>Input Transaction Engine</value>
+    <comment>DisplayName for DomainRole &apos;InputTransactionEngine&apos; on DomainRelationship &apos;InputTransactionEngineReferencesTimeTriggers&apos;</comment>
+  </data>
+  <data name="TransactionKernelDSL.Framework.Language.InputTransactionEngineReferencesTimeTriggers/InputTransactionEngine.PropertyDisplayName" xml:space="preserve">
+    <value>Time Triggers</value>
+    <comment>PropertyDisplayName for DomainRole &apos;InputTransactionEngine&apos; on DomainRelationship &apos;InputTransactionEngineReferencesTimeTriggers&apos;</comment>
+  </data>
+  <data name="TransactionKernelDSL.Framework.Language.InputTransactionEngineReferencesTimeTriggers/TimeTrigger.Description" xml:space="preserve">
+    <value>Description for TransactionKernelDSL.Framework.Language.InputTransactionEngineReferencesTimeTriggers.TimeTrigger</value>
+    <comment>Description for DomainRole &apos;TimeTrigger&apos; on DomainRelationship &apos;InputTransactionEngineReferencesTimeTriggers&apos;</comment>
+  </data>
+  <data name="TransactionKernelDSL.Framework.Language.InputTransactionEngineReferencesTimeTriggers/TimeTrigger.DisplayName" xml:space="preserve">
+    <value>Time Trigger</value>
+    <comment>DisplayName for DomainRole &apos;TimeTrigger&apos; on DomainRelationship &apos;InputTransactionEngineReferencesTimeTriggers&apos;</comment>
+  </data>
+  <data name="TransactionKernelDSL.Framework.Language.InputTransactionEngineReferencesTimeTriggers/TimeTrigger.PropertyDisplayName" xml:space="preserve">
+    <value>Input Transaction Engine</value>
+    <comment>PropertyDisplayName for DomainRole &apos;TimeTrigger&apos; on DomainRelationship &apos;InputTransactionEngineReferencesTimeTriggers&apos;</comment>
+  </data>
+  <data name="TransactionKernelDSL.Framework.Language.OutputTransactionEngineReferencesTransactionDataSourceSupport.Description" xml:space="preserve">
+    <value>Description for TransactionKernelDSL.Framework.Language.OutputTransactionEngineReferencesTransactionDataSourceSupport</value>
+    <comment>Description for DomainClass &apos;OutputTransactionEngineReferencesTransactionDataSourceSupport&apos;</comment>
+  </data>
+  <data name="TransactionKernelDSL.Framework.Language.OutputTransactionEngineReferencesTransactionDataSourceSupport.DisplayName" xml:space="preserve">
+    <value>Output Transaction Engine References Transaction Data Source Support</value>
+    <comment>DisplayName for DomainClass &apos;OutputTransactionEngineReferencesTransactionDataSourceSupport&apos;</comment>
+  </data>
+  <data name="TransactionKernelDSL.Framework.Language.OutputTransactionEngineReferencesTransactionDataSourceSupport/OutputTransactionEngine.Description" xml:space="preserve">
+    <value>Description for TransactionKernelDSL.Framework.Language.OutputTransactionEngineReferencesTransactionDataSourceSupport.OutputTransactionEngine</value>
+    <comment>Description for DomainRole &apos;OutputTransactionEngine&apos; on DomainRelationship &apos;OutputTransactionEngineReferencesTransactionDataSourceSupport&apos;</comment>
+  </data>
+  <data name="TransactionKernelDSL.Framework.Language.OutputTransactionEngineReferencesTransactionDataSourceSupport/OutputTransactionEngine.DisplayName" xml:space="preserve">
+    <value>Output Transaction Engine</value>
+    <comment>DisplayName for DomainRole &apos;OutputTransactionEngine&apos; on DomainRelationship &apos;OutputTransactionEngineReferencesTransactionDataSourceSupport&apos;</comment>
+  </data>
+  <data name="TransactionKernelDSL.Framework.Language.OutputTransactionEngineReferencesTransactionDataSourceSupport/OutputTransactionEngine.PropertyDisplayName" xml:space="preserve">
+    <value>Transaction Data Source Support</value>
+    <comment>PropertyDisplayName for DomainRole &apos;OutputTransactionEngine&apos; on DomainRelationship &apos;OutputTransactionEngineReferencesTransactionDataSourceSupport&apos;</comment>
+  </data>
+  <data name="TransactionKernelDSL.Framework.Language.OutputTransactionEngineReferencesTransactionDataSourceSupport/TransactionDataSourceSupport.Description" xml:space="preserve">
+    <value>Description for TransactionKernelDSL.Framework.Language.OutputTransactionEngineReferencesTransactionDataSourceSupport.TransactionDataSourceSupport</value>
+    <comment>Description for DomainRole &apos;TransactionDataSourceSupport&apos; on DomainRelationship &apos;OutputTransactionEngineReferencesTransactionDataSourceSupport&apos;</comment>
+  </data>
+  <data name="TransactionKernelDSL.Framework.Language.OutputTransactionEngineReferencesTransactionDataSourceSupport/TransactionDataSourceSupport.DisplayName" xml:space="preserve">
+    <value>Transaction Data Source Support</value>
+    <comment>DisplayName for DomainRole &apos;TransactionDataSourceSupport&apos; on DomainRelationship &apos;OutputTransactionEngineReferencesTransactionDataSourceSupport&apos;</comment>
+  </data>
+  <data name="TransactionKernelDSL.Framework.Language.OutputTransactionEngineReferencesTransactionDataSourceSupport/TransactionDataSourceSupport.PropertyDisplayName" xml:space="preserve">
+    <value>Output Transaction Engines</value>
+    <comment>PropertyDisplayName for DomainRole &apos;TransactionDataSourceSupport&apos; on DomainRelationship &apos;OutputTransactionEngineReferencesTransactionDataSourceSupport&apos;</comment>
+  </data>
+  <data name="TransactionKernelDSL.Framework.Language.TransactionLayerHasTransactionDataSourceSupports.Description" xml:space="preserve">
+    <value>Description for TransactionKernelDSL.Framework.Language.TransactionLayerHasTransactionDataSourceSupports</value>
+    <comment>Description for DomainClass &apos;TransactionLayerHasTransactionDataSourceSupports&apos;</comment>
+  </data>
+  <data name="TransactionKernelDSL.Framework.Language.TransactionLayerHasTransactionDataSourceSupports.DisplayName" xml:space="preserve">
+    <value>Transaction Layer Has Transaction Data Source Supports</value>
+    <comment>DisplayName for DomainClass &apos;TransactionLayerHasTransactionDataSourceSupports&apos;</comment>
+  </data>
+  <data name="TransactionKernelDSL.Framework.Language.TransactionLayerHasTransactionDataSourceSupports/TransactionLayer.Description" xml:space="preserve">
+    <value>Description for TransactionKernelDSL.Framework.Language.TransactionLayerHasTransactionDataSourceSupports.TransactionLayer</value>
+    <comment>Description for DomainRole &apos;TransactionLayer&apos; on DomainRelationship &apos;TransactionLayerHasTransactionDataSourceSupports&apos;</comment>
+  </data>
+  <data name="TransactionKernelDSL.Framework.Language.TransactionLayerHasTransactionDataSourceSupports/TransactionLayer.DisplayName" xml:space="preserve">
+    <value>Transaction Layer</value>
+    <comment>DisplayName for DomainRole &apos;TransactionLayer&apos; on DomainRelationship &apos;TransactionLayerHasTransactionDataSourceSupports&apos;</comment>
+  </data>
+  <data name="TransactionKernelDSL.Framework.Language.TransactionLayerHasTransactionDataSourceSupports/TransactionLayer.PropertyDisplayName" xml:space="preserve">
+    <value>Transaction Data Source Supports</value>
+    <comment>PropertyDisplayName for DomainRole &apos;TransactionLayer&apos; on DomainRelationship &apos;TransactionLayerHasTransactionDataSourceSupports&apos;</comment>
+  </data>
+  <data name="TransactionKernelDSL.Framework.Language.TransactionLayerHasTransactionDataSourceSupports/TransactionDataSourceSupport.Description" xml:space="preserve">
+    <value>Description for TransactionKernelDSL.Framework.Language.TransactionLayerHasTransactionDataSourceSupports.TransactionDataSourceSupport</value>
+    <comment>Description for DomainRole &apos;TransactionDataSourceSupport&apos; on DomainRelationship &apos;TransactionLayerHasTransactionDataSourceSupports&apos;</comment>
+  </data>
+  <data name="TransactionKernelDSL.Framework.Language.TransactionLayerHasTransactionDataSourceSupports/TransactionDataSourceSupport.DisplayName" xml:space="preserve">
+    <value>Transaction Data Source Support</value>
+    <comment>DisplayName for DomainRole &apos;TransactionDataSourceSupport&apos; on DomainRelationship &apos;TransactionLayerHasTransactionDataSourceSupports&apos;</comment>
+  </data>
+  <data name="TransactionKernelDSL.Framework.Language.TransactionLayerHasTransactionDataSourceSupports/TransactionDataSourceSupport.PropertyDisplayName" xml:space="preserve">
+    <value>Transaction Layer</value>
+    <comment>PropertyDisplayName for DomainRole &apos;TransactionDataSourceSupport&apos; on DomainRelationship &apos;TransactionLayerHasTransactionDataSourceSupports&apos;</comment>
+  </data>
+  <data name="TransactionKernelDSL.Framework.Language.TransactionModelHasTransactionEnvironmentLayer.Description" xml:space="preserve">
+    <value>Description for TransactionKernelDSL.Framework.Language.TransactionModelHasTransactionEnvironmentLayer</value>
+    <comment>Description for DomainClass &apos;TransactionModelHasTransactionEnvironmentLayer&apos;</comment>
+  </data>
+  <data name="TransactionKernelDSL.Framework.Language.TransactionModelHasTransactionEnvironmentLayer.DisplayName" xml:space="preserve">
+    <value>Transaction Model Has Transaction Environment Layer</value>
+    <comment>DisplayName for DomainClass &apos;TransactionModelHasTransactionEnvironmentLayer&apos;</comment>
+  </data>
+  <data name="TransactionKernelDSL.Framework.Language.TransactionModelHasTransactionEnvironmentLayer/TransactionModel.Description" xml:space="preserve">
+    <value>Description for TransactionKernelDSL.Framework.Language.TransactionModelHasTransactionEnvironmentLayer.TransactionModel</value>
+    <comment>Description for DomainRole &apos;TransactionModel&apos; on DomainRelationship &apos;TransactionModelHasTransactionEnvironmentLayer&apos;</comment>
+  </data>
+  <data name="TransactionKernelDSL.Framework.Language.TransactionModelHasTransactionEnvironmentLayer/TransactionModel.DisplayName" xml:space="preserve">
+    <value>Transaction Model</value>
+    <comment>DisplayName for DomainRole &apos;TransactionModel&apos; on DomainRelationship &apos;TransactionModelHasTransactionEnvironmentLayer&apos;</comment>
+  </data>
+  <data name="TransactionKernelDSL.Framework.Language.TransactionModelHasTransactionEnvironmentLayer/TransactionModel.PropertyDisplayName" xml:space="preserve">
+    <value>Transaction Environment Layer</value>
+    <comment>PropertyDisplayName for DomainRole &apos;TransactionModel&apos; on DomainRelationship &apos;TransactionModelHasTransactionEnvironmentLayer&apos;</comment>
+  </data>
+  <data name="TransactionKernelDSL.Framework.Language.TransactionModelHasTransactionEnvironmentLayer/TransactionEnvironmentLayer.Description" xml:space="preserve">
+    <value>Description for TransactionKernelDSL.Framework.Language.TransactionModelHasTransactionEnvironmentLayer.TransactionEnvironmentLayer</value>
+    <comment>Description for DomainRole &apos;TransactionEnvironmentLayer&apos; on DomainRelationship &apos;TransactionModelHasTransactionEnvironmentLayer&apos;</comment>
+  </data>
+  <data name="TransactionKernelDSL.Framework.Language.TransactionModelHasTransactionEnvironmentLayer/TransactionEnvironmentLayer.DisplayName" xml:space="preserve">
+    <value>Transaction Environment Layer</value>
+    <comment>DisplayName for DomainRole &apos;TransactionEnvironmentLayer&apos; on DomainRelationship &apos;TransactionModelHasTransactionEnvironmentLayer&apos;</comment>
+  </data>
+  <data name="TransactionKernelDSL.Framework.Language.TransactionModelHasTransactionEnvironmentLayer/TransactionEnvironmentLayer.PropertyDisplayName" xml:space="preserve">
+    <value>Transaction Model</value>
+    <comment>PropertyDisplayName for DomainRole &apos;TransactionEnvironmentLayer&apos; on DomainRelationship &apos;TransactionModelHasTransactionEnvironmentLayer&apos;</comment>
+  </data>
+  <data name="TransactionKernelDSL.Framework.Language.TransactionEnvironmentLayerHasTransactionEnvironmentSQLServerVariables.Description" xml:space="preserve">
+    <value>Description for TransactionKernelDSL.Framework.Language.TransactionEnvironmentLayerHasTransactionEnvironmentSQLServerVariables</value>
+    <comment>Description for DomainClass &apos;TransactionEnvironmentLayerHasTransactionEnvironmentSQLServerVariables&apos;</comment>
+  </data>
+  <data name="TransactionKernelDSL.Framework.Language.TransactionEnvironmentLayerHasTransactionEnvironmentSQLServerVariables.DisplayName" xml:space="preserve">
+    <value>Transaction Environment Layer Has Transaction Environment SQLServer Variables</value>
+    <comment>DisplayName for DomainClass &apos;TransactionEnvironmentLayerHasTransactionEnvironmentSQLServerVariables&apos;</comment>
+  </data>
+  <data name="TransactionKernelDSL.Framework.Language.TransactionEnvironmentLayerHasTransactionEnvironmentSQLServerVariables/TransactionEnvironmentLayer.Description" xml:space="preserve">
+    <value>Description for TransactionKernelDSL.Framework.Language.TransactionEnvironmentLayerHasTransactionEnvironmentSQLServerVariables.TransactionEnvironmentLayer</value>
+    <comment>Description for DomainRole &apos;TransactionEnvironmentLayer&apos; on DomainRelationship &apos;TransactionEnvironmentLayerHasTransactionEnvironmentSQLServerVariables&apos;</comment>
+  </data>
+  <data name="TransactionKernelDSL.Framework.Language.TransactionEnvironmentLayerHasTransactionEnvironmentSQLServerVariables/TransactionEnvironmentLayer.DisplayName" xml:space="preserve">
+    <value>Transaction Environment Layer</value>
+    <comment>DisplayName for DomainRole &apos;TransactionEnvironmentLayer&apos; on DomainRelationship &apos;TransactionEnvironmentLayerHasTransactionEnvironmentSQLServerVariables&apos;</comment>
+  </data>
+  <data name="TransactionKernelDSL.Framework.Language.TransactionEnvironmentLayerHasTransactionEnvironmentSQLServerVariables/TransactionEnvironmentLayer.PropertyDisplayName" xml:space="preserve">
+    <value>Transaction Environment SQLServer Variables</value>
+    <comment>PropertyDisplayName for DomainRole &apos;TransactionEnvironmentLayer&apos; on DomainRelationship &apos;TransactionEnvironmentLayerHasTransactionEnvironmentSQLServerVariables&apos;</comment>
+  </data>
+  <data name="TransactionKernelDSL.Framework.Language.TransactionEnvironmentLayerHasTransactionEnvironmentSQLServerVariables/TransactionEnvironmentSQLServerVariable.Description" xml:space="preserve">
+    <value>Description for TransactionKernelDSL.Framework.Language.TransactionEnvironmentLayerHasTransactionEnvironmentSQLServerVariables.TransactionEnvironmentSQLServerVariable</value>
+    <comment>Description for DomainRole &apos;TransactionEnvironmentSQLServerVariable&apos; on DomainRelationship &apos;TransactionEnvironmentLayerHasTransactionEnvironmentSQLServerVariables&apos;</comment>
+  </data>
+  <data name="TransactionKernelDSL.Framework.Language.TransactionEnvironmentLayerHasTransactionEnvironmentSQLServerVariables/TransactionEnvironmentSQLServerVariable.DisplayName" xml:space="preserve">
+    <value>Transaction Environment SQLServer Variable</value>
+    <comment>DisplayName for DomainRole &apos;TransactionEnvironmentSQLServerVariable&apos; on DomainRelationship &apos;TransactionEnvironmentLayerHasTransactionEnvironmentSQLServerVariables&apos;</comment>
+  </data>
+  <data name="TransactionKernelDSL.Framework.Language.TransactionEnvironmentLayerHasTransactionEnvironmentSQLServerVariables/TransactionEnvironmentSQLServerVariable.PropertyDisplayName" xml:space="preserve">
+    <value>Transaction Environment Layer</value>
+    <comment>PropertyDisplayName for DomainRole &apos;TransactionEnvironmentSQLServerVariable&apos; on DomainRelationship &apos;TransactionEnvironmentLayerHasTransactionEnvironmentSQLServerVariables&apos;</comment>
+  </data>
+  <data name="TransactionKernelDSL.Framework.Language.InputEngineType/InputEngine.DisplayName" xml:space="preserve">
+    <value>InputEngine</value>
+    <comment>Display name for EnumerationLiteral &apos;InputEngine&apos; on DomainEnumeration &apos;InputEngineType&apos;</comment>
+  </data>
+  <data name="TransactionKernelDSL.Framework.Language.InputEngineType/InputEngine.Description" xml:space="preserve">
+    <value>Description for TransactionKernelDSL.Framework.Language.InputEngineType.InputEngine</value>
+    <comment>Description for EnumerationLiteral &apos;InputEngine&apos; on DomainEnumeration &apos;InputEngineType&apos;</comment>
+  </data>
+  <data name="TransactionKernelDSL.Framework.Language.InputEngineType/ThreadedInputEngine.DisplayName" xml:space="preserve">
+    <value>ThreadedInputEngine</value>
+    <comment>Display name for EnumerationLiteral &apos;ThreadedInputEngine&apos; on DomainEnumeration &apos;InputEngineType&apos;</comment>
+  </data>
+  <data name="TransactionKernelDSL.Framework.Language.InputEngineType/ThreadedInputEngine.Description" xml:space="preserve">
+    <value>Description for TransactionKernelDSL.Framework.Language.InputEngineType.ThreadedInputEngine</value>
+    <comment>Description for EnumerationLiteral &apos;ThreadedInputEngine&apos; on DomainEnumeration &apos;InputEngineType&apos;</comment>
+  </data>
+  <data name="TransactionKernelDSL.Framework.Language.InputEngineType/TimeTriggeredInputEngine.DisplayName" xml:space="preserve">
+    <value>TimeTriggeredInputEngine</value>
+    <comment>Display name for EnumerationLiteral &apos;TimeTriggeredInputEngine&apos; on DomainEnumeration &apos;InputEngineType&apos;</comment>
+  </data>
+  <data name="TransactionKernelDSL.Framework.Language.InputEngineType/TimeTriggeredInputEngine.Description" xml:space="preserve">
+    <value>Description for TransactionKernelDSL.Framework.Language.InputEngineType.TimeTriggeredInputEngine</value>
+    <comment>Description for EnumerationLiteral &apos;TimeTriggeredInputEngine&apos; on DomainEnumeration &apos;InputEngineType&apos;</comment>
+  </data>
+  <data name="TransactionKernelDSL.Framework.Language.InputEngineType/TcpTriggeredMultiThreadedInputEngine.DisplayName" xml:space="preserve">
+    <value>TcpTriggeredMultiThreadedInputEngine</value>
+    <comment>Display name for EnumerationLiteral &apos;TcpTriggeredMultiThreadedInputEngine&apos; on DomainEnumeration &apos;InputEngineType&apos;</comment>
+  </data>
+  <data name="TransactionKernelDSL.Framework.Language.InputEngineType/TcpTriggeredMultiThreadedInputEngine.Description" xml:space="preserve">
+    <value>Description for TransactionKernelDSL.Framework.Language.InputEngineType.TcpTriggeredMultiThreadedInputEngine</value>
+    <comment>Description for EnumerationLiteral &apos;TcpTriggeredMultiThreadedInputEngine&apos; on DomainEnumeration &apos;InputEngineType&apos;</comment>
+  </data>
+  <data name="TransactionKernelDSL.Framework.Language.InputEngineType/TcpTriggeredSocketReusableMultiThreadedInputEngine.DisplayName" xml:space="preserve">
+    <value>TcpTriggeredSocketReusableMultiThreadedInputEngine</value>
+    <comment>Display name for EnumerationLiteral &apos;TcpTriggeredSocketReusableMultiThreadedInputEngine&apos; on DomainEnumeration &apos;InputEngineType&apos;</comment>
+  </data>
+  <data name="TransactionKernelDSL.Framework.Language.InputEngineType/TcpTriggeredSocketReusableMultiThreadedInputEngine.Description" xml:space="preserve">
+    <value>Description for TransactionKernelDSL.Framework.Language.InputEngineType.TcpTriggeredSocketReusableMultiThreadedInputEngine</value>
+    <comment>Description for EnumerationLiteral &apos;TcpTriggeredSocketReusableMultiThreadedInputEngine&apos; on DomainEnumeration &apos;InputEngineType&apos;</comment>
+  </data>
+  <data name="TransactionKernelDSL.Framework.Language.PersistableSourceType/SQLServerDatabase.DisplayName" xml:space="preserve">
+    <value>SQLServerDatabase</value>
+    <comment>Display name for EnumerationLiteral &apos;SQLServerDatabase&apos; on DomainEnumeration &apos;PersistableSourceType&apos;</comment>
+  </data>
+  <data name="TransactionKernelDSL.Framework.Language.PersistableSourceType/SQLServerDatabase.Description" xml:space="preserve">
+    <value>Description for TransactionKernelDSL.Framework.Language.PersistableSourceType.SQLServerDatabase</value>
+    <comment>Description for EnumerationLiteral &apos;SQLServerDatabase&apos; on DomainEnumeration &apos;PersistableSourceType&apos;</comment>
+  </data>
+  <data name="TransactionKernelDSL.Framework.Language.PersistableSourceType/NotTyped.DisplayName" xml:space="preserve">
+    <value>NotTyped</value>
+    <comment>Display name for EnumerationLiteral &apos;NotTyped&apos; on DomainEnumeration &apos;PersistableSourceType&apos;</comment>
+  </data>
+  <data name="TransactionKernelDSL.Framework.Language.PersistableSourceType/NotTyped.Description" xml:space="preserve">
+    <value>Description for TransactionKernelDSL.Framework.Language.PersistableSourceType.NotTyped</value>
+    <comment>Description for EnumerationLiteral &apos;NotTyped&apos; on DomainEnumeration &apos;PersistableSourceType&apos;</comment>
+  </data>
+  <data name="TransactionKernelDSL.Framework.Language.OutputEngineType/OutputEngine.DisplayName" xml:space="preserve">
+    <value>OutputEngine</value>
+    <comment>Display name for EnumerationLiteral &apos;OutputEngine&apos; on DomainEnumeration &apos;OutputEngineType&apos;</comment>
+  </data>
+  <data name="TransactionKernelDSL.Framework.Language.OutputEngineType/OutputEngine.Description" xml:space="preserve">
+    <value>Description for TransactionKernelDSL.Framework.Language.OutputEngineType.OutputEngine</value>
+    <comment>Description for EnumerationLiteral &apos;OutputEngine&apos; on DomainEnumeration &apos;OutputEngineType&apos;</comment>
+  </data>
+  <data name="TransactionKernelDSL.Framework.Language.OutputEngineType/FunneledOutputEngine.DisplayName" xml:space="preserve">
+    <value>FunneledOutputEngine</value>
+    <comment>Display name for EnumerationLiteral &apos;FunneledOutputEngine&apos; on DomainEnumeration &apos;OutputEngineType&apos;</comment>
+  </data>
+  <data name="TransactionKernelDSL.Framework.Language.OutputEngineType/FunneledOutputEngine.Description" xml:space="preserve">
+    <value>Description for TransactionKernelDSL.Framework.Language.OutputEngineType.FunneledOutputEngine</value>
+    <comment>Description for EnumerationLiteral &apos;FunneledOutputEngine&apos; on DomainEnumeration &apos;OutputEngineType&apos;</comment>
+  </data>
+  <data name="TransactionKernelDSL.Framework.Language.OutputEngineType/StraightOutputEngine.DisplayName" xml:space="preserve">
+    <value>StraightOutputEngine</value>
+    <comment>Display name for EnumerationLiteral &apos;StraightOutputEngine&apos; on DomainEnumeration &apos;OutputEngineType&apos;</comment>
+  </data>
+  <data name="TransactionKernelDSL.Framework.Language.OutputEngineType/StraightOutputEngine.Description" xml:space="preserve">
+    <value>Description for TransactionKernelDSL.Framework.Language.OutputEngineType.StraightOutputEngine</value>
+    <comment>Description for EnumerationLiteral &apos;StraightOutputEngine&apos; on DomainEnumeration &apos;OutputEngineType&apos;</comment>
+  </data>
+  <data name="TransactionKernelDSL.Framework.Language.OutputEngineType/TcpFunneledOutputEngine.DisplayName" xml:space="preserve">
+    <value>TcpFunneledOutputEngine</value>
+    <comment>Display name for EnumerationLiteral &apos;TcpFunneledOutputEngine&apos; on DomainEnumeration &apos;OutputEngineType&apos;</comment>
+  </data>
+  <data name="TransactionKernelDSL.Framework.Language.OutputEngineType/TcpFunneledOutputEngine.Description" xml:space="preserve">
+    <value>Description for TransactionKernelDSL.Framework.Language.OutputEngineType.TcpFunneledOutputEngine</value>
+    <comment>Description for EnumerationLiteral &apos;TcpFunneledOutputEngine&apos; on DomainEnumeration &apos;OutputEngineType&apos;</comment>
+  </data>
+  <data name="TransactionKernelDSL.Framework.Language.OutputEngineType/TcpStraightOutputEngine.DisplayName" xml:space="preserve">
+    <value>TcpStraightOutputEngine</value>
+    <comment>Display name for EnumerationLiteral &apos;TcpStraightOutputEngine&apos; on DomainEnumeration &apos;OutputEngineType&apos;</comment>
+  </data>
+  <data name="TransactionKernelDSL.Framework.Language.OutputEngineType/TcpStraightOutputEngine.Description" xml:space="preserve">
+    <value>Description for TransactionKernelDSL.Framework.Language.OutputEngineType.TcpStraightOutputEngine</value>
+    <comment>Description for EnumerationLiteral &apos;TcpStraightOutputEngine&apos; on DomainEnumeration &apos;OutputEngineType&apos;</comment>
+  </data>
+  <data name="TransactionKernelDSL.Framework.Language.PersistableStage/PreProcessStage.DisplayName" xml:space="preserve">
+    <value>PreProcessStage</value>
+    <comment>Display name for EnumerationLiteral &apos;PreProcessStage&apos; on DomainEnumeration &apos;PersistableStage&apos;</comment>
+  </data>
+  <data name="TransactionKernelDSL.Framework.Language.PersistableStage/PreProcessStage.Description" xml:space="preserve">
+    <value>It defines that the SP will be executed on PreProcessTransaction Method, after receiving a new requirement from the client</value>
+    <comment>Description for EnumerationLiteral &apos;PreProcessStage&apos; on DomainEnumeration &apos;PersistableStage&apos;</comment>
+  </data>
+  <data name="TransactionKernelDSL.Framework.Language.PersistableStage/PostProcessStage.DisplayName" xml:space="preserve">
+    <value>PostProcessStage</value>
+    <comment>Display name for EnumerationLiteral &apos;PostProcessStage&apos; on DomainEnumeration &apos;PersistableStage&apos;</comment>
+  </data>
+  <data name="TransactionKernelDSL.Framework.Language.PersistableStage/PostProcessStage.Description" xml:space="preserve">
+    <value>It defines that the SP will be executed on PostProcessTransaction Method, after reply is sent</value>
+    <comment>Description for EnumerationLiteral &apos;PostProcessStage&apos; on DomainEnumeration &apos;PersistableStage&apos;</comment>
+  </data>
+  <data name="TransactionKernelDSL.Framework.Language.PersistableStage/FinalProcessStage.DisplayName" xml:space="preserve">
+    <value>FinalProcessStage</value>
+    <comment>Display name for EnumerationLiteral &apos;FinalProcessStage&apos; on DomainEnumeration &apos;PersistableStage&apos;</comment>
+  </data>
+  <data name="TransactionKernelDSL.Framework.Language.PersistableStage/FinalProcessStage.Description" xml:space="preserve">
+    <value>It defines that the SP will be executed on FinalProcessTransaction Method, after the reply is sent, and eventual maintenance is finished</value>
+    <comment>Description for EnumerationLiteral &apos;FinalProcessStage&apos; on DomainEnumeration &apos;PersistableStage&apos;</comment>
+  </data>
+  <data name="TransactionKernelDSL.Framework.Language.ParserType/NotTyped.DisplayName" xml:space="preserve">
+    <value>NotTyped</value>
+    <comment>Display name for EnumerationLiteral &apos;NotTyped&apos; on DomainEnumeration &apos;ParserType&apos;</comment>
+  </data>
+  <data name="TransactionKernelDSL.Framework.Language.ParserType/NotTyped.Description" xml:space="preserve">
+    <value>Description for TransactionKernelDSL.Framework.Language.ParserType.NotTyped</value>
+    <comment>Description for EnumerationLiteral &apos;NotTyped&apos; on DomainEnumeration &apos;ParserType&apos;</comment>
+  </data>
+  <data name="TransactionKernelDSL.Framework.Language.ParserType/Iso8583B24.DisplayName" xml:space="preserve">
+    <value>Iso8583B24</value>
+    <comment>Display name for EnumerationLiteral &apos;Iso8583B24&apos; on DomainEnumeration &apos;ParserType&apos;</comment>
+  </data>
+  <data name="TransactionKernelDSL.Framework.Language.ParserType/Iso8583B24.Description" xml:space="preserve">
+    <value>Description for TransactionKernelDSL.Framework.Language.ParserType.Iso8583B24</value>
+    <comment>Description for EnumerationLiteral &apos;Iso8583B24&apos; on DomainEnumeration &apos;ParserType&apos;</comment>
+  </data>
+  <data name="TransactionKernelDSL.Framework.Language.ParserType/Iso8583.DisplayName" xml:space="preserve">
+    <value>Iso8583</value>
+    <comment>Display name for EnumerationLiteral &apos;Iso8583&apos; on DomainEnumeration &apos;ParserType&apos;</comment>
+  </data>
+  <data name="TransactionKernelDSL.Framework.Language.ParserType/Iso8583.Description" xml:space="preserve">
+    <value>Description for TransactionKernelDSL.Framework.Language.ParserType.Iso8583</value>
+    <comment>Description for EnumerationLiteral &apos;Iso8583&apos; on DomainEnumeration &apos;ParserType&apos;</comment>
+  </data>
+  <data name="TransactionKernelDSL.Framework.Language.ParserType/Meflur.DisplayName" xml:space="preserve">
+    <value>Meflur</value>
+    <comment>Display name for EnumerationLiteral &apos;Meflur&apos; on DomainEnumeration &apos;ParserType&apos;</comment>
+  </data>
+  <data name="TransactionKernelDSL.Framework.Language.ParserType/Meflur.Description" xml:space="preserve">
+    <value>Description for TransactionKernelDSL.Framework.Language.ParserType.Meflur</value>
+    <comment>Description for EnumerationLiteral &apos;Meflur&apos; on DomainEnumeration &apos;ParserType&apos;</comment>
+  </data>
+  <data name="TransactionKernelDSL.Framework.Language.ParserType/PrefixedMeflur.DisplayName" xml:space="preserve">
+    <value>PrefixedMeflur</value>
+    <comment>Display name for EnumerationLiteral &apos;PrefixedMeflur&apos; on DomainEnumeration &apos;ParserType&apos;</comment>
+  </data>
+  <data name="TransactionKernelDSL.Framework.Language.ParserType/PrefixedMeflur.Description" xml:space="preserve">
+    <value>Meflur parser with 2-byte long length prefixing both incoming and outcoming data</value>
+    <comment>Description for EnumerationLiteral &apos;PrefixedMeflur&apos; on DomainEnumeration &apos;ParserType&apos;</comment>
+  </data>
+  <data name="TransactionKernelDSL.Framework.Language.ParserType/PropietaryParser.DisplayName" xml:space="preserve">
+    <value>PropietaryParser</value>
+    <comment>Display name for EnumerationLiteral &apos;PropietaryParser&apos; on DomainEnumeration &apos;ParserType&apos;</comment>
+  </data>
+  <data name="TransactionKernelDSL.Framework.Language.ParserType/PropietaryParser.Description" xml:space="preserve">
+    <value>Description for TransactionKernelDSL.Framework.Language.ParserType.PropietaryParser</value>
+    <comment>Description for EnumerationLiteral &apos;PropietaryParser&apos; on DomainEnumeration &apos;ParserType&apos;</comment>
+  </data>
+  <data name="TransactionKernelDSL.Framework.Language.ParserType/Beltran.DisplayName" xml:space="preserve">
+    <value>Beltran</value>
+    <comment>Display name for EnumerationLiteral &apos;Beltran&apos; on DomainEnumeration &apos;ParserType&apos;</comment>
+  </data>
+  <data name="TransactionKernelDSL.Framework.Language.ParserType/Beltran.Description" xml:space="preserve">
+    <value>Parser of Type Beltran</value>
+    <comment>Description for EnumerationLiteral &apos;Beltran&apos; on DomainEnumeration &apos;ParserType&apos;</comment>
+  </data>
+  <data name="TransactionKernelDSL.Framework.Language.DataSourceSupportType/NotTyped.DisplayName" xml:space="preserve">
+    <value>NotTyped</value>
+    <comment>Display name for EnumerationLiteral &apos;NotTyped&apos; on DomainEnumeration &apos;DataSourceSupportType&apos;</comment>
+  </data>
+  <data name="TransactionKernelDSL.Framework.Language.DataSourceSupportType/NotTyped.Description" xml:space="preserve">
+    <value>Description for TransactionKernelDSL.Framework.Language.DataSourceSupportType.NotTyped</value>
+    <comment>Description for EnumerationLiteral &apos;NotTyped&apos; on DomainEnumeration &apos;DataSourceSupportType&apos;</comment>
+  </data>
+  <data name="TransactionKernelDSL.Framework.Language.DataSourceSupportType/SQLServerSupport.DisplayName" xml:space="preserve">
+    <value>SQLServerSupport</value>
+    <comment>Display name for EnumerationLiteral &apos;SQLServerSupport&apos; on DomainEnumeration &apos;DataSourceSupportType&apos;</comment>
+  </data>
+  <data name="TransactionKernelDSL.Framework.Language.DataSourceSupportType/SQLServerSupport.Description" xml:space="preserve">
+    <value>Description for TransactionKernelDSL.Framework.Language.DataSourceSupportType.SQLServerSupport</value>
+    <comment>Description for EnumerationLiteral &apos;SQLServerSupport&apos; on DomainEnumeration &apos;DataSourceSupportType&apos;</comment>
+  </data>
+  <data name="TransactionKernelDSL.Framework.Language.WebServiceArchitecturalPattern/Singleton.DisplayName" xml:space="preserve">
+    <value>Singleton</value>
+    <comment>Display name for EnumerationLiteral &apos;Singleton&apos; on DomainEnumeration &apos;WebServiceArchitecturalPattern&apos;</comment>
+  </data>
+  <data name="TransactionKernelDSL.Framework.Language.WebServiceArchitecturalPattern/Singleton.Description" xml:space="preserve">
+    <value>There will be just one instance of this output WS.</value>
+    <comment>Description for EnumerationLiteral &apos;Singleton&apos; on DomainEnumeration &apos;WebServiceArchitecturalPattern&apos;</comment>
+  </data>
+  <data name="TransactionKernelDSL.Framework.Language.WebServiceArchitecturalPattern/MultipleInstances.DisplayName" xml:space="preserve">
+    <value>MultipleInstances</value>
+    <comment>Display name for EnumerationLiteral &apos;MultipleInstances&apos; on DomainEnumeration &apos;WebServiceArchitecturalPattern&apos;</comment>
+  </data>
+  <data name="TransactionKernelDSL.Framework.Language.WebServiceArchitecturalPattern/MultipleInstances.Description" xml:space="preserve">
+    <value>There will as many instances as threads using this output WS</value>
+    <comment>Description for EnumerationLiteral &apos;MultipleInstances&apos; on DomainEnumeration &apos;WebServiceArchitecturalPattern&apos;</comment>
+  </data>
+  <data name="TransactionKernelDSL.Framework.Language.WebServiceTechnology/SoapHttpClientProtocol.DisplayName" xml:space="preserve">
+    <value>SoapHttpClientProtocol</value>
+    <comment>Display name for EnumerationLiteral &apos;SoapHttpClientProtocol&apos; on DomainEnumeration &apos;WebServiceTechnology&apos;</comment>
+  </data>
+  <data name="TransactionKernelDSL.Framework.Language.WebServiceTechnology/SoapHttpClientProtocol.Description" xml:space="preserve">
+    <value>Technology SoapHttpClientProtocol</value>
+    <comment>Description for EnumerationLiteral &apos;SoapHttpClientProtocol&apos; on DomainEnumeration &apos;WebServiceTechnology&apos;</comment>
+  </data>
+  <data name="TransactionKernelDSL.Framework.Language.WebServiceTechnology/WCF.DisplayName" xml:space="preserve">
+    <value>WCF</value>
+    <comment>Display name for EnumerationLiteral &apos;WCF&apos; on DomainEnumeration &apos;WebServiceTechnology&apos;</comment>
+  </data>
+  <data name="TransactionKernelDSL.Framework.Language.WebServiceTechnology/WCF.Description" xml:space="preserve">
+    <value>Technology WCF</value>
+    <comment>Description for EnumerationLiteral &apos;WCF&apos; on DomainEnumeration &apos;WebServiceTechnology&apos;</comment>
+  </data>
+  <data name="TransactionKernelDSL.Framework.Language.TransactionHandlerShape.Description" xml:space="preserve">
+    <value>Shape used to represent ExampleElements on a Diagram.</value>
+    <comment>Description for DomainClass &apos;TransactionHandlerShape&apos;</comment>
+  </data>
+  <data name="TransactionKernelDSL.Framework.Language.TransactionHandlerShape.DisplayName" xml:space="preserve">
+    <value>Transaction Handler Shape</value>
+    <comment>DisplayName for DomainClass &apos;TransactionHandlerShape&apos;</comment>
+  </data>
+  <data name="TransactionHandlerShapeTransactionIdDecoratorDefaultText" xml:space="preserve">
+    <value>TransactionIdDecorator</value>
+    <comment>Text decorator default text</comment>
+  </data>
+  <data name="TransactionHandlerShapeNameDecoratorDefaultText" xml:space="preserve">
+    <value>NameDecorator</value>
+    <comment>Text decorator default text</comment>
+  </data>
+  <data name="TransactionKernelDSL.Framework.Language.InputTransactionEngineShape.Description" xml:space="preserve">
+    <value>Description for TransactionKernelDSL.Framework.Language.InputTransactionEngineShape</value>
+    <comment>Description for DomainClass &apos;InputTransactionEngineShape&apos;</comment>
+  </data>
+  <data name="TransactionKernelDSL.Framework.Language.InputTransactionEngineShape.DisplayName" xml:space="preserve">
+    <value>Input Transaction Engine Shape</value>
+    <comment>DisplayName for DomainClass &apos;InputTransactionEngineShape&apos;</comment>
+  </data>
+  <data name="InputTransactionEngineShapeTransactionHandlerTitle" xml:space="preserve">
+    <value></value>
+    <comment>Compartment title</comment>
+  </data>
+  <data name="InputTransactionEngineShapeNameDecoratorDefaultText" xml:space="preserve">
+    <value>NameDecorator</value>
+    <comment>Text decorator default text</comment>
+  </data>
+  <data name="InputTransactionEngineShapeTypeDecoratorDefaultText" xml:space="preserve">
+    <value>TypeDecorator</value>
+    <comment>Text decorator default text</comment>
+  </data>
+  <data name="TransactionKernelDSL.Framework.Language.TransactionDataSourceShape.Description" xml:space="preserve">
+    <value>Description for TransactionKernelDSL.Framework.Language.TransactionDataSourceShape</value>
+    <comment>Description for DomainClass &apos;TransactionDataSourceShape&apos;</comment>
+  </data>
+  <data name="TransactionKernelDSL.Framework.Language.TransactionDataSourceShape.DisplayName" xml:space="preserve">
+    <value>Transaction Data Source Shape</value>
+    <comment>DisplayName for DomainClass &apos;TransactionDataSourceShape&apos;</comment>
+  </data>
+  <data name="TransactionDataSourceShapeNameDecoratorDefaultText" xml:space="preserve">
+    <value>NameDecorator</value>
+    <comment>Text decorator default text</comment>
+  </data>
+  <data name="TransactionDataSourceShapeStepOrderDecoratorDefaultText" xml:space="preserve">
+    <value>StepOrderDecorator</value>
+    <comment>Text decorator default text</comment>
+  </data>
+  <data name="TransactionKernelDSL.Framework.Language.TransactionLayerSwimLane.Description" xml:space="preserve">
+    <value>Description for TransactionKernelDSL.Framework.Language.TransactionLayerSwimLane</value>
+    <comment>Description for DomainClass &apos;TransactionLayerSwimLane&apos;</comment>
+  </data>
+  <data name="TransactionKernelDSL.Framework.Language.TransactionLayerSwimLane.DisplayName" xml:space="preserve">
+    <value>Transaction Layer Swim Lane</value>
+    <comment>DisplayName for DomainClass &apos;TransactionLayerSwimLane&apos;</comment>
+  </data>
+  <data name="TransactionLayerSwimLaneNameDecoratorDefaultText" xml:space="preserve">
+    <value>NameDecorator</value>
+    <comment>Text decorator default text</comment>
+  </data>
+  <data name="TransactionLayerSwimLaneLevelDecoratorDefaultText" xml:space="preserve">
+    <value>LevelDecorator</value>
+    <comment>Text decorator default text</comment>
+  </data>
+  <data name="TransactionKernelDSL.Framework.Language.OutputTransactionEngineShape.Description" xml:space="preserve">
+    <value>Description for TransactionKernelDSL.Framework.Language.OutputTransactionEngineShape</value>
+    <comment>Description for DomainClass &apos;OutputTransactionEngineShape&apos;</comment>
+  </data>
+  <data name="TransactionKernelDSL.Framework.Language.OutputTransactionEngineShape.DisplayName" xml:space="preserve">
+    <value>Output Transaction Engine Shape</value>
+    <comment>DisplayName for DomainClass &apos;OutputTransactionEngineShape&apos;</comment>
+  </data>
+  <data name="OutputTransactionEngineShapeTransactionHandlerTitle" xml:space="preserve">
+    <value></value>
+    <comment>Compartment title</comment>
+  </data>
+  <data name="OutputTransactionEngineShapeNameDecoratorDefaultText" xml:space="preserve">
+    <value>NameDecorator</value>
+    <comment>Text decorator default text</comment>
+  </data>
+  <data name="OutputTransactionEngineShapeTypeDecoratorDefaultText" xml:space="preserve">
+    <value>TypeDecorator</value>
+    <comment>Text decorator default text</comment>
+  </data>
+  <data name="TransactionKernelDSL.Framework.Language.OutputTransactionWebServiceShape.Description" xml:space="preserve">
+    <value>Description for TransactionKernelDSL.Framework.Language.OutputTransactionWebServiceShape</value>
+    <comment>Description for DomainClass &apos;OutputTransactionWebServiceShape&apos;</comment>
+  </data>
+  <data name="TransactionKernelDSL.Framework.Language.OutputTransactionWebServiceShape.DisplayName" xml:space="preserve">
+    <value>Output Transaction Web Service Shape</value>
+    <comment>DisplayName for DomainClass &apos;OutputTransactionWebServiceShape&apos;</comment>
+  </data>
+  <data name="OutputTransactionWebServiceShapeNameDecoratorDefaultText" xml:space="preserve">
+    <value>NameDecorator</value>
+    <comment>Text decorator default text</comment>
+  </data>
+  <data name="OutputTransactionWebServiceShapeWebServiceClassNameDecoratorDefaultText" xml:space="preserve">
+    <value>WebServiceClassNameDecorator</value>
+    <comment>Text decorator default text</comment>
+  </data>
+  <data name="TransactionKernelDSL.Framework.Language.TimeTriggerShape.Description" xml:space="preserve">
+    <value>Description for TransactionKernelDSL.Framework.Language.TimeTriggerShape</value>
+    <comment>Description for DomainClass &apos;TimeTriggerShape&apos;</comment>
+  </data>
+  <data name="TransactionKernelDSL.Framework.Language.TimeTriggerShape.DisplayName" xml:space="preserve">
+    <value>Time Trigger Shape</value>
+    <comment>DisplayName for DomainClass &apos;TimeTriggerShape&apos;</comment>
+  </data>
+  <data name="TimeTriggerShapeNameDecoratorDefaultText" xml:space="preserve">
+    <value>NameDecorator</value>
+    <comment>Text decorator default text</comment>
+  </data>
+  <data name="TransactionKernelDSL.Framework.Language.TimeTriggerImageShape.Description" xml:space="preserve">
+    <value>Description for TransactionKernelDSL.Framework.Language.TimeTriggerImageShape</value>
+    <comment>Description for DomainClass &apos;TimeTriggerImageShape&apos;</comment>
+  </data>
+  <data name="TransactionKernelDSL.Framework.Language.TimeTriggerImageShape.DisplayName" xml:space="preserve">
+    <value>Time Trigger Image Shape</value>
+    <comment>DisplayName for DomainClass &apos;TimeTriggerImageShape&apos;</comment>
+  </data>
+  <data name="TimeTriggerImageShapeNameDecoratorDefaultText" xml:space="preserve">
+    <value>NameDecorator</value>
+    <comment>Text decorator default text</comment>
+  </data>
+  <data name="TransactionKernelDSL.Framework.Language.TransactionDataSourceSupportShape.Description" xml:space="preserve">
+    <value>Description for TransactionKernelDSL.Framework.Language.TransactionDataSourceSupportShape</value>
+    <comment>Description for DomainClass &apos;TransactionDataSourceSupportShape&apos;</comment>
+  </data>
+  <data name="TransactionKernelDSL.Framework.Language.TransactionDataSourceSupportShape.DisplayName" xml:space="preserve">
+    <value>Transaction Data Source Support Shape</value>
+    <comment>DisplayName for DomainClass &apos;TransactionDataSourceSupportShape&apos;</comment>
+  </data>
+  <data name="TransactionDataSourceSupportShapeNameDecoratorDefaultText" xml:space="preserve">
+    <value>NameDecorator</value>
+    <comment>Text decorator default text</comment>
+  </data>
+  <data name="TransactionKernelDSL.Framework.Language.TransactionEnvironmentLayerSwimLane.Description" xml:space="preserve">
+    <value>Description for TransactionKernelDSL.Framework.Language.TransactionEnvironmentLayerSwimLane</value>
+    <comment>Description for DomainClass &apos;TransactionEnvironmentLayerSwimLane&apos;</comment>
+  </data>
+  <data name="TransactionKernelDSL.Framework.Language.TransactionEnvironmentLayerSwimLane.DisplayName" xml:space="preserve">
+    <value>Transaction Environment Layer Swim Lane</value>
+    <comment>DisplayName for DomainClass &apos;TransactionEnvironmentLayerSwimLane&apos;</comment>
+  </data>
+  <data name="TransactionEnvironmentLayerSwimLaneNameDecoratorDefaultText" xml:space="preserve">
+    <value>NameDecorator</value>
+    <comment>Text decorator default text</comment>
+  </data>
+  <data name="TransactionKernelDSL.Framework.Language.TransactionEnvironmentSQLServerVariableShape.Description" xml:space="preserve">
+    <value>Description for TransactionKernelDSL.Framework.Language.TransactionEnvironmentSQLServerVariableShape</value>
+    <comment>Description for DomainClass &apos;TransactionEnvironmentSQLServerVariableShape&apos;</comment>
+  </data>
+  <data name="TransactionKernelDSL.Framework.Language.TransactionEnvironmentSQLServerVariableShape.DisplayName" xml:space="preserve">
+    <value>Transaction Environment SQLServer Variable Shape</value>
+    <comment>DisplayName for DomainClass &apos;TransactionEnvironmentSQLServerVariableShape&apos;</comment>
+  </data>
+  <data name="TransactionEnvironmentSQLServerVariableShapeNameDecoratorDefaultText" xml:space="preserve">
+    <value>NameDecorator</value>
+    <comment>Text decorator default text</comment>
+  </data>
+  <data name="TransactionKernelDSL.Framework.Language.TransactionHandlerForwardingLinkConnector.Description" xml:space="preserve">
+    <value>Connector between the ExampleShapes. Represents ExampleRelationships on the Diagram.</value>
+    <comment>Description for DomainClass &apos;TransactionHandlerForwardingLinkConnector&apos;</comment>
+  </data>
+  <data name="TransactionKernelDSL.Framework.Language.TransactionHandlerForwardingLinkConnector.DisplayName" xml:space="preserve">
+    <value>Transaction Handler Forwarding Link Connector</value>
+    <comment>DisplayName for DomainClass &apos;TransactionHandlerForwardingLinkConnector&apos;</comment>
+  </data>
+  <data name="TransactionKernelDSL.Framework.Language.OutputTransactionEngineReferencesTransactionHandlersLinkConnector.Description" xml:space="preserve">
+    <value>Description for TransactionKernelDSL.Framework.Language.OutputTransactionEngineReferencesTransactionHandlersLinkConnector</value>
+    <comment>Description for DomainClass &apos;OutputTransactionEngineReferencesTransactionHandlersLinkConnector&apos;</comment>
+  </data>
+  <data name="TransactionKernelDSL.Framework.Language.OutputTransactionEngineReferencesTransactionHandlersLinkConnector.DisplayName" xml:space="preserve">
+    <value>Output Transaction Engine References Transaction Handlers Link Connector</value>
+    <comment>DisplayName for DomainClass &apos;OutputTransactionEngineReferencesTransactionHandlersLinkConnector&apos;</comment>
+  </data>
+  <data name="TransactionKernelDSL.Framework.Language.TransactionHandlerMaintenanceLinkConnector.Description" xml:space="preserve">
+    <value>Description for TransactionKernelDSL.Framework.Language.TransactionHandlerMaintenanceLinkConnector</value>
+    <comment>Description for DomainClass &apos;TransactionHandlerMaintenanceLinkConnector&apos;</comment>
+  </data>
+  <data name="TransactionKernelDSL.Framework.Language.TransactionHandlerMaintenanceLinkConnector.DisplayName" xml:space="preserve">
+    <value>Transaction Handler Maintenance Link Connector</value>
+    <comment>DisplayName for DomainClass &apos;TransactionHandlerMaintenanceLinkConnector&apos;</comment>
+  </data>
+  <data name="TransactionKernelDSL.Framework.Language.TransactionSQLServerDataSourceLinkConnector.Description" xml:space="preserve">
+    <value>Description for TransactionKernelDSL.Framework.Language.TransactionSQLServerDataSourceLinkConnector</value>
+    <comment>Description for DomainClass &apos;TransactionSQLServerDataSourceLinkConnector&apos;</comment>
+  </data>
+  <data name="TransactionKernelDSL.Framework.Language.TransactionSQLServerDataSourceLinkConnector.DisplayName" xml:space="preserve">
+    <value>Transaction SQLServer Data Source Link Connector</value>
+    <comment>DisplayName for DomainClass &apos;TransactionSQLServerDataSourceLinkConnector&apos;</comment>
+  </data>
+  <data name="TransactionKernelDSL.Framework.Language.InputTransactionEngineReferencesTransactionHandlersLinkConnector.Description" xml:space="preserve">
+    <value>Description for TransactionKernelDSL.Framework.Language.InputTransactionEngineReferencesTransactionHandlersLinkConnector</value>
+    <comment>Description for DomainClass &apos;InputTransactionEngineReferencesTransactionHandlersLinkConnector&apos;</comment>
+  </data>
+  <data name="TransactionKernelDSL.Framework.Language.InputTransactionEngineReferencesTransactionHandlersLinkConnector.DisplayName" xml:space="preserve">
+    <value>Input Transaction Engine References Transaction Handlers Link Connector</value>
+    <comment>DisplayName for DomainClass &apos;InputTransactionEngineReferencesTransactionHandlersLinkConnector&apos;</comment>
+  </data>
+  <data name="TransactionKernelDSL.Framework.Language.OutputTransactionWebServiceLinkConnector.Description" xml:space="preserve">
+    <value>Description for TransactionKernelDSL.Framework.Language.OutputTransactionWebServiceLinkConnector</value>
+    <comment>Description for DomainClass &apos;OutputTransactionWebServiceLinkConnector&apos;</comment>
+  </data>
+  <data name="TransactionKernelDSL.Framework.Language.OutputTransactionWebServiceLinkConnector.DisplayName" xml:space="preserve">
+    <value>Output Transaction Web Service Link Connector</value>
+    <comment>DisplayName for DomainClass &apos;OutputTransactionWebServiceLinkConnector&apos;</comment>
+  </data>
+  <data name="TransactionKernelDSL.Framework.Language.TimeTriggerLinkConnector.Description" xml:space="preserve">
+    <value>Description for TransactionKernelDSL.Framework.Language.TimeTriggerLinkConnector</value>
+    <comment>Description for DomainClass &apos;TimeTriggerLinkConnector&apos;</comment>
+  </data>
+  <data name="TransactionKernelDSL.Framework.Language.TimeTriggerLinkConnector.DisplayName" xml:space="preserve">
+    <value>Time Trigger Link Connector</value>
+    <comment>DisplayName for DomainClass &apos;TimeTriggerLinkConnector&apos;</comment>
+  </data>
+  <data name="TransactionKernelDSL.Framework.Language.TransactionDataSourceSupportForOutputEngineLink.Description" xml:space="preserve">
+    <value>Description for TransactionKernelDSL.Framework.Language.TransactionDataSourceSupportForOutputEngineLink</value>
+    <comment>Description for DomainClass &apos;TransactionDataSourceSupportForOutputEngineLink&apos;</comment>
+  </data>
+  <data name="TransactionKernelDSL.Framework.Language.TransactionDataSourceSupportForOutputEngineLink.DisplayName" xml:space="preserve">
+    <value>Transaction Data Source Support For Output Engine Link</value>
+    <comment>DisplayName for DomainClass &apos;TransactionDataSourceSupportForOutputEngineLink&apos;</comment>
+  </data>
+  <data name="FormatList" xml:space="preserve">
+    <value>Transaction Kernel DSL (*.TrnxDsl)|*.TrnxDsl</value>
+    <comment>A list of file format specifiers for the Save dialog box</comment>
+  </data>
+  <data name="ModelExplorerTitle" xml:space="preserve">
+    <value>Transaction Model Explorer</value>
+    <comment>Model Explorer Toolwindow title</comment>
+  </data>
+  <data name="TransactionKernelDSL.Framework.Language.TrnxDslDiagram.Description" xml:space="preserve">
+    <value>Description for TransactionKernelDSL.Framework.Language.TrnxDslDiagram</value>
+    <comment>Description for DomainClass &apos;TrnxDslDiagram&apos;</comment>
+  </data>
+  <data name="TransactionKernelDSL.Framework.Language.TrnxDslDiagram.DisplayName" xml:space="preserve">
+    <value>Minimal Language Diagram</value>
+    <comment>DisplayName for DomainClass &apos;TrnxDslDiagram&apos;</comment>
+  </data>
+  <data name="Transaction Model ElementsToolboxTab" xml:space="preserve">
+    <value>Transaction Model Elements</value>
+    <comment>Toolbox item tab name</comment>
+  </data>
+  <data name="OutputWebServiceLinkToolToolboxItem" xml:space="preserve">
+    <value>Output Web Service Link Tool</value>
+    <comment>Toolbox item name</comment>
+  </data>
+  <data name="OutputWebServiceLinkToolToolboxTooltip" xml:space="preserve">
+    <value>Output Web Service Link Tool</value>
+    <comment>Toolbox tooltip text</comment>
+  </data>
+  <data name="OutputWebServiceToolToolboxItem" xml:space="preserve">
+    <value>Output Web Service Tool</value>
+    <comment>Toolbox item name</comment>
+  </data>
+  <data name="OutputWebServiceToolToolboxTooltip" xml:space="preserve">
+    <value>Output Web Service Tool</value>
+    <comment>Toolbox tooltip text</comment>
+  </data>
+  <data name="TimeTriggerToolToolboxItem" xml:space="preserve">
+    <value>Time Trigger Tool</value>
+    <comment>Toolbox item name</comment>
+  </data>
+  <data name="TimeTriggerToolToolboxTooltip" xml:space="preserve">
+    <value>Time Trigger Tool</value>
+    <comment>Toolbox tooltip text</comment>
+  </data>
+  <data name="TimeTriggerLinkToolToolboxItem" xml:space="preserve">
+    <value>Time Trigger Link Tool</value>
+    <comment>Toolbox item name</comment>
+  </data>
+  <data name="TimeTriggerLinkToolToolboxTooltip" xml:space="preserve">
+    <value>Time Trigger Link Tool</value>
+    <comment>Toolbox tooltip text</comment>
+  </data>
+  <data name="EnginesToolboxTab" xml:space="preserve">
+    <value>Engines</value>
+    <comment>Toolbox item tab name</comment>
+  </data>
+  <data name="InputTransactionEngineToolToolboxItem" xml:space="preserve">
+    <value>Input Transaction Engine Tool</value>
+    <comment>Toolbox item name</comment>
+  </data>
+  <data name="InputTransactionEngineToolToolboxTooltip" xml:space="preserve">
+    <value>Input Transaction Engine Tool</value>
+    <comment>Toolbox tooltip text</comment>
+  </data>
+  <data name="InputLinkToolToolboxItem" xml:space="preserve">
+    <value>Input Link Tool</value>
+    <comment>Toolbox item name</comment>
+  </data>
+  <data name="InputLinkToolToolboxTooltip" xml:space="preserve">
+    <value>Input Link Tool</value>
+    <comment>Toolbox tooltip text</comment>
+  </data>
+  <data name="OutputTransactionEngineToolToolboxItem" xml:space="preserve">
+    <value>Output Transaction Engine Tool</value>
+    <comment>Toolbox item name</comment>
+  </data>
+  <data name="OutputTransactionEngineToolToolboxTooltip" xml:space="preserve">
+    <value>Output Transaction Engine Tool</value>
+    <comment>Toolbox tooltip text</comment>
+  </data>
+  <data name="OutputLinkToolToolboxItem" xml:space="preserve">
+    <value>Output Link Tool</value>
+    <comment>Toolbox item name</comment>
+  </data>
+  <data name="OutputLinkToolToolboxTooltip" xml:space="preserve">
+    <value>Output Link Tool</value>
+    <comment>Toolbox tooltip text</comment>
+  </data>
+  <data name="TransactionDataSourceSupportForOutputEngineLinkToolToolboxItem" xml:space="preserve">
+    <value>Transaction Data Source Support For Output Engine Link </value>
+    <comment>Toolbox item name</comment>
+  </data>
+  <data name="TransactionDataSourceSupportForOutputEngineLinkToolToolboxTooltip" xml:space="preserve">
+    <value>Transaction Data Source Support For Output Engine Link Tool</value>
+    <comment>Toolbox tooltip text</comment>
+  </data>
+  <data name="HandlersToolboxTab" xml:space="preserve">
+    <value>Handlers</value>
+    <comment>Toolbox item tab name</comment>
+  </data>
+  <data name="TransactionHandlerToolToolboxItem" xml:space="preserve">
+    <value>Transaction Handler Tool</value>
+    <comment>Toolbox item name</comment>
+  </data>
+  <data name="TransactionHandlerToolToolboxTooltip" xml:space="preserve">
+    <value>Create a new Transaction Handler</value>
+    <comment>Toolbox tooltip text</comment>
+  </data>
+  <data name="TransactionHandlerForwardingLinkToolToolboxItem" xml:space="preserve">
+    <value>Forwarding Link Tool</value>
+    <comment>Toolbox item name</comment>
+  </data>
+  <data name="TransactionHandlerForwardingLinkToolToolboxTooltip" xml:space="preserve">
+    <value>Drag between Transaction Handlers to create an Transaction Handler Forwarding Link</value>
+    <comment>Toolbox tooltip text</comment>
+  </data>
+  <data name="TransactionHandlerMaintenanceLinkToolToolboxItem" xml:space="preserve">
+    <value>Maintenance Link Tool</value>
+    <comment>Toolbox item name</comment>
+  </data>
+  <data name="TransactionHandlerMaintenanceLinkToolToolboxTooltip" xml:space="preserve">
+    <value>Transaction Handler Maintenance Link Tool</value>
+    <comment>Toolbox tooltip text</comment>
+  </data>
+  <data name="TransactionSQLServerDataSourceLinkConnectionToolToolboxItem" xml:space="preserve">
+    <value>Transaction SQL Server Data Source Link Tool</value>
+    <comment>Toolbox item name</comment>
+  </data>
+  <data name="TransactionSQLServerDataSourceLinkConnectionToolToolboxTooltip" xml:space="preserve">
+    <value>Transaction SQLServer Data Source Link Connection Tool</value>
+    <comment>Toolbox tooltip text</comment>
+  </data>
+  <data name="LayersToolboxTab" xml:space="preserve">
+    <value>Layers</value>
+    <comment>Toolbox item tab name</comment>
+  </data>
+  <data name="TransactionLayerToolToolboxItem" xml:space="preserve">
+    <value>Transaction Layer Tool</value>
+    <comment>Toolbox item name</comment>
+  </data>
+  <data name="TransactionLayerToolToolboxTooltip" xml:space="preserve">
+    <value>Transaction Layer Tool</value>
+    <comment>Toolbox tooltip text</comment>
+  </data>
+  <data name="TransactionEnvironmentLayerToolToolboxItem" xml:space="preserve">
+    <value>Transaction Environment Layer Tool</value>
+    <comment>Toolbox item name</comment>
+  </data>
+  <data name="TransactionEnvironmentLayerToolToolboxTooltip" xml:space="preserve">
+    <value>Transaction Environment Layer Tool</value>
+    <comment>Toolbox tooltip text</comment>
+  </data>
+  <data name="Data SourcesToolboxTab" xml:space="preserve">
+    <value>Data Sources</value>
+    <comment>Toolbox item tab name</comment>
+  </data>
+  <data name="TransactionSQLServerDataSourceToolToolboxItem" xml:space="preserve">
+    <value>Transaction SQL Server Data Source Tool</value>
+    <comment>Toolbox item name</comment>
+  </data>
+  <data name="TransactionSQLServerDataSourceToolToolboxTooltip" xml:space="preserve">
+    <value>Transaction SQLServer Data Source Tool</value>
+    <comment>Toolbox tooltip text</comment>
+  </data>
+  <data name="TransactionDataSourceSupportToolToolboxItem" xml:space="preserve">
+    <value>Transaction Data Source Support Tool</value>
+    <comment>Toolbox item name</comment>
+  </data>
+  <data name="TransactionDataSourceSupportToolToolboxTooltip" xml:space="preserve">
+    <value>Transaction Data Source Support Tool</value>
+    <comment>Toolbox tooltip text</comment>
+  </data>
+  <data name="EnvironmentToolboxTab" xml:space="preserve">
+    <value>Environment</value>
+    <comment>Toolbox item tab name</comment>
+  </data>
+  <data name="TransactionEnvironmentSQLServerVariableToolToolboxItem" xml:space="preserve">
+    <value>Transaction Environment SQLServer Variable Tool</value>
+    <comment>Toolbox item name</comment>
+  </data>
+  <data name="TransactionEnvironmentSQLServerVariableToolToolboxTooltip" xml:space="preserve">
+    <value>Transaction Environment SQLServer Variable Tool</value>
+    <comment>Toolbox tooltip text</comment>
+  </data>
+  <data name="UnresolvedToolboxItem" xml:space="preserve">
+    <value>ToolboxItem {0} was not found</value>
+    <comment>Invalid toolId</comment>
+  </data>
+  <data name="UnsupportedToolboxFormat" xml:space="preserve">
+    <value>Unsupported toolbox format: {0}</value>
+    <comment>Unsupported format Id</comment>
+  </data>
+  <data name="UnrecognizedElementType" xml:space="preserve">
+    <value>ElementType {0} is not recognized as a type of domain class which belongs to this domain model.</value>
+    <comment>Incorrect ElementType passed in to Model.CreateElement method</comment>
+  </data>
+  <data name="UnrecognizedElementLinkType" xml:space="preserve">
+    <value>ElementLinkType {0} is not recognized as a type of domain relationship which belongs to this domain model.</value>
+    <comment>Incorrect ElementLinkType passed in to Model.CreateElementLink method</comment>
+  </data>
+  <data name="AmbiguousSchema" xml:space="preserve">
+    <value>More than one schema found for target namespace &apos;{0}&apos;, use the first one at &apos;{1}&apos;.</value>
+    <comment>Serialization Warning: AmbiguousSchema</comment>
+  </data>
+  <data name="ExpectingFullFormRelationship" xml:space="preserve">
+    <value>Element &apos;{0}&apos; is treated as the target role-player of a relationship &apos;{1}&apos; instance, which should be serialized in full-form.</value>
+    <comment>Serialization Warning: ExpectingFullFormRelationship</comment>
+  </data>
+  <data name="ExpectingShortFormRelationship" xml:space="preserve">
+    <value>Instances of relationship &apos;{0}&apos; should be serialized in short-form.</value>
+    <comment>Serialization Warning: ExpectingShortFormRelationship</comment>
+  </data>
+  <data name="IgnoredPropertyValue" xml:space="preserve">
+    <value>Invalid property value &apos;{0}&apos; for property &apos;{1}&apos; with type &apos;{2}&apos;, ignored.</value>
+    <comment>Serialization Warning: IgnoredPropertyValue</comment>
+  </data>
+  <data name="MissingId" xml:space="preserve">
+    <value>Missing &apos;Id&apos; attribute, a new Guid &apos;{0}&apos; is auto-generated.</value>
+    <comment>Serialization Warning: MissingId</comment>
+  </data>
+  <data name="MonikerResolvedToDuplicateLink" xml:space="preserve">
+    <value>Resolving moniker &apos;{0}&apos; causes a duplicate link to be created, so the link and the moniker are ignored.</value>
+    <comment>Serialization Warning: MonikerResolvedToDuplicateLink</comment>
+  </data>
+  <data name="NoSchema" xml:space="preserve">
+    <value>Cannot find a schema that defines target namespace &apos;{0}&apos;, schema validation skipped.</value>
+    <comment>Serialization Warning: NoSchema</comment>
+  </data>
+  <data name="UnexpectedXmlElement" xml:space="preserve">
+    <value>Unexpected XML element &apos;{0}&apos;, ignored.</value>
+    <comment>Serialization Warning: UnexpectedXmlElement</comment>
+  </data>
+  <data name="AmbiguousMoniker" xml:space="preserve">
+    <value>Ambiguous moniker &apos;{0}&apos; encountered. It is used for both &apos;{1}&apos; and &apos;{2}&apos;.</value>
+    <comment>Serialization Error: AmbiguousMoniker</comment>
+  </data>
+  <data name="CannotMonikerizeElement" xml:space="preserve">
+    <value>Instances of DomainClass &apos;{0}&apos; cannot be serialized as a moniker.
+A DomainClass can be serialized as a moniker only if 
+1) it has a defined/inherited DomainProperty marked as IsMonikerKey=true, or 
+2) it is marked/inherited with SerializeId=true.</value>
+    <comment>Serialization Error: CannotMonikerizeElement</comment>
+  </data>
+  <data name="CannotOpenDocument" xml:space="preserve">
+    <value>Error encountered, check Error List window for details.</value>
+    <comment>Serialization Error: CannotOpenDocument</comment>
+  </data>
+  <data name="CannotSaveDocument" xml:space="preserve">
+    <value>Error encountered, check Error List window for details.</value>
+    <comment>Serialization Error: CannotSaveDocument</comment>
+  </data>
+  <data name="DanglingRelationship" xml:space="preserve">
+    <value>Relationship &apos;{0}&apos; instance is missing target role-player.</value>
+    <comment>Serialization Error: DanglingRelationship</comment>
+  </data>
+  <data name="InvalidPropertyValue" xml:space="preserve">
+    <value>Invalid property value &apos;{0}&apos; for property &apos;{1}&apos; with type &apos;{2}&apos;.</value>
+    <comment>Serialization Error: InvalidPropertyValue</comment>
+  </data>
+  <data name="MissingMoniker" xml:space="preserve">
+    <value>Missing moniker. A moniker is expected in attribute &apos;{0}&apos;.</value>
+    <comment>Serialization Error: MissingMoniker</comment>
+  </data>
+  <data name="MissingTransaction" xml:space="preserve">
+    <value>This must be called within the context of an active transaction.</value>
+    <comment>Serialization Error: MissingTransaction</comment>
+  </data>
+  <data name="UnresolvedMoniker" xml:space="preserve">
+    <value>Cannot resolve moniker &apos;{0}&apos;.</value>
+    <comment>Serialization Error: UnresolvedMoniker</comment>
+  </data>
+  <data name="VersionMismatch" xml:space="preserve">
+    <value>Unsupported version &apos;{0}&apos;, can only support &apos;{1}&apos;.</value>
+    <comment>Serialization Error: VersionMismatch</comment>
+  </data>
+  <data name="CannotCloseExistingDiagramDocument" xml:space="preserve">
+    <value>Diagram file &apos;{0}&apos; cannot be closed.</value>
+    <comment>User cancel closing diagram file. Hence, the DSL model file cannot be opened</comment>
+  </data>
+  <data name="BindingErrorOccurred" xml:space="preserve">
+    <value>Extensions for this designer may not be found as a MEF binding error has occurred. The error that occurred was:
+{0}</value>
+    <comment>MEF binding error occurred - exception message being logged in the error window so the user is aware.</comment>
+  </data>
+  <data name="InvalidSaveRootElementType" xml:space="preserve">
+    <value>&apos;{0}&apos; is not a valid root element type.</value>
+    <comment>Exception message used if an invalid root element type is passed to IDomainModelSerializer.SaveModel / SaveModelAndDiagram</comment>
+  </data>
+  <data name="InvalidSaveDiagramType" xml:space="preserve">
+    <value>&apos;{0}&apos; is not a valid diagram type.</value>
+    <comment>Exception message used if an invalid diagram type is passed to IDomainModelSerializer.SaveModelAndDiagram</comment>
+  </data>
+  <data name="MinimumMultiplicityMissingLink" xml:space="preserve">
+    <value>{0} {1} has no {2}.</value>
+    <comment>Multiplicity underflow validation.</comment>
+  </data>
+  <data name="SaveOperationCancelled" xml:space="preserve">
+    <value>Save operation cancelled.</value>
+    <comment>Message when save is cancelled on validation errors</comment>
+  </data>
+  <data name="SaveValidationFailed" xml:space="preserve">
+    <value>There were validation errors, continue save?</value>
+    <comment>Message when validation errors are found on save</comment>
+  </data>
+  <data name="UnloadableSaveValidationFailed" xml:space="preserve">
+    <value>There were validation errors. Continuing to save may cause the file to become unloadable, do you want to continue?</value>
+    <comment>Message when validation errors are found on save that will cause file to become unloadable</comment>
+  </data>
+  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="TimeTriggerImageShapeImage" type="System.Resources.ResXFileRef, System.Windows.Forms" xml:space="preserve">
+    <value>..\Resources\TimeTriggerShape.bmp;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+    <comment>TimeTriggerImageShape shape image</comment>
+  </data>
+  <data name="InputTransactionEngineExplorerImage" type="System.Resources.ResXFileRef, System.Windows.Forms" xml:space="preserve">
+    <value>..\Resources\InputTransactionEngineIcon.bmp;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+    <comment>Toolbox item image</comment>
+  </data>
+  <data name="OutputTransactionEngineExplorerImage" type="System.Resources.ResXFileRef, System.Windows.Forms" xml:space="preserve">
+    <value>..\Resources\OutputTransactionEngineIcon.bmp;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+    <comment>Toolbox item image</comment>
+  </data>
+  <data name="OutputTransactionWebServiceExplorerImage" type="System.Resources.ResXFileRef, System.Windows.Forms" xml:space="preserve">
+    <value>..\Resources\OutputWebServiceIcon.bmp;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+    <comment>Toolbox item image</comment>
+  </data>
+  <data name="TransactionHandlerExplorerImage" type="System.Resources.ResXFileRef, System.Windows.Forms" xml:space="preserve">
+    <value>..\Resources\TransactionHandlerIcon.bmp;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+    <comment>Toolbox item image</comment>
+  </data>
+  <data name="OutputWebServiceLinkToolToolboxBitmap" type="System.Resources.ResXFileRef, System.Windows.Forms" xml:space="preserve">
+    <value>..\Resources\OutputWebServiceLinkIcon.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+    <comment>Toolbox item image</comment>
+  </data>
+  <data name="OutputWebServiceLinkToolSourceCursor" type="System.Resources.ResXFileRef, System.Windows.Forms" xml:space="preserve">
+    <value>..\Resources\ConnectorSourceSearch.cur;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+    <comment>Custom connection tool cursor</comment>
+  </data>
+  <data name="OutputWebServiceLinkToolTargetCursor" type="System.Resources.ResXFileRef, System.Windows.Forms" xml:space="preserve">
+    <value>..\Resources\ConnectorTargetSearch.cur;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+    <comment>Custom connection tool cursor</comment>
+  </data>
+  <data name="OutputWebServiceToolToolboxBitmap" type="System.Resources.ResXFileRef, System.Windows.Forms" xml:space="preserve">
+    <value>..\Resources\OutputWebServiceIcon.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+    <comment>Toolbox item image</comment>
+  </data>
+  <data name="TimeTriggerToolToolboxBitmap" type="System.Resources.ResXFileRef, System.Windows.Forms" xml:space="preserve">
+    <value>..\Resources\TimeTriggerIcon.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+    <comment>Toolbox item image</comment>
+  </data>
+  <data name="TimeTriggerLinkToolToolboxBitmap" type="System.Resources.ResXFileRef, System.Windows.Forms" xml:space="preserve">
+    <value>..\Resources\TimeTriggerLinkIcon.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+    <comment>Toolbox item image</comment>
+  </data>
+  <data name="TimeTriggerLinkToolSourceCursor" type="System.Resources.ResXFileRef, System.Windows.Forms" xml:space="preserve">
+    <value>..\Resources\ConnectorSourceSearch.cur;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+    <comment>Custom connection tool cursor</comment>
+  </data>
+  <data name="TimeTriggerLinkToolTargetCursor" type="System.Resources.ResXFileRef, System.Windows.Forms" xml:space="preserve">
+    <value>..\Resources\ConnectorTargetSearch.cur;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+    <comment>Custom connection tool cursor</comment>
+  </data>
+  <data name="InputTransactionEngineToolToolboxBitmap" type="System.Resources.ResXFileRef, System.Windows.Forms" xml:space="preserve">
+    <value>..\Resources\InputTransactionEngineIcon.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+    <comment>Toolbox item image</comment>
+  </data>
+  <data name="InputLinkToolToolboxBitmap" type="System.Resources.ResXFileRef, System.Windows.Forms" xml:space="preserve">
+    <value>..\Resources\InputLinkIcon.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+    <comment>Toolbox item image</comment>
+  </data>
+  <data name="InputLinkToolSourceCursor" type="System.Resources.ResXFileRef, System.Windows.Forms" xml:space="preserve">
+    <value>..\Resources\ConnectorSourceSearch.cur;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+    <comment>Custom connection tool cursor</comment>
+  </data>
+  <data name="InputLinkToolTargetCursor" type="System.Resources.ResXFileRef, System.Windows.Forms" xml:space="preserve">
+    <value>..\Resources\ConnectorTargetSearch.cur;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+    <comment>Custom connection tool cursor</comment>
+  </data>
+  <data name="OutputTransactionEngineToolToolboxBitmap" type="System.Resources.ResXFileRef, System.Windows.Forms" xml:space="preserve">
+    <value>..\Resources\OutputTransactionEngineIcon.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+    <comment>Toolbox item image</comment>
+  </data>
+  <data name="OutputLinkToolToolboxBitmap" type="System.Resources.ResXFileRef, System.Windows.Forms" xml:space="preserve">
+    <value>..\Resources\OutputLinkIcon.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+    <comment>Toolbox item image</comment>
+  </data>
+  <data name="OutputLinkToolSourceCursor" type="System.Resources.ResXFileRef, System.Windows.Forms" xml:space="preserve">
+    <value>..\Resources\ConnectorSourceSearch.cur;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+    <comment>Custom connection tool cursor</comment>
+  </data>
+  <data name="OutputLinkToolTargetCursor" type="System.Resources.ResXFileRef, System.Windows.Forms" xml:space="preserve">
+    <value>..\Resources\ConnectorTargetSearch.cur;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+    <comment>Custom connection tool cursor</comment>
+  </data>
+  <data name="TransactionDataSourceSupportForOutputEngineLinkToolToolboxBitmap" type="System.Resources.ResXFileRef, System.Windows.Forms" xml:space="preserve">
+    <value>..\Resources\DataSourceSupportLinkIcon.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+    <comment>Toolbox item image</comment>
+  </data>
+  <data name="TransactionDataSourceSupportForOutputEngineLinkToolSourceCursor" type="System.Resources.ResXFileRef, System.Windows.Forms" xml:space="preserve">
+    <value>..\Resources\ConnectorSourceSearch.cur;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+    <comment>Custom connection tool cursor</comment>
+  </data>
+  <data name="TransactionDataSourceSupportForOutputEngineLinkToolTargetCursor" type="System.Resources.ResXFileRef, System.Windows.Forms" xml:space="preserve">
+    <value>..\Resources\ConnectorTargetSearch.cur;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+    <comment>Custom connection tool cursor</comment>
+  </data>
+  <data name="TransactionHandlerToolToolboxBitmap" type="System.Resources.ResXFileRef, System.Windows.Forms" xml:space="preserve">
+    <value>..\Resources\TransactionHandlerIcon.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+    <comment>Toolbox item image</comment>
+  </data>
+  <data name="TransactionHandlerForwardingLinkToolToolboxBitmap" type="System.Resources.ResXFileRef, System.Windows.Forms" xml:space="preserve">
+    <value>..\Resources\ForwardingLinkIcon.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+    <comment>Toolbox item image</comment>
+  </data>
+  <data name="TransactionHandlerForwardingLinkToolSourceCursor" type="System.Resources.ResXFileRef, System.Windows.Forms" xml:space="preserve">
+    <value>..\Resources\ConnectorSourceSearch.cur;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+    <comment>Custom connection tool cursor</comment>
+  </data>
+  <data name="TransactionHandlerForwardingLinkToolTargetCursor" type="System.Resources.ResXFileRef, System.Windows.Forms" xml:space="preserve">
+    <value>..\Resources\ConnectorTargetSearch.cur;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+    <comment>Custom connection tool cursor</comment>
+  </data>
+  <data name="TransactionHandlerMaintenanceLinkToolToolboxBitmap" type="System.Resources.ResXFileRef, System.Windows.Forms" xml:space="preserve">
+    <value>..\Resources\MaintenanceLinkIcon.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+    <comment>Toolbox item image</comment>
+  </data>
+  <data name="TransactionHandlerMaintenanceLinkToolSourceCursor" type="System.Resources.ResXFileRef, System.Windows.Forms" xml:space="preserve">
+    <value>..\Resources\ConnectorSourceSearch.cur;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+    <comment>Custom connection tool cursor</comment>
+  </data>
+  <data name="TransactionHandlerMaintenanceLinkToolTargetCursor" type="System.Resources.ResXFileRef, System.Windows.Forms" xml:space="preserve">
+    <value>..\Resources\ConnectorTargetSearch.cur;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+    <comment>Custom connection tool cursor</comment>
+  </data>
+  <data name="TransactionSQLServerDataSourceLinkConnectionToolToolboxBitmap" type="System.Resources.ResXFileRef, System.Windows.Forms" xml:space="preserve">
+    <value>..\Resources\PersistingLinkIcon.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+    <comment>Toolbox item image</comment>
+  </data>
+  <data name="TransactionSQLServerDataSourceLinkConnectionToolSourceCursor" type="System.Resources.ResXFileRef, System.Windows.Forms" xml:space="preserve">
+    <value>..\Resources\ConnectorSourceSearch.cur;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+    <comment>Custom connection tool cursor</comment>
+  </data>
+  <data name="TransactionSQLServerDataSourceLinkConnectionToolTargetCursor" type="System.Resources.ResXFileRef, System.Windows.Forms" xml:space="preserve">
+    <value>..\Resources\ConnectorTargetSearch.cur;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+    <comment>Custom connection tool cursor</comment>
+  </data>
+  <data name="TransactionLayerToolToolboxBitmap" type="System.Resources.ResXFileRef, System.Windows.Forms" xml:space="preserve">
+    <value>..\Resources\TransactionLayerIcon.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+    <comment>Toolbox item image</comment>
+  </data>
+  <data name="TransactionEnvironmentLayerToolToolboxBitmap" type="System.Resources.ResXFileRef, System.Windows.Forms" xml:space="preserve">
+    <value>..\Resources\TransactionEnvironmentLayerIcon.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+    <comment>Toolbox item image</comment>
+  </data>
+  <data name="TransactionSQLServerDataSourceToolToolboxBitmap" type="System.Resources.ResXFileRef, System.Windows.Forms" xml:space="preserve">
+    <value>..\Resources\TransactionDataSourceIcon.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+    <comment>Toolbox item image</comment>
+  </data>
+  <data name="TransactionDataSourceSupportToolToolboxBitmap" type="System.Resources.ResXFileRef, System.Windows.Forms" xml:space="preserve">
+    <value>..\Resources\TransactionDataSourceSupportIcon.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+    <comment>Toolbox item image</comment>
+  </data>
+  <data name="TransactionEnvironmentSQLServerVariableToolToolboxBitmap" type="System.Resources.ResXFileRef, System.Windows.Forms" xml:space="preserve">
+    <value>..\Resources\TransactionEnvironmentSQLServerVariableIcon.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+    <comment>Toolbox item image</comment>
+  </data>
+</root>
+
+

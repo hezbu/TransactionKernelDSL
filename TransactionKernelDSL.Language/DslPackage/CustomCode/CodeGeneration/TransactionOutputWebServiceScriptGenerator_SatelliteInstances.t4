@@ -1,0 +1,199 @@
+﻿<#@ template inherits="Microsoft.VisualStudio.TextTemplating.VSHost.ModelingTextTransformation" #>
+<#@ parameter name="delimiter" type="System.String" #>
+<#@ parameter name="path" type="System.String" #>
+<#@ import namespace="System.Diagnostics" #>
+<#@ template language="C#v3.5" #>
+<#@ assembly name="System.Core" #>
+<#@ import namespace="System.Linq" #>
+<#@ import namespace="System.Collections.Generic" #>
+<#@ TrnxDsl processor="TrnxDslDirectiveProcessor" requires="fileName='Test.TrnxDsl'" #>
+<#@ import namespace="System.IO" #>
+<#
+    if(ValidateModel(this.TransactionModel))
+    { 
+       var outputWebServices = from l in this.TransactionModel.TransactionLayers
+                let webServices = l.OutputTransactionWebServices
+                from ws in webServices
+                select ws;
+
+        foreach(OutputTransactionWebService ows in outputWebServices)
+        {
+     
+            string scriptsPath = path + "\\Scripts";
+            if(Directory.Exists(scriptsPath) == false) 
+            {
+                Directory.CreateDirectory(scriptsPath);
+            }
+
+             foreach(int satelliteInstance in GetSatelliteInstances(this.TransactionModel))
+            {
+
+                string scriptName= "TL"+ows.TransactionLayer.Level+"_"+ows.TransactionLayer.Name.Replace(" ","")+ "_"+ows.Name.Replace(" ","")+"_Script_Instance"+satelliteInstance.ToString();
+        #>
+            <#=                    string.Format(delimiter,"Scripts\\"+scriptName) #>
+            USE [<#=                    this.TransactionModel.DatabaseInitialCatalog #>]
+            GO
+        <#=                    ConfigTableGenerator() #>
+              IF NOT EXISTS (SELECT cfg_instancia FROM CONFIGURACION WHERE cfg_seccion = '<#=                    ows.TransactionLayer.TransactionModel.Name.Replace(" ","") #>.General' and cfg_clave = 'TL<#=                    ows.TransactionLayer.Level+"_"+ows.TransactionLayer.Name.Replace(" ","")+ "_"+ows.Name.Replace(" ","") #>_Timeout' and cfg_instancia = <#=                    satelliteInstance.ToString() #>) 
+              BEGIN 
+              INSERT INTO [CONFIGURACION] 
+                ([cfg_instancia] 
+                ,[cfg_seccion] 
+                ,[cfg_clave] 
+                ,[cfg_numero] 
+                ,[cfg_cadena] 
+                ,[cfg_descripcion]) 
+               VALUES 
+               (<#=                    satelliteInstance.ToString() #>
+               ,'<#=                    ows.TransactionLayer.TransactionModel.Name.Replace(" ","") #>.General'
+               ,'TL<#=                    ows.TransactionLayer.Level+"_"+ows.TransactionLayer.Name.Replace(" ","")+ "_"+ows.Name.Replace(" ","") #>_Timeout'                 
+               ,60                   
+               ,NULL                   
+               ,'Web Service Timeout for TL<#=                    ows.TransactionLayer.Level+"_"+ows.TransactionLayer.Name.Replace(" ","")+ "_"+ows.Name.Replace(" ","") #>')       
+              END     
+
+              IF NOT EXISTS (SELECT cfg_instancia FROM CONFIGURACION WHERE cfg_seccion = '<#=                    ows.TransactionLayer.TransactionModel.Name.Replace(" ","") #>.General' and cfg_clave = 'TL<#=                    ows.TransactionLayer.Level+"_"+ows.TransactionLayer.Name.Replace(" ","")+ "_"+ows.Name.Replace(" ","") #>_Url' and cfg_instancia = <#=                    satelliteInstance.ToString() #>) 
+              BEGIN 
+              INSERT INTO [CONFIGURACION] 
+                ([cfg_instancia] 
+                ,[cfg_seccion] 
+                ,[cfg_clave] 
+                ,[cfg_numero] 
+                ,[cfg_cadena] 
+                ,[cfg_descripcion]) 
+               VALUES 
+               (<#=                    satelliteInstance.ToString() #>
+               ,'<#=                    ows.TransactionLayer.TransactionModel.Name.Replace(" ","") #>.General'
+               ,'TL<#=                    ows.TransactionLayer.Level+"_"+ows.TransactionLayer.Name.Replace(" ","")+ "_"+ows.Name.Replace(" ","") #>_Url'                 
+               ,NULL                   
+               ,'<#=                    ows.Url #>'                   
+               ,'Web Service URL for TL<#=                    ows.TransactionLayer.Level+"_"+ows.TransactionLayer.Name.Replace(" ","")+ "_"+ows.Name.Replace(" ","") #>')       
+              END     
+             
+
+        <#
+            }
+        }
+     
+    }
+#>
+<#+
+    private List<int> GetSatelliteInstances(TransactionModel m)
+    {
+        List<int> list= new List<int>();
+        if (String.IsNullOrEmpty(m.SatelliteInstances) == false)
+        {
+            foreach (string s in m.SatelliteInstances.Split(new char[] { '|' }))
+            {
+                int instanceTest = 0;
+                if (Int32.TryParse(s, out instanceTest) == false)
+                {
+                    return null;
+                }
+                else
+                {
+                    list.Add(instanceTest);
+                }
+            }
+
+            return list;
+        }
+        else return null;
+    }
+ #>
+<#+
+    private bool ValidateModel(TransactionModel m)
+    {
+        return (!String.IsNullOrEmpty(m.Name)) && (!String.IsNullOrEmpty(m.Namespace)) && (GetSatelliteInstances(m) != null) && (m.InstanceId > 0);
+    }
+ #>
+<#+
+    private string ConfigTableGenerator()
+    {
+        string result= "";
+        
+        result+= " IF OBJECT_ID('CONFIGURACION') IS NULL \r\n\t";
+        result+= " BEGIN \r\n\t";
+        result+= " CREATE TABLE [dbo].[CONFIGURACION]( \r\n\t";
+        result+= " [cfg_instancia] [int] NOT NULL DEFAULT ((0)), \r\n\t";
+        result+= "  [cfg_seccion] [varchar](100) NOT NULL, \r\n\t";
+        result+= "  [cfg_clave] [varchar](100) NOT NULL, \r\n\t";
+        result+= "  [cfg_numero] [int] NULL, \r\n\t";
+        result+= "  [cfg_cadena] [varchar](1000) NULL, \r\n\t";
+        result+= "  [cfg_descripcion] [varchar](255) NULL, \r\n\t";
+        result+= "  CONSTRAINT [XPKCONFIGURACION] PRIMARY KEY CLUSTERED  \r\n\t";
+        result+= "  ( \r\n\t";
+        result+= "  [cfg_instancia] ASC, \r\n\t";
+        result+= "  [cfg_seccion] ASC, \r\n\t";
+        result+= "  [cfg_clave] ASC \r\n\t";
+        result+= "  ) \r\n\t";
+        result+= "  WITH (PAD_INDEX  = OFF, STATISTICS_NORECOMPUTE  = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS  = ON, ALLOW_PAGE_LOCKS  = ON) ON [PRIMARY] \r\n\t";
+        result+= "  ) ON [PRIMARY] \r\n\t";
+        result+= "  END \r\n\t";
+      
+        return result;
+    }
+ #>
+<#+
+    private string FacadeConfigValuesGenerator()
+    {
+        string result = "";
+
+        result += "IF NOT EXISTS (SELECT cfg_instancia FROM CONFIGURACION WHERE cfg_seccion = '"+this.TransactionModel.Name.Replace(" ","")+".General' and cfg_clave = 'TelnetLoggerOn' and cfg_instancia = "+this.TransactionModel.InstanceId+") \r\n\t";
+        result += "BEGIN \r\n\t";
+        result += "INSERT INTO [CONFIGURACION] \r\n\t";
+        result += "  ([cfg_instancia] \r\n\t";
+        result += "  ,[cfg_seccion] \r\n\t";
+        result += "  ,[cfg_clave] \r\n\t";
+        result += "  ,[cfg_numero] \r\n\t";
+        result += "  ,[cfg_cadena] \r\n\t";
+        result += "  ,[cfg_descripcion]) \r\n\t";
+        result += " VALUES \r\n\t";
+        result += " ("+this.TransactionModel.InstanceId+"\r\n\t";
+        result += " ,'"+this.TransactionModel.Name.Replace(" ","")+".General'\r\n\t";
+        result += " ,'TelnetLoggerOn'\r\n\t";                    
+        result += " ,NULL\r\n\t";                    
+        result += " ,'False'\r\n\t";                    
+        result += " ,'Enables a telnet logger on port 231"+this.TransactionModel.InstanceId.ToString().PadLeft(2,'0')+"')\r\n\t";        
+        result += "END \r\n\t";  
+
+        result += "IF NOT EXISTS (SELECT cfg_instancia FROM CONFIGURACION WHERE cfg_seccion = '"+this.TransactionModel.Name.Replace(" ","")+".General' and cfg_clave = 'LogDirectory' and cfg_instancia = "+this.TransactionModel.InstanceId+") \r\n\t";
+        result += "BEGIN \r\n\t";
+        result += "INSERT INTO [CONFIGURACION] \r\n\t";
+        result += "  ([cfg_instancia] \r\n\t";
+        result += "  ,[cfg_seccion] \r\n\t";
+        result += "  ,[cfg_clave] \r\n\t";
+        result += "  ,[cfg_numero] \r\n\t";
+        result += "  ,[cfg_cadena] \r\n\t";
+        result += "  ,[cfg_descripcion]) \r\n\t";
+        result += " VALUES \r\n\t";
+        result += " ("+this.TransactionModel.InstanceId+"\r\n\t";
+        result += " ,'"+this.TransactionModel.Name.Replace(" ","")+".General'\r\n\t";
+        result += " ,'LogDirectory'\r\n\t";                    
+        result += " ,NULL\r\n\t";                    
+        result += " ,'C:\\Logs\\"+this.TransactionModel.Name.Replace(" ","")+"'\r\n\t";                    
+        result += " ,'Directory where logger will be writing to')\r\n\t";        
+        result += "END \r\n\t";  
+
+        result += "IF NOT EXISTS (SELECT cfg_instancia FROM CONFIGURACION WHERE cfg_seccion = '"+this.TransactionModel.Name.Replace(" ","")+".General' and cfg_clave = 'LogPrefix' and cfg_instancia = "+this.TransactionModel.InstanceId+") \r\n\t";
+        result += "BEGIN \r\n\t";
+        result += "INSERT INTO [CONFIGURACION] \r\n\t";
+        result += "  ([cfg_instancia] \r\n\t";
+        result += "  ,[cfg_seccion] \r\n\t";
+        result += "  ,[cfg_clave] \r\n\t";
+        result += "  ,[cfg_numero] \r\n\t";
+        result += "  ,[cfg_cadena] \r\n\t";
+        result += "  ,[cfg_descripcion]) \r\n\t";
+        result += " VALUES \r\n\t";
+        result += " ("+this.TransactionModel.InstanceId+"\r\n\t";
+        result += " ,'"+this.TransactionModel.Name.Replace(" ","")+".General'\r\n\t";
+        result += " ,'LogPrefix'\r\n\t";                    
+        result += " ,NULL\r\n\t";                    
+        result += " ,'"+this.TransactionModel.Name.Replace(" ","")+"MainLogger'\r\n\t";                    
+        result += " ,'Prefix of MainLogger files')\r\n\t";        
+        result += "END \r\n\t";  
+
+        return result;
+    }
+ #>
+

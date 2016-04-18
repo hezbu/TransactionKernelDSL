@@ -1,0 +1,225 @@
+﻿<#@ template inherits="Microsoft.VisualStudio.TextTemplating.VSHost.ModelingTextTransformation" #>
+<#@ parameter name="delimiter" type="System.String" #>
+<#@ parameter name="path" type="System.String" #>
+<#@ template language="C#v3.5" #>
+<#@ assembly name="System.Core" #>
+<#@ import namespace="System.Linq" #>
+<#@ import namespace="System.Collections.Generic" #>
+<#@ TrnxDsl processor="TrnxDslDirectiveProcessor" requires="fileName='Test.TrnxDsl'" #>
+<#@ import namespace="System.IO" #>
+<#
+    if(ValidateModel(this.TransactionModel))
+    { 
+        string className = null; 
+        // When you change the DSL Definition, some of the code below may not work.
+        foreach(TransactionLayer l in this.TransactionModel.TransactionLayers)
+        {
+            foreach (InputTransactionEngine e in l.InputTransactionEngines)
+            {
+                if(e.Parser == ParserType.PropietaryParser)
+                {
+                    string layerLevelPath = path + "\\TL"+l.Level;
+                    if(Directory.Exists(layerLevelPath) == false) 
+                    {
+                        Directory.CreateDirectory(layerLevelPath);
+                    }
+        
+                    string layerPath = layerLevelPath + "\\"+l.Name.Replace(" ","");
+                    if(Directory.Exists(layerPath) == false) 
+                    {
+                        Directory.CreateDirectory(layerPath);
+                    }
+
+                    className = "TL"+l.Level+"_"+l.Name.Replace(" ","")+ "_"+e.Name.Replace(" ","")+"_Parser";
+
+                    #>
+                    <#=                    string.Format(delimiter,"TL"+l.Level+"\\"+l.Name.Replace(" ","")+"\\CustomCode\\"+className+"_UC") #>
+                    using System;
+	                using System.Collections.Generic;
+	                using System.Text;
+                    using TransactionKernelDSL.Framework.V1;
+                    using log4net.Config;
+                    using log4net;
+                    using System.Threading;
+                    namespace <#=                    this.TransactionModel.Namespace #>
+                    {
+
+                        /// <summary>
+                        /// A transactional parser named <#=                    className #>
+                        /// </summary>
+                        /// <remarks>
+                        /// Generated on <#=                    DateTime.Now.ToString() #>
+                        /// </remarks>
+                        public partial class <#=                    className #>: AbstractTransactionParser, ITransactionParserCommunicable, ITransactionParserAssembleable
+	                    {
+                            private void SetupParser_UC()
+                            {
+                                //Herein, should be defined the parser's nickname. It will be used in IN and OUT logs (i.e XXX_IN , XXX_OUT).
+                                //this._ParserNickName = "MyParserName"
+
+                            
+                                throw new NotImplementedException("Please define any parser's user setup here, or erase this exception");
+
+                                return;
+                            }
+
+                            #region ITransactionParserCommunicable Members
+
+                            public bool Send_UC(object handler)
+                            {
+                                // Uncomment this line for default behaviour
+                                //return this.Send(handler);
+
+                                throw new NotImplementedException("Send_UC must be implemented");
+                            }
+
+                            public bool Receive_UC(object handler)
+                            {
+                                // Uncomment this line for default behaviour
+                                // return this.Receive(handler);
+
+                                throw new NotImplementedException("Receive_UC must be implemented");
+                            }
+
+                            public bool IsKeepAliveMessage_UC()
+                            {
+                                // Uncomment this line for default behaviour
+                                // return this.IsKeepAliveMessage();
+
+                                throw new NotImplementedException("IsKeepAliveMessage_UC must be implemented");
+                            }
+
+                            #endregion
+
+                            #region ITransactionParserAssembleable Members
+
+                            public bool Assemble_UC()
+                            {
+                                // Uncomment this line for default behaviour
+                                // return this.Assemble();
+
+                                throw new NotImplementedException("Assemble_UC must be implemented");
+                            }
+
+                            public bool Disassemble_UC()
+                            {
+                                // Uncomment this line for default behaviour
+                                // return this.Disassemble();
+
+                                throw new NotImplementedException("Disassemble_UC must be implemented");
+                            }
+                        }
+                    }
+<#
+                    
+                }
+            }
+            //---------------------------------------------------------------------------------------
+            //---------------------------------------------------------------------------------------
+            //---------------------------------------------------------------------------------------
+            //---------------------------------------------------------------------------------------
+            foreach (OutputTransactionEngine e in l.OutputTransactionEngines)
+            {
+                if(e.Parser == ParserType.PropietaryParser)
+                {
+                    string layerLevelPath = path + "\\TL"+l.Level;
+                    if(Directory.Exists(layerLevelPath) == false) 
+                    {
+                        Directory.CreateDirectory(layerLevelPath);
+                    }
+        
+                    string layerPath = layerLevelPath + "\\"+l.Name.Replace(" ","");
+                    if  (Directory.Exists(layerPath) == false) 
+                    {
+                        Directory.CreateDirectory(layerPath);
+                    }
+
+                    className = "TL"+l.Level+"_"+l.Name.Replace(" ","")+ "_"+e.Name.Replace(" ","")+"_Parser";
+                    #>	
+    <#=                    string.Format(delimiter,"TL"+l.Level+"\\"+l.Name.Replace(" ","")+"\\CustomCode\\"+className+"_UC") #>
+                    using System;
+	                using System.Collections.Generic;
+	                using System.Text;
+                    using TransactionKernelDSL.Framework.V1;
+                    using log4net.Config;
+                    using log4net;
+                    using System.Threading;
+                    namespace <#=                    this.TransactionModel.Namespace #>
+                    {
+
+                        /// <summary>
+                        /// A transactional parser named <#=                    className #>
+                        /// </summary>
+                        /// <remarks>
+                        /// Generated on <#=                    DateTime.Now.ToString() #>
+                        /// </remarks>
+                        public partial class <#=                    className #>: AbstractTransactionParser, ITransactionParserCommunicable, ITransactionParserAssembleable
+	                    {
+                             private void SetupParser_UC()
+                            {
+                                //Herein, should be defined the parser's nickname. It will be used in IN and OUT logs (i.e XXX_IN , XXX_OUT).
+                                //this._ParserNickName = "MyParserName"
+                                throw new NotImplementedException("Please define any parser's user setup here, or erase this exception");
+
+                                return;
+                            }
+
+                            #region ITransactionParserCommunicable Members
+
+                            public bool Send_UC(object handler)
+                            {
+                                // Uncomment this line for default behaviour
+                                //return this.Send(handler);
+
+                                throw new NotImplementedException("Send_UC must be implemented");
+                            }
+
+                            public bool Receive_UC(object handler)
+                            {
+                                // Uncomment this line for default behaviour
+                                // return this.Receive(handler);
+
+                                throw new NotImplementedException("Receive_UC must be implemented");
+                            }
+
+                            public bool IsKeepAliveMessage_UC()
+                            {
+                                // Uncomment this line for default behaviour
+                                // return this.IsKeepAliveMessage();
+
+                                throw new NotImplementedException("IsKeepAliveMessage_UC must be implemented");
+                            }
+
+                            #endregion
+
+                            #region ITransactionParserAssembleable Members
+
+                            public bool Assemble_UC()
+                            {
+                                // Uncomment this line for default behaviour
+                                // return this.Assemble();
+
+                                throw new NotImplementedException("Assemble_UC must be implemented");
+                            }
+
+                            public bool Disassemble_UC()
+                            {
+                                // Uncomment this line for default behaviour
+                                // return this.Disassemble();
+
+                                throw new NotImplementedException("Disassemble_UC must be implemented");
+                            }
+                        }
+                    }
+                    <#
+                }    
+            }
+        }
+    }
+#>
+<#+
+    private bool ValidateModel(TransactionModel m)
+    {
+        return (!String.IsNullOrEmpty(m.Name)) && (!String.IsNullOrEmpty(m.Namespace)) && (m.InstanceId > 0);
+    }
+ #>

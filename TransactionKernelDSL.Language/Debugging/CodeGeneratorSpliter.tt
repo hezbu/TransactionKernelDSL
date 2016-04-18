@@ -1,0 +1,14 @@
+﻿<#@ template inherits="Microsoft.VisualStudio.TextTemplating.VSHost.ModelingTextTransformation" #>
+<#@ parameter name="delimiter" type="System.String" #>
+<#@ parameter name="path" type="System.String" #>
+<#@ template language="C#v3.5" #>
+<#@ assembly name="System.Core" #>
+<#@ import namespace="System.Linq" #>
+<#@ import namespace="System.Collections.Generic" #>
+<#@ PPayDsl processor="PPayDslDirectiveProcessor" requires="fileName='Bancomer.PpayDsl'" #>
+<#@ import namespace="System.IO" #>
+HOLA
+<#
+
+#>
+ 

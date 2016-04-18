@@ -1,0 +1,98 @@
+﻿<#@ template inherits="Microsoft.VisualStudio.TextTemplating.VSHost.ModelingTextTransformation" #>
+<#@ import namespace="System.Collections.Generic" #>
+<#@ parameter name="delimiter" type="System.String" #>
+<#@ parameter name="path" type="System.String" #>
+<#@ parameter name="processedStoredProcedures" type="System.Collections.Generic.List<string>" #>
+<#@ PPayDsl processor="PPayDslDirectiveProcessor" requires="fileName='Test.PpayDsl'" #>
+<#@ import namespace="System.IO" #>
+<#
+    if(ValidateModel(this.TransactionModel))
+    {
+		processedStoredProcedures = new List<string>();
+        // When you change the DSL Definition, some of the code below may not work.
+        foreach(TransactionLayer l in this.TransactionModel.TransactionLayers)
+        {        
+            foreach (TransactionHandler h in l.TransactionHandlers)
+            {
+                if(h.TransactionSQLServerDataSources.Count > 0)
+                {
+                    foreach(TransactionSQLServerDataSource ds in h.TransactionSQLServerDataSources)
+                    {
+                        if(SQLServerDataSourceStage_HasCustomCode(h,ds.Name) == true)
+                        {
+
+							if(processedStoredProcedures.Contains(ds.Name.Replace(" ","")) == false)
+                            {
+								processedStoredProcedures.Add(ds.Name.Replace(" ",""));
+
+                                string scriptsPath = path + "\\Scripts";
+                                if(Directory.Exists(scriptsPath) == false) 
+                                {
+                                    Directory.CreateDirectory(scriptsPath);
+                                }
+
+                                //string scriptName= "TL"+l.Level+"_"+l.Name.Replace(" ","")+ "_"+h.Name.Replace(" ","")+"_"+ds.Name.Replace(" ","")+"_Script";
+								string scriptName= ds.Name.Replace(" ","")+"_Script";
+                                
+                #>
+<#=                                string.Format(delimiter,"Scripts\\"+scriptName) #>
+	                                USE [<#= this.TransactionModel.DatabaseInitialCatalog #>]
+                                    GO 
+
+
+                                    IF (NOT EXISTS (SELECT * FROM sysobjects where name='Sp_<#= ds.Name.Replace(" ","") #>'))                               
+                                    BEGIN
+                                    EXEC('
+		                                    -- =============================================
+		                                    -- Author:		<PointPay>
+		                                    -- Create date: <#= DateTime.Now.Day.ToString()+"-"+DateTime.Now.Month.ToString()+"-"+DateTime.Now.Year.ToString() #>
+		                                    -- Description:	<Stored Procedure de la solución>
+		                                    -- =============================================
+		                                    CREATE PROCEDURE [Sp_<#= ds.Name.Replace(" ","") #>]
+		                                    /* Aca deben agregarse los parametros de entrada/salida
+		                                    (
+		                            
+		                                    )
+		                                    */
+		                                    AS
+		     
+		                                    /*Aca debe implementarse el script*/
+                                                     
+		                                 ')
+                                    END
+	
+
+<#							}							
+                        }
+                    }
+                
+                }
+            }
+        }
+    }
+#>
+<#+
+    private bool ValidateModel(TransactionModel m)
+    {
+        return (!String.IsNullOrEmpty(m.Name)) && (!String.IsNullOrEmpty(m.Namespace)) && (m.InstanceId > 0);
+    }
+#>
+<#+ 
+    private bool SQLServerDataSourceStage_HasCustomCode(ModelElement m, string dsName)
+    {
+        foreach(DomainRoleInfo d in m.GetDomainClass().LocalDomainRolesPlayed)
+        {
+            if(d.DisplayName == "Source SQLServer Data Source Transaction Handler")
+            {
+                foreach(PointPay.Framework.Language.TransactionHandlerReferencesTransactionSQLServerDataSources ds in d.GetElementLinks(m))
+                {
+                    if(ds.TransactionSQLServerDataSource.Name == dsName)
+                    {
+                        return ds.HasCustomCode;
+                    }
+                }
+            }            
+        }
+        return false;
+    }
+#>

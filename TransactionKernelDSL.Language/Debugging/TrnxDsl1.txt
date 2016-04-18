@@ -1,0 +1,67 @@
+	    Generating file C:\SANDBOX\TransactionKernelDSL\TransactionKernelDSL.Language\Debugging\CorrBancFacade.cs 
+                    Overwriting file C:\SANDBOX\TransactionKernelDSL\TransactionKernelDSL.Language\Debugging\CorrBancFacade.cs
+               
+	    Generating file C:\SANDBOX\TransactionKernelDSL\TransactionKernelDSL.Language\Debugging\TL0\ListenerLayer\TL0_ListenerLayer_ListenerEngine_Engine.cs 
+                    Overwriting file C:\SANDBOX\TransactionKernelDSL\TransactionKernelDSL.Language\Debugging\TL0\ListenerLayer\TL0_ListenerLayer_ListenerEngine_Engine.cs
+               
+	    Generating file C:\SANDBOX\TransactionKernelDSL\TransactionKernelDSL.Language\Debugging\TL0\ListenerLayer\TL0_ListenerLayer_ConsultadeSaldo_Handler.cs 
+                    Overwriting file C:\SANDBOX\TransactionKernelDSL\TransactionKernelDSL.Language\Debugging\TL0\ListenerLayer\TL0_ListenerLayer_ConsultadeSaldo_Handler.cs
+               
+	    Generating file C:\SANDBOX\TransactionKernelDSL\TransactionKernelDSL.Language\Debugging\CorrBancContext.cs 
+                    Overwriting file C:\SANDBOX\TransactionKernelDSL\TransactionKernelDSL.Language\Debugging\CorrBancContext.cs
+               
+	    Generating file C:\SANDBOX\TransactionKernelDSL\TransactionKernelDSL.Language\Debugging\UnitTest\TL0_ListenerLayer_ListenerEngine_UnitTest.cs 
+                    Overwriting file C:\SANDBOX\TransactionKernelDSL\TransactionKernelDSL.Language\Debugging\UnitTest\TL0_ListenerLayer_ListenerEngine_UnitTest.cs
+              	    Generating file C:\SANDBOX\TransactionKernelDSL\TransactionKernelDSL.Language\Debugging\UnitTest\TL0_ListenerLayer_ListenerEngine_ProxyUnitTest.cs 
+                    Overwriting file C:\SANDBOX\TransactionKernelDSL\TransactionKernelDSL.Language\Debugging\UnitTest\TL0_ListenerLayer_ListenerEngine_ProxyUnitTest.cs
+               
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+	    Generating file C:\SANDBOX\TransactionKernelDSL\TransactionKernelDSL.Language\Debugging\TL0\ListenerLayer\CustomCode\TL0_ListenerLayer_ConsultadeSaldo_Handler_UserCustomizedCode.cs 
+                    Creating file C:\SANDBOX\TransactionKernelDSL\TransactionKernelDSL.Language\Debugging\TL0\ListenerLayer\CustomCode\TL0_ListenerLayer_ConsultadeSaldo_Handler_UserCustomizedCode.cs
+                 
+ 
+	    Generating file C:\SANDBOX\TransactionKernelDSL\TransactionKernelDSL.Language\Debugging\CustomCode\CorrBancFacade_UserCustomizedCode.cs 
+                    Creating file C:\SANDBOX\TransactionKernelDSL\TransactionKernelDSL.Language\Debugging\CustomCode\CorrBancFacade_UserCustomizedCode.cs
+                 
+	    Generating file C:\SANDBOX\TransactionKernelDSL\TransactionKernelDSL.Language\Debugging\CustomCode\CorrBancContext_UserCustomizedCode.cs 
+                    Creating file C:\SANDBOX\TransactionKernelDSL\TransactionKernelDSL.Language\Debugging\CustomCode\CorrBancContext_UserCustomizedCode.cs
+                 
+	    Generating file C:\SANDBOX\TransactionKernelDSL\TransactionKernelDSL.Language\Debugging\UnitTest\CustomCode\TL0_ListenerLayer_ListenerEngine_UnitTestInput.cs 
+                    Creating file C:\SANDBOX\TransactionKernelDSL\TransactionKernelDSL.Language\Debugging\UnitTest\CustomCode\TL0_ListenerLayer_ListenerEngine_UnitTestInput.cs
+                 
+	    Generating file C:\SANDBOX\TransactionKernelDSL\TransactionKernelDSL.Language\Debugging\UnitTest\CustomCode\TL0_ListenerLayer_ListenerEngine_UnitTestOutput.cs 
+                    Creating file C:\SANDBOX\TransactionKernelDSL\TransactionKernelDSL.Language\Debugging\UnitTest\CustomCode\TL0_ListenerLayer_ListenerEngine_UnitTestOutput.cs
+                 
+	    Generating file C:\SANDBOX\TransactionKernelDSL\TransactionKernelDSL.Language\Debugging\TL0\ListenerLayer\CustomCode\TL0_ListenerLayer_ListenerEngine_EngineUserCustomizedCode.cs 
+                    Creating file C:\SANDBOX\TransactionKernelDSL\TransactionKernelDSL.Language\Debugging\TL0\ListenerLayer\CustomCode\TL0_ListenerLayer_ListenerEngine_EngineUserCustomizedCode.cs
+                 
+ 
+	    Generating file C:\SANDBOX\TransactionKernelDSL\TransactionKernelDSL.Language\Debugging\UnitTest\CustomCode\TL0_ListenerLayer_ListenerEngine_UnitTest_UC.cs 
+                    Creating file C:\SANDBOX\TransactionKernelDSL\TransactionKernelDSL.Language\Debugging\UnitTest\CustomCode\TL0_ListenerLayer_ListenerEngine_UnitTest_UC.cs
+                 
+ 
+ 
+ 
+ 
+ 
+	    Generating file C:\SANDBOX\TransactionKernelDSL\TransactionKernelDSL.Language\Debugging\App.config 
+                    Creating file C:\SANDBOX\TransactionKernelDSL\TransactionKernelDSL.Language\Debugging\App.config
+                 
+	    Generating file C:\SANDBOX\TransactionKernelDSL\TransactionKernelDSL.Language\Debugging\Scripts\TL0_ListenerLayer_ListenerEngine_Script.sql 
+                    Overwriting file C:\SANDBOX\TransactionKernelDSL\TransactionKernelDSL.Language\Debugging\Scripts\TL0_ListenerLayer_ListenerEngine_Script.sql
+               
+ 
+	    Generating file C:\SANDBOX\TransactionKernelDSL\TransactionKernelDSL.Language\Debugging\Scripts\CorrBancFacade_Script.sql 
+                    Overwriting file C:\SANDBOX\TransactionKernelDSL\TransactionKernelDSL.Language\Debugging\Scripts\CorrBancFacade_Script.sql
+               
+ 
+ 
+ 
+ 

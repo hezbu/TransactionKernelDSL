@@ -1,0 +1,16 @@
+﻿<!--DSL Tools Language Template-->
+<VSTemplate Version="3.0.0" Type="Item" xmlns="http://schemas.microsoft.com/developer/vstemplate/2005" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<TemplateData>
+		<Name Package="{5baeeeac-b2c5-4218-965b-88e4d10181bb}" ID="103"/>
+		<Description Package="{5baeeeac-b2c5-4218-965b-88e4d10181bb}" ID="102"/>
+		<Icon Package="{5baeeeac-b2c5-4218-965b-88e4d10181bb}" ID="201" />
+		<ProjectType>CSharp</ProjectType>
+		<SortOrder>360</SortOrder>
+		<DefaultName>TrnxDsl.TrnxDsl</DefaultName>
+	</TemplateData>
+	<TemplateContent>
+		<ProjectItem TargetFileName="$fileinputname$.TrnxDsl">TrnxDsl.TrnxDsl</ProjectItem>
+		<ProjectItem TargetFileName="$fileinputname$.TrnxDsl.diagram">TrnxDsl.diagram</ProjectItem>
+	</TemplateContent>
+</VSTemplate>
+

@@ -1,0 +1,107 @@
+﻿<#@ template hostspecific="true" language="C#" #>
+<#@ output extension=".txt" #>
+<#@ parameter name="nextTemplate" type="System.String" #>
+<#@ parameter name="modelFile" type="System.String" #>
+<#@ parameter name="fileExtension" type="System.String" #>
+<#@ parameter name="overwritesFile" type="System.Boolean" #>
+<#@ import namespace="Microsoft.VisualStudio.TextTemplating" #>
+<#@ assembly name="Microsoft.Build.Engine.dll" #>
+<#@ assembly name="Microsoft.Build.Framework.dll" #>
+<#@ import namespace="System.Runtime.Remoting.Messaging" #>
+<#@ import namespace="System.Diagnostics" #>
+<#@ import namespace="System.IO" #>
+<#@ import namespace="Microsoft.Build.BuildEngine" #>
+<#
+    //// Get the local path:
+    string itemTemplatePath = this.Host.ResolvePath(modelFile);
+    string dir = Path.GetDirectoryName(itemTemplatePath);
+    
+    //// Get the template for generating each file:
+    string loopTemplate = nextTemplate;
+
+    Microsoft.VisualStudio.TextTemplating.Engine engine = new Microsoft.VisualStudio.TextTemplating.Engine();
+   
+
+    // Pass parameter to new template:
+    string delimiterGuid = Guid.NewGuid().ToString();
+    string delimiter = "::::" + delimiterGuid + ":::";
+    CallContext.LogicalSetData("delimiter", delimiter + "{0}:::"); 
+    CallContext.LogicalSetData("path", dir); 
+    string joinedFiles = engine.ProcessTemplate(loopTemplate, this.Host);
+    string [] separateFiles = joinedFiles.Split(new string [] {delimiter}, StringSplitOptions.None);
+
+    foreach (string nameAndFile in separateFiles) 
+    { 
+        if (string.IsNullOrWhiteSpace(nameAndFile)) continue;
+        string[] parts = nameAndFile.Split(new string[]{":::"}, 2, StringSplitOptions.None);
+        if (parts.Length < 2) continue;
+	
+#>
+	    Generating file <#=            Path.Combine(dir, parts[0] + fileExtension) #> 
+<#
+        Microsoft.Build.BuildEngine.Engine buildEngine = new Microsoft.Build.BuildEngine.Engine();
+        Project proj = new Project(buildEngine);
+        proj.Load(Directory.GetFiles(dir, "*.csproj")[0]);
+        
+        bool fileFound = false;
+        foreach (BuildItemGroup itemGroup in proj.ItemGroups)
+        {
+            foreach (BuildItem item in itemGroup)
+            {
+                if(
+                        (item.Include == Path.Combine(dir, parts[0] + fileExtension)) ||
+                        (item.Include == (parts[0] + fileExtension))
+                    )
+                {
+#>
+	                File found in .csproj <#=                        Path.Combine(dir, parts[0] + fileExtension) #> 
+<#
+                    fileFound = true;
+                    break;
+                }
+            }
+            if(fileFound) break;
+        }      
+        if(overwritesFile == false)
+        {
+            if(File.Exists(Path.Combine(dir, parts[0] + fileExtension)) == false)
+            {
+                #>
+                    Creating file <#= Path.Combine(dir, parts[0] + fileExtension) #>
+                <#
+                try
+                {
+                    File.WriteAllText(Path.Combine(dir, parts[0] + fileExtension), parts[1]);  
+                }
+                catch(Exception ex)
+                {
+                      #>
+                        Exception writing file <#= ex.Message #>
+                  <#
+                }   
+            }
+            else
+            {
+                #>
+                    File <#= Path.Combine(dir, parts[0] + fileExtension) #> already exists, won't be overwritten.
+                <#
+            }
+        }
+        else
+        {
+              #>
+                    Overwriting file <#= Path.Combine(dir, parts[0] + fileExtension) #>
+              <#
+            try
+            {
+                File.WriteAllText(Path.Combine(dir, parts[0] + fileExtension), parts[1]);  
+            }
+            catch(Exception ex)
+            {
+                  #>
+                    Exception Overwriting file <#= ex.Message #>
+              <#
+            }   
+        }     
+    }
+#> 

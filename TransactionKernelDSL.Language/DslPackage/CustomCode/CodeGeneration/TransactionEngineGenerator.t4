@@ -1,0 +1,738 @@
+﻿<#@ template inherits="Microsoft.VisualStudio.TextTemplating.VSHost.ModelingTextTransformation" #>
+<#@ parameter name="delimiter" type="System.String" #>
+<#@ parameter name="path" type="System.String" #>
+<#@ TrnxDsl processor="TrnxDslDirectiveProcessor" requires="fileName='Test.TrnxDsl'" #>
+<#@ import namespace="System.IO" #>
+<#
+    if(ValidateModel(this.TransactionModel))
+    { 
+        string className = null; 
+        // When you change the DSL Definition, some of the code below may not work.
+        foreach(TransactionLayer l in this.TransactionModel.TransactionLayers)
+        {
+            foreach (InputTransactionEngine e in l.InputTransactionEngines)
+            {
+                string layerLevelPath = path + "\\TL"+l.Level;
+                if(Directory.Exists(layerLevelPath) == false) 
+                {
+                    Directory.CreateDirectory(layerLevelPath);
+                }
+        
+                string layerPath = layerLevelPath + "\\"+l.Name.Replace(" ","");
+                if(Directory.Exists(layerPath) == false) 
+                {
+                    Directory.CreateDirectory(layerPath);
+                }
+
+                className = "TL"+l.Level+"_"+l.Name.Replace(" ","")+ "_"+e.Name.Replace(" ","")+"_Engine";
+#>	
+    <#=                    string.Format(delimiter,"TL"+l.Level+"\\"+l.Name.Replace(" ","")+"\\"+className) #>
+	using System;
+	using System.Collections.Generic;
+	using System.Text;
+    using TransactionKernelDSL.Framework.V1;
+    using log4net.Config;
+    using log4net;
+    using System.Threading;
+    <#=                    ParserUsingGenerator(e) #>
+
+namespace <#=                    this.TransactionModel.Namespace #>
+{
+
+    /// <summary>
+    /// A transactional engine named <#=                    e.Name #>
+    /// </summary>
+    /// <remarks>
+    /// Generated on <#=                    DateTime.Now.ToString() #>
+    /// </remarks>
+<#=                    InputEngineClassDefinitionGenerator(e,className) #>
+	{
+
+        <#=                    TimeTriggerInputEngineFieldsAndPropertiesGenerator(e) #>
+    
+        /// <summary>
+        /// TRANSFORMACION
+        /// </summary>
+        #region Static fields
+        protected static <#=                    className #>  _Instance = null;
+        #endregion
+
+        /// <summary>
+        /// TRANSFORMACION
+        /// </summary>
+        public static <#=                    className #>  Instance
+        {
+            get
+            {
+                if (_Instance == null)
+                {
+                    _Instance = new <#=                    className #>();
+                }
+
+                return _Instance;
+            }
+        }
+
+        /// <summary>
+        /// TRANSFORMACION
+        /// </summary>
+        private <#=                    className #>()
+            : base()
+        {
+            this.Logger = "<#=                    e.LoggerName #>";
+        }
+        <# 
+                if(e.TransactionHandlers.Count > 0)
+                {
+#>
+        /// <summary>
+        /// TRANSFORMACION - con los datos obtenidos de los handler implementados en el DSL
+        /// </summary>
+        /// <param name="transactionId"></param>
+        /// <returns></returns>
+        protected override AbstractTransactionHandler TransactionHandlerFactory(object transactionId)
+        {
+            switch(((string)transactionId))
+            {
+                <# 
+                    foreach(TransactionHandler h in e.TransactionHandlers)
+                    {
+                        #>
+                        case "<#=                            h.TransactionId #>": 
+                            return new <#=                            "TL"+l.Level+"_"+l.Name.Replace(" ","")+ "_"+h.Name.Replace(" ","")+"_Handler"#>(); 
+
+<# 
+                    }
+#>
+              
+                default:
+                    throw new ApplicationException("Transaction ID '" + transactionId + "' unknown!");
+            }
+        }
+        <# 
+                }                
+                switch(e.Type)
+                {                      
+                    case InputEngineType.InputEngine:                               
+                    case InputEngineType.TcpTriggeredMultiThreadedInputEngine:             
+                    case InputEngineType.TcpTriggeredSocketReusableMultiThreadedInputEngine:   
+                    case InputEngineType.ThreadedInputEngine:                        
+                        #><#=                            ParserFactoryCodeGenerator(e) #><#
+                        break;
+                    case InputEngineType.TimeTriggeredInputEngine:
+                        #> 
+        public override bool Start()
+        {
+            bool retValue = false;
+
+            retValue = <#=                            TimeTriggerInputEngineStartGenerator(e) #>
+
+            return base.Start() && retValue;
+        }
+
+        public override bool Stop()
+        {
+            bool retValue = false;
+
+            retValue = <#=                            TimeTriggerInputEngineStopGenerator(e) #>                      
+
+            return base.Stop() && retValue;
+        }
+
+ <#
+                        break;
+                }
+#>
+	}
+}
+
+<#    
+            }
+            //---------------------------------------------------------------------------------------
+            //---------------------------------------------------------------------------------------
+            //---------------------------------------------------------------------------------------
+            //---------------------------------------------------------------------------------------
+            foreach (OutputTransactionEngine e in l.OutputTransactionEngines)
+            {
+                string layerLevelPath = path + "\\TL"+l.Level;
+                if(Directory.Exists(layerLevelPath) == false) 
+                {
+                    Directory.CreateDirectory(layerLevelPath);
+                }
+        
+                string layerPath = layerLevelPath + "\\"+l.Name.Replace(" ","");
+                if(Directory.Exists(layerPath) == false) 
+                {
+                    Directory.CreateDirectory(layerPath);
+                }
+
+                className = "TL"+l.Level+"_"+l.Name.Replace(" ","")+ "_"+e.Name.Replace(" ","")+"_Engine";
+#>	
+    <#=                    string.Format(delimiter,"TL"+l.Level+"\\"+l.Name.Replace(" ","")+"\\"+className) #>
+	using System;
+	using System.Collections.Generic;
+	using System.Text;
+    using TransactionKernelDSL.Framework.V1;
+    using log4net.Config;
+    using log4net;
+    using System.Threading;
+<#=                    DataSourceUsingGenerator(e) #>
+ <#=                    ParserUsingGenerator(e) #>
+	
+namespace <#=                    this.TransactionModel.Namespace #>
+{
+
+    /// <summary>
+    /// A transactional engine named <#=                    e.Name #>
+    /// </summary>
+    /// <remarks>
+    /// Generated on <#=                    DateTime.Now.ToString() #>
+    /// </remarks>
+<#=                    OutputEngineClassDefinitionGenerator(e,className) #>
+
+	{
+
+        /// <summary>
+        /// TRANSFORMACION
+        /// </summary>
+        #region Static fields
+        protected static <#=                    className #>  _Instance = null;
+        #endregion
+
+        /// <summary>
+        /// TRANSFORMACION
+        /// </summary>
+        public static <#=                    className #>  Instance
+        {
+            get
+            {
+                if (_Instance == null)
+                {
+                    _Instance = new <#=                    className #>();
+                }
+
+                return _Instance;
+            }
+        }
+         /// <summary>
+        /// TRANSFORMACION
+        /// </summary>
+        private <#=                    className #>()
+            : base()
+        {
+            this.Logger = "<#=                    e.LoggerName #>";
+            <#=                    OutputParserParserCtorGenerator(e) #>
+        }
+<#
+                switch(e.Type)
+                {
+                    case OutputEngineType.TcpFunneledOutputEngine:
+  #> 
+                        <#=                            TcpFunneledOutputEngineGenerator(e) #>
+<#
+                        break;
+                }
+ #>
+
+	}
+}
+
+<#    
+            }
+
+
+        }
+    }
+#>
+<#+
+    private bool ValidateModel(TransactionModel m)
+    {
+        return (!String.IsNullOrEmpty(m.Name)) && (!String.IsNullOrEmpty(m.Namespace)) && (m.InstanceId > 0);
+    }
+ #>
+<#+
+    private string ParserFactoryCodeGenerator(InputTransactionEngine e)
+    {
+        string result= "";
+        switch(e.Parser)
+        {   
+            case ParserType.NotTyped:
+                break;
+            case ParserType.PropietaryParser:
+                result += "protected override AbstractTransactionParser ParserFactory(object state = null) \r\n";
+                result += "{ \r\n";
+                result += "TL"+e.TransactionLayer.Level+"_"+e.TransactionLayer.Name.Replace(" ","")+ "_"+e.Name.Replace(" ","")+"_Parser parser = new "+"TL"+e.TransactionLayer.Level+"_"+e.TransactionLayer.Name.Replace(" ","")+ "_"+e.Name.Replace(" ","")+"_Parser(); \r\n";                
+                result += "parser.Logger = \""+e.ParserLoggerName+"\"; \r\n";
+                result += "return parser; \r\n"; 
+                result += "} \r\n";
+                break;
+            default:
+                result += "protected override AbstractTransactionParser ParserFactory(object state = null) \r\n";
+                result += "{ \r\n";
+                result += ""+e.Parser.ToString()+"Parser parser =  new "+e.Parser.ToString()+"Parser("+((String.IsNullOrEmpty(e.ParserSectionName))?"":"\""+e.ParserSectionName+"\"")+"); \r\n";
+                result += "parser.Logger = \""+e.ParserLoggerName+"\"; \r\n";
+                result += "return parser; \r\n"; 
+                result += "} \r\n";
+                break;
+        }
+
+        return result;
+    }
+ #>
+<#+
+    private string ParserUsingGenerator(TransactionEngine e)
+    {
+        switch(e.Parser)
+        {
+            case ParserType.NotTyped:
+            case ParserType.PropietaryParser:
+                return "";
+            default:
+                return "using TransactionKernelDSL.Framework.Parser."+e.Parser.ToString()+";";                                  
+        }
+    }
+ #>
+<#+
+    private string OutputParserParserCtorGenerator(OutputTransactionEngine e)
+    {
+        switch(e.Parser)
+        {            
+            case ParserType.NotTyped:
+                return "throw new NotImplementedException(\"Parser must be initialized in engine's ctor\");";   
+            case ParserType.PropietaryParser:
+            { 
+                string result = "";
+                result += " _AssignedParser = new "+"TL"+e.TransactionLayer.Level+"_"+e.TransactionLayer.Name.Replace(" ","")+ "_"+e.Name.Replace(" ","")+"_Parser(); \r\n\t";                
+                result += " _AssignedParser.Logger = \""+e.ParserLoggerName+"\";";
+                return result;
+            }           
+            default:
+            {
+                string result = "";
+                result += " _AssignedParser = new "+e.Parser.ToString()+"Parser("+(String.IsNullOrEmpty(e.ParserSectionName)?"":"\""+e.ParserSectionName+"\"")+",false); \r\n\t";
+                result += " _AssignedParser.Logger = \""+e.ParserLoggerName+"\";";
+                return result;
+            }
+        }
+    }
+ #>
+<#+
+    private string OutputEngineClassDefinitionGenerator(OutputTransactionEngine e, string className)
+    {        
+        switch(e.Type)
+        {
+            case OutputEngineType.FunneledOutputEngine:
+                return "public partial class "+className+": AbstractFunneledOutputTransactionEngine";
+            case OutputEngineType.StraightOutputEngine:                    	
+                return "public partial class "+className+": AbstractStraightOutputTransactionEngine";	
+            case OutputEngineType.TcpStraightOutputEngine:                    	
+                return "public partial class "+className+": AbstractTcpStraightOutputTransactionEngine";
+            case OutputEngineType.TcpFunneledOutputEngine:                            
+                return "public partial class "+className+": AbstractTcpFunneledOutputTransactionEngine";       
+            default:
+            case OutputEngineType.OutputEngine:                          
+                return "public partial class "+className+": AbstractOutputTransactionEngine";                
+        }
+    }
+
+ #>
+<#+
+    private string InputEngineClassDefinitionGenerator(InputTransactionEngine e, string className)
+    {
+        switch(e.Type)
+        {                               
+            case InputEngineType.TcpTriggeredSocketReusableMultiThreadedInputEngine: 
+                return "public partial class "+className+": AbstractTcpTriggeredSocketReusableMultiThreadedInputTransactionEngine";                    
+            case InputEngineType.TcpTriggeredMultiThreadedInputEngine:                        
+                return "public partial class "+className+": AbstractTcpTriggeredMultiThreadedInputTransactionEngine";                    
+            case InputEngineType.ThreadedInputEngine:                        
+                return "public partial class "+className+": AbstractThreadedInputTransactionEngine";                                        
+            case InputEngineType.TimeTriggeredInputEngine:                      
+                return "public partial class "+className+": AbstractTimeTriggeredInputTransactionEngine";                                                            
+            default:
+            case InputEngineType.InputEngine:
+                return "public partial class "+className+": AbstractInputTransactionEngine";  
+        }
+    }
+ #>
+<#+
+    private string TimeTriggerInputEngineFieldsAndPropertiesGenerator(InputTransactionEngine e)
+    {
+        string result= "";
+        switch(e.Type)
+        {           
+            case InputEngineType.TimeTriggeredInputEngine:  
+                foreach(TimeTrigger tt in e.TimeTriggers)
+                {
+                    result += "#region "+tt.Name.Replace(" ","")+" Setup \r\n\t";
+                    result += "public const string Const"+tt.Name.Replace(" ","")+" = \""+tt.Name.Replace(" ","")+"\"; \r\n\t";
+                    result += "private int _"+tt.Name.Replace(" ","")+"DueTime; \r\n\t";
+                    result += "public int "+tt.Name.Replace(" ","")+"DueTime \r\n\t";
+                    result += "{ \r\n\t";
+                    result += "     get \r\n\t";
+                    result += "     { \r\n\t";
+                    result += "        return _"+tt.Name.Replace(" ","")+"DueTime;   \r\n\t";
+                    result += "     } \r\n\t";
+                    result += "     set \r\n\t";
+                    result += "     { \r\n\t";
+                    result += "        _"+tt.Name.Replace(" ","")+"DueTime = value;  \r\n\t";
+                    result += "     } \r\n\t";
+                    result += "} \r\n\t";
+                    result += "#endregion\r\n\t";
+                }
+                break;
+        }
+
+        return result;
+    }
+    private string TimeTriggerInputEngineStartGenerator(InputTransactionEngine e)
+    {
+        string result= "";
+        switch(e.Type)
+        {           
+            case InputEngineType.TimeTriggeredInputEngine:  
+                foreach(TimeTrigger tt in e.TimeTriggers)
+                {
+                    result += "&& this.Add(Const"+tt.Name.Replace(" ","")+", _"+tt.Name.Replace(" ","")+"DueTime, Timeout.Infinite)  ";
+                }
+                if(e.TimeTriggers.Count > 0) result = result.Substring(3)+";";
+
+                break;
+        }
+
+        return result;
+    }
+    private string TimeTriggerInputEngineStopGenerator(InputTransactionEngine e)
+    {
+        string result= "";
+        switch(e.Type)
+        {           
+            case InputEngineType.TimeTriggeredInputEngine:  
+                foreach(TimeTrigger tt in e.TimeTriggers)
+                {
+                    result += "&&  this.Remove(Const"+tt.Name.Replace(" ","")+")  ";
+                }
+                if(e.TimeTriggers.Count > 0) result = result.Substring(3)+";";
+
+                break;
+        }
+
+        return result;
+    }
+    
+#>
+<#+    private string DataSourceUsingGenerator(OutputTransactionEngine e)  
+    {
+        string result= "";
+
+        if(e.TransactionDataSourceSupport != null)
+        {
+            switch(e.TransactionDataSourceSupport.SupportType)
+            {                
+                case DataSourceSupportType.SQLServerSupport:
+                    result+= "using System.Data.SqlClient;\r\nusing System.Data;\r\n";
+                    break;
+            }
+        }
+
+        return result;
+    }
+#>
+
+<#+
+    private string TcpFunneledOutputEngineGenerator(OutputTransactionEngine e)
+    {
+        string result= "";
+
+        result+=  "protected override AbstractTransactionParser ProcessPoolWorkerParserFactory() \r\n";
+        result+=  "{ \r\n";
+    
+        switch(e.Parser)
+        {
+            case ParserType.NotTyped:                     
+                result+=  " throw new NotImplementedException(\"ProcessPoolWorkerParserFactory() Must be implemented in order to generate a new parser for the process worker, upon reply is received.\"); \r\n";         
+                break;
+            case ParserType.PropietaryParser:
+                result+=  " return new "+"TL"+e.TransactionLayer.Level+"_"+e.TransactionLayer.Name.Replace(" ","")+ "_"+e.Name.Replace(" ","")+"_Parser(); \r\n";                         
+                break;
+            default:
+                result+=  " return new "+e.Parser.ToString()+"Parser(\""+(String.IsNullOrEmpty(e.ParserSectionName)?"":e.ParserSectionName)+"\"); \r\n";         
+                break;
+        }      
+        result+=  "} \r\n";
+
+
+        if(e.TransactionDataSourceSupport != null)
+        {
+            switch(e.TransactionDataSourceSupport.SupportType)
+            {                
+                case DataSourceSupportType.SQLServerSupport:
+                    result+= "protected override bool PushRequirement(AbstractTransactionParser parser)\r\n"+
+                        "{\r\n"+
+                        "bool retValue = false;\r\n"+
+
+                        "try\r\n"+
+                        "{\r\n"+
+                        "#region Using SQL Connection\r\n"+
+                        "using (SqlConnection sqlConn = new SqlConnection())\r\n"+
+                        "{\r\n"+
+                        "   sqlConn.ConnectionString = "+this.TransactionModel.Name.Replace(" ","")+"Facade.Instance.ConnectionString;\r\n"+
+                        "   sqlConn.Open();\r\n"+
+
+                        "   #region Using Sql Command\r\n"+
+                        "   using (SqlCommand sqlComm = new SqlCommand())\r\n"+
+                        "   {\r\n"+
+                        "       sqlComm.CommandType = CommandType.StoredProcedure;\r\n"+
+                        "       sqlComm.CommandText = "+this.TransactionModel.Name.Replace(" ","")+"Facade.Instance.TL"+e.TransactionLayer.Level+"_"+e.TransactionLayer.Name.Replace(" ","")+ "_"+e.Name.Replace(" ","")+"_Engine_PushRequirementStoredProc;\r\n"+                        
+                        "       sqlComm.Parameters.Add(new SqlParameter(\"@msg_seq\", SqlDbType.VarChar, 6)).Value = GetOutcomingMessageSequence(parser);\r\n"+
+                        "       sqlComm.Parameters.Add(new SqlParameter(\"@msg_out\", SqlDbType.VarChar, 1500)).Value = GetMessageOut(parser);\r\n"+
+                        "       sqlComm.Parameters.Add(new SqlParameter(\"@men_TransactionId\", SqlDbType.VarChar, 100)).Value = GetOutcomingMessageTransactionId(parser);\r\n"+
+                        "       if (String.IsNullOrEmpty(GetMessageReference(parser)) == false) sqlComm.Parameters.Add(new SqlParameter(\"@msg_ref\", SqlDbType.VarChar, 30)).Value = GetMessageReference(parser);\r\n"+
+                        "       if (String.IsNullOrEmpty(GetMessageIn(parser)) == false) sqlComm.Parameters.Add(new SqlParameter(\"@msg_in\", SqlDbType.VarChar, 1500)).Value = GetMessageIn(parser);\r\n"+
+
+                        "_EngineLog.Info(\"EXEC \" + sqlComm.CommandText + \" ( \" + \r\n"+
+                        "           \"'\" + GetOutcomingMessageSequence(parser) + \"',\" + \r\n"+
+                        "           \"'\" + GetMessageOut(parser) + \"',\" + \r\n"+
+                        "           \"'\" + GetOutcomingMessageTransactionId(parser) + \"',\" +  \r\n"+
+                        "           \"\" + (String.IsNullOrEmpty(GetMessageReference(parser)) == false ? \"'\" + GetMessageReference(parser)+ \"'\" : \"NULL\") + \",\" + \r\n"+
+                        "           \"\" + (String.IsNullOrEmpty(GetMessageIn(parser)) == false ? \"'\" + GetMessageIn(parser)+ \"'\" : \"NULL\") + \r\n"+
+                        "           \")\"); \r\n"+
+
+
+                        "        sqlComm.Connection = sqlConn; \r\n"+
+
+                        "        using (SqlDataReader sqlReader = sqlComm.ExecuteReader()) \r\n"+
+                        "        {  \r\n"+
+                        "            if (sqlReader.HasRows == true) \r\n"+
+                        "            { \r\n"+
+                        "                if (sqlReader.Read()) \r\n"+
+                        "                { \r\n"+
+                        "                    retValue = !String.IsNullOrEmpty(sqlReader[0].ToString()); \r\n"+
+                        "                } \r\n"+
+                        "            } \r\n"+
+                        "        } \r\n"+
+                        "    } \r\n"+
+                        "    #endregion \r\n"+
+                        "    sqlConn.Close(); \r\n"+
+                        "} \r\n"+
+                        "#endregion \r\n"+
+                        "} \r\n"+
+                        "catch (Exception ee) \r\n"+
+                        "{ \r\n"+
+                        " _EngineLog.Fatal(\"Exception found (DB):\" + ee.Message); \r\n"+
+                        " _EngineLog.Fatal(\"Stack trace (DB):\" + ee.StackTrace); \r\n"+
+                        "} \r\n"+
+                        "return retValue; \r\n"+
+                        "} \r\n"+   
+                        "protected override bool PullResponse(AbstractTransactionParser parser) \r\n"+
+                        "{ \r\n"+
+                        "bool result = false;\r\n"+
+                        "try\r\n"+
+                        "{\r\n"+
+                        "    #region Using SQL Connection\r\n"+
+                        "    using (SqlConnection sqlConn = new SqlConnection())\r\n"+
+                        "    {\r\n"+
+                        "        sqlConn.ConnectionString = "+this.TransactionModel.Name.Replace(" ","")+"Facade.Instance.ConnectionString;\r\n"+
+                        "        sqlConn.Open();\r\n"+
+                        "        #region Using Sql Command\r\n"+
+                        "        using (SqlCommand sqlComm = new SqlCommand())\r\n"+
+                        "        {\r\n"+
+                        "            sqlComm.CommandType = CommandType.StoredProcedure;\r\n"+
+                        "            sqlComm.CommandText = "+this.TransactionModel.Name.Replace(" ","")+"Facade.Instance.TL"+e.TransactionLayer.Level+"_"+e.TransactionLayer.Name.Replace(" ","")+ "_"+e.Name.Replace(" ","")+"_Engine_PullResponseStoredProc;\r\n"+
+                        "            sqlComm.Parameters.Add(new SqlParameter(\"@msg_seq\", SqlDbType.VarChar, 6)).Value =  GetOutcomingMessageSequence(parser);\r\n"+
+                        "            sqlComm.Parameters.Add(new SqlParameter(\"@men_TransactionId\", SqlDbType.VarChar, 100)).Value = GetOutcomingMessageTransactionId(parser);\r\n"+
+                        "            _EngineLog.Info(\"EXEC \" + sqlComm.CommandText + \" (\" +\r\n"+
+                        "                         \"'\" + GetOutcomingMessageSequence(parser) + \"',\" +\r\n"+
+                        "                         \"'\" + GetOutcomingMessageTransactionId(parser) + \"'\" +\r\n"+
+                        "                         \")\");\r\n"+
+                        "       sqlComm.Connection = sqlConn;\r\n"+            
+                        "            using (SqlDataReader sqlReader = sqlComm.ExecuteReader())\r\n"+
+                        "            {\r\n"+
+                        "                if (sqlReader.HasRows == true)\r\n"+
+                        "                {\r\n"+
+                        "                    if (sqlReader.Read())\r\n"+
+                        "                    {\r\n"+
+                        "                           SetMessageIn(parser,sqlReader[0].ToString());  \r\n"+                       
+                        "                           result = true;\r\n"+
+                        "                    }\r\n"+
+                        "                }\r\n"+
+                        "            }\r\n"+
+                        "        }\r\n"+
+                        "        #endregion\r\n"+
+                        "        sqlConn.Close();\r\n"+
+                        "    }\r\n"+
+                        "    #endregion\r\n"+
+                        "}\r\n"+
+                        "catch (Exception ee)\r\n"+
+                        "{\r\n"+
+                        "    _EngineLog.Fatal(\"Exception found (DB):\" + ee.Message); \r\n"+
+                        "    _EngineLog.Fatal(\"Stack trace (DB):\" + ee.StackTrace); \r\n"+
+                        "}\r\n"+
+                        " return result;"+
+                        "} \r\n"+
+                        "protected override bool UponForwardProcess()\r\n"+ 
+                        "{ \r\n"+
+                        "   return DatabaseUponForwardProcess(_AssignedParser) && UserCustomizedUponForwardProcess(_AssignedParser); \r\n"+
+                        "}\r\n"+
+                        "private bool DatabaseUponForwardProcess(AbstractTransactionParser parser) \r\n"+
+                        "{ \r\n"+
+                        "  bool retValue = false; \r\n"+
+                        "try \r\n"+
+                        "{ \r\n"+
+                        "    #region Using SQL Connection \r\n"+
+                        "    using (SqlConnection sqlConn = new SqlConnection()) \r\n"+
+                        "    { \r\n"+
+                        "        sqlConn.ConnectionString = sqlConn.ConnectionString = "+this.TransactionModel.Name.Replace(" ","")+"Facade.Instance.ConnectionString;\r\n"+
+                        "        sqlConn.Open(); \r\n"+
+
+                        "        #region Using Sql Command \r\n"+
+                        "        using (SqlCommand sqlComm = new SqlCommand()) \r\n"+
+                        "        { \r\n"+
+                        "            sqlComm.CommandType = CommandType.StoredProcedure; \r\n"+
+                        "            sqlComm.CommandText = "+this.TransactionModel.Name.Replace(" ","")+"Facade.Instance.TL"+e.TransactionLayer.Level+"_"+e.TransactionLayer.Name.Replace(" ","")+ "_"+e.Name.Replace(" ","")+"_Engine_UponForwardingProcessStoredProc;\r\n"+                                                
+                        "            sqlComm.Parameters.Add(new SqlParameter(\"@msgOut\", SqlDbType.VarChar, 1500)).Value = GetMessageOut(parser); \r\n"+
+                        "            _EngineLog.Info(\"EXEC \" + sqlComm.CommandText + \" (\"+\r\n"+
+                        "             \"'\" + GetMessageOut(parser) + \"'\" + \")\"); \r\n"+
+                        "            sqlComm.Connection = sqlConn; \r\n"+
+                        "            using (SqlDataReader sqlReader = sqlComm.ExecuteReader()) \r\n"+
+                        "            { \r\n"+
+                        "                if (sqlReader.HasRows == true) \r\n"+
+                        "                { \r\n"+
+                        "                    if (sqlReader.Read()) \r\n"+
+                        "                    { \r\n"+
+                        "                        retValue = Convert.ToInt32(sqlReader[0].ToString()) > 0; \r\n"+
+                        "                    } \r\n"+
+                        "                } \r\n"+
+                        "            } \r\n"+
+                        "        } \r\n"+
+                        "        #endregion \r\n"+
+                        "        sqlConn.Close(); \r\n"+
+                        "    } \r\n"+
+                        "    #endregion \r\n"+
+                        "} \r\n"+
+                        "catch (Exception ee) \r\n"+
+                        "{ \r\n"+
+                        "    _EngineLog.Fatal(\"Exception found (DB):\" + ee.Message); \r\n"+
+                        "    _EngineLog.Fatal(\"Stack trace (DB):\" + ee.StackTrace); \r\n"+
+                        "} \r\n"+
+                        "return retValue;\r\n"+
+                        " \r\n"+
+                        "} \r\n"+
+                        "protected override List<byte[]> PullAvailableRequirements() \r\n"+
+                        "{      \r\n"+
+                        " List<byte[]> availableMessages = new List<byte[]>(); \r\n"+
+                        "try \r\n"+
+                        "{ \r\n"+
+                        "#region Using SQL Connection\r\n"+
+                        "using (SqlConnection sqlConn = new SqlConnection())\r\n"+
+                        "{\r\n"+
+                        "   sqlConn.ConnectionString = "+this.TransactionModel.Name.Replace(" ","")+"Facade.Instance.ConnectionString;\r\n"+
+                        "   sqlConn.Open();\r\n"+
+                        "\r\n"+
+                        "   #region Using Sql Command\r\n"+
+                        "   using (SqlCommand sqlComm = new SqlCommand())\r\n"+
+                        "   { \r\n"+
+                        "       sqlComm.CommandType = CommandType.StoredProcedure;\r\n"+
+                        "       sqlComm.CommandText = "+this.TransactionModel.Name.Replace(" ","")+"Facade.Instance.TL"+e.TransactionLayer.Level+"_"+e.TransactionLayer.Name.Replace(" ","")+ "_"+e.Name.Replace(" ","")+"_Engine_PullAvailableRequirementsStoredProc;\r\n"+                                                                       
+                        "       _EngineLog.Info(\"EXEC \" + sqlComm.CommandText + \"()\"); \r\n"+
+                        "       sqlComm.Connection = sqlConn;\r\n"+
+                        "       using (SqlDataReader sqlReader = sqlComm.ExecuteReader())\r\n"+
+                        "       {\r\n"+
+                        "           if (sqlReader.HasRows == true)\r\n"+
+                        "           {\r\n"+
+                        "               while (sqlReader.Read()) \r\n"+
+                        "               { \r\n"+
+                        "                   string prospectMsg = sqlReader[0].ToString(); \r\n"+
+                        "                   if (!String.IsNullOrEmpty(prospectMsg)) \r\n"+
+                        "                   { \r\n"+                                          
+                        "                         availableMessages.Add(FormatMessageOut(prospectMsg, sqlReader[1].ToString()));  \r\n"+
+                        "                   } \r\n"+
+                        "               } \r\n"+
+                        "           } \r\n"+
+                        "       } \r\n"+
+                        "   } \r\n"+
+                        "   #endregion \r\n"+
+                        "   sqlConn.Close(); \r\n"+
+                        "} \r\n"+
+                        " #endregion \r\n"+
+                        "} \r\n"+
+                        "catch (Exception ee) \r\n"+
+                        "{ \r\n"+
+                        "    _EngineLog.Fatal(\"Exception found (DB):\" + ee.Message); \r\n"+
+                        "    _EngineLog.Fatal(\"Stack Trace (DB):\" + ee.StackTrace); \r\n"+
+                        "} \r\n"+
+                        "return availableMessages; \r\n"+
+                        "}\r\n"+
+                        "protected override bool PushResponse(AbstractTransactionParser parser) \r\n"+
+                        "{ \r\n"+
+                        "    bool retVal = false; \r\n"+
+                        "    try \r\n"+
+                        "    { \r\n"+
+                        "        #region Using SQL Connection \r\n"+
+                        "        using (SqlConnection sqlConn = new SqlConnection()) \r\n"+
+                        "        { \r\n"+
+                        "            sqlConn.ConnectionString = "+this.TransactionModel.Name.Replace(" ","")+"Facade.Instance.ConnectionString; \r\n"+
+                        "            sqlConn.Open(); \r\n"+
+                        " \r\n"+
+                        "            #region Using Sql Command \r\n"+
+                        "            using (SqlCommand sqlComm = new SqlCommand()) \r\n"+
+                        "            { \r\n"+
+                        "                sqlComm.CommandType = CommandType.StoredProcedure; \r\n"+
+                        "                sqlComm.CommandText = "+this.TransactionModel.Name.Replace(" ","")+"Facade.Instance.TL"+e.TransactionLayer.Level+"_"+e.TransactionLayer.Name.Replace(" ","")+ "_"+e.Name.Replace(" ","")+"_Engine_PushResponseStoredProc; \r\n"+
+                        "                sqlComm.Parameters.Add(new SqlParameter(\"@msg_in\", SqlDbType.VarChar, 1500)).Value = GetMessageIn(parser); \r\n"+
+                        "                sqlComm.Parameters.Add(new SqlParameter(\"@men_TransactionId\", SqlDbType.VarChar, 100)).Value = GetIncomingMessageTransactionId(parser); \r\n"+
+                        "                sqlComm.Parameters.Add(new SqlParameter(\"@msg_seq\", SqlDbType.VarChar, 6)).Value = GetIncomingMessageSequence(parser); \r\n"+
+                        "                _EngineLog.Info(\"EXEC \" + sqlComm.CommandText + \r\n"+
+                        "                        \" ('\" + GetMessageIn(parser) + \"',\" + \r\n"+
+                        "                        \" '\" + GetIncomingMessageTransactionId(parser) + \"',\" + \r\n"+
+                        "                        \" '\" + GetIncomingMessageSequence(parser) + \"'\" + \r\n"+
+                        "                        \")\"); \r\n"+
+                        "                sqlComm.Connection = sqlConn; \r\n"+
+                        "                using (SqlDataReader sqlReader = sqlComm.ExecuteReader()) \r\n"+
+                        "                { \r\n"+
+                        "                    if (sqlReader.HasRows == true) \r\n"+
+                        "                    { \r\n"+
+                        "                        if (sqlReader.Read()) \r\n"+
+                        "                        { \r\n"+
+                        "                            retVal = Convert.ToInt32(sqlReader[0].ToString()) > 0; \r\n"+
+                        "                            if (retVal == false) \r\n"+
+                        "                            { \r\n"+
+                        "                                _EngineLog.Error(\"Cannot match message in DB (\" + GetIncomingMessageTransactionId(parser) + \",\" +   \r\n"+
+                        "                                GetIncomingMessageSequence(parser) + \")\"); \r\n"+
+                        "                            } \r\n"+
+                        "                        } \r\n"+
+                        "                    } \r\n"+
+                        "                } \r\n"+
+                        "            } \r\n"+
+                        "            #endregion \r\n"+
+                        "            sqlConn.Close(); \r\n"+
+                        "        } \r\n"+
+                        "        #endregion    \r\n"+
+                        "    } \r\n"+
+                        "    catch (Exception ee) \r\n"+
+                        "    { \r\n"+
+                        "        _EngineLog.Fatal(\"Exception found (DB):\" + ee.Message); \r\n"+
+                        "        _EngineLog.Fatal(\"Stack trace is (DB):\" + ee.StackTrace); \r\n"+
+                        "    } \r\n"+
+                        "    return retVal; \r\n"+
+                        "} \r\n";
+                    break;
+            }
+        }
+
+        return result;
+    }
+ #>
+
+
+
+
+
+
+
+
+
+
+
+
+

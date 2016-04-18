@@ -1,0 +1,135 @@
+﻿<#@ template inherits="Microsoft.VisualStudio.TextTemplating.VSHost.ModelingTextTransformation" #>
+<#@ parameter name="delimiter" type="System.String" #>
+<#@ parameter name="path" type="System.String" #>
+<#@ template language="C#v3.5" #>
+<#@ assembly name="System.Core" #>
+<#@ import namespace="System.Linq" #>
+<#@ import namespace="System.Collections.Generic" #>
+<#@ TrnxDsl processor="TrnxDslDirectiveProcessor" requires="fileName='Test.TrnxDsl'" #>
+<#@ import namespace="System.IO" #>
+<#
+    if(ValidateModel(this.TransactionModel))
+    {
+    string className = null; 
+    string facadeName= null;
+    string engineName = null;
+    string mainName = null;
+
+    string [] testTypes = {"OK","KO"};
+    
+
+    // When you change the DSL Definition, some of the code below may not work.
+    foreach(TransactionLayer l in this.TransactionModel.TransactionLayers)
+    {      
+        var unitTestableEngines = from inputEngine in l.InputTransactionEngines
+                where inputEngine.HasUnitTests == true
+                select inputEngine;
+
+        foreach (InputTransactionEngine e in unitTestableEngines)
+        {
+            string unitTestPath = path + "\\UnitTest";
+            if(Directory.Exists(unitTestPath) == false) 
+            {
+                Directory.CreateDirectory(unitTestPath);
+            }
+
+            unitTestPath = path + "\\UnitTest\\CustomCode";
+            if(Directory.Exists(unitTestPath) == false) 
+            {
+                Directory.CreateDirectory(unitTestPath);
+            }
+
+            className = "TL"+l.Level+"_"+l.Name.Replace(" ","")+ "_"+e.Name.Replace(" ","")+"_UnitTestInput";
+            engineName= "TL"+l.Level+"_"+l.Name.Replace(" ","")+ "_"+e.Name.Replace(" ","")+"_Engine";
+            mainName= this.TransactionModel.Name.Replace(" ","");
+            facadeName = mainName+"Facade";
+           
+#>	
+    <#=                string.Format(delimiter,"UnitTest\\CustomCode\\"+className) #>
+	using System;
+	using System.Collections.Generic;
+	using System.Text;
+    using TransactionKernelDSL.Framework.V1;
+    using log4net.Config;
+    using log4net;
+    using System.Threading;
+    using System.Diagnostics;    
+<#=                ParserUsingGenerator(e) #>            
+#if DEBUG == true
+namespace <#=                this.TransactionModel.Namespace #>
+{
+    
+    public partial class <#=                className #>
+	{
+        <#
+            foreach(TransactionHandler h in e.TransactionHandlers)
+            {
+                foreach(string testType in testTypes)
+                {
+                #>            
+                public static <#= ParserStructureGenerator(e) #> Unit_<#=                        h.Name.Replace(" ","") #>_<#=                        testType #>_Test()
+                {
+                    <#= ParserStructureGenerator(e) #> testStructure = new <#= ParserStructureGenerator(e) #>(AbstractTransactionParserStructureType.Request<#=                        (String.IsNullOrEmpty(e.ParserSectionName)?"":",\""+e.ParserSectionName+"\"") #>);
+                    throw new NotImplementedException(" Unit_<#=                        h.Name.Replace(" ","") #>_<#=                        testType #>_Test() Must be implemented in order to generate a valid input regarding to the references unit test");
+                    return testStructure;
+                }
+<#
+                }
+            }
+ #>
+	}
+}
+#endif
+<#    
+        }
+
+
+    }
+}
+#>
+<#+
+    private string ParserUsingGenerator(InputTransactionEngine e)
+    {
+       switch(e.Parser)
+        {
+		    case ParserType.NotTyped:
+			case ParserType.PropietaryParser:
+				return "";
+            case ParserType.Meflur:
+            case ParserType.PrefixedMeflur:
+                return "using TransactionKernelDSL.Framework.Parser.Meflur;";
+			default:
+				return "using TransactionKernelDSL.Framework.Parser."+e.Parser.ToString()+";";                                  
+        }
+    }    
+ #>
+<#+
+    private string ParserStructureGenerator(InputTransactionEngine e)
+    {
+        switch(e.Parser)
+        {
+		    case ParserType.NotTyped:
+				return "";
+			case ParserType.PropietaryParser:
+				return "TL"+e.TransactionLayer.Level+"_"+e.TransactionLayer.Name.Replace(" ","")+ "_"+e.Name.Replace(" ","")+"_ParserStructure"; 
+            case ParserType.Meflur:
+            case ParserType.PrefixedMeflur:
+                return "MeflurStructure";
+			default:
+                return e.Parser.ToString() + "Structure";
+        }
+    }
+ #>
+<#+
+    private bool ValidateModel(TransactionModel m)
+    {
+        return (!String.IsNullOrEmpty(m.Name)) && (!String.IsNullOrEmpty(m.Namespace)) && (m.InstanceId > 0);
+    }
+ #>
+
+
+
+
+
+
+

@@ -1,0 +1,97 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="4.0">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>10.0.10318</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{03660FF1-9105-4B6A-879A-C038C0F63B20}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Debugging</RootNamespace>
+    <AssemblyName>Debugging</AssemblyName>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="log4net">
+      <HintPath>packages\log4net.2.0.3\lib\net40-full\log4net.dll</HintPath>
+    </Reference>
+    <Reference Include="nunit.framework, Version=2.6.3.13283, Culture=neutral, PublicKeyToken=96d09a1eb7f44a77, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>packages\NUnit.2.6.3\lib\nunit.framework.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.configuration" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="CorrBancContext.cs" />
+    <Compile Include="CorrBancFacade.cs" />
+    <Compile Include="CustomCode\CorrBancContext_UserCustomizedCode.cs" />
+    <Compile Include="CustomCode\CorrBancFacade_UserCustomizedCode.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="TL0\ListenerLayer\CustomCode\TL0_ListenerLayer_ConsultadeSaldo_Handler_UserCustomizedCode.cs" />
+    <Compile Include="TL0\ListenerLayer\CustomCode\TL0_ListenerLayer_ListenerEngine_EngineUserCustomizedCode.cs" />
+    <Compile Include="TL0\ListenerLayer\TL0_ListenerLayer_ConsultadeSaldo_Handler.cs" />
+    <Compile Include="TL0\ListenerLayer\TL0_ListenerLayer_ListenerEngine_Engine.cs" />
+    <Compile Include="UnitTest\CustomCode\TL0_ListenerLayer_ListenerEngine_UnitTestInput.cs" />
+    <Compile Include="UnitTest\CustomCode\TL0_ListenerLayer_ListenerEngine_UnitTestOutput.cs" />
+    <Compile Include="UnitTest\CustomCode\TL0_ListenerLayer_ListenerEngine_UnitTest_UC.cs" />
+    <Compile Include="UnitTest\TL0_ListenerLayer_ListenerEngine_ProxyUnitTest.cs" />
+    <Compile Include="UnitTest\TL0_ListenerLayer_ListenerEngine_UnitTest.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\Dsl\GeneratedCode\PPayDslSchema.xsd">
+      <Link>PPayDslSchema.xsd</Link>
+      <SubType>
+      </SubType>
+    </None>
+    <None Include="App.config" />
+    <None Include="packages.config" />
+    <None Include="PPayDslReport.t4" />
+    <None Include="TrnxDsl1.TrnxDsl">
+      <Generator>TransactionKernelDSLFrameworkLanguageFileCodeGenerator</Generator>
+      <LastGenOutput>TrnxDsl1.txt</LastGenOutput>
+    </None>
+    <None Include="TrnxDsl1.TrnxDsl.diagram">
+      <DependentUpon>TrnxDsl1.TrnxDsl</DependentUpon>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4df5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Scripts\CorrBancFacade_Script.sql" />
+    <Content Include="Scripts\TL0_ListenerLayer_ListenerEngine_Script.sql" />
+    <Content Include="TrnxDsl1.txt">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>TrnxDsl1.TrnxDsl</DependentUpon>
+    </Content>
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

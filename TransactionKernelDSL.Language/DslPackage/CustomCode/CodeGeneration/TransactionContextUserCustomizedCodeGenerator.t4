@@ -1,0 +1,46 @@
+﻿<#@ template inherits="Microsoft.VisualStudio.TextTemplating.VSHost.ModelingTextTransformation" #>
+<#@ parameter name="delimiter" type="System.String" #>
+<#@ parameter name="path" type="System.String" #>
+<#@ import namespace="System.Diagnostics" #>
+<#@ template language="C#v3.5" #>
+<#@ assembly name="System.Core" #>
+<#@ import namespace="System.Linq" #>
+<#@ import namespace="System.Collections.Generic" #>
+<#@ import namespace="System.IO" #>
+<#@ TrnxDsl processor="TrnxDslDirectiveProcessor" requires="fileName='Test.TrnxDsl'" #>
+<#
+    if(ValidateModel(this.TransactionModel))
+    {
+        string className= this.TransactionModel.Name.Replace(" ","")+"Context";
+        string customCodeLayerPath = path + "\\CustomCode";
+        if(Directory.Exists(customCodeLayerPath) == false) 
+        {
+            Directory.CreateDirectory(customCodeLayerPath);
+        }
+#>
+        <#=
+        string.Format(delimiter,"CustomCode\\"+this.TransactionModel.Name.Replace(" ","") + "Context_UserCustomizedCode")
+        #>
+
+
+using System;
+using System.Collections.Generic;
+using System.Text;
+using TransactionKernelDSL.Framework.V1;
+
+namespace <#=        this.TransactionModel.Namespace #>
+{
+    public partial class <#=        className #> : AbstractTransactionContext
+    {
+       
+    }
+}
+<#
+    }
+#>
+<#+
+    private bool ValidateModel(TransactionModel m)
+    {
+        return (!String.IsNullOrEmpty(m.Name)) && (!String.IsNullOrEmpty(m.Namespace)) && (m.InstanceId > 0);
+    }
+ #>

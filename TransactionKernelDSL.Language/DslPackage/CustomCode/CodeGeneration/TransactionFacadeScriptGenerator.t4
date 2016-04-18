@@ -1,0 +1,546 @@
+﻿<#@ template inherits="Microsoft.VisualStudio.TextTemplating.VSHost.ModelingTextTransformation" #>
+<#@ parameter name="delimiter" type="System.String" #>
+<#@ parameter name="path" type="System.String" #>
+<#@ TrnxDsl processor="TrnxDslDirectiveProcessor" requires="fileName='Test.TrnxDsl'" #>
+<#@ import namespace="System.IO" #>
+<#
+    if(ValidateModel(this.TransactionModel))
+    { 
+       
+     
+        string scriptsPath = path + "\\Scripts";
+        if(Directory.Exists(scriptsPath) == false) 
+        {
+            Directory.CreateDirectory(scriptsPath);
+        }
+
+        string scriptName= this.TransactionModel.Name.Replace(" ","") + "Facade_Script";
+        #>
+            <#=                    string.Format(delimiter,"Scripts\\"+scriptName) #>
+            USE [<#= this.TransactionModel.DatabaseInitialCatalog #>]
+            GO
+        <#=                    ConfigTableGenerator(this.TransactionModel.ScriptVersion) #>
+        <#=                    EnvironmentVariableGenerator(this.TransactionModel, this.TransactionModel.ScriptVersion) #>
+        <#
+        if(this.TransactionModel.GetValueImplementationType == PersistableSourceType.SQLServerDatabase)
+        {
+		#>
+			<#=  GetValueGenerator(this.TransactionModel.ScriptVersion) #>
+        <#
+        }
+        if(this.TransactionModel.SequenceFactoryImplementationType == PersistableSourceType.SQLServerDatabase)
+        {
+        #>
+			<#=  SequenceFactoryGenerator(this.TransactionModel.ScriptVersion) #>
+			
+        <#
+           
+        }
+		#>
+		<#= FacadeConfigValuesGenerator(this.TransactionModel.ScriptVersion) #>
+        <#
+
+    }
+#>
+<#+ 
+	private string SequenceFactoryGenerator(int scriptVersion)
+	{
+		string result = "";
+		switch(scriptVersion)
+        {
+			default:
+            {
+				result+= "IF OBJECT_ID('SequenceFactories') IS NULL \r\n\t";
+				result+= "BEGIN \r\n\t";
+				result+= "CREATE TABLE [SequenceFactories](\r\n\t";
+	            result+= "[SequenceFactoryId] [int] IDENTITY(1,1) NOT NULL,\r\n\t";
+	            result+= "[LastNumber] [int] NOT NULL,\r\n\t";
+	            result+= "[InstanceId] [int] NOT NULL,\r\n\t";
+	            result+= "[MaxNumber] [int] NOT NULL\r\n\t";
+				result+= ") ON [PRIMARY]\r\n\t";
+				result+= "END\r\n\t";
+				result+= "\r\n\t";
+				result+= "  GO\r\n\t";
+				result+= "      \r\n\t";
+				result+= "  IF (EXISTS (SELECT * FROM sysobjects where name='Sp_SequenceFactory'))\r\n\t";
+				result+= "BEGIN\r\n\t";
+	            result+= "DROP PROCEDURE Sp_SequenceFactory\r\n\t";
+				result+= "end\r\n\t";
+				result+= "GO		\r\n\t";
+				result+= "\r\n\t";
+				result+= "-- =============================================\r\n\t";
+				result+= "-- Author:		<TransactionKernelDSL>\r\n\t";
+				result+= "-- Create date: "+DateTime.Now.Day.ToString()+"-"+DateTime.Now.Month.ToString()+"-"+DateTime.Now.Year.ToString() +"\r\n\t";
+				result+= "-- Description:	<Genera un secuenciador para cada componente del sistema>\r\n\t";
+				result+= "-- =============================================\r\n\t";
+				result+= "CREATE PROCEDURE [dbo].[Sp_SequenceFactory]\r\n\t";
+				result+= "( @instanceId		    int\r\n\t";
+				result+= ")\r\n\t";
+				result+= "AS\r\n\t";
+				result+= "BEGIN\r\n\t";
+				result+= "DECLARE @varNewNumber int, @varMaxNumber int\r\n\t";
+				result+= "\r\n\t";
+				result+= "            BEGIN TRANSACTION\r\n\t";
+				result+= "\r\n\t";
+				result+= "            UPDATE SequenceFactories\r\n\t";
+				result+= "            SET @varNewNumber = LastNumber = LastNumber + 1, @varMaxNumber = MaxNumber\r\n\t";
+				result+= "            WHERE instanceId = @instanceId\r\n\t";
+				result+= "\r\n\t";
+				result+= "            if(@varNewNumber > @varMaxNumber)\r\n\t";
+				result+= "            BEGIN\r\n\t";
+				result+= "	            UPDATE SequenceFactories\r\n\t";
+				result+= "	            SET @varNewNumber = LastNumber = 1\r\n\t";
+				result+= "	            WHERE instanceId = @instanceId\r\n\t";
+				result+= "            END\r\n\t";
+				result+= "\r\n\t";
+				result+= "            SELECT @varNewNumber\r\n\t";
+				result+= "\r\n\t";
+				result+= "    COMMIT TRANSACTION\r\n\t";
+				result+= "\r\n\t";
+				result+= "END\r\n\t";
+				result+= "\r\n\t";
+				result+= "GO\r\n\t";
+				result+= "\r\n\t";
+				result+= "IF NOT EXISTS (SELECT * FROM SequenceFactories\r\n\t";
+				result+= "WHERE instanceId = "+ this.TransactionModel.InstanceId +")\r\n\t";
+				result+= "BEGIN\r\n\t";
+				result+= "        INSERT INTO [SequenceFactories]\r\n\t";
+				result+= "	               ([LastNumber]\r\n\t";
+				result+= "	               ,[InstanceId]\r\n\t";
+				result+= "	               ,[MaxNumber])\r\n\t";
+				result+= "             VALUES\r\n\t";
+				result+= "	               (1\r\n\t";
+				result+= "	               ,"+this.TransactionModel.InstanceId +"\r\n\t";
+				result+= "	               ,999999)\r\n\t";
+				result+= "END\r\n\t";
+				result+= "\r\n\t";
+				result+= "GO\r\n\t";
+            }
+			break;
+			case 2:
+            {
+				result+= "IF OBJECT_ID('FabricaDeSecuencias') IS NULL \r\n\t";
+				result+= "BEGIN \r\n\t";
+				result+= "CREATE TABLE [FabricaDeSecuencias](\r\n\t";
+	            result+= "[Id] [int] IDENTITY(1,1) NOT NULL,\r\n\t";
+	            result+= "[UltimoNumero] [int] NOT NULL,\r\n\t";
+	            result+= "[Instancia] [int] NOT NULL,\r\n\t";
+	            result+= "[Maximo] [int] NOT NULL\r\n\t";
+				result+= ") ON [PRIMARY]\r\n\t";
+				result+= "END\r\n\t";
+				result+= "\r\n\t";
+				result+= "  GO\r\n\t";
+				result+= "      \r\n\t";
+				result+= "  IF (EXISTS (SELECT * FROM sysobjects where name='Sp_SequenceFactory'))\r\n\t";
+				result+= "BEGIN\r\n\t";
+	            result+= "DROP PROCEDURE Sp_SequenceFactory\r\n\t";
+				result+= "end\r\n\t";
+				result+= "GO		\r\n\t";
+				result+= "\r\n\t";
+				result+= "-- =============================================\r\n\t";
+				result+= "-- Author:		<TransactionKernelDSL>\r\n\t";
+				result+= "-- Create date: "+DateTime.Now.Day.ToString()+"-"+DateTime.Now.Month.ToString()+"-"+DateTime.Now.Year.ToString() +"\r\n\t";
+				result+= "-- Description:	<Genera un secuenciador para cada componente del sistema>\r\n\t";
+				result+= "-- =============================================\r\n\t";
+				result+= "CREATE PROCEDURE [dbo].[Sp_SequenceFactory]\r\n\t";
+				result+= "( @instanceId		    int\r\n\t";
+				result+= ")\r\n\t";
+				result+= "AS\r\n\t";
+				result+= "BEGIN\r\n\t";
+				result+= "DECLARE @varNewNumber int, @varMaxNumber int\r\n\t";
+				result+= "\r\n\t";
+				result+= "            BEGIN TRANSACTION\r\n\t";
+				result+= "\r\n\t";
+				result+= "            UPDATE FabricaDeSecuencias\r\n\t";
+				result+= "            SET @varNewNumber = UltimoNumero = UltimoNumero + 1, @varMaxNumber = Maximo\r\n\t";
+				result+= "            WHERE Instancia = @instanceId\r\n\t";
+				result+= "\r\n\t";
+				result+= "            if(@varNewNumber > @varMaxNumber)\r\n\t";
+				result+= "            BEGIN\r\n\t";
+				result+= "	            UPDATE FabricaDeSecuencias\r\n\t";
+				result+= "	            SET @varNewNumber = UltimoNumero = 1\r\n\t";
+				result+= "	            WHERE Instancia = @instanceId\r\n\t";
+				result+= "            END\r\n\t";
+				result+= "\r\n\t";
+				result+= "            SELECT @varNewNumber\r\n\t";
+				result+= "\r\n\t";
+				result+= "    COMMIT TRANSACTION\r\n\t";
+				result+= "\r\n\t";
+				result+= "END\r\n\t";
+				result+= "\r\n\t";
+				result+= "GO\r\n\t";
+				result+= "\r\n\t";
+				result+= "IF NOT EXISTS (SELECT * FROM SequenceFactories\r\n\t";
+				result+= "WHERE instanceId = "+ this.TransactionModel.InstanceId +")\r\n\t";
+				result+= "BEGIN\r\n\t";
+				result+= "        INSERT INTO [FabricaDeSecuencias]\r\n\t";
+				result+= "	               ([UltimoNumero]\r\n\t";
+				result+= "	               ,[Instancia]\r\n\t";
+				result+= "	               ,[Maximo])\r\n\t";
+				result+= "             VALUES\r\n\t";
+				result+= "	               (1\r\n\t";
+				result+= "	               ,"+this.TransactionModel.InstanceId +"\r\n\t";
+				result+= "	               ,999999)\r\n\t";
+				result+= "END\r\n\t";
+				result+= "\r\n\t";
+				result+= "GO\r\n\t";
+            }
+			break;
+        }
+		return result;
+    }
+ #>
+<#+ 
+	private string GetValueGenerator(int scriptVersion)
+	{
+		string result = "";
+		switch(scriptVersion)
+        {
+			default:
+            {
+			result += "IF (EXISTS (SELECT * FROM sysobjects where name='Sp_GetValue')) \r\n\t";
+            result += "BEGIN \r\n\t";
+	        result +=     "DROP PROCEDURE Sp_GetValue \r\n\t";
+            result += "end \r\n\t";
+            result += "GO		\r\n\t";
+			result += " \r\n\t";
+            result += "-- =============================================\r\n\t";
+            result += "-- Author:		<TransactionKernelDSL>\r\n\t";
+            result += "-- Create date: "+DateTime.Now.Day.ToString()+"-"+DateTime.Now.Month.ToString()+"-"+DateTime.Now.Year.ToString()+"\r\n\t";
+            result += "-- Description:	<Obtiene un valor de una tabla de configuracion>\r\n\t";
+            result += "-- =============================================\r\n\t";
+            result += "CREATE PROCEDURE [Sp_GetValue]\r\n\t";
+            result += "(\r\n\t";
+	        result += "    @cfg_instancia int = 0,\r\n\t";
+	        result += "    @cfg_seccion varchar(100),\r\n\t";
+	        result += "    @cfg_clave varchar(100) = NULL\r\n\t";
+            result += ")\r\n\t";
+            result += "AS\r\n\t";
+			result += "\r\n\t";
+            result += "IF @cfg_clave IS NULL\r\n\t";
+            result += "BEGIN\r\n\t";
+			result += "\r\n\t";
+		    result += "        SELECT cfg_numero, cfg_cadena\r\n\t";
+		    result += "        FROM CONFIGURACION with (nolock)\r\n\t";
+		    result += "        WHERE cfg_instancia = @cfg_instancia\r\n\t";
+		    result += "        AND cfg_seccion = @cfg_seccion\r\n\t";		
+            result += "END\r\n\t";
+            result += "ELSE\r\n\t";
+            result += "BEGIN\r\n\t";
+			result += "\r\n\t";
+		    result += "        SELECT cfg_numero, cfg_cadena\r\n\t";
+		    result += "        FROM CONFIGURACION with (nolock)\r\n\t";
+		    result += "        WHERE cfg_instancia = @cfg_instancia\r\n\t";
+		    result += "        AND cfg_seccion = @cfg_seccion\r\n\t";
+		    result += "        AND cfg_clave = @cfg_clave\r\n\t";
+			result += "\r\n\t";
+			result += "\r\n\t";
+            result += "END\r\n\t";
+            result += "\r\n\t";
+            result += "GO\r\n\t";
+            }
+			break;
+			case 2:
+            {
+				result += "IF (EXISTS (SELECT * FROM sysobjects where name='Sp_GetValue')) \r\n\t";
+				result += "BEGIN \r\n\t";
+				result +=     "DROP PROCEDURE Sp_GetValue \r\n\t";
+				result += "end \r\n\t";
+				result += "GO		\r\n\t";
+				result += " \r\n\t";
+				result += "-- =============================================\r\n\t";
+				result += "-- Author:		<TransactionKernelDSL>\r\n\t";
+				result += "-- Create date: "+DateTime.Now.Day.ToString()+"-"+DateTime.Now.Month.ToString()+"-"+DateTime.Now.Year.ToString()+"\r\n\t";
+				result += "-- Description:	<Obtiene un valor de una tabla de configuracion>\r\n\t";
+				result += "-- =============================================\r\n\t";
+				result += "CREATE PROCEDURE [Sp_GetValue]\r\n\t";
+				result += "(\r\n\t";
+				result += "    @cfg_instancia int = 0,\r\n\t";
+				result += "    @cfg_seccion varchar(100),\r\n\t";
+				result += "    @cfg_clave varchar(100) = NULL\r\n\t";
+				result += ")\r\n\t";
+				result += "AS\r\n\t";
+				result += "\r\n\t";
+				result += "IF @cfg_clave IS NULL\r\n\t";
+				result += "BEGIN\r\n\t";
+				result += "\r\n\t";
+				result += "        SELECT Numero, Cadena\r\n\t";
+				result += "        FROM CONFIGURACIONES with (nolock)\r\n\t";
+				result += "        WHERE Instancia = @cfg_instancia\r\n\t";
+				result += "        AND Seccion = @cfg_seccion\r\n\t";		
+				result += "END\r\n\t";
+				result += "ELSE\r\n\t";
+				result += "BEGIN\r\n\t";
+				result += "\r\n\t";
+				result += "        SELECT Numero, Cadena\r\n\t";
+				result += "        FROM CONFIGURACIONES with (nolock)\r\n\t";
+				result += "        WHERE Instancia = @cfg_instancia\r\n\t";
+				result += "        AND Seccion = @cfg_seccion\r\n\t";
+				result += "        AND Clave = @cfg_clave\r\n\t";
+				result += "\r\n\t";
+				result += "\r\n\t";
+				result += "END\r\n\t";
+				result += "\r\n\t";
+				result += "GO\r\n\t";
+            }
+			break;
+        }
+
+		return result;
+	}
+
+ #>
+<#+
+    private string EnvironmentVariableGenerator(TransactionModel m, int scriptVersion)
+    {
+        string result= "";
+        if(m.TransactionEnvironmentLayer != null)
+        {
+			switch(scriptVersion)
+            {
+				default:
+                {
+						foreach(TransactionEnvironmentSQLServerVariable v in m.TransactionEnvironmentLayer.TransactionEnvironmentSQLServerVariables)
+						{
+							result += "IF NOT EXISTS (SELECT cfg_instancia FROM CONFIGURACION WHERE cfg_seccion = '"+this.TransactionModel.Name.Replace(" ","")+".General' and cfg_clave = '"+m.Name.Replace(" ","")+"_"+v.Name.Replace(" ","")+"' and cfg_instancia = "+this.TransactionModel.InstanceId+") \r\n\t";
+							result += "BEGIN \r\n\t";
+							result += "INSERT INTO [CONFIGURACION] \r\n\t";
+							result += "  ([cfg_instancia] \r\n\t";
+							result += "  ,[cfg_seccion] \r\n\t";
+							result += "  ,[cfg_clave] \r\n\t";
+							result += "  ,[cfg_numero] \r\n\t";
+							result += "  ,[cfg_cadena] \r\n\t";
+							result += "  ,[cfg_descripcion]) \r\n\t";
+							result += " VALUES \r\n\t";
+							result += " ("+m.InstanceId+"\r\n\t";
+							result += " ,'"+this.TransactionModel.Name.Replace(" ","")+".General'\r\n\t";
+							result += " ,'"+m.Name.Replace(" ","")+"_"+v.Name.Replace(" ","")+"'\r\n\t";                    
+							result += " ,NULL\r\n\t";                    
+							result += " ,'"+v.DefaultValue+"'\r\n\t";                    
+							result += " ,'Environment variable')\r\n\t";        
+							result += "END \r\n\t";  
+          
+						}
+                }
+				break;
+				case 2:
+                {
+						foreach(TransactionEnvironmentSQLServerVariable v in m.TransactionEnvironmentLayer.TransactionEnvironmentSQLServerVariables)
+						{
+							result += "IF NOT EXISTS (SELECT Instancia FROM Configuraciones WHERE Seccion = '"+this.TransactionModel.Name.Replace(" ","")+".General' and Clave = '"+m.Name.Replace(" ","")+"_"+v.Name.Replace(" ","")+"' and Instancia = "+this.TransactionModel.InstanceId+") \r\n\t";
+							result += "BEGIN \r\n\t";
+							result += "INSERT INTO [Configuraciones] \r\n\t";
+							result += "  ([Instancia] \r\n\t";
+							result += "  ,[Seccion] \r\n\t";
+							result += "  ,[Clave] \r\n\t";
+							result += "  ,[Numero] \r\n\t";
+							result += "  ,[Cadena] \r\n\t";
+							result += "  ,[Descripcion]) \r\n\t";
+							result += " VALUES \r\n\t";
+							result += " ("+m.InstanceId+"\r\n\t";
+							result += " ,'"+this.TransactionModel.Name.Replace(" ","")+".General'\r\n\t";
+							result += " ,'"+m.Name.Replace(" ","")+"_"+v.Name.Replace(" ","")+"'\r\n\t";                    
+							result += " ,NULL\r\n\t";                    
+							result += " ,'"+v.DefaultValue+"'\r\n\t";                    
+							result += " ,'Environment variable')\r\n\t";        
+							result += "END \r\n\t";  
+          
+						}
+                }
+				break;
+            }
+          
+        }
+        return result;
+    }
+ #>
+<#+
+    private bool ValidateModel(TransactionModel m)
+    {
+        return (!String.IsNullOrEmpty(m.Name)) && (!String.IsNullOrEmpty(m.Namespace)) && (m.InstanceId > 0);
+    }
+ #>
+<#+
+    private string ConfigTableGenerator(int scriptVersion)
+    {
+        string result= "";
+        switch(scriptVersion)
+        {
+			default:
+            {
+				    result+= " IF OBJECT_ID('CONFIGURACION') IS NULL \r\n\t";
+					result+= " BEGIN \r\n\t";
+					result+= " CREATE TABLE [dbo].[CONFIGURACION]( \r\n\t";
+					result+= " [cfg_instancia] [int] NOT NULL DEFAULT ((0)), \r\n\t";
+					result+= "  [cfg_seccion] [varchar](100) NOT NULL, \r\n\t";
+					result+= "  [cfg_clave] [varchar](100) NOT NULL, \r\n\t";
+					result+= "  [cfg_numero] [int] NULL, \r\n\t";
+					result+= "  [cfg_cadena] [varchar](1000) NULL, \r\n\t";
+					result+= "  [cfg_descripcion] [varchar](255) NULL, \r\n\t";
+					result+= "  CONSTRAINT [XPKCONFIGURACION] PRIMARY KEY CLUSTERED  \r\n\t";
+					result+= "  ( \r\n\t";
+					result+= "  [cfg_instancia] ASC, \r\n\t";
+					result+= "  [cfg_seccion] ASC, \r\n\t";
+					result+= "  [cfg_clave] ASC \r\n\t";
+					result+= "  ) \r\n\t";
+					result+= "  WITH (PAD_INDEX  = OFF, STATISTICS_NORECOMPUTE  = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS  = ON, ALLOW_PAGE_LOCKS  = ON) ON [PRIMARY] \r\n\t";
+					result+= "  ) ON [PRIMARY] \r\n\t";
+					result+= "  END \r\n\t";
+            }
+			break;
+			case 2:
+            {
+					result+= " IF OBJECT_ID('CONFIGURACION') IS NULL \r\n\t";
+					result+= " BEGIN \r\n\t";
+					result+="CREATE TABLE [dbo].[Configuraciones](  \r\n\t";
+					result+="[Instancia] [int] NOT NULL DEFAULT ((0)),  \r\n\t";
+					result+="[Seccion] [varchar](1000) NOT NULL,  \r\n\t";
+					result+="[Clave] [varchar](1000) NOT NULL,  \r\n\t";
+					result+="[Numero] [int] NULL,  \r\n\t";
+					result+="[Cadena] [varchar](1000) NULL, \r\n\t";
+					result+="[Descripcion] [varchar](255) NULL,  \r\n\t";
+				    result+="CONSTRAINT [XPKConfiguraciones] PRIMARY KEY CLUSTERED   \r\n\t";
+					result+="(  \r\n\t";
+					result+="	[Instancia] ASC,  \r\n\t";
+					result+="	[Seccion] ASC,  \r\n\t";
+					result+="	[Clave] ASC  \r\n\t";
+					result+=")WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]  \r\n\t";
+					result+=") ON [PRIMARY]  \r\n\t";
+					result+= "  END \r\n\t";
+            }
+				break;
+        }
+    
+      
+        return result;
+    }
+ #>
+<#+
+    private string FacadeConfigValuesGenerator(int scriptVersion)
+    {
+		string result = "";
+		switch(scriptVersion)
+        {
+			default:
+            {
+				    result += "IF NOT EXISTS (SELECT cfg_instancia FROM CONFIGURACION WHERE cfg_seccion = '"+this.TransactionModel.Name.Replace(" ","")+".General' and cfg_clave = 'TelnetLoggerOn' and cfg_instancia = "+this.TransactionModel.InstanceId+") \r\n\t";
+					result += "BEGIN \r\n\t";
+					result += "INSERT INTO [CONFIGURACION] \r\n\t";
+					result += "  ([cfg_instancia] \r\n\t";
+					result += "  ,[cfg_seccion] \r\n\t";
+					result += "  ,[cfg_clave] \r\n\t";
+					result += "  ,[cfg_numero] \r\n\t";
+					result += "  ,[cfg_cadena] \r\n\t";
+					result += "  ,[cfg_descripcion]) \r\n\t";
+					result += " VALUES \r\n\t";
+					result += " ("+this.TransactionModel.InstanceId+"\r\n\t";
+					result += " ,'"+this.TransactionModel.Name.Replace(" ","")+".General'\r\n\t";
+					result += " ,'TelnetLoggerOn'\r\n\t";                    
+					result += " ,NULL\r\n\t";                    
+					result += " ,'False'\r\n\t";                    
+					result += " ,'Enables a telnet logger on port 231"+this.TransactionModel.InstanceId.ToString().PadLeft(2,'0')+"')\r\n\t";        
+					result += "END \r\n\t";  
+
+					result += "IF NOT EXISTS (SELECT cfg_instancia FROM CONFIGURACION WHERE cfg_seccion = '"+this.TransactionModel.Name.Replace(" ","")+".General' and cfg_clave = 'LogDirectory' and cfg_instancia = "+this.TransactionModel.InstanceId+") \r\n\t";
+					result += "BEGIN \r\n\t";
+					result += "INSERT INTO [CONFIGURACION] \r\n\t";
+					result += "  ([cfg_instancia] \r\n\t";
+					result += "  ,[cfg_seccion] \r\n\t";
+					result += "  ,[cfg_clave] \r\n\t";
+					result += "  ,[cfg_numero] \r\n\t";
+					result += "  ,[cfg_cadena] \r\n\t";
+					result += "  ,[cfg_descripcion]) \r\n\t";
+					result += " VALUES \r\n\t";
+					result += " ("+this.TransactionModel.InstanceId+"\r\n\t";
+					result += " ,'"+this.TransactionModel.Name.Replace(" ","")+".General'\r\n\t";
+					result += " ,'LogDirectory'\r\n\t";                    
+					result += " ,NULL\r\n\t";                    
+					result += " ,'C:\\Logs\\"+this.TransactionModel.Name.Replace(" ","")+"'\r\n\t";                    
+					result += " ,'Directory where logger will be writing to')\r\n\t";        
+					result += "END \r\n\t";  
+
+					result += "IF NOT EXISTS (SELECT cfg_instancia FROM CONFIGURACION WHERE cfg_seccion = '"+this.TransactionModel.Name.Replace(" ","")+".General' and cfg_clave = 'LogPrefix' and cfg_instancia = "+this.TransactionModel.InstanceId+") \r\n\t";
+					result += "BEGIN \r\n\t";
+					result += "INSERT INTO [CONFIGURACION] \r\n\t";
+					result += "  ([cfg_instancia] \r\n\t";
+					result += "  ,[cfg_seccion] \r\n\t";
+					result += "  ,[cfg_clave] \r\n\t";
+					result += "  ,[cfg_numero] \r\n\t";
+					result += "  ,[cfg_cadena] \r\n\t";
+					result += "  ,[cfg_descripcion]) \r\n\t";
+					result += " VALUES \r\n\t";
+					result += " ("+this.TransactionModel.InstanceId+"\r\n\t";
+					result += " ,'"+this.TransactionModel.Name.Replace(" ","")+".General'\r\n\t";
+					result += " ,'LogPrefix'\r\n\t";                    
+					result += " ,NULL\r\n\t";                    
+					result += " ,'"+this.TransactionModel.Name.Replace(" ","")+"MainLogger'\r\n\t";                    
+					result += " ,'Prefix of MainLogger files')\r\n\t";        
+					result += "END \r\n\t";  
+            }
+			break;
+			case 2:
+            {
+					result += "IF NOT EXISTS (SELECT Instancia FROM Configuraciones WHERE Seccion = '"+this.TransactionModel.Name.Replace(" ","")+".General' and Clave = 'TelnetLoggerOn' and Instancia = "+this.TransactionModel.InstanceId+") \r\n\t";
+					result += "BEGIN \r\n\t";
+					result += "INSERT INTO [Configuraciones] \r\n\t";
+					result += "  ([Instancia] \r\n\t";
+					result += "  ,[Seccion] \r\n\t";
+					result += "  ,[Clave] \r\n\t";
+					result += "  ,[Numero] \r\n\t";
+					result += "  ,[cadena] \r\n\t";
+					result += "  ,[Descripcion]) \r\n\t";
+					result += " VALUES \r\n\t";
+					result += " ("+this.TransactionModel.InstanceId+"\r\n\t";
+					result += " ,'"+this.TransactionModel.Name.Replace(" ","")+".General'\r\n\t";
+					result += " ,'TelnetLoggerOn'\r\n\t";                    
+					result += " ,NULL\r\n\t";                    
+					result += " ,'False'\r\n\t";                    
+					result += " ,'Enables a telnet logger on port 231"+this.TransactionModel.InstanceId.ToString().PadLeft(2,'0')+"')\r\n\t";        
+					result += "END \r\n\t";  
+
+					result += "IF NOT EXISTS (SELECT Instancia FROM Configuraciones WHERE Seccion = '"+this.TransactionModel.Name.Replace(" ","")+".General' and Clave = 'LogDirectory' and Instancia = "+this.TransactionModel.InstanceId+") \r\n\t";
+					result += "BEGIN \r\n\t";
+					result += "INSERT INTO [Configuraciones] \r\n\t";
+					result += "  ([Instancia] \r\n\t";
+					result += "  ,[Seccion] \r\n\t";
+					result += "  ,[Clave] \r\n\t";
+					result += "  ,[Numero] \r\n\t";
+					result += "  ,[cadena] \r\n\t";
+					result += "  ,[Descripcion]) \r\n\t";
+					result += " VALUES \r\n\t";
+					result += " ("+this.TransactionModel.InstanceId+"\r\n\t";
+					result += " ,'"+this.TransactionModel.Name.Replace(" ","")+".General'\r\n\t";
+					result += " ,'LogDirectory'\r\n\t";                    
+					result += " ,NULL\r\n\t";                    
+					result += " ,'C:\\Logs\\"+this.TransactionModel.Name.Replace(" ","")+"'\r\n\t";                    
+					result += " ,'Directory where logger will be writing to')\r\n\t";        
+					result += "END \r\n\t";  
+
+					result += "IF NOT EXISTS (SELECT Instancia FROM Configuraciones WHERE Seccion = '"+this.TransactionModel.Name.Replace(" ","")+".General' and Clave = 'LogPrefix' and Instancia = "+this.TransactionModel.InstanceId+") \r\n\t";
+					result += "BEGIN \r\n\t";
+					result += "INSERT INTO [Configuraciones] \r\n\t";
+					result += "  ([Instancia] \r\n\t";
+					result += "  ,[Seccion] \r\n\t";
+					result += "  ,[Clave] \r\n\t";
+					result += "  ,[Numero] \r\n\t";
+					result += "  ,[cadena] \r\n\t";
+					result += "  ,[Descripcion]) \r\n\t";
+					result += " VALUES \r\n\t";
+					result += " ("+this.TransactionModel.InstanceId+"\r\n\t";
+					result += " ,'"+this.TransactionModel.Name.Replace(" ","")+".General'\r\n\t";
+					result += " ,'LogPrefix'\r\n\t";                    
+					result += " ,NULL\r\n\t";                    
+					result += " ,'"+this.TransactionModel.Name.Replace(" ","")+"MainLogger'\r\n\t";                    
+					result += " ,'Prefix of MainLogger files')\r\n\t";        
+					result += "END \r\n\t";  
+            }
+			break;
+        }
+       
+
+      
+
+        return result;
+    }
+ #>
+
