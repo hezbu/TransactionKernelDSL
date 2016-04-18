@@ -1,0 +1,14 @@
+/TransactionKernelDSL.Framework/bin/*
+/TransactionKernelDSL.Framework/obj/*
+/TransactionKernelDSL.Framework.Parser.Beltran/bin/*
+/TransactionKernelDSL.Framework.Parser.Beltran/obj/*
+/TransactionKernelDSL.Framework.Parser.Iso8583/bin/*
+/TransactionKernelDSL.Framework.Parser.Iso8583/obj/*
+/TransactionKernelDSL.Framework.Parser.Iso8583B24/bin/*
+/TransactionKernelDSL.Framework.Parser.Iso8583B24/obj/*
+/TransactionKernelDSL.Framework.Parser.Meflur/bin/*
+/TransactionKernelDSL.Framework.Parser.Meflur/obj/*
+/TransactionKernelDSL.Framework.Test/bin/*
+/TransactionKernelDSL.Framework.Test/obj/*
+/TransactionKernelDSL.Framework.UnitTests/bin/*
+/TransactionKernelDSL.Framework.UnitTests/obj/*
