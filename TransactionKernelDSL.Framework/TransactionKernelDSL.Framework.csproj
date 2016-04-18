@@ -58,7 +58,6 @@
     <Compile Include="V1\AbstractTcpTriggeredSocketReusableMultiThreadedInputEngine.cs" />
     <Compile Include="V1\AbstractThreadedInputTransactionEngine.cs" />
     <Compile Include="V1\AbstractTcpTriggeredMultiThreadedInputTransactionEngine.cs" />
-    <Compile Include="Test\TestEngine.cs" />
     <Compile Include="V1\AbstractTimeTriggeredInputTransactionEngine.cs" />
     <Compile Include="V1\AbstractTransactionContext.cs" />
     <Compile Include="V1\AbstractTransactionEngine.cs" />
@@ -75,13 +74,14 @@
     <Compile Include="V1\AbstractTransactionParserSubfield.cs" />
     <Compile Include="V1\AbstractTransactionStub.cs" />
     <Compile Include="V1\FrameworkEnums.cs" />
+    <Compile Include="V2\Interfaces\ITransactionFacade.cs" />
     <Compile Include="V1\ITransactionParserCommunicable.cs" />
     <Compile Include="V1\ITransactionHandlerForwardable.cs" />
     <Compile Include="V1\ITransactionHandlerListenable.cs" />
     <Compile Include="V1\ITransactionParserAssembleable.cs" />
     <Compile Include="V1\ITransactionHandlerMaintanceable.cs" />
     <Compile Include="V1\ITransactionHandlerPersistable.cs" />
-    <Compile Include="V2\AbstractTransactionClearing.cs" />
+    <Compile Include="V1\AbstractTransactionClearing.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Properties\Resources.resx">

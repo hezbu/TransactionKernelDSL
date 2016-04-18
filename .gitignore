@@ -12,3 +12,9 @@
 /TransactionKernelDSL.Framework.Test/obj/*
 /TransactionKernelDSL.Framework.UnitTests/bin/*
 /TransactionKernelDSL.Framework.UnitTests/obj/*
+/TransactionKernelDSL.Language/Debugging/bin/*
+/TransactionKernelDSL.Language/Debugging/obj/*
+/TransactionKernelDSL.Language/Dsl/bin/*
+/TransactionKernelDSL.Language/Dsl/obj/*
+/TransactionKernelDSL.Language/DslPackage/bin/*
+/TransactionKernelDSL.Language/DslPackage/obj/*

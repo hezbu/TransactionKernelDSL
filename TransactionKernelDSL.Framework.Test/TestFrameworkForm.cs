@@ -18,13 +18,7 @@ namespace TransactionKernelDSL.Framework.Test
 
         private void TestButton_Click(object sender, EventArgs e)
         {
-            TestEngine eng = (TestEngine.Instance as TestEngine);
-
-            eng.Start();
-			/// Kumar
-			/// Lenin
-            Thread.Sleep(2000);
-            eng.Stop();
+           
         }
     }
 }
