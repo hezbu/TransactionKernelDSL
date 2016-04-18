@@ -82,6 +82,7 @@
     <Compile Include="V1\ITransactionHandlerMaintanceable.cs" />
     <Compile Include="V1\ITransactionHandlerPersistable.cs" />
     <Compile Include="V1\AbstractTransactionClearing.cs" />
+    <Compile Include="V2\TransactionKernelTools.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Properties\Resources.resx">
@@ -91,6 +92,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Modeling\" />
+    <Folder Include="V2\Exceptions\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
