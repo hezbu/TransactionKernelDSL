@@ -74,6 +74,9 @@
     <Compile Include="V1\AbstractTransactionParserSubfield.cs" />
     <Compile Include="V1\AbstractTransactionStub.cs" />
     <Compile Include="V1\FrameworkEnums.cs" />
+    <Compile Include="V2\BaseClasses\BaseTransactionEngine.cs" />
+    <Compile Include="V2\BaseClasses\BaseTransactionFacade.cs" />
+    <Compile Include="V2\Interfaces\ITransactionEngine.cs" />
     <Compile Include="V2\Interfaces\ITransactionFacade.cs" />
     <Compile Include="V1\ITransactionParserCommunicable.cs" />
     <Compile Include="V1\ITransactionHandlerForwardable.cs" />

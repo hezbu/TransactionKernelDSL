@@ -50,8 +50,11 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
+    <Compile Include="Engines\EnginesUnitTest.cs" />
+    <Compile Include="Engines\Mocks\MockBasedEngine.cs" />
+    <Compile Include="Engines\Mocks\MockInterfacedEngine.cs" />
     <Compile Include="Facade\FacadeUnitTest.cs" />
-    <Compile Include="Facade\Mocks\MockFacade.cs" />
+    <Compile Include="Facade\Mocks\MockInterfacedFacade.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TransactionKernelTools\UnitTest1.cs" />
   </ItemGroup>
@@ -61,6 +64,7 @@
       <Name>TransactionKernelDSL.Framework</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">
       <ItemGroup>

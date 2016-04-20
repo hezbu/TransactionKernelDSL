@@ -9,14 +9,19 @@ namespace TransactionKernelDSL.Framework.UnitTests.Facade
     public class FacadeUnitTest
     {
         [TestMethod]
-        public void CanInstantiateMockFacade()
+        public void CanInstantiateMockInterfacedFacade()
         {
-            ITransactionFacade facade = MockFacade.Factory.Build();
+            ITransactionFacade facade = MockInterfacedFacade.Factory.Build();
            
            
             Assert.AreEqual(facade.StartEngines(), true);
             Assert.AreEqual(facade.StopEngines(), true);
 
+        }
+
+        [TestMethod]
+        public void CanInstantiateMockBasedFacade()
+        {
         }
     }
 }
