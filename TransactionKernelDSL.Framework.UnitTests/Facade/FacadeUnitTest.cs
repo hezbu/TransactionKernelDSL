@@ -11,9 +11,9 @@ namespace TransactionKernelDSL.Framework.UnitTests.Facade
         [TestMethod]
         public void CanInstantiateMockFacade()
         {
-            ITransactionFacade facade = new MockFacade();
-            
-            Assert.AreEqual(facade.InstanceId, 99);
+            ITransactionFacade facade = MockFacade.Factory.Build();
+           
+           
             Assert.AreEqual(facade.StartEngines(), true);
             Assert.AreEqual(facade.StopEngines(), true);
 
