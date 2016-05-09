@@ -69,7 +69,8 @@ namespace <#=                this.TransactionModel.Namespace #>
                 #>            
                 public static <#= ParserStructureGenerator(e) #> Unit_<#=                        h.Name.Replace(" ","") #>_<#=                        testType #>_Test()
                 {
-                    <#= ParserStructureGenerator(e) #> testStructure = new <#= ParserStructureGenerator(e) #>(AbstractTransactionParserStructureType.Request<#=                        (String.IsNullOrEmpty(e.ParserSectionName)?"":",\""+e.ParserSectionName+"\"") #>);
+                   
+				    <#= ParserStructureGenerator(e) #> testStructure = new <#= ParserStructureGenerator(e) #><#= ParserStructureCtorGenerator(e) #>
                     throw new NotImplementedException(" Unit_<#=                        h.Name.Replace(" ","") #>_<#=                        testType #>_Test() Must be implemented in order to generate a valid input regarding to the references unit test");
                     return testStructure;
                 }
@@ -117,6 +118,18 @@ namespace <#=                this.TransactionModel.Namespace #>
                 return "MeflurStructure";
 			default:
                 return e.Parser.ToString() + "Structure";
+        }
+    }
+ #>
+<#+
+    private string ParserStructureCtorGenerator(InputTransactionEngine e)
+    {
+        switch(e.Parser)
+        {
+			case ParserType.PropietaryParser:
+				return "TL"+e.TransactionLayer.Level+"_"+e.TransactionLayer.Name.Replace(" ","")+ "_"+e.Name.Replace(" ","")+"_ParserStructure();"; 
+			default:
+                return "(AbstractTransactionParserStructureType.Request"+(String.IsNullOrEmpty(e.ParserSectionName)? "": ",\""+e.ParserSectionName+"\");");
         }
     }
  #>

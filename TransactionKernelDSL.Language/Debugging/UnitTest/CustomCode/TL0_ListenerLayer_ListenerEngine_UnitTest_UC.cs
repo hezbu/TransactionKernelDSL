@@ -11,9 +11,9 @@
 using System.Net.Sockets; 
 	 using System.Net; 
 	
-using TransactionKernelDSL.Framework.Parser.Iso8583;            
+            
 #if DEBUG == true
-namespace PDS.Switch.CorrBanc
+namespace PDS.Switch.PDSNet
 {
     [TestFixture]
     public partial class TL0_ListenerLayer_ListenerEngine_UnitTest

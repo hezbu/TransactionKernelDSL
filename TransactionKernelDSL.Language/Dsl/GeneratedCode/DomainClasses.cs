@@ -1083,6 +1083,11 @@ namespace TransactionKernelDSL.Framework.Language
 			{
 				DslModeling::DomainClassInfo rootElementDomainInfo = this.Partition.DomainDataDirectory.GetDomainClass(rootElement.DomainClassId);
 				
+				if (rootElementDomainInfo.IsDerivedFrom(global::TransactionKernelDSL.Framework.Language.TransactionLayer.DomainClassId)) 
+				{
+					return true;
+				}
+				
 				if (rootElementDomainInfo.IsDerivedFrom(global::TransactionKernelDSL.Framework.Language.TransactionEnvironmentLayer.DomainClassId)) 
 				{
 					// Check that creating a link with this path doesn't cause multiplicity overflow: TransactionModelHasTransactionEnvironmentLayer.TransactionEnvironmentLayer
@@ -1090,11 +1095,6 @@ namespace TransactionKernelDSL.Framework.Language
 					{
 						return false;
 					}
-					return true;
-				}
-				
-				if (rootElementDomainInfo.IsDerivedFrom(global::TransactionKernelDSL.Framework.Language.TransactionLayer.DomainClassId)) 
-				{
 					return true;
 				}
 			}
@@ -1122,20 +1122,20 @@ namespace TransactionKernelDSL.Framework.Language
 			if ( sourceElement == null ) throw new global::System.ArgumentNullException("sourceElement");
 		
 				
-			global::TransactionKernelDSL.Framework.Language.TransactionEnvironmentLayer sourceTransactionEnvironmentLayer1 = sourceElement as global::TransactionKernelDSL.Framework.Language.TransactionEnvironmentLayer;
-			if (sourceTransactionEnvironmentLayer1 != null)
+			global::TransactionKernelDSL.Framework.Language.TransactionLayer sourceTransactionLayer1 = sourceElement as global::TransactionKernelDSL.Framework.Language.TransactionLayer;
+			if (sourceTransactionLayer1 != null)
 			{
-				// Create link for path TransactionModelHasTransactionEnvironmentLayer.TransactionEnvironmentLayer
-				this.TransactionEnvironmentLayer = sourceTransactionEnvironmentLayer1;
+				// Create link for path TransactionModelHasTransactionLayers.TransactionLayers
+				this.TransactionLayers.Add(sourceTransactionLayer1);
 
 				return;
 			}
 				
-			global::TransactionKernelDSL.Framework.Language.TransactionLayer sourceTransactionLayer2 = sourceElement as global::TransactionKernelDSL.Framework.Language.TransactionLayer;
-			if (sourceTransactionLayer2 != null)
+			global::TransactionKernelDSL.Framework.Language.TransactionEnvironmentLayer sourceTransactionEnvironmentLayer2 = sourceElement as global::TransactionKernelDSL.Framework.Language.TransactionEnvironmentLayer;
+			if (sourceTransactionEnvironmentLayer2 != null)
 			{
-				// Create link for path TransactionModelHasTransactionLayers.TransactionLayers
-				this.TransactionLayers.Add(sourceTransactionLayer2);
+				// Create link for path TransactionModelHasTransactionEnvironmentLayer.TransactionEnvironmentLayer
+				this.TransactionEnvironmentLayer = sourceTransactionEnvironmentLayer2;
 
 				return;
 			}
@@ -1162,29 +1162,29 @@ namespace TransactionKernelDSL.Framework.Language
 		{
 			if (sourceElement == null) throw new global::System.ArgumentNullException("sourceElement");
 				
-			global::TransactionKernelDSL.Framework.Language.TransactionEnvironmentLayer sourceTransactionEnvironmentLayer1 = sourceElement as global::TransactionKernelDSL.Framework.Language.TransactionEnvironmentLayer;
-			if (sourceTransactionEnvironmentLayer1 != null)
+			global::TransactionKernelDSL.Framework.Language.TransactionLayer sourceTransactionLayer1 = sourceElement as global::TransactionKernelDSL.Framework.Language.TransactionLayer;
+			if (sourceTransactionLayer1 != null)
 			{
-				// Delete link for path TransactionModelHasTransactionEnvironmentLayer.TransactionEnvironmentLayer
+				// Delete link for path TransactionModelHasTransactionLayers.TransactionLayers
 				
-				foreach (DslModeling::ElementLink link in global::TransactionKernelDSL.Framework.Language.TransactionModelHasTransactionEnvironmentLayer.GetLinks((global::TransactionKernelDSL.Framework.Language.TransactionModel)this, sourceTransactionEnvironmentLayer1))
+				foreach (DslModeling::ElementLink link in global::TransactionKernelDSL.Framework.Language.TransactionModelHasTransactionLayers.GetLinks((global::TransactionKernelDSL.Framework.Language.TransactionModel)this, sourceTransactionLayer1))
 				{
 					// Delete the link, but without possible delete propagation to the element since it's moving to a new location.
-					link.Delete(global::TransactionKernelDSL.Framework.Language.TransactionModelHasTransactionEnvironmentLayer.TransactionModelDomainRoleId, global::TransactionKernelDSL.Framework.Language.TransactionModelHasTransactionEnvironmentLayer.TransactionEnvironmentLayerDomainRoleId);
+					link.Delete(global::TransactionKernelDSL.Framework.Language.TransactionModelHasTransactionLayers.TransactionModelDomainRoleId, global::TransactionKernelDSL.Framework.Language.TransactionModelHasTransactionLayers.TransactionLayerDomainRoleId);
 				}
 
 				return;
 			}
 				
-			global::TransactionKernelDSL.Framework.Language.TransactionLayer sourceTransactionLayer2 = sourceElement as global::TransactionKernelDSL.Framework.Language.TransactionLayer;
-			if (sourceTransactionLayer2 != null)
+			global::TransactionKernelDSL.Framework.Language.TransactionEnvironmentLayer sourceTransactionEnvironmentLayer2 = sourceElement as global::TransactionKernelDSL.Framework.Language.TransactionEnvironmentLayer;
+			if (sourceTransactionEnvironmentLayer2 != null)
 			{
-				// Delete link for path TransactionModelHasTransactionLayers.TransactionLayers
+				// Delete link for path TransactionModelHasTransactionEnvironmentLayer.TransactionEnvironmentLayer
 				
-				foreach (DslModeling::ElementLink link in global::TransactionKernelDSL.Framework.Language.TransactionModelHasTransactionLayers.GetLinks((global::TransactionKernelDSL.Framework.Language.TransactionModel)this, sourceTransactionLayer2))
+				foreach (DslModeling::ElementLink link in global::TransactionKernelDSL.Framework.Language.TransactionModelHasTransactionEnvironmentLayer.GetLinks((global::TransactionKernelDSL.Framework.Language.TransactionModel)this, sourceTransactionEnvironmentLayer2))
 				{
 					// Delete the link, but without possible delete propagation to the element since it's moving to a new location.
-					link.Delete(global::TransactionKernelDSL.Framework.Language.TransactionModelHasTransactionLayers.TransactionModelDomainRoleId, global::TransactionKernelDSL.Framework.Language.TransactionModelHasTransactionLayers.TransactionLayerDomainRoleId);
+					link.Delete(global::TransactionKernelDSL.Framework.Language.TransactionModelHasTransactionEnvironmentLayer.TransactionModelDomainRoleId, global::TransactionKernelDSL.Framework.Language.TransactionModelHasTransactionEnvironmentLayer.TransactionEnvironmentLayerDomainRoleId);
 				}
 
 				return;
@@ -2037,12 +2037,12 @@ namespace TransactionKernelDSL.Framework.Language
 			{
 				DslModeling::DomainClassInfo rootElementDomainInfo = this.Partition.DomainDataDirectory.GetDomainClass(rootElement.DomainClassId);
 				
-				if (rootElementDomainInfo.IsDerivedFrom(global::TransactionKernelDSL.Framework.Language.OutputTransactionEngine.DomainClassId)) 
+				if (rootElementDomainInfo.IsDerivedFrom(global::TransactionKernelDSL.Framework.Language.InputTransactionEngine.DomainClassId)) 
 				{
 					return true;
 				}
 				
-				if (rootElementDomainInfo.IsDerivedFrom(global::TransactionKernelDSL.Framework.Language.OutputTransactionWebService.DomainClassId)) 
+				if (rootElementDomainInfo.IsDerivedFrom(global::TransactionKernelDSL.Framework.Language.OutputTransactionEngine.DomainClassId)) 
 				{
 					return true;
 				}
@@ -2052,12 +2052,12 @@ namespace TransactionKernelDSL.Framework.Language
 					return true;
 				}
 				
-				if (rootElementDomainInfo.IsDerivedFrom(global::TransactionKernelDSL.Framework.Language.InputTransactionEngine.DomainClassId)) 
+				if (rootElementDomainInfo.IsDerivedFrom(global::TransactionKernelDSL.Framework.Language.OutputTransactionWebService.DomainClassId)) 
 				{
 					return true;
 				}
 				
-				if (rootElementDomainInfo.IsDerivedFrom(global::TransactionKernelDSL.Framework.Language.TransactionDataSourceSupport.DomainClassId)) 
+				if (rootElementDomainInfo.IsDerivedFrom(global::TransactionKernelDSL.Framework.Language.TransactionHandler.DomainClassId)) 
 				{
 					return true;
 				}
@@ -2067,7 +2067,7 @@ namespace TransactionKernelDSL.Framework.Language
 					return true;
 				}
 				
-				if (rootElementDomainInfo.IsDerivedFrom(global::TransactionKernelDSL.Framework.Language.TransactionHandler.DomainClassId)) 
+				if (rootElementDomainInfo.IsDerivedFrom(global::TransactionKernelDSL.Framework.Language.TransactionDataSourceSupport.DomainClassId)) 
 				{
 					return true;
 				}
@@ -2096,20 +2096,20 @@ namespace TransactionKernelDSL.Framework.Language
 			if ( sourceElement == null ) throw new global::System.ArgumentNullException("sourceElement");
 		
 				
-			global::TransactionKernelDSL.Framework.Language.OutputTransactionEngine sourceOutputTransactionEngine1 = sourceElement as global::TransactionKernelDSL.Framework.Language.OutputTransactionEngine;
-			if (sourceOutputTransactionEngine1 != null)
+			global::TransactionKernelDSL.Framework.Language.InputTransactionEngine sourceInputTransactionEngine1 = sourceElement as global::TransactionKernelDSL.Framework.Language.InputTransactionEngine;
+			if (sourceInputTransactionEngine1 != null)
 			{
-				// Create link for path TransactionLayerHasOutputTransactionEngines.OutputTransactionEngines
-				this.OutputTransactionEngines.Add(sourceOutputTransactionEngine1);
+				// Create link for path TransactionLayerHasInputTransactionEngines.InputTransactionEngines
+				this.InputTransactionEngines.Add(sourceInputTransactionEngine1);
 
 				return;
 			}
 				
-			global::TransactionKernelDSL.Framework.Language.OutputTransactionWebService sourceOutputTransactionWebService2 = sourceElement as global::TransactionKernelDSL.Framework.Language.OutputTransactionWebService;
-			if (sourceOutputTransactionWebService2 != null)
+			global::TransactionKernelDSL.Framework.Language.OutputTransactionEngine sourceOutputTransactionEngine2 = sourceElement as global::TransactionKernelDSL.Framework.Language.OutputTransactionEngine;
+			if (sourceOutputTransactionEngine2 != null)
 			{
-				// Create link for path TransactionLayerHasOutputTransactionWebServices.OutputTransactionWebServices
-				this.OutputTransactionWebServices.Add(sourceOutputTransactionWebService2);
+				// Create link for path TransactionLayerHasOutputTransactionEngines.OutputTransactionEngines
+				this.OutputTransactionEngines.Add(sourceOutputTransactionEngine2);
 
 				return;
 			}
@@ -2123,20 +2123,20 @@ namespace TransactionKernelDSL.Framework.Language
 				return;
 			}
 				
-			global::TransactionKernelDSL.Framework.Language.InputTransactionEngine sourceInputTransactionEngine4 = sourceElement as global::TransactionKernelDSL.Framework.Language.InputTransactionEngine;
-			if (sourceInputTransactionEngine4 != null)
+			global::TransactionKernelDSL.Framework.Language.OutputTransactionWebService sourceOutputTransactionWebService4 = sourceElement as global::TransactionKernelDSL.Framework.Language.OutputTransactionWebService;
+			if (sourceOutputTransactionWebService4 != null)
 			{
-				// Create link for path TransactionLayerHasInputTransactionEngines.InputTransactionEngines
-				this.InputTransactionEngines.Add(sourceInputTransactionEngine4);
+				// Create link for path TransactionLayerHasOutputTransactionWebServices.OutputTransactionWebServices
+				this.OutputTransactionWebServices.Add(sourceOutputTransactionWebService4);
 
 				return;
 			}
 				
-			global::TransactionKernelDSL.Framework.Language.TransactionDataSourceSupport sourceTransactionDataSourceSupport5 = sourceElement as global::TransactionKernelDSL.Framework.Language.TransactionDataSourceSupport;
-			if (sourceTransactionDataSourceSupport5 != null)
+			global::TransactionKernelDSL.Framework.Language.TransactionHandler sourceTransactionHandler5 = sourceElement as global::TransactionKernelDSL.Framework.Language.TransactionHandler;
+			if (sourceTransactionHandler5 != null)
 			{
-				// Create link for path TransactionLayerHasTransactionDataSourceSupports.TransactionDataSourceSupports
-				this.TransactionDataSourceSupports.Add(sourceTransactionDataSourceSupport5);
+				// Create link for path TransactionLayerHasTransactionHandlers.TransactionHandlers
+				this.TransactionHandlers.Add(sourceTransactionHandler5);
 
 				return;
 			}
@@ -2150,11 +2150,11 @@ namespace TransactionKernelDSL.Framework.Language
 				return;
 			}
 				
-			global::TransactionKernelDSL.Framework.Language.TransactionHandler sourceTransactionHandler7 = sourceElement as global::TransactionKernelDSL.Framework.Language.TransactionHandler;
-			if (sourceTransactionHandler7 != null)
+			global::TransactionKernelDSL.Framework.Language.TransactionDataSourceSupport sourceTransactionDataSourceSupport7 = sourceElement as global::TransactionKernelDSL.Framework.Language.TransactionDataSourceSupport;
+			if (sourceTransactionDataSourceSupport7 != null)
 			{
-				// Create link for path TransactionLayerHasTransactionHandlers.TransactionHandlers
-				this.TransactionHandlers.Add(sourceTransactionHandler7);
+				// Create link for path TransactionLayerHasTransactionDataSourceSupports.TransactionDataSourceSupports
+				this.TransactionDataSourceSupports.Add(sourceTransactionDataSourceSupport7);
 
 				return;
 			}
@@ -2181,29 +2181,29 @@ namespace TransactionKernelDSL.Framework.Language
 		{
 			if (sourceElement == null) throw new global::System.ArgumentNullException("sourceElement");
 				
-			global::TransactionKernelDSL.Framework.Language.OutputTransactionEngine sourceOutputTransactionEngine1 = sourceElement as global::TransactionKernelDSL.Framework.Language.OutputTransactionEngine;
-			if (sourceOutputTransactionEngine1 != null)
+			global::TransactionKernelDSL.Framework.Language.InputTransactionEngine sourceInputTransactionEngine1 = sourceElement as global::TransactionKernelDSL.Framework.Language.InputTransactionEngine;
+			if (sourceInputTransactionEngine1 != null)
 			{
-				// Delete link for path TransactionLayerHasOutputTransactionEngines.OutputTransactionEngines
+				// Delete link for path TransactionLayerHasInputTransactionEngines.InputTransactionEngines
 				
-				foreach (DslModeling::ElementLink link in global::TransactionKernelDSL.Framework.Language.TransactionLayerHasOutputTransactionEngines.GetLinks((global::TransactionKernelDSL.Framework.Language.TransactionLayer)this, sourceOutputTransactionEngine1))
+				foreach (DslModeling::ElementLink link in global::TransactionKernelDSL.Framework.Language.TransactionLayerHasInputTransactionEngines.GetLinks((global::TransactionKernelDSL.Framework.Language.TransactionLayer)this, sourceInputTransactionEngine1))
 				{
 					// Delete the link, but without possible delete propagation to the element since it's moving to a new location.
-					link.Delete(global::TransactionKernelDSL.Framework.Language.TransactionLayerHasOutputTransactionEngines.TransactionLayerDomainRoleId, global::TransactionKernelDSL.Framework.Language.TransactionLayerHasOutputTransactionEngines.OutputTransactionEngineDomainRoleId);
+					link.Delete(global::TransactionKernelDSL.Framework.Language.TransactionLayerHasInputTransactionEngines.TransactionLayerDomainRoleId, global::TransactionKernelDSL.Framework.Language.TransactionLayerHasInputTransactionEngines.InputTransactionEngineDomainRoleId);
 				}
 
 				return;
 			}
 				
-			global::TransactionKernelDSL.Framework.Language.OutputTransactionWebService sourceOutputTransactionWebService2 = sourceElement as global::TransactionKernelDSL.Framework.Language.OutputTransactionWebService;
-			if (sourceOutputTransactionWebService2 != null)
+			global::TransactionKernelDSL.Framework.Language.OutputTransactionEngine sourceOutputTransactionEngine2 = sourceElement as global::TransactionKernelDSL.Framework.Language.OutputTransactionEngine;
+			if (sourceOutputTransactionEngine2 != null)
 			{
-				// Delete link for path TransactionLayerHasOutputTransactionWebServices.OutputTransactionWebServices
+				// Delete link for path TransactionLayerHasOutputTransactionEngines.OutputTransactionEngines
 				
-				foreach (DslModeling::ElementLink link in global::TransactionKernelDSL.Framework.Language.TransactionLayerHasOutputTransactionWebServices.GetLinks((global::TransactionKernelDSL.Framework.Language.TransactionLayer)this, sourceOutputTransactionWebService2))
+				foreach (DslModeling::ElementLink link in global::TransactionKernelDSL.Framework.Language.TransactionLayerHasOutputTransactionEngines.GetLinks((global::TransactionKernelDSL.Framework.Language.TransactionLayer)this, sourceOutputTransactionEngine2))
 				{
 					// Delete the link, but without possible delete propagation to the element since it's moving to a new location.
-					link.Delete(global::TransactionKernelDSL.Framework.Language.TransactionLayerHasOutputTransactionWebServices.TransactionLayerDomainRoleId, global::TransactionKernelDSL.Framework.Language.TransactionLayerHasOutputTransactionWebServices.OutputTransactionWebServiceDomainRoleId);
+					link.Delete(global::TransactionKernelDSL.Framework.Language.TransactionLayerHasOutputTransactionEngines.TransactionLayerDomainRoleId, global::TransactionKernelDSL.Framework.Language.TransactionLayerHasOutputTransactionEngines.OutputTransactionEngineDomainRoleId);
 				}
 
 				return;
@@ -2223,29 +2223,29 @@ namespace TransactionKernelDSL.Framework.Language
 				return;
 			}
 				
-			global::TransactionKernelDSL.Framework.Language.InputTransactionEngine sourceInputTransactionEngine4 = sourceElement as global::TransactionKernelDSL.Framework.Language.InputTransactionEngine;
-			if (sourceInputTransactionEngine4 != null)
+			global::TransactionKernelDSL.Framework.Language.OutputTransactionWebService sourceOutputTransactionWebService4 = sourceElement as global::TransactionKernelDSL.Framework.Language.OutputTransactionWebService;
+			if (sourceOutputTransactionWebService4 != null)
 			{
-				// Delete link for path TransactionLayerHasInputTransactionEngines.InputTransactionEngines
+				// Delete link for path TransactionLayerHasOutputTransactionWebServices.OutputTransactionWebServices
 				
-				foreach (DslModeling::ElementLink link in global::TransactionKernelDSL.Framework.Language.TransactionLayerHasInputTransactionEngines.GetLinks((global::TransactionKernelDSL.Framework.Language.TransactionLayer)this, sourceInputTransactionEngine4))
+				foreach (DslModeling::ElementLink link in global::TransactionKernelDSL.Framework.Language.TransactionLayerHasOutputTransactionWebServices.GetLinks((global::TransactionKernelDSL.Framework.Language.TransactionLayer)this, sourceOutputTransactionWebService4))
 				{
 					// Delete the link, but without possible delete propagation to the element since it's moving to a new location.
-					link.Delete(global::TransactionKernelDSL.Framework.Language.TransactionLayerHasInputTransactionEngines.TransactionLayerDomainRoleId, global::TransactionKernelDSL.Framework.Language.TransactionLayerHasInputTransactionEngines.InputTransactionEngineDomainRoleId);
+					link.Delete(global::TransactionKernelDSL.Framework.Language.TransactionLayerHasOutputTransactionWebServices.TransactionLayerDomainRoleId, global::TransactionKernelDSL.Framework.Language.TransactionLayerHasOutputTransactionWebServices.OutputTransactionWebServiceDomainRoleId);
 				}
 
 				return;
 			}
 				
-			global::TransactionKernelDSL.Framework.Language.TransactionDataSourceSupport sourceTransactionDataSourceSupport5 = sourceElement as global::TransactionKernelDSL.Framework.Language.TransactionDataSourceSupport;
-			if (sourceTransactionDataSourceSupport5 != null)
+			global::TransactionKernelDSL.Framework.Language.TransactionHandler sourceTransactionHandler5 = sourceElement as global::TransactionKernelDSL.Framework.Language.TransactionHandler;
+			if (sourceTransactionHandler5 != null)
 			{
-				// Delete link for path TransactionLayerHasTransactionDataSourceSupports.TransactionDataSourceSupports
+				// Delete link for path TransactionLayerHasTransactionHandlers.TransactionHandlers
 				
-				foreach (DslModeling::ElementLink link in global::TransactionKernelDSL.Framework.Language.TransactionLayerHasTransactionDataSourceSupports.GetLinks((global::TransactionKernelDSL.Framework.Language.TransactionLayer)this, sourceTransactionDataSourceSupport5))
+				foreach (DslModeling::ElementLink link in global::TransactionKernelDSL.Framework.Language.TransactionLayerHasTransactionHandlers.GetLinks((global::TransactionKernelDSL.Framework.Language.TransactionLayer)this, sourceTransactionHandler5))
 				{
 					// Delete the link, but without possible delete propagation to the element since it's moving to a new location.
-					link.Delete(global::TransactionKernelDSL.Framework.Language.TransactionLayerHasTransactionDataSourceSupports.TransactionLayerDomainRoleId, global::TransactionKernelDSL.Framework.Language.TransactionLayerHasTransactionDataSourceSupports.TransactionDataSourceSupportDomainRoleId);
+					link.Delete(global::TransactionKernelDSL.Framework.Language.TransactionLayerHasTransactionHandlers.TransactionLayerDomainRoleId, global::TransactionKernelDSL.Framework.Language.TransactionLayerHasTransactionHandlers.TransactionHandlerDomainRoleId);
 				}
 
 				return;
@@ -2265,15 +2265,15 @@ namespace TransactionKernelDSL.Framework.Language
 				return;
 			}
 				
-			global::TransactionKernelDSL.Framework.Language.TransactionHandler sourceTransactionHandler7 = sourceElement as global::TransactionKernelDSL.Framework.Language.TransactionHandler;
-			if (sourceTransactionHandler7 != null)
+			global::TransactionKernelDSL.Framework.Language.TransactionDataSourceSupport sourceTransactionDataSourceSupport7 = sourceElement as global::TransactionKernelDSL.Framework.Language.TransactionDataSourceSupport;
+			if (sourceTransactionDataSourceSupport7 != null)
 			{
-				// Delete link for path TransactionLayerHasTransactionHandlers.TransactionHandlers
+				// Delete link for path TransactionLayerHasTransactionDataSourceSupports.TransactionDataSourceSupports
 				
-				foreach (DslModeling::ElementLink link in global::TransactionKernelDSL.Framework.Language.TransactionLayerHasTransactionHandlers.GetLinks((global::TransactionKernelDSL.Framework.Language.TransactionLayer)this, sourceTransactionHandler7))
+				foreach (DslModeling::ElementLink link in global::TransactionKernelDSL.Framework.Language.TransactionLayerHasTransactionDataSourceSupports.GetLinks((global::TransactionKernelDSL.Framework.Language.TransactionLayer)this, sourceTransactionDataSourceSupport7))
 				{
 					// Delete the link, but without possible delete propagation to the element since it's moving to a new location.
-					link.Delete(global::TransactionKernelDSL.Framework.Language.TransactionLayerHasTransactionHandlers.TransactionLayerDomainRoleId, global::TransactionKernelDSL.Framework.Language.TransactionLayerHasTransactionHandlers.TransactionHandlerDomainRoleId);
+					link.Delete(global::TransactionKernelDSL.Framework.Language.TransactionLayerHasTransactionDataSourceSupports.TransactionLayerDomainRoleId, global::TransactionKernelDSL.Framework.Language.TransactionLayerHasTransactionDataSourceSupports.TransactionDataSourceSupportDomainRoleId);
 				}
 
 				return;

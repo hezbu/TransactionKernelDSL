@@ -75,7 +75,8 @@ namespace <#=                    this.TransactionModel.Namespace #>
 
                 try
                 {
-                    <#=                            e.Parser.ToString()#>Parser testParser = new <#=                            e.Parser.ToString()#>Parser(<#=                            ((String.IsNullOrEmpty(e.ParserSectionName))?"":"\""+e.ParserSectionName+"\"") #>,false);
+					<#= ParserInitializator(e) #>
+                    
 
                     testParser.ResponseStructure = <#=                            className #>Input.Unit_<#=                            h.Name.Replace(" ","") #>_<#=                            testType #>_Test();
                     if (testParser.AssembleMethod() == false) throw new AssertionException("Assemble failed");
@@ -184,7 +185,7 @@ namespace <#=                    this.TransactionModel.Namespace #>
              {               
                 try
                 {
-                    <#=                            e.Parser.ToString()#>Parser testParser = new <#=                            e.Parser.ToString()#>Parser(<#=                            ((String.IsNullOrEmpty(e.ParserSectionName))?"":"\""+e.ParserSectionName+"\"") #>,false);
+                    <#= ParserInitializator(e) #>
 
                     testParser.ResponseStructure = <#=                            origClassName #>Input.Unit_<#=                            h.Name.Replace(" ","") #>_<#=                            testType #>_Test();
                     if (testParser.AssembleMethod() == false) throw new AssertionException("Assemble failed");
@@ -246,6 +247,22 @@ namespace <#=                    this.TransactionModel.Namespace #>
 <#
 }
  #>
+<#+ 
+private string ParserInitializator(InputTransactionEngine e)
+{
+	string parserName = "TL"+e.TransactionLayer.Level+"_"+e.TransactionLayer.Name.Replace(" ","")+ "_"+e.Name.Replace(" ","")+"_Parser";
+	switch(e.Parser)
+			{
+		    case ParserType.NotTyped:
+				return "";
+			case ParserType.PropietaryParser:
+				return parserName +" testParser = new "+ parserName + "();"; 
+			default:
+				return e.Parser.ToString() +"Parser testParser = new "+ e.Parser.ToString() + "Parser("+     ((String.IsNullOrEmpty(e.ParserSectionName))?"":"\""+e.ParserSectionName+"\"") +",false);";
+			}
+	 
+}
+#>
 <#+
         private string ParserUsingGenerator(InputTransactionEngine e)
         {

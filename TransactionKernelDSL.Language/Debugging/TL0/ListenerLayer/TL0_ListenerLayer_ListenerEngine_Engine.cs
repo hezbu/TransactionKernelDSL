@@ -6,16 +6,16 @@
     using log4net.Config;
     using log4net;
     using System.Threading;
-    using TransactionKernelDSL.Framework.Parser.Iso8583;
+    
 
-namespace PDS.Switch.CorrBanc
+namespace PDS.Switch.PDSNet
 {
 
     /// <summary>
     /// A transactional engine named Listener Engine
     /// </summary>
     /// <remarks>
-    /// Generated on 17/4/2016 11:19:16
+    /// Generated on 06/05/2016 15:16:54
     /// </remarks>
 public partial class TL0_ListenerLayer_ListenerEngine_Engine: AbstractTcpTriggeredMultiThreadedInputTransactionEngine
 	{
@@ -62,8 +62,11 @@ public partial class TL0_ListenerLayer_ListenerEngine_Engine: AbstractTcpTrigger
         {
             switch(((string)transactionId))
             {
-                                        case "0100999999": 
-                            return new TL0_ListenerLayer_ConsultadeSaldo_Handler(); 
+                                        case "3200000000": 
+                            return new TL0_ListenerLayer_Sale_Handler(); 
+
+                        case "3100000010": 
+                            return new TL0_ListenerLayer_BalanceQuery_Handler(); 
 
               
                 default:
@@ -72,10 +75,12 @@ public partial class TL0_ListenerLayer_ListenerEngine_Engine: AbstractTcpTrigger
         }
         protected override AbstractTransactionParser ParserFactory(object state = null) 
 { 
-Iso8583Parser parser =  new Iso8583Parser("ISO"); 
+TL0_ListenerLayer_ListenerEngine_Parser parser = new TL0_ListenerLayer_ListenerEngine_Parser(); 
 parser.Logger = "MainLogger"; 
 return parser; 
 } 
 	}
 }
 
+	
+    

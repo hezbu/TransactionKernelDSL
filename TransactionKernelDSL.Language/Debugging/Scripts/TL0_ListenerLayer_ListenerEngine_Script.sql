@@ -1,5 +1,5 @@
 
-                    USE []
+                    USE [1]
                     GO
                  IF OBJECT_ID('CONFIGURACION') IS NULL 
 	 BEGIN 
@@ -20,7 +20,7 @@
 	  ) ON [PRIMARY] 
 	  END 
 	
-                IF NOT EXISTS (SELECT cfg_instancia FROM CONFIGURACION WHERE cfg_seccion = 'CorrBanc.General' and cfg_clave = 'ListenerEngine_ServerTCPPort' and cfg_instancia = 1) 
+                IF NOT EXISTS (SELECT cfg_instancia FROM CONFIGURACION WHERE cfg_seccion = 'PDSNet.General' and cfg_clave = 'ListenerEngine_ServerTCPPort' and cfg_instancia = 1) 
 	BEGIN 
 	INSERT INTO [CONFIGURACION] 
 	  ([cfg_instancia] 
@@ -31,13 +31,13 @@
 	  ,[cfg_descripcion]) 
 	 VALUES 
 	 (1
-	 ,'CorrBanc.General'
+	 ,'PDSNet.General'
 	 ,'ListenerEngine_ServerTCPPort'
 	 ,8888
 	 ,NULL
 	 ,'Server listenable Tcp Port')
 	END 
-	IF NOT EXISTS (SELECT cfg_instancia FROM CONFIGURACION WHERE cfg_seccion = 'CorrBanc.General' and cfg_clave = 'ListenerEngine_ServerIPAddress' and cfg_instancia = 1) 
+	IF NOT EXISTS (SELECT cfg_instancia FROM CONFIGURACION WHERE cfg_seccion = 'PDSNet.General' and cfg_clave = 'ListenerEngine_ServerIPAddress' and cfg_instancia = 1) 
 	BEGIN 
 	INSERT INTO [CONFIGURACION] 
 	  ([cfg_instancia] 
@@ -48,13 +48,13 @@
 	  ,[cfg_descripcion]) 
 	 VALUES 
 	 (1
-	 ,'CorrBanc.General'
+	 ,'PDSNet.General'
 	 ,'ListenerEngine_ServerIPAddress'
 	 ,NULL
 	 ,'127.0.0.1'
 	 ,'Server listenable Ip Address')
 	END 
-	IF NOT EXISTS (SELECT cfg_instancia FROM CONFIGURACION WHERE cfg_seccion = 'CorrBanc.General' and cfg_clave = 'ListenerEngineServerTimeoutSec' and cfg_instancia = 1) 
+	IF NOT EXISTS (SELECT cfg_instancia FROM CONFIGURACION WHERE cfg_seccion = 'PDSNet.General' and cfg_clave = 'ListenerEngineServerTimeoutSec' and cfg_instancia = 1) 
 	BEGIN 
 	INSERT INTO [CONFIGURACION] 
 	  ([cfg_instancia] 
@@ -65,13 +65,13 @@
 	  ,[cfg_descripcion]) 
 	 VALUES 
 	 (1
-	 ,'CorrBanc.General'
+	 ,'PDSNet.General'
 	 ,'ListenerEngineServerTimeoutSec'
 	 ,60
 	 ,NULL
 	 ,'Server Time Out in seconds')
 	END 
-	IF NOT EXISTS (SELECT cfg_instancia FROM CONFIGURACION WHERE cfg_seccion = 'CorrBanc.General' and cfg_clave = 'ListenerEngineMaxCompletionWorkThread' and cfg_instancia = 1) 
+	IF NOT EXISTS (SELECT cfg_instancia FROM CONFIGURACION WHERE cfg_seccion = 'PDSNet.General' and cfg_clave = 'ListenerEngineMaxCompletionWorkThread' and cfg_instancia = 1) 
 	BEGIN 
 	INSERT INTO [CONFIGURACION] 
 	  ([cfg_instancia] 
@@ -82,13 +82,13 @@
 	  ,[cfg_descripcion]) 
 	 VALUES 
 	 (1
-	 ,'CorrBanc.General'
+	 ,'PDSNet.General'
 	 ,'ListenerEngineMaxCompletionWorkThread'
 	 ,1000
 	 ,NULL
 	 ,'Maximum completion work threads')
 	END 
-	IF NOT EXISTS (SELECT cfg_instancia FROM CONFIGURACION WHERE cfg_seccion = 'CorrBanc.General' and cfg_clave = 'ListenerEngineMinThread' and cfg_instancia = 1) 
+	IF NOT EXISTS (SELECT cfg_instancia FROM CONFIGURACION WHERE cfg_seccion = 'PDSNet.General' and cfg_clave = 'ListenerEngineMinThread' and cfg_instancia = 1) 
 	BEGIN 
 	INSERT INTO [CONFIGURACION] 
 	  ([cfg_instancia] 
@@ -99,11 +99,11 @@
 	  ,[cfg_descripcion]) 
 	 VALUES 
 	 (1
-	 ,'CorrBanc.General'
+	 ,'PDSNet.General'
 	 ,'ListenerEngineMinThread'
 	 ,50
 	 ,NULL
 	 ,'Threads available in thread pool')
 	END 
 	                
-                
+                                  
