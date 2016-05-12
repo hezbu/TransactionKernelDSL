@@ -1,15 +1,18 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Net.Sockets;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml;
 using TransactionKernelDSL.Framework.V1;
 
 namespace TransactionKernelDSL.Framework.Parser.BPosBrowser
 {
     public class BPosBrowserParser : AbstractTransactionParser, ITransactionParserCommunicable, ITransactionParserAssembleable
     {
-        public BPosBrowserParser(string rootSection = "BPosBrowserParser", bool isEngineParser = true)
+        public BPosBrowserParser(string rootSection = "BPosBrowser", bool isEngineParser = true)
             : base(rootSection, isEngineParser)
         {
             this._AssembleMethod = Assemble;
@@ -18,12 +21,12 @@ namespace TransactionKernelDSL.Framework.Parser.BPosBrowser
             this._SendMethod = Send;
             this._ReceiveMethod = Receive;
             this._IsKeepAliveMessageMethod = IsKeepAliveMessage;
-                        
-            this._RequestStructure = new Iso8583Structure((_IsInputParser == true) ? AbstractTransactionParserStructureType.Request : AbstractTransactionParserStructureType.Response, _RootSection);
-            this._ResponseStructure = new Iso8583Structure((_IsInputParser == true) ? AbstractTransactionParserStructureType.Response : AbstractTransactionParserStructureType.Request, _RootSection);
-         
-            this._RequestStream = new Iso8583Stream();
-            this._ResponseStream = new Iso8583Stream();
+
+            this._RequestStructure = new BPosBrowserStructure((_IsInputParser == true) ? AbstractTransactionParserStructureType.Request : AbstractTransactionParserStructureType.Response, _RootSection);
+            this._ResponseStructure = new BPosBrowserStructure((_IsInputParser == true) ? AbstractTransactionParserStructureType.Response : AbstractTransactionParserStructureType.Request, _RootSection);
+
+            this._RequestStream = new BPosBrowserStream();
+            this._ResponseStream = new BPosBrowserStream();
         }
 
         #region ITransactionParserCommunicable Members
@@ -36,7 +39,7 @@ namespace TransactionKernelDSL.Framework.Parser.BPosBrowser
                 else if (IsKeepAliveMessage() == false)
                 {
                     ((TcpClient)handler).GetStream().Write(ResponseStream.Get(), 0, ResponseStream.Get().Length);
-                    _Log.Info(_RootSection + "_OUT: " + ((Iso8583Stream)ResponseStream).ToString());
+                    _Log.Info(_RootSection + "_OUT: " + ((BPosBrowserStream)ResponseStream).ToString());
                 }
                 else
                 {
@@ -57,33 +60,44 @@ namespace TransactionKernelDSL.Framework.Parser.BPosBrowser
         {
             int bytesRead = 0;
             int totalBytesRead = 0;
-            byte[] Header = null;
-            int bytesToRead = Iso8583Stream.Iso8583MaxLength;
-            byte[] btPartialReadsBuffer = new byte[Iso8583Stream.Iso8583MaxLength];
-            byte[] btAccumulatedReadBuffer = new byte[Iso8583Stream.Iso8583MaxLength];
+            byte[] headerArr = new byte[6 + 1];
+            int bytesToRead = BPosBrowserStream.BPosBrowserMaxLength;
+            byte[] btPartialReadsBuffer = new byte[BPosBrowserStream.BPosBrowserMaxLength];
+            byte[] btAccumulatedReadBuffer = new byte[BPosBrowserStream.BPosBrowserMaxLength];
 
-           
+
             try
             {
-                bytesRead = ((TcpClient)handler).GetStream().Read(btPartialReadsBuffer, 0, 2);
+                bytesRead = ((TcpClient)handler).GetStream().Read(btPartialReadsBuffer, 0, 6);
 
-                if (bytesRead == 2)
+                if (bytesRead == 6)
                 {
-                    bytesToRead = (int)btPartialReadsBuffer[0] * 0x100;
-                    bytesToRead += (int)btPartialReadsBuffer[1];
-                    Header = new byte[] { btPartialReadsBuffer[0], btPartialReadsBuffer[1] };
-                    this._IsKeepAliveMessage = (Header[0] == 0x00 && Header[1] == 0x00);
-                  
+                    string header = AbstractTransactionFacade.GetString(btPartialReadsBuffer, 6);
+                    System.Buffer.BlockCopy(btPartialReadsBuffer, 0, headerArr, 0, 6);
+
+                    if (header.Contains("GA") == false)
+                    {
+                        this._ErrorMessage = "Error leyendo header. GA no encontrado";
+                        this._Status |= TransmissionStatus.HeaderNotFound;
+                        return false;
+                    }
+                    if (int.TryParse(header.Substring(2, 4), out bytesToRead) == false)
+                    {
+                        this._ErrorMessage = String.Format("Error leyendo header. Longitud {0} no valida", header.Substring(2, 4));
+                        this._Status |= TransmissionStatus.HeaderNotFound;
+                        return false;
+                    }
+
                 }
-                else ///Se recibio menos de 2 bytes ....
+                else ///Se recibio menos de 6 bytes ....
                 {
-                    this._ErrorMessage = "Error leyendo datos de conexion: expectedLen no tiene 2 bytes (" + bytesRead.ToString() + ")";
+                    this._ErrorMessage = "Error leyendo datos de conexion: expectedLen no tiene 6 bytes (" + bytesRead.ToString() + ")";
                     this._Status |= TransmissionStatus.HeaderNotFound;
                     return false;
                 }
 
                 //blocks until a client sends a message
-                for (totalBytesRead = 0; (totalBytesRead < bytesToRead) && (this._IsKeepAliveMessage == false); )
+                for (totalBytesRead = 0; (totalBytesRead < bytesToRead); )
                 {
                     bytesRead = ((TcpClient)handler).GetStream().Read(btPartialReadsBuffer, 0, bytesToRead - totalBytesRead);
                     System.Buffer.BlockCopy(btPartialReadsBuffer, 0, btAccumulatedReadBuffer, totalBytesRead, bytesRead);
@@ -106,14 +120,14 @@ namespace TransactionKernelDSL.Framework.Parser.BPosBrowser
                 return false;
             }
 
-            
-            byte[] dump = new byte[bytesToRead + 2 + 1];
-            System.Buffer.BlockCopy(Header, 0, dump, 0, 2);
+
+            byte[] dump = new byte[bytesToRead + 6 + 1];
+            System.Buffer.BlockCopy(headerArr, 0, dump, 0, 6);
             System.Buffer.BlockCopy(btAccumulatedReadBuffer, 0, dump, 2, totalBytesRead);
 
-            _RequestStream.Set(dump, totalBytesRead + 2);
+            _RequestStream.Set(dump, totalBytesRead + 6);
             //_RequestStream.Set(btAccumulatedReadBuffer, totalBytesRead);
-            _Log.Info(_RootSection + "_IN: " + ((Iso8583Stream)RequestStream).ToString());
+            _Log.Info(_RootSection + "_IN: " + ((BPosBrowserStream)RequestStream).ToString());
             return true;
         }
 
@@ -129,49 +143,40 @@ namespace TransactionKernelDSL.Framework.Parser.BPosBrowser
         public bool Assemble()
         {
             bool boolResult = false;
-            int intLength = 2;
-            this._ResponseStream = new Iso8583Stream();
-            int intFieldFoundIndex = -1;
-            byte mask = 0x01;
-
-            byte[] partialData = this._ResponseStream.Get();
 
             try
             {
-                intLength += _ResponseStructure["TPDU"].CopyContentTo(ref partialData, intLength);
-                intLength += _ResponseStructure["MSGID"].CopyContentTo(ref partialData, intLength);
-                intLength += _ResponseStructure["BITMAP"].CopyContentTo(ref partialData, intLength);
-
-                #region Carga de campos
-                
-                for (int intBmpIndex = 0; intBmpIndex < 8; intBmpIndex++)
+                using (var sw = new StringWriter())
                 {
-                    for (int bitIndex = 7; bitIndex >= 0; bitIndex--)
+                    using (
+                        var writer = XmlWriter.Create(sw, new XmlWriterSettings() 
+                                     { OmitXmlDeclaration = true})
+                    )
                     {
-                        if ((ResponseStructure["BITMAP"].Content[intBmpIndex] & (mask << bitIndex)) == (mask << bitIndex)) //BIT 7
+                        if (_IsInputParser == true)
                         {
-                            intFieldFoundIndex = (intBmpIndex * 8) + (8 - bitIndex);
-                            intLength += _ResponseStructure[intFieldFoundIndex.ToString()].CopyContentTo(ref partialData, intLength);
-                            Debug.WriteLine("[Assemble:Field " + intFieldFoundIndex.ToString().PadLeft(2, '0') + "]" + _ResponseStructure[intFieldFoundIndex.ToString()].ToString());
+                            writer.WriteStartElement("S_MSG");
                         }
+                        else 
+                        {
+                            writer.WriteStartElement("T_MSG");
+                        }
+
+                        foreach (var item in (this.ResponseStructure as BPosBrowserStructure).Main)
+                        {
+                            writer.WriteAttributeString(item.Key, item.Value);
+                        }
+                        
+                        writer.WriteFullEndElement();
                     }
+                    var data = String.Format("GA{0:D4}{1}", sw.ToString().Length, sw.ToString());
+                    (this._ResponseStream as BPosBrowserStream).Set(data);
                 }
-                #endregion
-                #region Carga de campo LONGITUD al principio de la trama
-                byte[] length = new byte[2 + 1];
-                AbstractTransactionFacade.AscToBcd(length, AbstractTransactionFacade.GetBytes((intLength - 2).ToString("X").PadLeft(4, '0')), 4, 0);
-                _ResponseStructure["LENGTH"].CopyContentFrom(length);
-                _ResponseStructure["LENGTH"].CopyContentTo(ref partialData);
-                #endregion
-
-                this._ResponseStream.Set(partialData, intLength);
-
-
                 boolResult = true;
             }
             catch (Exception ex)
             {
-                _ErrorMessage = "Excepcion procesando bits " + intFieldFoundIndex.ToString() + " - Mensaje= " + ex.Message;
+                _ErrorMessage = String.Format("Exception found at Assemble {0}", ex);
                 _Status = TransmissionStatus.BadAssembling;
                 boolResult = false;
             }
@@ -182,87 +187,65 @@ namespace TransactionKernelDSL.Framework.Parser.BPosBrowser
         public bool Disassemble()
         {
             bool boolResult = false;
-            int intFieldFoundIndex = -1;
-            byte mask = 0x01;
+
             try
             {
-
                 int intLength = 0;
-                intLength += _RequestStructure["LENGTH"].CopyContentFrom(_RequestStream.Get(), intLength);
-                intLength += _RequestStructure["TPDU"].CopyContentFrom(_RequestStream.Get(), intLength);
-                intLength += _RequestStructure["MSGID"].CopyContentFrom(_RequestStream.Get(), intLength);
-                intLength += _RequestStructure["BITMAP"].CopyContentFrom(_RequestStream.Get(), intLength);
+                (RequestStructure as BPosBrowserStructure).Header = (_RequestStream as BPosBrowserStream).Get(0, 2);
+                (RequestStructure as BPosBrowserStructure).Length = (_RequestStream as BPosBrowserStream).Get(2, 4);
 
 
-                #region Análisis de campos por defecto del protocolo
-                ///ANALISIS DE FIELDS
-                for (int intBmpIndex = 0; intBmpIndex < 8; intBmpIndex++)
+                string payload = (_RequestStream as BPosBrowserStream).Get(6);
+                if (_IsInputParser == true)
                 {
-                    for (int bitIndex = 7; bitIndex >= 0; bitIndex--)
+                    if (payload.Contains("<T_MSG") == false)
                     {
-                        if ((RequestStructure["BITMAP"].Content[intBmpIndex] & (mask << bitIndex)) == (mask << bitIndex))
-                        {
-                            intFieldFoundIndex = (intBmpIndex * 8) + (8 - bitIndex);
-                            intLength += _RequestStructure[intFieldFoundIndex.ToString()].CopyContentFrom(_RequestStream.Get(), intLength);
-                            Debug.WriteLine("[Disassemble:Field " + intFieldFoundIndex.ToString().PadLeft(2, '0') + "]" + _RequestStructure[intFieldFoundIndex.ToString()].ToString());
-                        }
+                        _ErrorMessage = String.Format("<T_MSG not found in stream");
+                        _Status |= TransmissionStatus.BadDisassembling;
+                        return false;
                     }
+
+                    if (payload.Contains("</T_MSG>") == false)
+                    {
+                        _ErrorMessage = String.Format("</T_MSG> not found in stream");
+                        _Status |= TransmissionStatus.BadDisassembling;
+                        return false;
+                    }
+
+                    using (XmlReader reader = XmlReader.Create(new StringReader(payload)))
+                    {
+                        reader.ReadToFollowing("T_MSG");
+                        for (int attInd = 0; attInd < reader.AttributeCount; attInd++)
+                        {
+                            reader.MoveToAttribute(attInd);
+                            (RequestStructure as BPosBrowserStructure).Main.Add(reader.Name, reader.Value);
+                        }
+                        reader.ReadToFollowing("InputValue");
+                        for (int attInd = 0; attInd < reader.AttributeCount; attInd++)
+                        {
+                            reader.MoveToAttribute(attInd);
+                            (RequestStructure as BPosBrowserStructure).InputValue.Add(reader.Name, reader.Value);
+                        }
+                        //reader.MoveToFirstAttribute();
+                        //string genre = reader.Value;
+                        //output.AppendLine("The genre value: " + genre);
+
+                        //reader.ReadToFollowing("title");
+                        //output.AppendLine("Content of the title element: " + reader.ReadElementContentAsString());
+                    }
+
+
                 }
-                #endregion
-                #region Análisis de campos particular a la transaccion
-                Configuration config = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
-                AbstractTransactionParserSection defaultLayout = config.GetSection(_RootSection) as AbstractTransactionParserSection;
-
-                if (defaultLayout == null) throw new ApplicationException("ConfigSection " + _RootSection + " not found on app.config!");
-
-                foreach (TransactionElement t in defaultLayout.Transactions)
+                else
                 {
-                    #region Buscando transacción
-                    if (t.Id == RequestStructure.GetOperationId().ToString())
-                    {
-                        #region Análisis de campos
-                        foreach (FieldElement f in t.RequirementFields)
-                        {
-                            if (_RequestStructure.Fields.ContainsKey(f.Id) == true)
-                            {
-                                #region Analisis de Subcampos
-                                foreach (SubFieldElement sf in f.Subfields)
-                                {
-                                    Iso8583Subfield newSubfield = new Iso8583Subfield()
-                                    {
-                                        Description = sf.Description,
-                                        Id = sf.Id,
-                                        Keyname = sf.Keyname,
-                                        Length = sf.Length,
-                                        Type = (AbstractTransactionParserFieldType)Enum.Parse(typeof(AbstractTransactionParserFieldType), sf.Type),
-                                        Offset = sf.Offset
-                                    };
-
-                                    newSubfield.CreateContent();
-                                    newSubfield.CopyContentFrom(RequestStructure[f.Id].Content);
-                                    RequestStructure[f.Id].Subfields.Add(newSubfield.Id, newSubfield);
-                                }
-                                #endregion
-                                RequestStructure[f.Id].Alias = f.Keyname;
-                            }
-                            else
-                            {
-                                _ErrorMessage = "Error processing .config default request structure versus " + t.Name + " request structure. Field " + f.Id + "-" + f.Keyname + " doesn't exist on default!";
-                                _Status |= TransmissionStatus.BadDisassembling;
-                                boolResult = false;
-                            }
-                        }
-                        break;
-                        #endregion
-                    }
-                    #endregion
+                    ///TODO: Falta ver cuando esta conectado a un motor de salida
                 }
-                #endregion
+
                 boolResult = true;
             }
             catch (Exception ex)
             {
-                _ErrorMessage = "Excepcion procesando bits " + intFieldFoundIndex.ToString() + " - Mensaje= " + ex.Message;
+                _ErrorMessage = String.Format("Exception found at Disassemble {0}", ex);
                 _Status |= TransmissionStatus.BadDisassembling;
                 boolResult = false;
             }
@@ -270,6 +253,6 @@ namespace TransactionKernelDSL.Framework.Parser.BPosBrowser
             return boolResult;
         }
 
-        #endregion              
+        #endregion
     }
 }

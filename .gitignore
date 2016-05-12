@@ -8,6 +8,10 @@
 /TransactionKernelDSL.Framework.Parser.Iso8583B24/obj/*
 /TransactionKernelDSL.Framework.Parser.Meflur/bin/*
 /TransactionKernelDSL.Framework.Parser.Meflur/obj/*
+/TransactionKernelDSL.Framework.Parser.BPosBrowser/bin/*
+/TransactionKernelDSL.Framework.Parser.BPosBrowser/obj/*
+/TransactionKernelDSL.Framework.Parser.BPosBrowser.Tests/bin/*
+/TransactionKernelDSL.Framework.Parser.BPosBrowser.Tests/obj/*
 /TransactionKernelDSL.Framework.Test/bin/*
 /TransactionKernelDSL.Framework.Test/obj/*
 /TransactionKernelDSL.Framework.UnitTests/bin/*
