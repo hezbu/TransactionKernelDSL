@@ -127,7 +127,7 @@ namespace <#=                this.TransactionModel.Namespace #>
         switch(e.Parser)
         {
 			case ParserType.PropietaryParser:
-				return "TL"+e.TransactionLayer.Level+"_"+e.TransactionLayer.Name.Replace(" ","")+ "_"+e.Name.Replace(" ","")+"_ParserStructure();"; 
+				return "();"; 
 			default:
                 return "(AbstractTransactionParserStructureType.Request"+(String.IsNullOrEmpty(e.ParserSectionName)? "": ",\""+e.ParserSectionName+"\");");
         }

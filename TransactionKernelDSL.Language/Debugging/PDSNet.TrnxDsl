@@ -1,0 +1,124 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<transactionModel xmlns:dm0="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" dslVersion="1.0.0.0" Id="bd1dab06-ea55-45f8-8e23-191b5930ed36" name="PDSNet" instanceId="1" namespace="PDS.Switch.PDSNet" getValueImplementationType="SQLServerDatabase" sequenceFactoryImplementationType="SQLServerDatabase" databaseServerInstance="1" databaseInitialCatalog="1" databaseUser="1" databasePassword="1" xmlns="http://schemas.microsoft.com/dsltools/TrnxDsl">
+  <transactionLayers>
+    <transactionModelHasTransactionLayers Id="d9ce57ab-0393-42fa-b9d2-fa59b7903d0f">
+      <transactionLayer Id="2b9550ad-5bee-492f-8d99-6a763633774f" name="Listener Layer" level="0">
+        <transactionHandlers>
+          <transactionLayerHasTransactionHandlers Id="2054cc42-15a0-4df2-9163-ea366e0f5356">
+            <transactionHandler Id="0426183e-794e-428a-8a42-41ed65e6d94b" name="Sale" transactionId="3200000000">
+              <forwarderTransactionHandlers>
+                <transactionHandlerReferencesForwarderTransactionHandlers Id="7a7ee392-9d18-44e7-8875-1a6f395b08f4" sequenceOrder="0">
+                  <transactionHandlerMoniker Id="21a79c0e-a55f-4917-9acd-dc48b8422e9a" />
+                </transactionHandlerReferencesForwarderTransactionHandlers>
+                <transactionHandlerReferencesForwarderTransactionHandlers Id="53131c0b-b5d9-41f3-8a70-7f1dd9223ce7" sequenceOrder="0">
+                  <transactionHandlerMoniker Id="559ec26c-3e9e-45e2-bad2-66d894f19873" />
+                </transactionHandlerReferencesForwarderTransactionHandlers>
+              </forwarderTransactionHandlers>
+            </transactionHandler>
+          </transactionLayerHasTransactionHandlers>
+          <transactionLayerHasTransactionHandlers Id="c461155c-7607-4629-b566-f9b491408c08">
+            <transactionHandler Id="83f91729-d79b-4f63-a7a4-f4b8b24d6e27" name="Balance Query " transactionId="3100000010">
+              <forwarderTransactionHandlers>
+                <transactionHandlerReferencesForwarderTransactionHandlers Id="de65e24f-fdca-4c74-8b26-d19c5b05f05e" sequenceOrder="0">
+                  <transactionHandlerMoniker Id="29ce2514-7cdb-4860-9cb9-a35afa96c2ba" />
+                </transactionHandlerReferencesForwarderTransactionHandlers>
+                <transactionHandlerReferencesForwarderTransactionHandlers Id="fdb278e8-f03e-4e8c-91a9-d27d60ef297d" sequenceOrder="0">
+                  <transactionHandlerMoniker Id="8f7f45b9-28c9-4cf9-8e5c-9abcdfc36dda" />
+                </transactionHandlerReferencesForwarderTransactionHandlers>
+              </forwarderTransactionHandlers>
+            </transactionHandler>
+          </transactionLayerHasTransactionHandlers>
+          <transactionLayerHasTransactionHandlers Id="688db302-d485-4ef8-82e6-a246a44fdb60">
+            <transactionHandler Id="a91adfdf-162a-4b29-9941-77245c794a56" name="TransactionName1" transactionId="1" />
+          </transactionLayerHasTransactionHandlers>
+        </transactionHandlers>
+        <inputTransactionEngines>
+          <transactionLayerHasInputTransactionEngines Id="944aa20e-d1b1-4739-bb92-efaf3880bdf1">
+            <inputTransactionEngine Id="3980f4c0-929a-4e1c-9461-6e78605f8dd5" name="Listener Engine" parser="PropietaryParser" parserSectionName="PDSXML" hasUnitTests="true" type="TcpTriggeredMultiThreadedInputEngine">
+              <transactionHandlers>
+                <inputTransactionEngineReferencesTransactionHandlers Id="3b05168e-c9f9-4109-b70b-5b44799887e8">
+                  <transactionHandlerMoniker Id="0426183e-794e-428a-8a42-41ed65e6d94b" />
+                </inputTransactionEngineReferencesTransactionHandlers>
+                <inputTransactionEngineReferencesTransactionHandlers Id="5a8c35aa-93a1-4f20-8ae8-1e751463ec6a">
+                  <transactionHandlerMoniker Id="83f91729-d79b-4f63-a7a4-f4b8b24d6e27" />
+                </inputTransactionEngineReferencesTransactionHandlers>
+              </transactionHandlers>
+            </inputTransactionEngine>
+          </transactionLayerHasInputTransactionEngines>
+          <transactionLayerHasInputTransactionEngines Id="4e684d61-e18c-48a6-a78b-a13269b9cb3e">
+            <inputTransactionEngine Id="6901cc07-d2ff-4316-8898-40516e486174" name="asdasd" parser="Iso8583" parserSectionName="1" hasUnitTests="true" type="TcpTriggeredMultiThreadedInputEngine">
+              <transactionHandlers>
+                <inputTransactionEngineReferencesTransactionHandlers Id="e91a8525-c2dd-409b-8763-ca456b14a680">
+                  <transactionHandlerMoniker Id="a91adfdf-162a-4b29-9941-77245c794a56" />
+                </inputTransactionEngineReferencesTransactionHandlers>
+              </transactionHandlers>
+            </inputTransactionEngine>
+          </transactionLayerHasInputTransactionEngines>
+        </inputTransactionEngines>
+      </transactionLayer>
+    </transactionModelHasTransactionLayers>
+    <transactionModelHasTransactionLayers Id="d7ba8661-5e29-49e8-a4eb-784e9d2570be">
+      <transactionLayer Id="9b222616-1641-495e-8f75-80cf51f9c1cf" name="Unired Layer" level="1">
+        <transactionHandlers>
+          <transactionLayerHasTransactionHandlers Id="d46f413b-399f-4146-9f83-7a018b34b82d">
+            <transactionHandler Id="21a79c0e-a55f-4917-9acd-dc48b8422e9a" name="Sale" transactionId="V">
+              <outputTransactionEngine>
+                <transactionHandlerReferencesOutputTransactionEngine Id="77d93e48-8d51-4633-8f91-02a840ef8057">
+                  <outputTransactionEngineMoniker name="/bd1dab06-ea55-45f8-8e23-191b5930ed36/Unired Layer/Unired Engine" />
+                </transactionHandlerReferencesOutputTransactionEngine>
+              </outputTransactionEngine>
+            </transactionHandler>
+          </transactionLayerHasTransactionHandlers>
+          <transactionLayerHasTransactionHandlers Id="f51055b7-e4e2-4be1-b481-f102a3a74e83">
+            <transactionHandler Id="29ce2514-7cdb-4860-9cb9-a35afa96c2ba" name="Balance Query" transactionId="S">
+              <outputTransactionEngine>
+                <transactionHandlerReferencesOutputTransactionEngine Id="d4c5bdd4-e79c-4798-907d-4cd2b9237f7e">
+                  <outputTransactionEngineMoniker name="/bd1dab06-ea55-45f8-8e23-191b5930ed36/Unired Layer/Unired Engine" />
+                </transactionHandlerReferencesOutputTransactionEngine>
+              </outputTransactionEngine>
+            </transactionHandler>
+          </transactionLayerHasTransactionHandlers>
+        </transactionHandlers>
+        <outputTransactionEngines>
+          <transactionLayerHasOutputTransactionEngines Id="07416049-5cd1-470b-8e49-6ecb70d2224e">
+            <outputTransactionEngine Id="3b47fa61-751c-4863-ad42-846ea60e2722" name="Unired Engine" />
+          </transactionLayerHasOutputTransactionEngines>
+        </outputTransactionEngines>
+      </transactionLayer>
+    </transactionModelHasTransactionLayers>
+    <transactionModelHasTransactionLayers Id="64f7fc18-373d-4a04-85db-cf6609fb83e3">
+      <transactionLayer Id="f54c0e0d-e560-4f52-ade3-b288357ff77f" name="RedIn" level="1">
+        <transactionHandlers>
+          <transactionLayerHasTransactionHandlers Id="ba076960-d751-47de-8d44-fe178da0261d">
+            <transactionHandler Id="559ec26c-3e9e-45e2-bad2-66d894f19873" name="Sale" transactionId="V">
+              <outputTransactionEngine>
+                <transactionHandlerReferencesOutputTransactionEngine Id="339494ae-b05f-444f-970f-a23358c9b188">
+                  <outputTransactionEngineMoniker name="/bd1dab06-ea55-45f8-8e23-191b5930ed36/RedIn/Redin Engine" />
+                </transactionHandlerReferencesOutputTransactionEngine>
+              </outputTransactionEngine>
+            </transactionHandler>
+          </transactionLayerHasTransactionHandlers>
+          <transactionLayerHasTransactionHandlers Id="58910bdb-8fa5-4d5b-8907-c731c39792bf">
+            <transactionHandler Id="8f7f45b9-28c9-4cf9-8e5c-9abcdfc36dda" name="Balance Query" transactionId="Q">
+              <outputTransactionEngine>
+                <transactionHandlerReferencesOutputTransactionEngine Id="b37788a0-2720-49ed-bf87-4f00fafab9a9">
+                  <outputTransactionEngineMoniker name="/bd1dab06-ea55-45f8-8e23-191b5930ed36/RedIn/Redin Engine" />
+                </transactionHandlerReferencesOutputTransactionEngine>
+              </outputTransactionEngine>
+            </transactionHandler>
+          </transactionLayerHasTransactionHandlers>
+        </transactionHandlers>
+        <outputTransactionEngines>
+          <transactionLayerHasOutputTransactionEngines Id="a3a22c2d-1930-429a-b9f8-a2a981c2e3e8">
+            <outputTransactionEngine Id="b2e76495-bca6-4a6f-b868-026c178b854a" name="Redin Engine" />
+          </transactionLayerHasOutputTransactionEngines>
+        </outputTransactionEngines>
+      </transactionLayer>
+    </transactionModelHasTransactionLayers>
+  </transactionLayers>
+  <transactionEnvironmentLayer>
+    <transactionModelHasTransactionEnvironmentLayer Id="e33bc0be-f609-46f2-b71f-bcdbbef72956">
+      <transactionEnvironmentLayer Id="46bbd197-fb70-4d60-ad71-7f55d7eb6e3f" name="Environment Layer" />
+    </transactionModelHasTransactionEnvironmentLayer>
+  </transactionEnvironmentLayer>
+</transactionModel>

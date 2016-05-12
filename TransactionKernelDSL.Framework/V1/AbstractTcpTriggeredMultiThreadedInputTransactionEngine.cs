@@ -11,12 +11,12 @@ namespace TransactionKernelDSL.Framework.V1
     public abstract class AbstractTcpTriggeredMultiThreadedInputTransactionEngine : AbstractThreadedInputTransactionEngine
     {
 
-        private TcpListener _Listener = null;
-        private int _ListenerTimeout = 60;
-        private IPAddress _ListenerIpAddress = IPAddress.Parse("127.0.0.1");
-        private int _ListenerTcpPort = 8888;
-        private int _ListenerMinThreads = 50;
-        private int _ListenerMinCompletionWorkThreads = 1000;
+        protected TcpListener _Listener = null;
+        protected int _ListenerTimeout = 60;
+        protected IPAddress _ListenerIpAddress = IPAddress.Parse("127.0.0.1");
+        protected int _ListenerTcpPort = 8888;
+        protected int _ListenerMinThreads = 50;
+        protected int _ListenerMinCompletionWorkThreads = 1000;
 
         public virtual int ListenerTimeout { set { _ListenerTimeout = value; } }
         public virtual IPAddress ListenerIpAddress { set { _ListenerIpAddress = value; } }
@@ -110,7 +110,10 @@ namespace TransactionKernelDSL.Framework.V1
                     tcpclient.ReceiveTimeout = _ListenerTimeout * 1000;
                     tcpclient.SendTimeout = _ListenerTimeout * 1000;
 
-                    ThreadPool.QueueUserWorkItem(new WaitCallback(_ThreadPoolWorkerDelegateMethod), tcpclient);
+                    if (ThreadPool.QueueUserWorkItem(new WaitCallback(_ThreadPoolWorkerDelegateMethod), tcpclient) == false)
+                    {
+                        _Log.Error("ERROR EN THREADPOOL QueueUserWorkItem");
+                    }
 
                     //EB ; 29/05/2013
                     //Leer Estado Actual del Thread Pool, Luego de Encolar 1 Transacción

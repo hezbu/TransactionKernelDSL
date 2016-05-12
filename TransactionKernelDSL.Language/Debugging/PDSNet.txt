@@ -1,0 +1,560 @@
+	    Generating file C:\SANDBOX\TransactionKernelDSL\TransactionKernelDSL.Language\Debugging\PDSNetFacade.cs 
+                    Overwriting file C:\SANDBOX\TransactionKernelDSL\TransactionKernelDSL.Language\Debugging\PDSNetFacade.cs
+               
+	    Generating file C:\SANDBOX\TransactionKernelDSL\TransactionKernelDSL.Language\Debugging\TL0\ListenerLayer\TL0_ListenerLayer_ListenerEngine_Engine.cs 
+                    Overwriting file C:\SANDBOX\TransactionKernelDSL\TransactionKernelDSL.Language\Debugging\TL0\ListenerLayer\TL0_ListenerLayer_ListenerEngine_Engine.cs
+              	    Generating file C:\SANDBOX\TransactionKernelDSL\TransactionKernelDSL.Language\Debugging\TL1\UniredLayer\TL1_UniredLayer_UniredEngine_Engine.cs 
+                    Overwriting file C:\SANDBOX\TransactionKernelDSL\TransactionKernelDSL.Language\Debugging\TL1\UniredLayer\TL1_UniredLayer_UniredEngine_Engine.cs
+              	    Generating file C:\SANDBOX\TransactionKernelDSL\TransactionKernelDSL.Language\Debugging\TL1\RedIn\TL1_RedIn_RedinEngine_Engine.cs 
+                    Overwriting file C:\SANDBOX\TransactionKernelDSL\TransactionKernelDSL.Language\Debugging\TL1\RedIn\TL1_RedIn_RedinEngine_Engine.cs
+               
+	    Generating file C:\SANDBOX\TransactionKernelDSL\TransactionKernelDSL.Language\Debugging\TL0\ListenerLayer\TL0_ListenerLayer_Sale_Handler.cs 
+                    Overwriting file C:\SANDBOX\TransactionKernelDSL\TransactionKernelDSL.Language\Debugging\TL0\ListenerLayer\TL0_ListenerLayer_Sale_Handler.cs
+              	    Generating file C:\SANDBOX\TransactionKernelDSL\TransactionKernelDSL.Language\Debugging\TL0\ListenerLayer\TL0_ListenerLayer_BalanceQuery_Handler.cs 
+                    Overwriting file C:\SANDBOX\TransactionKernelDSL\TransactionKernelDSL.Language\Debugging\TL0\ListenerLayer\TL0_ListenerLayer_BalanceQuery_Handler.cs
+              	    Generating file C:\SANDBOX\TransactionKernelDSL\TransactionKernelDSL.Language\Debugging\TL1\UniredLayer\TL1_UniredLayer_Sale_Handler.cs 
+                    Overwriting file C:\SANDBOX\TransactionKernelDSL\TransactionKernelDSL.Language\Debugging\TL1\UniredLayer\TL1_UniredLayer_Sale_Handler.cs
+              	    Generating file C:\SANDBOX\TransactionKernelDSL\TransactionKernelDSL.Language\Debugging\TL1\UniredLayer\TL1_UniredLayer_BalanceQuery_Handler.cs 
+                    Overwriting file C:\SANDBOX\TransactionKernelDSL\TransactionKernelDSL.Language\Debugging\TL1\UniredLayer\TL1_UniredLayer_BalanceQuery_Handler.cs
+              	    Generating file C:\SANDBOX\TransactionKernelDSL\TransactionKernelDSL.Language\Debugging\TL1\RedIn\TL1_RedIn_Sale_Handler.cs 
+                    Overwriting file C:\SANDBOX\TransactionKernelDSL\TransactionKernelDSL.Language\Debugging\TL1\RedIn\TL1_RedIn_Sale_Handler.cs
+              	    Generating file C:\SANDBOX\TransactionKernelDSL\TransactionKernelDSL.Language\Debugging\TL1\RedIn\TL1_RedIn_BalanceQuery_Handler.cs 
+                    Overwriting file C:\SANDBOX\TransactionKernelDSL\TransactionKernelDSL.Language\Debugging\TL1\RedIn\TL1_RedIn_BalanceQuery_Handler.cs
+               
+	    Generating file C:\SANDBOX\TransactionKernelDSL\TransactionKernelDSL.Language\Debugging\PDSNetContext.cs 
+                    Overwriting file C:\SANDBOX\TransactionKernelDSL\TransactionKernelDSL.Language\Debugging\PDSNetContext.cs
+               
+	    Generating file C:\SANDBOX\TransactionKernelDSL\TransactionKernelDSL.Language\Debugging\UnitTest\TL0_ListenerLayer_ListenerEngine_UnitTest.cs 
+	                File found in .csproj C:\SANDBOX\TransactionKernelDSL\TransactionKernelDSL.Language\Debugging\UnitTest\TL0_ListenerLayer_ListenerEngine_UnitTest.cs 
+                    Overwriting file C:\SANDBOX\TransactionKernelDSL\TransactionKernelDSL.Language\Debugging\UnitTest\TL0_ListenerLayer_ListenerEngine_UnitTest.cs
+              	    Generating file C:\SANDBOX\TransactionKernelDSL\TransactionKernelDSL.Language\Debugging\UnitTest\TL0_ListenerLayer_ListenerEngine_ProxyUnitTest.cs 
+	                File found in .csproj C:\SANDBOX\TransactionKernelDSL\TransactionKernelDSL.Language\Debugging\UnitTest\TL0_ListenerLayer_ListenerEngine_ProxyUnitTest.cs 
+                    Overwriting file C:\SANDBOX\TransactionKernelDSL\TransactionKernelDSL.Language\Debugging\UnitTest\TL0_ListenerLayer_ListenerEngine_ProxyUnitTest.cs
+               
+	    Generating file C:\SANDBOX\TransactionKernelDSL\TransactionKernelDSL.Language\Debugging\TL0\ListenerLayer\TL0_ListenerLayer_ListenerEngine_Parser.cs 
+                    Overwriting file C:\SANDBOX\TransactionKernelDSL\TransactionKernelDSL.Language\Debugging\TL0\ListenerLayer\TL0_ListenerLayer_ListenerEngine_Parser.cs
+               
+	    Generating file C:\SANDBOX\TransactionKernelDSL\TransactionKernelDSL.Language\Debugging\TL0\ListenerLayer\TL0_ListenerLayer_ListenerEngine_ParserStructure.cs 
+                    Overwriting file C:\SANDBOX\TransactionKernelDSL\TransactionKernelDSL.Language\Debugging\TL0\ListenerLayer\TL0_ListenerLayer_ListenerEngine_ParserStructure.cs
+               
+	    Generating file C:\SANDBOX\TransactionKernelDSL\TransactionKernelDSL.Language\Debugging\TL0\ListenerLayer\TL0_ListenerLayer_ListenerEngine_ParserField.cs 
+                    Overwriting file C:\SANDBOX\TransactionKernelDSL\TransactionKernelDSL.Language\Debugging\TL0\ListenerLayer\TL0_ListenerLayer_ListenerEngine_ParserField.cs
+               
+	    Generating file C:\SANDBOX\TransactionKernelDSL\TransactionKernelDSL.Language\Debugging\TL0\ListenerLayer\TL0_ListenerLayer_ListenerEngine_ParserStream.cs 
+                    Overwriting file C:\SANDBOX\TransactionKernelDSL\TransactionKernelDSL.Language\Debugging\TL0\ListenerLayer\TL0_ListenerLayer_ListenerEngine_ParserStream.cs
+               
+	    Generating file C:\SANDBOX\TransactionKernelDSL\TransactionKernelDSL.Language\Debugging\UnitTest\TL0_ListenerLayer_ListenerEngine_Parser_UnitTest.cs 
+	                File found in .csproj C:\SANDBOX\TransactionKernelDSL\TransactionKernelDSL.Language\Debugging\UnitTest\TL0_ListenerLayer_ListenerEngine_Parser_UnitTest.cs 
+                    Overwriting file C:\SANDBOX\TransactionKernelDSL\TransactionKernelDSL.Language\Debugging\UnitTest\TL0_ListenerLayer_ListenerEngine_Parser_UnitTest.cs
+               
+	    Generating file C:\SANDBOX\TransactionKernelDSL\TransactionKernelDSL.Language\Debugging\TL0\ListenerLayer\CustomCode\TL0_ListenerLayer_Sale_Handler_ForwardingUserCustomizedCode.cs 
+                    File C:\SANDBOX\TransactionKernelDSL\TransactionKernelDSL.Language\Debugging\TL0\ListenerLayer\CustomCode\TL0_ListenerLayer_Sale_Handler_ForwardingUserCustomizedCode.cs already exists, won't be overwritten.
+                	    Generating file C:\SANDBOX\TransactionKernelDSL\TransactionKernelDSL.Language\Debugging\TL0\ListenerLayer\CustomCode\TL0_ListenerLayer_BalanceQuery_Handler_ForwardingUserCustomizedCode.cs 
+                    File C:\SANDBOX\TransactionKernelDSL\TransactionKernelDSL.Language\Debugging\TL0\ListenerLayer\CustomCode\TL0_ListenerLayer_BalanceQuery_Handler_ForwardingUserCustomizedCode.cs already exists, won't be overwritten.
+                	    Generating file C:\SANDBOX\TransactionKernelDSL\TransactionKernelDSL.Language\Debugging\TL1\UniredLayer\CustomCode\TL1_UniredLayer_Sale_Handler_ForwardingUserCustomizedCode.cs 
+                    File C:\SANDBOX\TransactionKernelDSL\TransactionKernelDSL.Language\Debugging\TL1\UniredLayer\CustomCode\TL1_UniredLayer_Sale_Handler_ForwardingUserCustomizedCode.cs already exists, won't be overwritten.
+                	    Generating file C:\SANDBOX\TransactionKernelDSL\TransactionKernelDSL.Language\Debugging\TL1\UniredLayer\CustomCode\TL1_UniredLayer_BalanceQuery_Handler_ForwardingUserCustomizedCode.cs 
+                    File C:\SANDBOX\TransactionKernelDSL\TransactionKernelDSL.Language\Debugging\TL1\UniredLayer\CustomCode\TL1_UniredLayer_BalanceQuery_Handler_ForwardingUserCustomizedCode.cs already exists, won't be overwritten.
+                	    Generating file C:\SANDBOX\TransactionKernelDSL\TransactionKernelDSL.Language\Debugging\TL1\RedIn\CustomCode\TL1_RedIn_Sale_Handler_ForwardingUserCustomizedCode.cs 
+                    File C:\SANDBOX\TransactionKernelDSL\TransactionKernelDSL.Language\Debugging\TL1\RedIn\CustomCode\TL1_RedIn_Sale_Handler_ForwardingUserCustomizedCode.cs already exists, won't be overwritten.
+                	    Generating file C:\SANDBOX\TransactionKernelDSL\TransactionKernelDSL.Language\Debugging\TL1\RedIn\CustomCode\TL1_RedIn_BalanceQuery_Handler_ForwardingUserCustomizedCode.cs 
+                    File C:\SANDBOX\TransactionKernelDSL\TransactionKernelDSL.Language\Debugging\TL1\RedIn\CustomCode\TL1_RedIn_BalanceQuery_Handler_ForwardingUserCustomizedCode.cs already exists, won't be overwritten.
+                 
+ 
+ 
+	    Generating file C:\SANDBOX\TransactionKernelDSL\TransactionKernelDSL.Language\Debugging\TL0\ListenerLayer\CustomCode\TL0_ListenerLayer_Sale_Handler_UserCustomizedCode.cs 
+                    File C:\SANDBOX\TransactionKernelDSL\TransactionKernelDSL.Language\Debugging\TL0\ListenerLayer\CustomCode\TL0_ListenerLayer_Sale_Handler_UserCustomizedCode.cs already exists, won't be overwritten.
+                	    Generating file C:\SANDBOX\TransactionKernelDSL\TransactionKernelDSL.Language\Debugging\TL0\ListenerLayer\CustomCode\TL0_ListenerLayer_BalanceQuery_Handler_UserCustomizedCode.cs 
+                    File C:\SANDBOX\TransactionKernelDSL\TransactionKernelDSL.Language\Debugging\TL0\ListenerLayer\CustomCode\TL0_ListenerLayer_BalanceQuery_Handler_UserCustomizedCode.cs already exists, won't be overwritten.
+                 
+ 
+	    Generating file C:\SANDBOX\TransactionKernelDSL\TransactionKernelDSL.Language\Debugging\CustomCode\PDSNetFacade_UserCustomizedCode.cs 
+                    File C:\SANDBOX\TransactionKernelDSL\TransactionKernelDSL.Language\Debugging\CustomCode\PDSNetFacade_UserCustomizedCode.cs already exists, won't be overwritten.
+                 
+	    Generating file C:\SANDBOX\TransactionKernelDSL\TransactionKernelDSL.Language\Debugging\CustomCode\PDSNetContext_UserCustomizedCode.cs 
+                    File C:\SANDBOX\TransactionKernelDSL\TransactionKernelDSL.Language\Debugging\CustomCode\PDSNetContext_UserCustomizedCode.cs already exists, won't be overwritten.
+                 
+	    Generating file C:\SANDBOX\TransactionKernelDSL\TransactionKernelDSL.Language\Debugging\UnitTest\CustomCode\TL0_ListenerLayer_ListenerEngine_UnitTestInput.cs 
+	                File found in .csproj C:\SANDBOX\TransactionKernelDSL\TransactionKernelDSL.Language\Debugging\UnitTest\CustomCode\TL0_ListenerLayer_ListenerEngine_UnitTestInput.cs 
+                    Creating file C:\SANDBOX\TransactionKernelDSL\TransactionKernelDSL.Language\Debugging\UnitTest\CustomCode\TL0_ListenerLayer_ListenerEngine_UnitTestInput.cs
+                 
+	    Generating file C:\SANDBOX\TransactionKernelDSL\TransactionKernelDSL.Language\Debugging\UnitTest\CustomCode\TL0_ListenerLayer_ListenerEngine_UnitTestOutput.cs 
+	                File found in .csproj C:\SANDBOX\TransactionKernelDSL\TransactionKernelDSL.Language\Debugging\UnitTest\CustomCode\TL0_ListenerLayer_ListenerEngine_UnitTestOutput.cs 
+                    Creating file C:\SANDBOX\TransactionKernelDSL\TransactionKernelDSL.Language\Debugging\UnitTest\CustomCode\TL0_ListenerLayer_ListenerEngine_UnitTestOutput.cs
+                 
+	    Generating file C:\SANDBOX\TransactionKernelDSL\TransactionKernelDSL.Language\Debugging\TL0\ListenerLayer\CustomCode\TL0_ListenerLayer_ListenerEngine_EngineUserCustomizedCode.cs 
+                    File C:\SANDBOX\TransactionKernelDSL\TransactionKernelDSL.Language\Debugging\TL0\ListenerLayer\CustomCode\TL0_ListenerLayer_ListenerEngine_EngineUserCustomizedCode.cs already exists, won't be overwritten.
+                 
+	    Generating file C:\SANDBOX\TransactionKernelDSL\TransactionKernelDSL.Language\Debugging\TL1\UniredLayer\CustomCode\TL1_UniredLayer_UniredEngine_EngineUserCustomizedCode.cs 
+                    File C:\SANDBOX\TransactionKernelDSL\TransactionKernelDSL.Language\Debugging\TL1\UniredLayer\CustomCode\TL1_UniredLayer_UniredEngine_EngineUserCustomizedCode.cs already exists, won't be overwritten.
+                	    Generating file C:\SANDBOX\TransactionKernelDSL\TransactionKernelDSL.Language\Debugging\TL1\RedIn\CustomCode\TL1_RedIn_RedinEngine_EngineUserCustomizedCode.cs 
+                    File C:\SANDBOX\TransactionKernelDSL\TransactionKernelDSL.Language\Debugging\TL1\RedIn\CustomCode\TL1_RedIn_RedinEngine_EngineUserCustomizedCode.cs already exists, won't be overwritten.
+                 
+	    Generating file C:\SANDBOX\TransactionKernelDSL\TransactionKernelDSL.Language\Debugging\UnitTest\CustomCode\TL0_ListenerLayer_ListenerEngine_UnitTest_UC.cs 
+	                File found in .csproj C:\SANDBOX\TransactionKernelDSL\TransactionKernelDSL.Language\Debugging\UnitTest\CustomCode\TL0_ListenerLayer_ListenerEngine_UnitTest_UC.cs 
+                    Creating file C:\SANDBOX\TransactionKernelDSL\TransactionKernelDSL.Language\Debugging\UnitTest\CustomCode\TL0_ListenerLayer_ListenerEngine_UnitTest_UC.cs
+                 
+	    Generating file C:\SANDBOX\TransactionKernelDSL\TransactionKernelDSL.Language\Debugging\TL0\ListenerLayer\CustomCode\TL0_ListenerLayer_ListenerEngine_Parser_UC.cs 
+                    File C:\SANDBOX\TransactionKernelDSL\TransactionKernelDSL.Language\Debugging\TL0\ListenerLayer\CustomCode\TL0_ListenerLayer_ListenerEngine_Parser_UC.cs already exists, won't be overwritten.
+                 
+	    Generating file C:\SANDBOX\TransactionKernelDSL\TransactionKernelDSL.Language\Debugging\TL0\ListenerLayer\CustomCode\TL0_ListenerLayer_ListenerEngine_ParserStructure_UC.cs 
+                    File C:\SANDBOX\TransactionKernelDSL\TransactionKernelDSL.Language\Debugging\TL0\ListenerLayer\CustomCode\TL0_ListenerLayer_ListenerEngine_ParserStructure_UC.cs already exists, won't be overwritten.
+                 
+	    Generating file C:\SANDBOX\TransactionKernelDSL\TransactionKernelDSL.Language\Debugging\TL0\ListenerLayer\CustomCode\TL0_ListenerLayer_ListenerEngine_ParserField_UC.cs 
+                    File C:\SANDBOX\TransactionKernelDSL\TransactionKernelDSL.Language\Debugging\TL0\ListenerLayer\CustomCode\TL0_ListenerLayer_ListenerEngine_ParserField_UC.cs already exists, won't be overwritten.
+                 
+	    Generating file C:\SANDBOX\TransactionKernelDSL\TransactionKernelDSL.Language\Debugging\TL0\ListenerLayer\CustomCode\TL0_ListenerLayer_ListenerEngine_ParserStream_UC.cs 
+                    File C:\SANDBOX\TransactionKernelDSL\TransactionKernelDSL.Language\Debugging\TL0\ListenerLayer\CustomCode\TL0_ListenerLayer_ListenerEngine_ParserStream_UC.cs already exists, won't be overwritten.
+                 
+	    Generating file C:\SANDBOX\TransactionKernelDSL\TransactionKernelDSL.Language\Debugging\UnitTest\CustomCode\TL0_ListenerLayer_ListenerEngine_Parser_UnitTestInput.cs 
+	                File found in .csproj C:\SANDBOX\TransactionKernelDSL\TransactionKernelDSL.Language\Debugging\UnitTest\CustomCode\TL0_ListenerLayer_ListenerEngine_Parser_UnitTestInput.cs 
+                    Creating file C:\SANDBOX\TransactionKernelDSL\TransactionKernelDSL.Language\Debugging\UnitTest\CustomCode\TL0_ListenerLayer_ListenerEngine_Parser_UnitTestInput.cs
+                 
+	    Generating file C:\SANDBOX\TransactionKernelDSL\TransactionKernelDSL.Language\Debugging\App.config 
+                    File C:\SANDBOX\TransactionKernelDSL\TransactionKernelDSL.Language\Debugging\App.config already exists, won't be overwritten.
+                 
+	    Generating file C:\SANDBOX\TransactionKernelDSL\TransactionKernelDSL.Language\Debugging\Scripts\TL0_ListenerLayer_ListenerEngine_Script.sql 
+                    Overwriting file C:\SANDBOX\TransactionKernelDSL\TransactionKernelDSL.Language\Debugging\Scripts\TL0_ListenerLayer_ListenerEngine_Script.sql
+              	    Generating file C:\SANDBOX\TransactionKernelDSL\TransactionKernelDSL.Language\Debugging\Scripts\TL1_UniredLayer_UniredEngine_Script.sql 
+                    Overwriting file C:\SANDBOX\TransactionKernelDSL\TransactionKernelDSL.Language\Debugging\Scripts\TL1_UniredLayer_UniredEngine_Script.sql
+              	    Generating file C:\SANDBOX\TransactionKernelDSL\TransactionKernelDSL.Language\Debugging\Scripts\TL1_RedIn_RedinEngine_Script.sql 
+                    Overwriting file C:\SANDBOX\TransactionKernelDSL\TransactionKernelDSL.Language\Debugging\Scripts\TL1_RedIn_RedinEngine_Script.sql
+               
+ 
+	    Generating file C:\SANDBOX\TransactionKernelDSL\TransactionKernelDSL.Language\Debugging\Scripts\PDSNetFacade_Script.sql 
+                    Overwriting file C:\SANDBOX\TransactionKernelDSL\TransactionKernelDSL.Language\Debugging\Scripts\PDSNetFacade_Script.sql
+               
+ 
+ 
+ 
+ 
+	    Generating file C:\SANDBOX\TransactionKernelDSL\TransactionKernelDSL.Language\Debugging\PDSNetFacade.cs 
+                    Overwriting file C:\SANDBOX\TransactionKernelDSL\TransactionKernelDSL.Language\Debugging\PDSNetFacade.cs
+               
+	    Generating file C:\SANDBOX\TransactionKernelDSL\TransactionKernelDSL.Language\Debugging\TL0\ListenerLayer\TL0_ListenerLayer_ListenerEngine_Engine.cs 
+                    Overwriting file C:\SANDBOX\TransactionKernelDSL\TransactionKernelDSL.Language\Debugging\TL0\ListenerLayer\TL0_ListenerLayer_ListenerEngine_Engine.cs
+              	    Generating file C:\SANDBOX\TransactionKernelDSL\TransactionKernelDSL.Language\Debugging\TL1\UniredLayer\TL1_UniredLayer_UniredEngine_Engine.cs 
+                    Overwriting file C:\SANDBOX\TransactionKernelDSL\TransactionKernelDSL.Language\Debugging\TL1\UniredLayer\TL1_UniredLayer_UniredEngine_Engine.cs
+              	    Generating file C:\SANDBOX\TransactionKernelDSL\TransactionKernelDSL.Language\Debugging\TL1\RedIn\TL1_RedIn_RedinEngine_Engine.cs 
+                    Overwriting file C:\SANDBOX\TransactionKernelDSL\TransactionKernelDSL.Language\Debugging\TL1\RedIn\TL1_RedIn_RedinEngine_Engine.cs
+               
+	    Generating file C:\SANDBOX\TransactionKernelDSL\TransactionKernelDSL.Language\Debugging\TL0\ListenerLayer\TL0_ListenerLayer_Sale_Handler.cs 
+                    Overwriting file C:\SANDBOX\TransactionKernelDSL\TransactionKernelDSL.Language\Debugging\TL0\ListenerLayer\TL0_ListenerLayer_Sale_Handler.cs
+              	    Generating file C:\SANDBOX\TransactionKernelDSL\TransactionKernelDSL.Language\Debugging\TL0\ListenerLayer\TL0_ListenerLayer_BalanceQuery_Handler.cs 
+                    Overwriting file C:\SANDBOX\TransactionKernelDSL\TransactionKernelDSL.Language\Debugging\TL0\ListenerLayer\TL0_ListenerLayer_BalanceQuery_Handler.cs
+              	    Generating file C:\SANDBOX\TransactionKernelDSL\TransactionKernelDSL.Language\Debugging\TL1\UniredLayer\TL1_UniredLayer_Sale_Handler.cs 
+                    Overwriting file C:\SANDBOX\TransactionKernelDSL\TransactionKernelDSL.Language\Debugging\TL1\UniredLayer\TL1_UniredLayer_Sale_Handler.cs
+              	    Generating file C:\SANDBOX\TransactionKernelDSL\TransactionKernelDSL.Language\Debugging\TL1\UniredLayer\TL1_UniredLayer_BalanceQuery_Handler.cs 
+                    Overwriting file C:\SANDBOX\TransactionKernelDSL\TransactionKernelDSL.Language\Debugging\TL1\UniredLayer\TL1_UniredLayer_BalanceQuery_Handler.cs
+              	    Generating file C:\SANDBOX\TransactionKernelDSL\TransactionKernelDSL.Language\Debugging\TL1\RedIn\TL1_RedIn_Sale_Handler.cs 
+                    Overwriting file C:\SANDBOX\TransactionKernelDSL\TransactionKernelDSL.Language\Debugging\TL1\RedIn\TL1_RedIn_Sale_Handler.cs
+              	    Generating file C:\SANDBOX\TransactionKernelDSL\TransactionKernelDSL.Language\Debugging\TL1\RedIn\TL1_RedIn_BalanceQuery_Handler.cs 
+                    Overwriting file C:\SANDBOX\TransactionKernelDSL\TransactionKernelDSL.Language\Debugging\TL1\RedIn\TL1_RedIn_BalanceQuery_Handler.cs
+               
+	    Generating file C:\SANDBOX\TransactionKernelDSL\TransactionKernelDSL.Language\Debugging\PDSNetContext.cs 
+                    Overwriting file C:\SANDBOX\TransactionKernelDSL\TransactionKernelDSL.Language\Debugging\PDSNetContext.cs
+               
+	    Generating file C:\SANDBOX\TransactionKernelDSL\TransactionKernelDSL.Language\Debugging\UnitTest\TL0_ListenerLayer_ListenerEngine_UnitTest.cs 
+	                File found in .csproj C:\SANDBOX\TransactionKernelDSL\TransactionKernelDSL.Language\Debugging\UnitTest\TL0_ListenerLayer_ListenerEngine_UnitTest.cs 
+                    Overwriting file C:\SANDBOX\TransactionKernelDSL\TransactionKernelDSL.Language\Debugging\UnitTest\TL0_ListenerLayer_ListenerEngine_UnitTest.cs
+              	    Generating file C:\SANDBOX\TransactionKernelDSL\TransactionKernelDSL.Language\Debugging\UnitTest\TL0_ListenerLayer_ListenerEngine_ProxyUnitTest.cs 
+	                File found in .csproj C:\SANDBOX\TransactionKernelDSL\TransactionKernelDSL.Language\Debugging\UnitTest\TL0_ListenerLayer_ListenerEngine_ProxyUnitTest.cs 
+                    Overwriting file C:\SANDBOX\TransactionKernelDSL\TransactionKernelDSL.Language\Debugging\UnitTest\TL0_ListenerLayer_ListenerEngine_ProxyUnitTest.cs
+               
+	    Generating file C:\SANDBOX\TransactionKernelDSL\TransactionKernelDSL.Language\Debugging\TL0\ListenerLayer\TL0_ListenerLayer_ListenerEngine_Parser.cs 
+                    Overwriting file C:\SANDBOX\TransactionKernelDSL\TransactionKernelDSL.Language\Debugging\TL0\ListenerLayer\TL0_ListenerLayer_ListenerEngine_Parser.cs
+               
+	    Generating file C:\SANDBOX\TransactionKernelDSL\TransactionKernelDSL.Language\Debugging\TL0\ListenerLayer\TL0_ListenerLayer_ListenerEngine_ParserStructure.cs 
+                    Overwriting file C:\SANDBOX\TransactionKernelDSL\TransactionKernelDSL.Language\Debugging\TL0\ListenerLayer\TL0_ListenerLayer_ListenerEngine_ParserStructure.cs
+               
+	    Generating file C:\SANDBOX\TransactionKernelDSL\TransactionKernelDSL.Language\Debugging\TL0\ListenerLayer\TL0_ListenerLayer_ListenerEngine_ParserField.cs 
+                    Overwriting file C:\SANDBOX\TransactionKernelDSL\TransactionKernelDSL.Language\Debugging\TL0\ListenerLayer\TL0_ListenerLayer_ListenerEngine_ParserField.cs
+               
+	    Generating file C:\SANDBOX\TransactionKernelDSL\TransactionKernelDSL.Language\Debugging\TL0\ListenerLayer\TL0_ListenerLayer_ListenerEngine_ParserStream.cs 
+                    Overwriting file C:\SANDBOX\TransactionKernelDSL\TransactionKernelDSL.Language\Debugging\TL0\ListenerLayer\TL0_ListenerLayer_ListenerEngine_ParserStream.cs
+               
+	    Generating file C:\SANDBOX\TransactionKernelDSL\TransactionKernelDSL.Language\Debugging\UnitTest\TL0_ListenerLayer_ListenerEngine_Parser_UnitTest.cs 
+	                File found in .csproj C:\SANDBOX\TransactionKernelDSL\TransactionKernelDSL.Language\Debugging\UnitTest\TL0_ListenerLayer_ListenerEngine_Parser_UnitTest.cs 
+                    Overwriting file C:\SANDBOX\TransactionKernelDSL\TransactionKernelDSL.Language\Debugging\UnitTest\TL0_ListenerLayer_ListenerEngine_Parser_UnitTest.cs
+               
+	    Generating file C:\SANDBOX\TransactionKernelDSL\TransactionKernelDSL.Language\Debugging\TL0\ListenerLayer\CustomCode\TL0_ListenerLayer_Sale_Handler_ForwardingUserCustomizedCode.cs 
+                    File C:\SANDBOX\TransactionKernelDSL\TransactionKernelDSL.Language\Debugging\TL0\ListenerLayer\CustomCode\TL0_ListenerLayer_Sale_Handler_ForwardingUserCustomizedCode.cs already exists, won't be overwritten.
+                	    Generating file C:\SANDBOX\TransactionKernelDSL\TransactionKernelDSL.Language\Debugging\TL0\ListenerLayer\CustomCode\TL0_ListenerLayer_BalanceQuery_Handler_ForwardingUserCustomizedCode.cs 
+                    File C:\SANDBOX\TransactionKernelDSL\TransactionKernelDSL.Language\Debugging\TL0\ListenerLayer\CustomCode\TL0_ListenerLayer_BalanceQuery_Handler_ForwardingUserCustomizedCode.cs already exists, won't be overwritten.
+                	    Generating file C:\SANDBOX\TransactionKernelDSL\TransactionKernelDSL.Language\Debugging\TL1\UniredLayer\CustomCode\TL1_UniredLayer_Sale_Handler_ForwardingUserCustomizedCode.cs 
+                    File C:\SANDBOX\TransactionKernelDSL\TransactionKernelDSL.Language\Debugging\TL1\UniredLayer\CustomCode\TL1_UniredLayer_Sale_Handler_ForwardingUserCustomizedCode.cs already exists, won't be overwritten.
+                	    Generating file C:\SANDBOX\TransactionKernelDSL\TransactionKernelDSL.Language\Debugging\TL1\UniredLayer\CustomCode\TL1_UniredLayer_BalanceQuery_Handler_ForwardingUserCustomizedCode.cs 
+                    File C:\SANDBOX\TransactionKernelDSL\TransactionKernelDSL.Language\Debugging\TL1\UniredLayer\CustomCode\TL1_UniredLayer_BalanceQuery_Handler_ForwardingUserCustomizedCode.cs already exists, won't be overwritten.
+                	    Generating file C:\SANDBOX\TransactionKernelDSL\TransactionKernelDSL.Language\Debugging\TL1\RedIn\CustomCode\TL1_RedIn_Sale_Handler_ForwardingUserCustomizedCode.cs 
+                    File C:\SANDBOX\TransactionKernelDSL\TransactionKernelDSL.Language\Debugging\TL1\RedIn\CustomCode\TL1_RedIn_Sale_Handler_ForwardingUserCustomizedCode.cs already exists, won't be overwritten.
+                	    Generating file C:\SANDBOX\TransactionKernelDSL\TransactionKernelDSL.Language\Debugging\TL1\RedIn\CustomCode\TL1_RedIn_BalanceQuery_Handler_ForwardingUserCustomizedCode.cs 
+                    File C:\SANDBOX\TransactionKernelDSL\TransactionKernelDSL.Language\Debugging\TL1\RedIn\CustomCode\TL1_RedIn_BalanceQuery_Handler_ForwardingUserCustomizedCode.cs already exists, won't be overwritten.
+                 
+ 
+ 
+	    Generating file C:\SANDBOX\TransactionKernelDSL\TransactionKernelDSL.Language\Debugging\TL0\ListenerLayer\CustomCode\TL0_ListenerLayer_Sale_Handler_UserCustomizedCode.cs 
+                    File C:\SANDBOX\TransactionKernelDSL\TransactionKernelDSL.Language\Debugging\TL0\ListenerLayer\CustomCode\TL0_ListenerLayer_Sale_Handler_UserCustomizedCode.cs already exists, won't be overwritten.
+                	    Generating file C:\SANDBOX\TransactionKernelDSL\TransactionKernelDSL.Language\Debugging\TL0\ListenerLayer\CustomCode\TL0_ListenerLayer_BalanceQuery_Handler_UserCustomizedCode.cs 
+                    File C:\SANDBOX\TransactionKernelDSL\TransactionKernelDSL.Language\Debugging\TL0\ListenerLayer\CustomCode\TL0_ListenerLayer_BalanceQuery_Handler_UserCustomizedCode.cs already exists, won't be overwritten.
+                 
+ 
+	    Generating file C:\SANDBOX\TransactionKernelDSL\TransactionKernelDSL.Language\Debugging\CustomCode\PDSNetFacade_UserCustomizedCode.cs 
+                    File C:\SANDBOX\TransactionKernelDSL\TransactionKernelDSL.Language\Debugging\CustomCode\PDSNetFacade_UserCustomizedCode.cs already exists, won't be overwritten.
+                 
+	    Generating file C:\SANDBOX\TransactionKernelDSL\TransactionKernelDSL.Language\Debugging\CustomCode\PDSNetContext_UserCustomizedCode.cs 
+                    File C:\SANDBOX\TransactionKernelDSL\TransactionKernelDSL.Language\Debugging\CustomCode\PDSNetContext_UserCustomizedCode.cs already exists, won't be overwritten.
+                 
+	    Generating file C:\SANDBOX\TransactionKernelDSL\TransactionKernelDSL.Language\Debugging\UnitTest\CustomCode\TL0_ListenerLayer_ListenerEngine_UnitTestInput.cs 
+	                File found in .csproj C:\SANDBOX\TransactionKernelDSL\TransactionKernelDSL.Language\Debugging\UnitTest\CustomCode\TL0_ListenerLayer_ListenerEngine_UnitTestInput.cs 
+                    File C:\SANDBOX\TransactionKernelDSL\TransactionKernelDSL.Language\Debugging\UnitTest\CustomCode\TL0_ListenerLayer_ListenerEngine_UnitTestInput.cs already exists, won't be overwritten.
+                 
+	    Generating file C:\SANDBOX\TransactionKernelDSL\TransactionKernelDSL.Language\Debugging\UnitTest\CustomCode\TL0_ListenerLayer_ListenerEngine_UnitTestOutput.cs 
+	                File found in .csproj C:\SANDBOX\TransactionKernelDSL\TransactionKernelDSL.Language\Debugging\UnitTest\CustomCode\TL0_ListenerLayer_ListenerEngine_UnitTestOutput.cs 
+                    File C:\SANDBOX\TransactionKernelDSL\TransactionKernelDSL.Language\Debugging\UnitTest\CustomCode\TL0_ListenerLayer_ListenerEngine_UnitTestOutput.cs already exists, won't be overwritten.
+                 
+	    Generating file C:\SANDBOX\TransactionKernelDSL\TransactionKernelDSL.Language\Debugging\TL0\ListenerLayer\CustomCode\TL0_ListenerLayer_ListenerEngine_EngineUserCustomizedCode.cs 
+                    File C:\SANDBOX\TransactionKernelDSL\TransactionKernelDSL.Language\Debugging\TL0\ListenerLayer\CustomCode\TL0_ListenerLayer_ListenerEngine_EngineUserCustomizedCode.cs already exists, won't be overwritten.
+                 
+	    Generating file C:\SANDBOX\TransactionKernelDSL\TransactionKernelDSL.Language\Debugging\TL1\UniredLayer\CustomCode\TL1_UniredLayer_UniredEngine_EngineUserCustomizedCode.cs 
+                    File C:\SANDBOX\TransactionKernelDSL\TransactionKernelDSL.Language\Debugging\TL1\UniredLayer\CustomCode\TL1_UniredLayer_UniredEngine_EngineUserCustomizedCode.cs already exists, won't be overwritten.
+                	    Generating file C:\SANDBOX\TransactionKernelDSL\TransactionKernelDSL.Language\Debugging\TL1\RedIn\CustomCode\TL1_RedIn_RedinEngine_EngineUserCustomizedCode.cs 
+                    File C:\SANDBOX\TransactionKernelDSL\TransactionKernelDSL.Language\Debugging\TL1\RedIn\CustomCode\TL1_RedIn_RedinEngine_EngineUserCustomizedCode.cs already exists, won't be overwritten.
+                 
+	    Generating file C:\SANDBOX\TransactionKernelDSL\TransactionKernelDSL.Language\Debugging\UnitTest\CustomCode\TL0_ListenerLayer_ListenerEngine_UnitTest_UC.cs 
+	                File found in .csproj C:\SANDBOX\TransactionKernelDSL\TransactionKernelDSL.Language\Debugging\UnitTest\CustomCode\TL0_ListenerLayer_ListenerEngine_UnitTest_UC.cs 
+                    File C:\SANDBOX\TransactionKernelDSL\TransactionKernelDSL.Language\Debugging\UnitTest\CustomCode\TL0_ListenerLayer_ListenerEngine_UnitTest_UC.cs already exists, won't be overwritten.
+                 
+	    Generating file C:\SANDBOX\TransactionKernelDSL\TransactionKernelDSL.Language\Debugging\TL0\ListenerLayer\CustomCode\TL0_ListenerLayer_ListenerEngine_Parser_UC.cs 
+                    File C:\SANDBOX\TransactionKernelDSL\TransactionKernelDSL.Language\Debugging\TL0\ListenerLayer\CustomCode\TL0_ListenerLayer_ListenerEngine_Parser_UC.cs already exists, won't be overwritten.
+                 
+	    Generating file C:\SANDBOX\TransactionKernelDSL\TransactionKernelDSL.Language\Debugging\TL0\ListenerLayer\CustomCode\TL0_ListenerLayer_ListenerEngine_ParserStructure_UC.cs 
+                    File C:\SANDBOX\TransactionKernelDSL\TransactionKernelDSL.Language\Debugging\TL0\ListenerLayer\CustomCode\TL0_ListenerLayer_ListenerEngine_ParserStructure_UC.cs already exists, won't be overwritten.
+                 
+	    Generating file C:\SANDBOX\TransactionKernelDSL\TransactionKernelDSL.Language\Debugging\TL0\ListenerLayer\CustomCode\TL0_ListenerLayer_ListenerEngine_ParserField_UC.cs 
+                    File C:\SANDBOX\TransactionKernelDSL\TransactionKernelDSL.Language\Debugging\TL0\ListenerLayer\CustomCode\TL0_ListenerLayer_ListenerEngine_ParserField_UC.cs already exists, won't be overwritten.
+                 
+	    Generating file C:\SANDBOX\TransactionKernelDSL\TransactionKernelDSL.Language\Debugging\TL0\ListenerLayer\CustomCode\TL0_ListenerLayer_ListenerEngine_ParserStream_UC.cs 
+                    File C:\SANDBOX\TransactionKernelDSL\TransactionKernelDSL.Language\Debugging\TL0\ListenerLayer\CustomCode\TL0_ListenerLayer_ListenerEngine_ParserStream_UC.cs already exists, won't be overwritten.
+                 
+	    Generating file C:\SANDBOX\TransactionKernelDSL\TransactionKernelDSL.Language\Debugging\UnitTest\CustomCode\TL0_ListenerLayer_ListenerEngine_Parser_UnitTestInput.cs 
+	                File found in .csproj C:\SANDBOX\TransactionKernelDSL\TransactionKernelDSL.Language\Debugging\UnitTest\CustomCode\TL0_ListenerLayer_ListenerEngine_Parser_UnitTestInput.cs 
+                    File C:\SANDBOX\TransactionKernelDSL\TransactionKernelDSL.Language\Debugging\UnitTest\CustomCode\TL0_ListenerLayer_ListenerEngine_Parser_UnitTestInput.cs already exists, won't be overwritten.
+                 
+	    Generating file C:\SANDBOX\TransactionKernelDSL\TransactionKernelDSL.Language\Debugging\App.config 
+                    File C:\SANDBOX\TransactionKernelDSL\TransactionKernelDSL.Language\Debugging\App.config already exists, won't be overwritten.
+                 
+	    Generating file C:\SANDBOX\TransactionKernelDSL\TransactionKernelDSL.Language\Debugging\Scripts\TL0_ListenerLayer_ListenerEngine_Script.sql 
+                    Overwriting file C:\SANDBOX\TransactionKernelDSL\TransactionKernelDSL.Language\Debugging\Scripts\TL0_ListenerLayer_ListenerEngine_Script.sql
+              	    Generating file C:\SANDBOX\TransactionKernelDSL\TransactionKernelDSL.Language\Debugging\Scripts\TL1_UniredLayer_UniredEngine_Script.sql 
+                    Overwriting file C:\SANDBOX\TransactionKernelDSL\TransactionKernelDSL.Language\Debugging\Scripts\TL1_UniredLayer_UniredEngine_Script.sql
+              	    Generating file C:\SANDBOX\TransactionKernelDSL\TransactionKernelDSL.Language\Debugging\Scripts\TL1_RedIn_RedinEngine_Script.sql 
+                    Overwriting file C:\SANDBOX\TransactionKernelDSL\TransactionKernelDSL.Language\Debugging\Scripts\TL1_RedIn_RedinEngine_Script.sql
+               
+ 
+	    Generating file C:\SANDBOX\TransactionKernelDSL\TransactionKernelDSL.Language\Debugging\Scripts\PDSNetFacade_Script.sql 
+                    Overwriting file C:\SANDBOX\TransactionKernelDSL\TransactionKernelDSL.Language\Debugging\Scripts\PDSNetFacade_Script.sql
+               
+ 
+ 
+ 
+ 
+	    Generating file C:\SANDBOX\TransactionKernelDSL\TransactionKernelDSL.Language\Debugging\PDSNetFacade.cs 
+                    Overwriting file C:\SANDBOX\TransactionKernelDSL\TransactionKernelDSL.Language\Debugging\PDSNetFacade.cs
+               
+	    Generating file C:\SANDBOX\TransactionKernelDSL\TransactionKernelDSL.Language\Debugging\TL0\ListenerLayer\TL0_ListenerLayer_ListenerEngine_Engine.cs 
+                    Overwriting file C:\SANDBOX\TransactionKernelDSL\TransactionKernelDSL.Language\Debugging\TL0\ListenerLayer\TL0_ListenerLayer_ListenerEngine_Engine.cs
+              	    Generating file C:\SANDBOX\TransactionKernelDSL\TransactionKernelDSL.Language\Debugging\TL0\ListenerLayer\TL0_ListenerLayer_asdasd_Engine.cs 
+                    Overwriting file C:\SANDBOX\TransactionKernelDSL\TransactionKernelDSL.Language\Debugging\TL0\ListenerLayer\TL0_ListenerLayer_asdasd_Engine.cs
+              	    Generating file C:\SANDBOX\TransactionKernelDSL\TransactionKernelDSL.Language\Debugging\TL1\UniredLayer\TL1_UniredLayer_UniredEngine_Engine.cs 
+                    Overwriting file C:\SANDBOX\TransactionKernelDSL\TransactionKernelDSL.Language\Debugging\TL1\UniredLayer\TL1_UniredLayer_UniredEngine_Engine.cs
+              	    Generating file C:\SANDBOX\TransactionKernelDSL\TransactionKernelDSL.Language\Debugging\TL1\RedIn\TL1_RedIn_RedinEngine_Engine.cs 
+                    Overwriting file C:\SANDBOX\TransactionKernelDSL\TransactionKernelDSL.Language\Debugging\TL1\RedIn\TL1_RedIn_RedinEngine_Engine.cs
+               
+	    Generating file C:\SANDBOX\TransactionKernelDSL\TransactionKernelDSL.Language\Debugging\TL0\ListenerLayer\TL0_ListenerLayer_Sale_Handler.cs 
+                    Overwriting file C:\SANDBOX\TransactionKernelDSL\TransactionKernelDSL.Language\Debugging\TL0\ListenerLayer\TL0_ListenerLayer_Sale_Handler.cs
+              	    Generating file C:\SANDBOX\TransactionKernelDSL\TransactionKernelDSL.Language\Debugging\TL0\ListenerLayer\TL0_ListenerLayer_BalanceQuery_Handler.cs 
+                    Overwriting file C:\SANDBOX\TransactionKernelDSL\TransactionKernelDSL.Language\Debugging\TL0\ListenerLayer\TL0_ListenerLayer_BalanceQuery_Handler.cs
+              	    Generating file C:\SANDBOX\TransactionKernelDSL\TransactionKernelDSL.Language\Debugging\TL0\ListenerLayer\TL0_ListenerLayer_TransactionName1_Handler.cs 
+                    Overwriting file C:\SANDBOX\TransactionKernelDSL\TransactionKernelDSL.Language\Debugging\TL0\ListenerLayer\TL0_ListenerLayer_TransactionName1_Handler.cs
+              	    Generating file C:\SANDBOX\TransactionKernelDSL\TransactionKernelDSL.Language\Debugging\TL1\UniredLayer\TL1_UniredLayer_Sale_Handler.cs 
+                    Overwriting file C:\SANDBOX\TransactionKernelDSL\TransactionKernelDSL.Language\Debugging\TL1\UniredLayer\TL1_UniredLayer_Sale_Handler.cs
+              	    Generating file C:\SANDBOX\TransactionKernelDSL\TransactionKernelDSL.Language\Debugging\TL1\UniredLayer\TL1_UniredLayer_BalanceQuery_Handler.cs 
+                    Overwriting file C:\SANDBOX\TransactionKernelDSL\TransactionKernelDSL.Language\Debugging\TL1\UniredLayer\TL1_UniredLayer_BalanceQuery_Handler.cs
+              	    Generating file C:\SANDBOX\TransactionKernelDSL\TransactionKernelDSL.Language\Debugging\TL1\RedIn\TL1_RedIn_Sale_Handler.cs 
+                    Overwriting file C:\SANDBOX\TransactionKernelDSL\TransactionKernelDSL.Language\Debugging\TL1\RedIn\TL1_RedIn_Sale_Handler.cs
+              	    Generating file C:\SANDBOX\TransactionKernelDSL\TransactionKernelDSL.Language\Debugging\TL1\RedIn\TL1_RedIn_BalanceQuery_Handler.cs 
+                    Overwriting file C:\SANDBOX\TransactionKernelDSL\TransactionKernelDSL.Language\Debugging\TL1\RedIn\TL1_RedIn_BalanceQuery_Handler.cs
+               
+	    Generating file C:\SANDBOX\TransactionKernelDSL\TransactionKernelDSL.Language\Debugging\PDSNetContext.cs 
+                    Overwriting file C:\SANDBOX\TransactionKernelDSL\TransactionKernelDSL.Language\Debugging\PDSNetContext.cs
+               
+	    Generating file C:\SANDBOX\TransactionKernelDSL\TransactionKernelDSL.Language\Debugging\UnitTest\TL0_ListenerLayer_ListenerEngine_UnitTest.cs 
+	                File found in .csproj C:\SANDBOX\TransactionKernelDSL\TransactionKernelDSL.Language\Debugging\UnitTest\TL0_ListenerLayer_ListenerEngine_UnitTest.cs 
+                    Overwriting file C:\SANDBOX\TransactionKernelDSL\TransactionKernelDSL.Language\Debugging\UnitTest\TL0_ListenerLayer_ListenerEngine_UnitTest.cs
+              	    Generating file C:\SANDBOX\TransactionKernelDSL\TransactionKernelDSL.Language\Debugging\UnitTest\TL0_ListenerLayer_asdasd_UnitTest.cs 
+                    Overwriting file C:\SANDBOX\TransactionKernelDSL\TransactionKernelDSL.Language\Debugging\UnitTest\TL0_ListenerLayer_asdasd_UnitTest.cs
+              	    Generating file C:\SANDBOX\TransactionKernelDSL\TransactionKernelDSL.Language\Debugging\UnitTest\TL0_ListenerLayer_ListenerEngine_ProxyUnitTest.cs 
+	                File found in .csproj C:\SANDBOX\TransactionKernelDSL\TransactionKernelDSL.Language\Debugging\UnitTest\TL0_ListenerLayer_ListenerEngine_ProxyUnitTest.cs 
+                    Overwriting file C:\SANDBOX\TransactionKernelDSL\TransactionKernelDSL.Language\Debugging\UnitTest\TL0_ListenerLayer_ListenerEngine_ProxyUnitTest.cs
+              	    Generating file C:\SANDBOX\TransactionKernelDSL\TransactionKernelDSL.Language\Debugging\UnitTest\TL0_ListenerLayer_asdasd_ProxyUnitTest.cs 
+                    Overwriting file C:\SANDBOX\TransactionKernelDSL\TransactionKernelDSL.Language\Debugging\UnitTest\TL0_ListenerLayer_asdasd_ProxyUnitTest.cs
+               
+	    Generating file C:\SANDBOX\TransactionKernelDSL\TransactionKernelDSL.Language\Debugging\TL0\ListenerLayer\TL0_ListenerLayer_ListenerEngine_Parser.cs 
+                    Overwriting file C:\SANDBOX\TransactionKernelDSL\TransactionKernelDSL.Language\Debugging\TL0\ListenerLayer\TL0_ListenerLayer_ListenerEngine_Parser.cs
+               
+	    Generating file C:\SANDBOX\TransactionKernelDSL\TransactionKernelDSL.Language\Debugging\TL0\ListenerLayer\TL0_ListenerLayer_ListenerEngine_ParserStructure.cs 
+                    Overwriting file C:\SANDBOX\TransactionKernelDSL\TransactionKernelDSL.Language\Debugging\TL0\ListenerLayer\TL0_ListenerLayer_ListenerEngine_ParserStructure.cs
+               
+	    Generating file C:\SANDBOX\TransactionKernelDSL\TransactionKernelDSL.Language\Debugging\TL0\ListenerLayer\TL0_ListenerLayer_ListenerEngine_ParserField.cs 
+                    Overwriting file C:\SANDBOX\TransactionKernelDSL\TransactionKernelDSL.Language\Debugging\TL0\ListenerLayer\TL0_ListenerLayer_ListenerEngine_ParserField.cs
+               
+	    Generating file C:\SANDBOX\TransactionKernelDSL\TransactionKernelDSL.Language\Debugging\TL0\ListenerLayer\TL0_ListenerLayer_ListenerEngine_ParserStream.cs 
+                    Overwriting file C:\SANDBOX\TransactionKernelDSL\TransactionKernelDSL.Language\Debugging\TL0\ListenerLayer\TL0_ListenerLayer_ListenerEngine_ParserStream.cs
+               
+	    Generating file C:\SANDBOX\TransactionKernelDSL\TransactionKernelDSL.Language\Debugging\UnitTest\TL0_ListenerLayer_ListenerEngine_Parser_UnitTest.cs 
+	                File found in .csproj C:\SANDBOX\TransactionKernelDSL\TransactionKernelDSL.Language\Debugging\UnitTest\TL0_ListenerLayer_ListenerEngine_Parser_UnitTest.cs 
+                    Overwriting file C:\SANDBOX\TransactionKernelDSL\TransactionKernelDSL.Language\Debugging\UnitTest\TL0_ListenerLayer_ListenerEngine_Parser_UnitTest.cs
+               
+	    Generating file C:\SANDBOX\TransactionKernelDSL\TransactionKernelDSL.Language\Debugging\TL0\ListenerLayer\CustomCode\TL0_ListenerLayer_Sale_Handler_ForwardingUserCustomizedCode.cs 
+                    File C:\SANDBOX\TransactionKernelDSL\TransactionKernelDSL.Language\Debugging\TL0\ListenerLayer\CustomCode\TL0_ListenerLayer_Sale_Handler_ForwardingUserCustomizedCode.cs already exists, won't be overwritten.
+                	    Generating file C:\SANDBOX\TransactionKernelDSL\TransactionKernelDSL.Language\Debugging\TL0\ListenerLayer\CustomCode\TL0_ListenerLayer_BalanceQuery_Handler_ForwardingUserCustomizedCode.cs 
+                    File C:\SANDBOX\TransactionKernelDSL\TransactionKernelDSL.Language\Debugging\TL0\ListenerLayer\CustomCode\TL0_ListenerLayer_BalanceQuery_Handler_ForwardingUserCustomizedCode.cs already exists, won't be overwritten.
+                	    Generating file C:\SANDBOX\TransactionKernelDSL\TransactionKernelDSL.Language\Debugging\TL1\UniredLayer\CustomCode\TL1_UniredLayer_Sale_Handler_ForwardingUserCustomizedCode.cs 
+                    File C:\SANDBOX\TransactionKernelDSL\TransactionKernelDSL.Language\Debugging\TL1\UniredLayer\CustomCode\TL1_UniredLayer_Sale_Handler_ForwardingUserCustomizedCode.cs already exists, won't be overwritten.
+                	    Generating file C:\SANDBOX\TransactionKernelDSL\TransactionKernelDSL.Language\Debugging\TL1\UniredLayer\CustomCode\TL1_UniredLayer_BalanceQuery_Handler_ForwardingUserCustomizedCode.cs 
+                    File C:\SANDBOX\TransactionKernelDSL\TransactionKernelDSL.Language\Debugging\TL1\UniredLayer\CustomCode\TL1_UniredLayer_BalanceQuery_Handler_ForwardingUserCustomizedCode.cs already exists, won't be overwritten.
+                	    Generating file C:\SANDBOX\TransactionKernelDSL\TransactionKernelDSL.Language\Debugging\TL1\RedIn\CustomCode\TL1_RedIn_Sale_Handler_ForwardingUserCustomizedCode.cs 
+                    File C:\SANDBOX\TransactionKernelDSL\TransactionKernelDSL.Language\Debugging\TL1\RedIn\CustomCode\TL1_RedIn_Sale_Handler_ForwardingUserCustomizedCode.cs already exists, won't be overwritten.
+                	    Generating file C:\SANDBOX\TransactionKernelDSL\TransactionKernelDSL.Language\Debugging\TL1\RedIn\CustomCode\TL1_RedIn_BalanceQuery_Handler_ForwardingUserCustomizedCode.cs 
+                    File C:\SANDBOX\TransactionKernelDSL\TransactionKernelDSL.Language\Debugging\TL1\RedIn\CustomCode\TL1_RedIn_BalanceQuery_Handler_ForwardingUserCustomizedCode.cs already exists, won't be overwritten.
+                 
+ 
+ 
+	    Generating file C:\SANDBOX\TransactionKernelDSL\TransactionKernelDSL.Language\Debugging\TL0\ListenerLayer\CustomCode\TL0_ListenerLayer_Sale_Handler_UserCustomizedCode.cs 
+                    File C:\SANDBOX\TransactionKernelDSL\TransactionKernelDSL.Language\Debugging\TL0\ListenerLayer\CustomCode\TL0_ListenerLayer_Sale_Handler_UserCustomizedCode.cs already exists, won't be overwritten.
+                	    Generating file C:\SANDBOX\TransactionKernelDSL\TransactionKernelDSL.Language\Debugging\TL0\ListenerLayer\CustomCode\TL0_ListenerLayer_BalanceQuery_Handler_UserCustomizedCode.cs 
+                    File C:\SANDBOX\TransactionKernelDSL\TransactionKernelDSL.Language\Debugging\TL0\ListenerLayer\CustomCode\TL0_ListenerLayer_BalanceQuery_Handler_UserCustomizedCode.cs already exists, won't be overwritten.
+                	    Generating file C:\SANDBOX\TransactionKernelDSL\TransactionKernelDSL.Language\Debugging\TL0\ListenerLayer\CustomCode\TL0_ListenerLayer_TransactionName1_Handler_UserCustomizedCode.cs 
+                    Creating file C:\SANDBOX\TransactionKernelDSL\TransactionKernelDSL.Language\Debugging\TL0\ListenerLayer\CustomCode\TL0_ListenerLayer_TransactionName1_Handler_UserCustomizedCode.cs
+                 
+ 
+	    Generating file C:\SANDBOX\TransactionKernelDSL\TransactionKernelDSL.Language\Debugging\CustomCode\PDSNetFacade_UserCustomizedCode.cs 
+                    File C:\SANDBOX\TransactionKernelDSL\TransactionKernelDSL.Language\Debugging\CustomCode\PDSNetFacade_UserCustomizedCode.cs already exists, won't be overwritten.
+                 
+	    Generating file C:\SANDBOX\TransactionKernelDSL\TransactionKernelDSL.Language\Debugging\CustomCode\PDSNetContext_UserCustomizedCode.cs 
+                    File C:\SANDBOX\TransactionKernelDSL\TransactionKernelDSL.Language\Debugging\CustomCode\PDSNetContext_UserCustomizedCode.cs already exists, won't be overwritten.
+                 
+	    Generating file C:\SANDBOX\TransactionKernelDSL\TransactionKernelDSL.Language\Debugging\UnitTest\CustomCode\TL0_ListenerLayer_ListenerEngine_UnitTestInput.cs 
+	                File found in .csproj C:\SANDBOX\TransactionKernelDSL\TransactionKernelDSL.Language\Debugging\UnitTest\CustomCode\TL0_ListenerLayer_ListenerEngine_UnitTestInput.cs 
+                    File C:\SANDBOX\TransactionKernelDSL\TransactionKernelDSL.Language\Debugging\UnitTest\CustomCode\TL0_ListenerLayer_ListenerEngine_UnitTestInput.cs already exists, won't be overwritten.
+                	    Generating file C:\SANDBOX\TransactionKernelDSL\TransactionKernelDSL.Language\Debugging\UnitTest\CustomCode\TL0_ListenerLayer_asdasd_UnitTestInput.cs 
+                    Creating file C:\SANDBOX\TransactionKernelDSL\TransactionKernelDSL.Language\Debugging\UnitTest\CustomCode\TL0_ListenerLayer_asdasd_UnitTestInput.cs
+                 
+	    Generating file C:\SANDBOX\TransactionKernelDSL\TransactionKernelDSL.Language\Debugging\UnitTest\CustomCode\TL0_ListenerLayer_ListenerEngine_UnitTestOutput.cs 
+	                File found in .csproj C:\SANDBOX\TransactionKernelDSL\TransactionKernelDSL.Language\Debugging\UnitTest\CustomCode\TL0_ListenerLayer_ListenerEngine_UnitTestOutput.cs 
+                    File C:\SANDBOX\TransactionKernelDSL\TransactionKernelDSL.Language\Debugging\UnitTest\CustomCode\TL0_ListenerLayer_ListenerEngine_UnitTestOutput.cs already exists, won't be overwritten.
+                	    Generating file C:\SANDBOX\TransactionKernelDSL\TransactionKernelDSL.Language\Debugging\UnitTest\CustomCode\TL0_ListenerLayer_asdasd_UnitTestOutput.cs 
+                    Creating file C:\SANDBOX\TransactionKernelDSL\TransactionKernelDSL.Language\Debugging\UnitTest\CustomCode\TL0_ListenerLayer_asdasd_UnitTestOutput.cs
+                 
+	    Generating file C:\SANDBOX\TransactionKernelDSL\TransactionKernelDSL.Language\Debugging\TL0\ListenerLayer\CustomCode\TL0_ListenerLayer_ListenerEngine_EngineUserCustomizedCode.cs 
+                    File C:\SANDBOX\TransactionKernelDSL\TransactionKernelDSL.Language\Debugging\TL0\ListenerLayer\CustomCode\TL0_ListenerLayer_ListenerEngine_EngineUserCustomizedCode.cs already exists, won't be overwritten.
+                	    Generating file C:\SANDBOX\TransactionKernelDSL\TransactionKernelDSL.Language\Debugging\TL0\ListenerLayer\CustomCode\TL0_ListenerLayer_asdasd_EngineUserCustomizedCode.cs 
+                    Creating file C:\SANDBOX\TransactionKernelDSL\TransactionKernelDSL.Language\Debugging\TL0\ListenerLayer\CustomCode\TL0_ListenerLayer_asdasd_EngineUserCustomizedCode.cs
+                 
+	    Generating file C:\SANDBOX\TransactionKernelDSL\TransactionKernelDSL.Language\Debugging\TL1\UniredLayer\CustomCode\TL1_UniredLayer_UniredEngine_EngineUserCustomizedCode.cs 
+                    File C:\SANDBOX\TransactionKernelDSL\TransactionKernelDSL.Language\Debugging\TL1\UniredLayer\CustomCode\TL1_UniredLayer_UniredEngine_EngineUserCustomizedCode.cs already exists, won't be overwritten.
+                	    Generating file C:\SANDBOX\TransactionKernelDSL\TransactionKernelDSL.Language\Debugging\TL1\RedIn\CustomCode\TL1_RedIn_RedinEngine_EngineUserCustomizedCode.cs 
+                    File C:\SANDBOX\TransactionKernelDSL\TransactionKernelDSL.Language\Debugging\TL1\RedIn\CustomCode\TL1_RedIn_RedinEngine_EngineUserCustomizedCode.cs already exists, won't be overwritten.
+                 
+	    Generating file C:\SANDBOX\TransactionKernelDSL\TransactionKernelDSL.Language\Debugging\UnitTest\CustomCode\TL0_ListenerLayer_ListenerEngine_UnitTest_UC.cs 
+	                File found in .csproj C:\SANDBOX\TransactionKernelDSL\TransactionKernelDSL.Language\Debugging\UnitTest\CustomCode\TL0_ListenerLayer_ListenerEngine_UnitTest_UC.cs 
+                    File C:\SANDBOX\TransactionKernelDSL\TransactionKernelDSL.Language\Debugging\UnitTest\CustomCode\TL0_ListenerLayer_ListenerEngine_UnitTest_UC.cs already exists, won't be overwritten.
+                	    Generating file C:\SANDBOX\TransactionKernelDSL\TransactionKernelDSL.Language\Debugging\UnitTest\CustomCode\TL0_ListenerLayer_asdasd_UnitTest_UC.cs 
+                    Creating file C:\SANDBOX\TransactionKernelDSL\TransactionKernelDSL.Language\Debugging\UnitTest\CustomCode\TL0_ListenerLayer_asdasd_UnitTest_UC.cs
+                 
+	    Generating file C:\SANDBOX\TransactionKernelDSL\TransactionKernelDSL.Language\Debugging\TL0\ListenerLayer\CustomCode\TL0_ListenerLayer_ListenerEngine_Parser_UC.cs 
+                    File C:\SANDBOX\TransactionKernelDSL\TransactionKernelDSL.Language\Debugging\TL0\ListenerLayer\CustomCode\TL0_ListenerLayer_ListenerEngine_Parser_UC.cs already exists, won't be overwritten.
+                 
+	    Generating file C:\SANDBOX\TransactionKernelDSL\TransactionKernelDSL.Language\Debugging\TL0\ListenerLayer\CustomCode\TL0_ListenerLayer_ListenerEngine_ParserStructure_UC.cs 
+                    File C:\SANDBOX\TransactionKernelDSL\TransactionKernelDSL.Language\Debugging\TL0\ListenerLayer\CustomCode\TL0_ListenerLayer_ListenerEngine_ParserStructure_UC.cs already exists, won't be overwritten.
+                 
+	    Generating file C:\SANDBOX\TransactionKernelDSL\TransactionKernelDSL.Language\Debugging\TL0\ListenerLayer\CustomCode\TL0_ListenerLayer_ListenerEngine_ParserField_UC.cs 
+                    File C:\SANDBOX\TransactionKernelDSL\TransactionKernelDSL.Language\Debugging\TL0\ListenerLayer\CustomCode\TL0_ListenerLayer_ListenerEngine_ParserField_UC.cs already exists, won't be overwritten.
+                 
+	    Generating file C:\SANDBOX\TransactionKernelDSL\TransactionKernelDSL.Language\Debugging\TL0\ListenerLayer\CustomCode\TL0_ListenerLayer_ListenerEngine_ParserStream_UC.cs 
+                    File C:\SANDBOX\TransactionKernelDSL\TransactionKernelDSL.Language\Debugging\TL0\ListenerLayer\CustomCode\TL0_ListenerLayer_ListenerEngine_ParserStream_UC.cs already exists, won't be overwritten.
+                 
+	    Generating file C:\SANDBOX\TransactionKernelDSL\TransactionKernelDSL.Language\Debugging\UnitTest\CustomCode\TL0_ListenerLayer_ListenerEngine_Parser_UnitTestInput.cs 
+	                File found in .csproj C:\SANDBOX\TransactionKernelDSL\TransactionKernelDSL.Language\Debugging\UnitTest\CustomCode\TL0_ListenerLayer_ListenerEngine_Parser_UnitTestInput.cs 
+                    File C:\SANDBOX\TransactionKernelDSL\TransactionKernelDSL.Language\Debugging\UnitTest\CustomCode\TL0_ListenerLayer_ListenerEngine_Parser_UnitTestInput.cs already exists, won't be overwritten.
+                 
+	    Generating file C:\SANDBOX\TransactionKernelDSL\TransactionKernelDSL.Language\Debugging\App.config 
+                    File C:\SANDBOX\TransactionKernelDSL\TransactionKernelDSL.Language\Debugging\App.config already exists, won't be overwritten.
+                 
+	    Generating file C:\SANDBOX\TransactionKernelDSL\TransactionKernelDSL.Language\Debugging\Scripts\TL0_ListenerLayer_ListenerEngine_Script.sql 
+                    Overwriting file C:\SANDBOX\TransactionKernelDSL\TransactionKernelDSL.Language\Debugging\Scripts\TL0_ListenerLayer_ListenerEngine_Script.sql
+              	    Generating file C:\SANDBOX\TransactionKernelDSL\TransactionKernelDSL.Language\Debugging\Scripts\TL0_ListenerLayer_asdasd_Script.sql 
+                    Overwriting file C:\SANDBOX\TransactionKernelDSL\TransactionKernelDSL.Language\Debugging\Scripts\TL0_ListenerLayer_asdasd_Script.sql
+              	    Generating file C:\SANDBOX\TransactionKernelDSL\TransactionKernelDSL.Language\Debugging\Scripts\TL1_UniredLayer_UniredEngine_Script.sql 
+                    Overwriting file C:\SANDBOX\TransactionKernelDSL\TransactionKernelDSL.Language\Debugging\Scripts\TL1_UniredLayer_UniredEngine_Script.sql
+              	    Generating file C:\SANDBOX\TransactionKernelDSL\TransactionKernelDSL.Language\Debugging\Scripts\TL1_RedIn_RedinEngine_Script.sql 
+                    Overwriting file C:\SANDBOX\TransactionKernelDSL\TransactionKernelDSL.Language\Debugging\Scripts\TL1_RedIn_RedinEngine_Script.sql
+               
+ 
+	    Generating file C:\SANDBOX\TransactionKernelDSL\TransactionKernelDSL.Language\Debugging\Scripts\PDSNetFacade_Script.sql 
+                    Overwriting file C:\SANDBOX\TransactionKernelDSL\TransactionKernelDSL.Language\Debugging\Scripts\PDSNetFacade_Script.sql
+               
+ 
+ 
+ 
+ 
+	    Generating file C:\SANDBOX\TransactionKernelDSL\TransactionKernelDSL.Language\Debugging\PDSNetFacade.cs 
+                    Overwriting file C:\SANDBOX\TransactionKernelDSL\TransactionKernelDSL.Language\Debugging\PDSNetFacade.cs
+               
+	    Generating file C:\SANDBOX\TransactionKernelDSL\TransactionKernelDSL.Language\Debugging\TL0\ListenerLayer\TL0_ListenerLayer_ListenerEngine_Engine.cs 
+                    Overwriting file C:\SANDBOX\TransactionKernelDSL\TransactionKernelDSL.Language\Debugging\TL0\ListenerLayer\TL0_ListenerLayer_ListenerEngine_Engine.cs
+              	    Generating file C:\SANDBOX\TransactionKernelDSL\TransactionKernelDSL.Language\Debugging\TL0\ListenerLayer\TL0_ListenerLayer_asdasd_Engine.cs 
+                    Overwriting file C:\SANDBOX\TransactionKernelDSL\TransactionKernelDSL.Language\Debugging\TL0\ListenerLayer\TL0_ListenerLayer_asdasd_Engine.cs
+              	    Generating file C:\SANDBOX\TransactionKernelDSL\TransactionKernelDSL.Language\Debugging\TL1\UniredLayer\TL1_UniredLayer_UniredEngine_Engine.cs 
+                    Overwriting file C:\SANDBOX\TransactionKernelDSL\TransactionKernelDSL.Language\Debugging\TL1\UniredLayer\TL1_UniredLayer_UniredEngine_Engine.cs
+              	    Generating file C:\SANDBOX\TransactionKernelDSL\TransactionKernelDSL.Language\Debugging\TL1\RedIn\TL1_RedIn_RedinEngine_Engine.cs 
+                    Overwriting file C:\SANDBOX\TransactionKernelDSL\TransactionKernelDSL.Language\Debugging\TL1\RedIn\TL1_RedIn_RedinEngine_Engine.cs
+               
+	    Generating file C:\SANDBOX\TransactionKernelDSL\TransactionKernelDSL.Language\Debugging\TL0\ListenerLayer\TL0_ListenerLayer_Sale_Handler.cs 
+                    Overwriting file C:\SANDBOX\TransactionKernelDSL\TransactionKernelDSL.Language\Debugging\TL0\ListenerLayer\TL0_ListenerLayer_Sale_Handler.cs
+              	    Generating file C:\SANDBOX\TransactionKernelDSL\TransactionKernelDSL.Language\Debugging\TL0\ListenerLayer\TL0_ListenerLayer_BalanceQuery_Handler.cs 
+                    Overwriting file C:\SANDBOX\TransactionKernelDSL\TransactionKernelDSL.Language\Debugging\TL0\ListenerLayer\TL0_ListenerLayer_BalanceQuery_Handler.cs
+              	    Generating file C:\SANDBOX\TransactionKernelDSL\TransactionKernelDSL.Language\Debugging\TL0\ListenerLayer\TL0_ListenerLayer_TransactionName1_Handler.cs 
+                    Overwriting file C:\SANDBOX\TransactionKernelDSL\TransactionKernelDSL.Language\Debugging\TL0\ListenerLayer\TL0_ListenerLayer_TransactionName1_Handler.cs
+              	    Generating file C:\SANDBOX\TransactionKernelDSL\TransactionKernelDSL.Language\Debugging\TL1\UniredLayer\TL1_UniredLayer_Sale_Handler.cs 
+                    Overwriting file C:\SANDBOX\TransactionKernelDSL\TransactionKernelDSL.Language\Debugging\TL1\UniredLayer\TL1_UniredLayer_Sale_Handler.cs
+              	    Generating file C:\SANDBOX\TransactionKernelDSL\TransactionKernelDSL.Language\Debugging\TL1\UniredLayer\TL1_UniredLayer_BalanceQuery_Handler.cs 
+                    Overwriting file C:\SANDBOX\TransactionKernelDSL\TransactionKernelDSL.Language\Debugging\TL1\UniredLayer\TL1_UniredLayer_BalanceQuery_Handler.cs
+              	    Generating file C:\SANDBOX\TransactionKernelDSL\TransactionKernelDSL.Language\Debugging\TL1\RedIn\TL1_RedIn_Sale_Handler.cs 
+                    Overwriting file C:\SANDBOX\TransactionKernelDSL\TransactionKernelDSL.Language\Debugging\TL1\RedIn\TL1_RedIn_Sale_Handler.cs
+              	    Generating file C:\SANDBOX\TransactionKernelDSL\TransactionKernelDSL.Language\Debugging\TL1\RedIn\TL1_RedIn_BalanceQuery_Handler.cs 
+                    Overwriting file C:\SANDBOX\TransactionKernelDSL\TransactionKernelDSL.Language\Debugging\TL1\RedIn\TL1_RedIn_BalanceQuery_Handler.cs
+               
+	    Generating file C:\SANDBOX\TransactionKernelDSL\TransactionKernelDSL.Language\Debugging\PDSNetContext.cs 
+                    Overwriting file C:\SANDBOX\TransactionKernelDSL\TransactionKernelDSL.Language\Debugging\PDSNetContext.cs
+               
+	    Generating file C:\SANDBOX\TransactionKernelDSL\TransactionKernelDSL.Language\Debugging\UnitTest\TL0_ListenerLayer_ListenerEngine_UnitTest.cs 
+	                File found in .csproj C:\SANDBOX\TransactionKernelDSL\TransactionKernelDSL.Language\Debugging\UnitTest\TL0_ListenerLayer_ListenerEngine_UnitTest.cs 
+                    Overwriting file C:\SANDBOX\TransactionKernelDSL\TransactionKernelDSL.Language\Debugging\UnitTest\TL0_ListenerLayer_ListenerEngine_UnitTest.cs
+              	    Generating file C:\SANDBOX\TransactionKernelDSL\TransactionKernelDSL.Language\Debugging\UnitTest\TL0_ListenerLayer_asdasd_UnitTest.cs 
+                    Overwriting file C:\SANDBOX\TransactionKernelDSL\TransactionKernelDSL.Language\Debugging\UnitTest\TL0_ListenerLayer_asdasd_UnitTest.cs
+              	    Generating file C:\SANDBOX\TransactionKernelDSL\TransactionKernelDSL.Language\Debugging\UnitTest\TL0_ListenerLayer_ListenerEngine_ProxyUnitTest.cs 
+	                File found in .csproj C:\SANDBOX\TransactionKernelDSL\TransactionKernelDSL.Language\Debugging\UnitTest\TL0_ListenerLayer_ListenerEngine_ProxyUnitTest.cs 
+                    Overwriting file C:\SANDBOX\TransactionKernelDSL\TransactionKernelDSL.Language\Debugging\UnitTest\TL0_ListenerLayer_ListenerEngine_ProxyUnitTest.cs
+              	    Generating file C:\SANDBOX\TransactionKernelDSL\TransactionKernelDSL.Language\Debugging\UnitTest\TL0_ListenerLayer_asdasd_ProxyUnitTest.cs 
+                    Overwriting file C:\SANDBOX\TransactionKernelDSL\TransactionKernelDSL.Language\Debugging\UnitTest\TL0_ListenerLayer_asdasd_ProxyUnitTest.cs
+               
+	    Generating file C:\SANDBOX\TransactionKernelDSL\TransactionKernelDSL.Language\Debugging\TL0\ListenerLayer\TL0_ListenerLayer_ListenerEngine_Parser.cs 
+                    Overwriting file C:\SANDBOX\TransactionKernelDSL\TransactionKernelDSL.Language\Debugging\TL0\ListenerLayer\TL0_ListenerLayer_ListenerEngine_Parser.cs
+               
+	    Generating file C:\SANDBOX\TransactionKernelDSL\TransactionKernelDSL.Language\Debugging\TL0\ListenerLayer\TL0_ListenerLayer_ListenerEngine_ParserStructure.cs 
+                    Overwriting file C:\SANDBOX\TransactionKernelDSL\TransactionKernelDSL.Language\Debugging\TL0\ListenerLayer\TL0_ListenerLayer_ListenerEngine_ParserStructure.cs
+               
+	    Generating file C:\SANDBOX\TransactionKernelDSL\TransactionKernelDSL.Language\Debugging\TL0\ListenerLayer\TL0_ListenerLayer_ListenerEngine_ParserField.cs 
+                    Overwriting file C:\SANDBOX\TransactionKernelDSL\TransactionKernelDSL.Language\Debugging\TL0\ListenerLayer\TL0_ListenerLayer_ListenerEngine_ParserField.cs
+               
+	    Generating file C:\SANDBOX\TransactionKernelDSL\TransactionKernelDSL.Language\Debugging\TL0\ListenerLayer\TL0_ListenerLayer_ListenerEngine_ParserStream.cs 
+                    Overwriting file C:\SANDBOX\TransactionKernelDSL\TransactionKernelDSL.Language\Debugging\TL0\ListenerLayer\TL0_ListenerLayer_ListenerEngine_ParserStream.cs
+               
+	    Generating file C:\SANDBOX\TransactionKernelDSL\TransactionKernelDSL.Language\Debugging\UnitTest\TL0_ListenerLayer_ListenerEngine_Parser_UnitTest.cs 
+	                File found in .csproj C:\SANDBOX\TransactionKernelDSL\TransactionKernelDSL.Language\Debugging\UnitTest\TL0_ListenerLayer_ListenerEngine_Parser_UnitTest.cs 
+                    Overwriting file C:\SANDBOX\TransactionKernelDSL\TransactionKernelDSL.Language\Debugging\UnitTest\TL0_ListenerLayer_ListenerEngine_Parser_UnitTest.cs
+               
+	    Generating file C:\SANDBOX\TransactionKernelDSL\TransactionKernelDSL.Language\Debugging\TL0\ListenerLayer\CustomCode\TL0_ListenerLayer_Sale_Handler_ForwardingUserCustomizedCode.cs 
+                    File C:\SANDBOX\TransactionKernelDSL\TransactionKernelDSL.Language\Debugging\TL0\ListenerLayer\CustomCode\TL0_ListenerLayer_Sale_Handler_ForwardingUserCustomizedCode.cs already exists, won't be overwritten.
+                	    Generating file C:\SANDBOX\TransactionKernelDSL\TransactionKernelDSL.Language\Debugging\TL0\ListenerLayer\CustomCode\TL0_ListenerLayer_BalanceQuery_Handler_ForwardingUserCustomizedCode.cs 
+                    File C:\SANDBOX\TransactionKernelDSL\TransactionKernelDSL.Language\Debugging\TL0\ListenerLayer\CustomCode\TL0_ListenerLayer_BalanceQuery_Handler_ForwardingUserCustomizedCode.cs already exists, won't be overwritten.
+                	    Generating file C:\SANDBOX\TransactionKernelDSL\TransactionKernelDSL.Language\Debugging\TL1\UniredLayer\CustomCode\TL1_UniredLayer_Sale_Handler_ForwardingUserCustomizedCode.cs 
+                    File C:\SANDBOX\TransactionKernelDSL\TransactionKernelDSL.Language\Debugging\TL1\UniredLayer\CustomCode\TL1_UniredLayer_Sale_Handler_ForwardingUserCustomizedCode.cs already exists, won't be overwritten.
+                	    Generating file C:\SANDBOX\TransactionKernelDSL\TransactionKernelDSL.Language\Debugging\TL1\UniredLayer\CustomCode\TL1_UniredLayer_BalanceQuery_Handler_ForwardingUserCustomizedCode.cs 
+                    File C:\SANDBOX\TransactionKernelDSL\TransactionKernelDSL.Language\Debugging\TL1\UniredLayer\CustomCode\TL1_UniredLayer_BalanceQuery_Handler_ForwardingUserCustomizedCode.cs already exists, won't be overwritten.
+                	    Generating file C:\SANDBOX\TransactionKernelDSL\TransactionKernelDSL.Language\Debugging\TL1\RedIn\CustomCode\TL1_RedIn_Sale_Handler_ForwardingUserCustomizedCode.cs 
+                    File C:\SANDBOX\TransactionKernelDSL\TransactionKernelDSL.Language\Debugging\TL1\RedIn\CustomCode\TL1_RedIn_Sale_Handler_ForwardingUserCustomizedCode.cs already exists, won't be overwritten.
+                	    Generating file C:\SANDBOX\TransactionKernelDSL\TransactionKernelDSL.Language\Debugging\TL1\RedIn\CustomCode\TL1_RedIn_BalanceQuery_Handler_ForwardingUserCustomizedCode.cs 
+                    File C:\SANDBOX\TransactionKernelDSL\TransactionKernelDSL.Language\Debugging\TL1\RedIn\CustomCode\TL1_RedIn_BalanceQuery_Handler_ForwardingUserCustomizedCode.cs already exists, won't be overwritten.
+                 
+ 
+ 
+	    Generating file C:\SANDBOX\TransactionKernelDSL\TransactionKernelDSL.Language\Debugging\TL0\ListenerLayer\CustomCode\TL0_ListenerLayer_Sale_Handler_UserCustomizedCode.cs 
+                    File C:\SANDBOX\TransactionKernelDSL\TransactionKernelDSL.Language\Debugging\TL0\ListenerLayer\CustomCode\TL0_ListenerLayer_Sale_Handler_UserCustomizedCode.cs already exists, won't be overwritten.
+                	    Generating file C:\SANDBOX\TransactionKernelDSL\TransactionKernelDSL.Language\Debugging\TL0\ListenerLayer\CustomCode\TL0_ListenerLayer_BalanceQuery_Handler_UserCustomizedCode.cs 
+                    File C:\SANDBOX\TransactionKernelDSL\TransactionKernelDSL.Language\Debugging\TL0\ListenerLayer\CustomCode\TL0_ListenerLayer_BalanceQuery_Handler_UserCustomizedCode.cs already exists, won't be overwritten.
+                	    Generating file C:\SANDBOX\TransactionKernelDSL\TransactionKernelDSL.Language\Debugging\TL0\ListenerLayer\CustomCode\TL0_ListenerLayer_TransactionName1_Handler_UserCustomizedCode.cs 
+                    File C:\SANDBOX\TransactionKernelDSL\TransactionKernelDSL.Language\Debugging\TL0\ListenerLayer\CustomCode\TL0_ListenerLayer_TransactionName1_Handler_UserCustomizedCode.cs already exists, won't be overwritten.
+                 
+ 
+	    Generating file C:\SANDBOX\TransactionKernelDSL\TransactionKernelDSL.Language\Debugging\CustomCode\PDSNetFacade_UserCustomizedCode.cs 
+                    File C:\SANDBOX\TransactionKernelDSL\TransactionKernelDSL.Language\Debugging\CustomCode\PDSNetFacade_UserCustomizedCode.cs already exists, won't be overwritten.
+                 
+	    Generating file C:\SANDBOX\TransactionKernelDSL\TransactionKernelDSL.Language\Debugging\CustomCode\PDSNetContext_UserCustomizedCode.cs 
+                    File C:\SANDBOX\TransactionKernelDSL\TransactionKernelDSL.Language\Debugging\CustomCode\PDSNetContext_UserCustomizedCode.cs already exists, won't be overwritten.
+                 
+	    Generating file C:\SANDBOX\TransactionKernelDSL\TransactionKernelDSL.Language\Debugging\UnitTest\CustomCode\TL0_ListenerLayer_ListenerEngine_UnitTestInput.cs 
+	                File found in .csproj C:\SANDBOX\TransactionKernelDSL\TransactionKernelDSL.Language\Debugging\UnitTest\CustomCode\TL0_ListenerLayer_ListenerEngine_UnitTestInput.cs 
+                    File C:\SANDBOX\TransactionKernelDSL\TransactionKernelDSL.Language\Debugging\UnitTest\CustomCode\TL0_ListenerLayer_ListenerEngine_UnitTestInput.cs already exists, won't be overwritten.
+                	    Generating file C:\SANDBOX\TransactionKernelDSL\TransactionKernelDSL.Language\Debugging\UnitTest\CustomCode\TL0_ListenerLayer_asdasd_UnitTestInput.cs 
+                    File C:\SANDBOX\TransactionKernelDSL\TransactionKernelDSL.Language\Debugging\UnitTest\CustomCode\TL0_ListenerLayer_asdasd_UnitTestInput.cs already exists, won't be overwritten.
+                 
+	    Generating file C:\SANDBOX\TransactionKernelDSL\TransactionKernelDSL.Language\Debugging\UnitTest\CustomCode\TL0_ListenerLayer_ListenerEngine_UnitTestOutput.cs 
+	                File found in .csproj C:\SANDBOX\TransactionKernelDSL\TransactionKernelDSL.Language\Debugging\UnitTest\CustomCode\TL0_ListenerLayer_ListenerEngine_UnitTestOutput.cs 
+                    File C:\SANDBOX\TransactionKernelDSL\TransactionKernelDSL.Language\Debugging\UnitTest\CustomCode\TL0_ListenerLayer_ListenerEngine_UnitTestOutput.cs already exists, won't be overwritten.
+                	    Generating file C:\SANDBOX\TransactionKernelDSL\TransactionKernelDSL.Language\Debugging\UnitTest\CustomCode\TL0_ListenerLayer_asdasd_UnitTestOutput.cs 
+                    File C:\SANDBOX\TransactionKernelDSL\TransactionKernelDSL.Language\Debugging\UnitTest\CustomCode\TL0_ListenerLayer_asdasd_UnitTestOutput.cs already exists, won't be overwritten.
+                 
+	    Generating file C:\SANDBOX\TransactionKernelDSL\TransactionKernelDSL.Language\Debugging\TL0\ListenerLayer\CustomCode\TL0_ListenerLayer_ListenerEngine_EngineUserCustomizedCode.cs 
+                    File C:\SANDBOX\TransactionKernelDSL\TransactionKernelDSL.Language\Debugging\TL0\ListenerLayer\CustomCode\TL0_ListenerLayer_ListenerEngine_EngineUserCustomizedCode.cs already exists, won't be overwritten.
+                	    Generating file C:\SANDBOX\TransactionKernelDSL\TransactionKernelDSL.Language\Debugging\TL0\ListenerLayer\CustomCode\TL0_ListenerLayer_asdasd_EngineUserCustomizedCode.cs 
+                    File C:\SANDBOX\TransactionKernelDSL\TransactionKernelDSL.Language\Debugging\TL0\ListenerLayer\CustomCode\TL0_ListenerLayer_asdasd_EngineUserCustomizedCode.cs already exists, won't be overwritten.
+                 
+	    Generating file C:\SANDBOX\TransactionKernelDSL\TransactionKernelDSL.Language\Debugging\TL1\UniredLayer\CustomCode\TL1_UniredLayer_UniredEngine_EngineUserCustomizedCode.cs 
+                    File C:\SANDBOX\TransactionKernelDSL\TransactionKernelDSL.Language\Debugging\TL1\UniredLayer\CustomCode\TL1_UniredLayer_UniredEngine_EngineUserCustomizedCode.cs already exists, won't be overwritten.
+                	    Generating file C:\SANDBOX\TransactionKernelDSL\TransactionKernelDSL.Language\Debugging\TL1\RedIn\CustomCode\TL1_RedIn_RedinEngine_EngineUserCustomizedCode.cs 
+                    File C:\SANDBOX\TransactionKernelDSL\TransactionKernelDSL.Language\Debugging\TL1\RedIn\CustomCode\TL1_RedIn_RedinEngine_EngineUserCustomizedCode.cs already exists, won't be overwritten.
+                 
+	    Generating file C:\SANDBOX\TransactionKernelDSL\TransactionKernelDSL.Language\Debugging\UnitTest\CustomCode\TL0_ListenerLayer_ListenerEngine_UnitTest_UC.cs 
+	                File found in .csproj C:\SANDBOX\TransactionKernelDSL\TransactionKernelDSL.Language\Debugging\UnitTest\CustomCode\TL0_ListenerLayer_ListenerEngine_UnitTest_UC.cs 
+                    File C:\SANDBOX\TransactionKernelDSL\TransactionKernelDSL.Language\Debugging\UnitTest\CustomCode\TL0_ListenerLayer_ListenerEngine_UnitTest_UC.cs already exists, won't be overwritten.
+                	    Generating file C:\SANDBOX\TransactionKernelDSL\TransactionKernelDSL.Language\Debugging\UnitTest\CustomCode\TL0_ListenerLayer_asdasd_UnitTest_UC.cs 
+                    File C:\SANDBOX\TransactionKernelDSL\TransactionKernelDSL.Language\Debugging\UnitTest\CustomCode\TL0_ListenerLayer_asdasd_UnitTest_UC.cs already exists, won't be overwritten.
+                 
+	    Generating file C:\SANDBOX\TransactionKernelDSL\TransactionKernelDSL.Language\Debugging\TL0\ListenerLayer\CustomCode\TL0_ListenerLayer_ListenerEngine_Parser_UC.cs 
+                    File C:\SANDBOX\TransactionKernelDSL\TransactionKernelDSL.Language\Debugging\TL0\ListenerLayer\CustomCode\TL0_ListenerLayer_ListenerEngine_Parser_UC.cs already exists, won't be overwritten.
+                 
+	    Generating file C:\SANDBOX\TransactionKernelDSL\TransactionKernelDSL.Language\Debugging\TL0\ListenerLayer\CustomCode\TL0_ListenerLayer_ListenerEngine_ParserStructure_UC.cs 
+                    File C:\SANDBOX\TransactionKernelDSL\TransactionKernelDSL.Language\Debugging\TL0\ListenerLayer\CustomCode\TL0_ListenerLayer_ListenerEngine_ParserStructure_UC.cs already exists, won't be overwritten.
+                 
+	    Generating file C:\SANDBOX\TransactionKernelDSL\TransactionKernelDSL.Language\Debugging\TL0\ListenerLayer\CustomCode\TL0_ListenerLayer_ListenerEngine_ParserField_UC.cs 
+                    File C:\SANDBOX\TransactionKernelDSL\TransactionKernelDSL.Language\Debugging\TL0\ListenerLayer\CustomCode\TL0_ListenerLayer_ListenerEngine_ParserField_UC.cs already exists, won't be overwritten.
+                 
+	    Generating file C:\SANDBOX\TransactionKernelDSL\TransactionKernelDSL.Language\Debugging\TL0\ListenerLayer\CustomCode\TL0_ListenerLayer_ListenerEngine_ParserStream_UC.cs 
+                    File C:\SANDBOX\TransactionKernelDSL\TransactionKernelDSL.Language\Debugging\TL0\ListenerLayer\CustomCode\TL0_ListenerLayer_ListenerEngine_ParserStream_UC.cs already exists, won't be overwritten.
+                 
+	    Generating file C:\SANDBOX\TransactionKernelDSL\TransactionKernelDSL.Language\Debugging\UnitTest\CustomCode\TL0_ListenerLayer_ListenerEngine_Parser_UnitTestInput.cs 
+	                File found in .csproj C:\SANDBOX\TransactionKernelDSL\TransactionKernelDSL.Language\Debugging\UnitTest\CustomCode\TL0_ListenerLayer_ListenerEngine_Parser_UnitTestInput.cs 
+                    File C:\SANDBOX\TransactionKernelDSL\TransactionKernelDSL.Language\Debugging\UnitTest\CustomCode\TL0_ListenerLayer_ListenerEngine_Parser_UnitTestInput.cs already exists, won't be overwritten.
+                 
+	    Generating file C:\SANDBOX\TransactionKernelDSL\TransactionKernelDSL.Language\Debugging\App.config 
+                    File C:\SANDBOX\TransactionKernelDSL\TransactionKernelDSL.Language\Debugging\App.config already exists, won't be overwritten.
+                 
+	    Generating file C:\SANDBOX\TransactionKernelDSL\TransactionKernelDSL.Language\Debugging\Scripts\TL0_ListenerLayer_ListenerEngine_Script.sql 
+                    Overwriting file C:\SANDBOX\TransactionKernelDSL\TransactionKernelDSL.Language\Debugging\Scripts\TL0_ListenerLayer_ListenerEngine_Script.sql
+              	    Generating file C:\SANDBOX\TransactionKernelDSL\TransactionKernelDSL.Language\Debugging\Scripts\TL0_ListenerLayer_asdasd_Script.sql 
+                    Overwriting file C:\SANDBOX\TransactionKernelDSL\TransactionKernelDSL.Language\Debugging\Scripts\TL0_ListenerLayer_asdasd_Script.sql
+              	    Generating file C:\SANDBOX\TransactionKernelDSL\TransactionKernelDSL.Language\Debugging\Scripts\TL1_UniredLayer_UniredEngine_Script.sql 
+                    Overwriting file C:\SANDBOX\TransactionKernelDSL\TransactionKernelDSL.Language\Debugging\Scripts\TL1_UniredLayer_UniredEngine_Script.sql
+              	    Generating file C:\SANDBOX\TransactionKernelDSL\TransactionKernelDSL.Language\Debugging\Scripts\TL1_RedIn_RedinEngine_Script.sql 
+                    Overwriting file C:\SANDBOX\TransactionKernelDSL\TransactionKernelDSL.Language\Debugging\Scripts\TL1_RedIn_RedinEngine_Script.sql
+               
+ 
+	    Generating file C:\SANDBOX\TransactionKernelDSL\TransactionKernelDSL.Language\Debugging\Scripts\PDSNetFacade_Script.sql 
+                    Overwriting file C:\SANDBOX\TransactionKernelDSL\TransactionKernelDSL.Language\Debugging\Scripts\PDSNetFacade_Script.sql
+               
+ 
+ 
+ 
+ 
