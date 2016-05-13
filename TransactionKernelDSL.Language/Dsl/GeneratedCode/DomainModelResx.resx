@@ -1525,6 +1525,14 @@
     <value>Parser of Type Beltran</value>
     <comment>Description for EnumerationLiteral &apos;Beltran&apos; on DomainEnumeration &apos;ParserType&apos;</comment>
   </data>
+  <data name="TransactionKernelDSL.Framework.Language.ParserType/BPosBrowser.DisplayName" xml:space="preserve">
+    <value>BPosBrowser</value>
+    <comment>Display name for EnumerationLiteral &apos;BPosBrowser&apos; on DomainEnumeration &apos;ParserType&apos;</comment>
+  </data>
+  <data name="TransactionKernelDSL.Framework.Language.ParserType/BPosBrowser.Description" xml:space="preserve">
+    <value>Description for TransactionKernelDSL.Framework.Language.ParserType.BPosBrowser</value>
+    <comment>Description for EnumerationLiteral &apos;BPosBrowser&apos; on DomainEnumeration &apos;ParserType&apos;</comment>
+  </data>
   <data name="TransactionKernelDSL.Framework.Language.DataSourceSupportType/NotTyped.DisplayName" xml:space="preserve">
     <value>NotTyped</value>
     <comment>Display name for EnumerationLiteral &apos;NotTyped&apos; on DomainEnumeration &apos;DataSourceSupportType&apos;</comment>

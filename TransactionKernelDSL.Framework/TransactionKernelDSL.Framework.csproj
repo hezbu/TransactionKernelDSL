@@ -73,6 +73,7 @@
     <Compile Include="V1\AbstractOutputTransactionEngine.cs" />
     <Compile Include="V1\AbstractTcpFunneledOutputTransactionEngine.cs" />
     <Compile Include="V1\AbstractTcpStraightOutputTransactionEngine.cs" />
+    <Compile Include="V1\AbstractTcpTriggeredMultiThreadedPushPullInputTransactionEngine.cs" />
     <Compile Include="V1\AbstractTcpTriggeredSocketReusableMultiThreadedInputEngine.cs" />
     <Compile Include="V1\AbstractThreadedInputTransactionEngine.cs" />
     <Compile Include="V1\AbstractTcpTriggeredMultiThreadedInputTransactionEngine.cs" />

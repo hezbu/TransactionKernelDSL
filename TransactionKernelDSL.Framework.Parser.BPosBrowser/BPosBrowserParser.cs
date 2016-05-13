@@ -35,10 +35,11 @@ namespace TransactionKernelDSL.Framework.Parser.BPosBrowser
         {
             try
             {
+                string package = (ResponseStream as BPosBrowserStream).Get();
                 if (this.Status == TransmissionStatus.BadDisassembling) return true;
                 else if (IsKeepAliveMessage() == false)
                 {
-                    ((TcpClient)handler).GetStream().Write(ResponseStream.Get(), 0, ResponseStream.Get().Length);
+                    ((TcpClient)handler).GetStream().Write(AbstractTransactionFacade.GetBytes(package), 0, AbstractTransactionFacade.GetBytes(package).Length);
                     _Log.Info(_RootSection + "_OUT: " + ((BPosBrowserStream)ResponseStream).ToString());
                 }
                 else
@@ -51,6 +52,7 @@ namespace TransactionKernelDSL.Framework.Parser.BPosBrowser
             catch (Exception ee)
             {
                 _ErrorMessage = "Error enviando: " + ee.Message;
+                _Log.Error(this._ErrorMessage);
                 _Status |= TransmissionStatus.SendingError;
                 return false;
             }
@@ -77,13 +79,16 @@ namespace TransactionKernelDSL.Framework.Parser.BPosBrowser
 
                     if (header.Contains("GA") == false)
                     {
+                        
                         this._ErrorMessage = "Error leyendo header. GA no encontrado";
+                        _Log.Error(this._ErrorMessage);
                         this._Status |= TransmissionStatus.HeaderNotFound;
                         return false;
                     }
                     if (int.TryParse(header.Substring(2, 4), out bytesToRead) == false)
                     {
                         this._ErrorMessage = String.Format("Error leyendo header. Longitud {0} no valida", header.Substring(2, 4));
+                        _Log.Error(this._ErrorMessage);
                         this._Status |= TransmissionStatus.HeaderNotFound;
                         return false;
                     }
@@ -92,6 +97,7 @@ namespace TransactionKernelDSL.Framework.Parser.BPosBrowser
                 else ///Se recibio menos de 6 bytes ....
                 {
                     this._ErrorMessage = "Error leyendo datos de conexion: expectedLen no tiene 6 bytes (" + bytesRead.ToString() + ")";
+                    _Log.Error(this._ErrorMessage);
                     this._Status |= TransmissionStatus.HeaderNotFound;
                     return false;
                 }
@@ -106,6 +112,7 @@ namespace TransactionKernelDSL.Framework.Parser.BPosBrowser
                     if (bytesRead == 0) ///No se leyo nada
                     {
                         this._ErrorMessage = "Error leyendo datos de conexion: bytesRead = 0 ";
+                        _Log.Error(this._ErrorMessage);
                         this._Status |= TransmissionStatus.ContactLost;
                         return false;
                     }
@@ -116,6 +123,7 @@ namespace TransactionKernelDSL.Framework.Parser.BPosBrowser
             catch (Exception ex)
             {
                 this._ErrorMessage = "TIMEOUT antes de determinar el proceso (handler) que requiere la conexión. Mensaje: " + ex.Message;
+                _Log.Error(this._ErrorMessage);
                 this._Status |= TransmissionStatus.Timeout;
                 return false;
             }
@@ -123,7 +131,7 @@ namespace TransactionKernelDSL.Framework.Parser.BPosBrowser
 
             byte[] dump = new byte[bytesToRead + 6 + 1];
             System.Buffer.BlockCopy(headerArr, 0, dump, 0, 6);
-            System.Buffer.BlockCopy(btAccumulatedReadBuffer, 0, dump, 2, totalBytesRead);
+            System.Buffer.BlockCopy(btAccumulatedReadBuffer, 0, dump, 6, totalBytesRead);
 
             _RequestStream.Set(dump, totalBytesRead + 6);
             //_RequestStream.Set(btAccumulatedReadBuffer, totalBytesRead);
@@ -164,9 +172,19 @@ namespace TransactionKernelDSL.Framework.Parser.BPosBrowser
 
                         foreach (var item in (this.ResponseStructure as BPosBrowserStructure).Main)
                         {
-                            writer.WriteAttributeString(item.Key, item.Value);
+                            writer.WriteAttributeString(item.Key, item.Value);                           
                         }
-                        
+
+                        if ((this.ResponseStructure as BPosBrowserStructure).InputValue.Count > 0)
+                        {
+                            writer.WriteStartElement("InputValue");
+                            foreach (var item in (this.ResponseStructure as BPosBrowserStructure).InputValue)
+                            {
+                                writer.WriteAttributeString(item.Key, item.Value);
+                            }
+                            writer.WriteEndElement();
+                        }
+
                         writer.WriteFullEndElement();
                     }
                     var data = String.Format("GA{0:D4}{1}", sw.ToString().Length, sw.ToString());
@@ -189,12 +207,10 @@ namespace TransactionKernelDSL.Framework.Parser.BPosBrowser
             bool boolResult = false;
 
             try
-            {
-                int intLength = 0;
+            {              
                 (RequestStructure as BPosBrowserStructure).Header = (_RequestStream as BPosBrowserStream).Get(0, 2);
                 (RequestStructure as BPosBrowserStructure).Length = (_RequestStream as BPosBrowserStream).Get(2, 4);
-
-
+                
                 string payload = (_RequestStream as BPosBrowserStream).Get(6);
                 if (_IsInputParser == true)
                 {
@@ -225,20 +241,41 @@ namespace TransactionKernelDSL.Framework.Parser.BPosBrowser
                         {
                             reader.MoveToAttribute(attInd);
                             (RequestStructure as BPosBrowserStructure).InputValue.Add(reader.Name, reader.Value);
-                        }
-                        //reader.MoveToFirstAttribute();
-                        //string genre = reader.Value;
-                        //output.AppendLine("The genre value: " + genre);
-
-                        //reader.ReadToFollowing("title");
-                        //output.AppendLine("Content of the title element: " + reader.ReadElementContentAsString());
+                        }                        
                     }
-
-
                 }
                 else
                 {
                     ///TODO: Falta ver cuando esta conectado a un motor de salida
+                    if (payload.Contains("<S_MSG") == false)
+                    {
+                        _ErrorMessage = String.Format("<S_MSG not found in stream");
+                        _Status |= TransmissionStatus.BadDisassembling;
+                        return false;
+                    }
+
+                    if (payload.Contains("</S_MSG>") == false)
+                    {
+                        _ErrorMessage = String.Format("</S_MSG> not found in stream");
+                        _Status |= TransmissionStatus.BadDisassembling;
+                        return false;
+                    }
+
+                    using (XmlReader reader = XmlReader.Create(new StringReader(payload)))
+                    {
+                        reader.ReadToFollowing("S_MSG");
+                        for (int attInd = 0; attInd < reader.AttributeCount; attInd++)
+                        {
+                            reader.MoveToAttribute(attInd);
+                            (RequestStructure as BPosBrowserStructure).Main.Add(reader.Name, reader.Value);
+                        }
+                        reader.ReadToFollowing("InputValue");
+                        for (int attInd = 0; attInd < reader.AttributeCount; attInd++)
+                        {
+                            reader.MoveToAttribute(attInd);
+                            (RequestStructure as BPosBrowserStructure).InputValue.Add(reader.Name, reader.Value);
+                        }
+                    }
                 }
 
                 boolResult = true;

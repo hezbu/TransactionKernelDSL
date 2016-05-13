@@ -1737,6 +1737,7 @@
           <xsd:documentation>Parser of Type Beltran</xsd:documentation>
         </xsd:annotation>
       </xsd:enumeration>
+      <xsd:enumeration value="BPosBrowser"/>
     </xsd:restriction>
   </xsd:simpleType>
   

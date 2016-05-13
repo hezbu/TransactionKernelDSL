@@ -876,6 +876,12 @@ namespace TransactionKernelDSL.Framework.Language
 		/// </summary>
 		[DslDesign::DescriptionResource("TransactionKernelDSL.Framework.Language.ParserType/Beltran.Description", typeof(global::TransactionKernelDSL.Framework.Language.TrnxDslDomainModel), "TransactionKernelDSL.Framework.Language.GeneratedCode.DomainModelResx")]
 		Beltran = 5,
+		/// <summary>
+		/// BPosBrowser
+		/// Description for TransactionKernelDSL.Framework.Language.ParserType.BPosBrowser
+		/// </summary>
+		[DslDesign::DescriptionResource("TransactionKernelDSL.Framework.Language.ParserType/BPosBrowser.Description", typeof(global::TransactionKernelDSL.Framework.Language.TrnxDslDomainModel), "TransactionKernelDSL.Framework.Language.GeneratedCode.DomainModelResx")]
+		BPosBrowser = 6,
 	}
 }
 namespace TransactionKernelDSL.Framework.Language

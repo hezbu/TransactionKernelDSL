@@ -765,6 +765,7 @@
         <EnumerationLiteral Description="Meflur parser with 2-byte long length prefixing both incoming and outcoming data" Name="PrefixedMeflur" Value="4" />
         <EnumerationLiteral Description="Description for TransactionKernelDSL.Framework.Language.ParserType.PropietaryParser" Name="PropietaryParser" Value="-1" />
         <EnumerationLiteral Description="Parser of Type Beltran" Name="Beltran" Value="5" />
+        <EnumerationLiteral Description="Description for TransactionKernelDSL.Framework.Language.ParserType.BPosBrowser" Name="BPosBrowser" Value="6" />
       </Literals>
     </DomainEnumeration>
     <DomainEnumeration Name="DataSourceSupportType" Namespace="TransactionKernelDSL.Framework.Language" Description="Description for TransactionKernelDSL.Framework.Language.DataSourceSupportType">
