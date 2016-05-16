@@ -79,16 +79,16 @@ namespace TransactionKernelDSL.Framework.Parser.BPosBrowser
 
                     if (header.Contains("GA") == false)
                     {
-                        
+
                         this._ErrorMessage = "Error leyendo header. GA no encontrado";
-                        _Log.Error(this._ErrorMessage);
+                        //   _Log.Error(this._ErrorMessage);
                         this._Status |= TransmissionStatus.HeaderNotFound;
                         return false;
                     }
                     if (int.TryParse(header.Substring(2, 4), out bytesToRead) == false)
                     {
                         this._ErrorMessage = String.Format("Error leyendo header. Longitud {0} no valida", header.Substring(2, 4));
-                        _Log.Error(this._ErrorMessage);
+                        //  _Log.Error(this._ErrorMessage);
                         this._Status |= TransmissionStatus.HeaderNotFound;
                         return false;
                     }
@@ -97,7 +97,7 @@ namespace TransactionKernelDSL.Framework.Parser.BPosBrowser
                 else ///Se recibio menos de 6 bytes ....
                 {
                     this._ErrorMessage = "Error leyendo datos de conexion: expectedLen no tiene 6 bytes (" + bytesRead.ToString() + ")";
-                    _Log.Error(this._ErrorMessage);
+                    // _Log.Error(this._ErrorMessage);
                     this._Status |= TransmissionStatus.HeaderNotFound;
                     return false;
                 }
@@ -112,7 +112,7 @@ namespace TransactionKernelDSL.Framework.Parser.BPosBrowser
                     if (bytesRead == 0) ///No se leyo nada
                     {
                         this._ErrorMessage = "Error leyendo datos de conexion: bytesRead = 0 ";
-                        _Log.Error(this._ErrorMessage);
+                        //  _Log.Error(this._ErrorMessage);
                         this._Status |= TransmissionStatus.ContactLost;
                         return false;
                     }
@@ -120,10 +120,34 @@ namespace TransactionKernelDSL.Framework.Parser.BPosBrowser
 
                 //break;
             }
+            catch (IOException ioEx)
+            {
+                if (ioEx.InnerException != null && ioEx.InnerException.GetType().Name == "SocketException")
+                {
+                    switch ((ioEx.InnerException as SocketException).ErrorCode)
+                    {
+                        case 0x2746:
+                            this._Status |= TransmissionStatus.ContactLost;
+                            break;
+                        case 0x274C:
+                            this._Status |= TransmissionStatus.Timeout;
+                            break;
+                        default:
+                            _Log.ErrorFormat("Error at Receive: SocketException not recognized: {0}", (ioEx.InnerException as SocketException).ErrorCode);
+                            this._Status |= TransmissionStatus.ConnectionError;
+                            break;
+                    }
+                }
+                else
+                {
+                    _Log.ErrorFormat("Error at Receive: Exception found {0}", ioEx);
+                }
+
+                return false;
+            }
             catch (Exception ex)
             {
                 this._ErrorMessage = "TIMEOUT antes de determinar el proceso (handler) que requiere la conexión. Mensaje: " + ex.Message;
-                _Log.Error(this._ErrorMessage);
                 this._Status |= TransmissionStatus.Timeout;
                 return false;
             }

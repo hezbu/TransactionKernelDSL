@@ -13,50 +13,50 @@ namespace TransactionKernelDSL.Framework.V1
 
     public abstract partial class AbstractTcpTriggeredMultiThreadedPushPullInputTransactionEngine : AbstractThreadedInputTransactionEngine
     {
-        protected void ObserverWorker(WorkerInfo workerInfo)
-        {
-            _Log.InfoFormat("Send Worker on!");
-            try
-            {
-                if (workerInfo.ClientId == null)
-                {
-                    _Log.ErrorFormat("Client ID is null, sender worker will be stopped...");
-                }
-                else
-                {
-                    while (_IsListening && workerInfo.IsSenderWorkerOn)
-                    {
-                        //if (_AutoTrackerEvent.WaitOne(10000))
-                        //{
-                        //    _Log.InfoFormat("_AutoTrackerEvent TRUE");
-                        //}
+        //protected void ObserverWorker(WorkerInfo workerInfo)
+        //{
+        //    _Log.InfoFormat("Send Worker on!");
+        //    try
+        //    {
+        //        if (workerInfo.ClientId == null)
+        //        {
+        //            _Log.ErrorFormat("Client ID is null, sender worker will be stopped...");
+        //        }
+        //        else
+        //        {
+        //            while (_IsListening && workerInfo.IsSenderWorkerOn)
+        //            {
+        //                //if (_AutoTrackerEvent.WaitOne(10000))
+        //                //{
+        //                //    _Log.InfoFormat("_AutoTrackerEvent TRUE");
+        //                //}
 
-                        Thread.Sleep(10000);
-                    }
-                }
-                _Log.InfoFormat("Send Worker off!");
-            }
-            catch (Exception ex)
-            {
-                _Log.ErrorFormat("Exception found at SendWorker: {0}", ex);
-            }
-        }
+        //                Thread.Sleep(10000);
+        //            }
+        //        }
+        //        _Log.InfoFormat("Send Worker off!");
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        _Log.ErrorFormat("Exception found at SendWorker: {0}", ex);
+        //    }
+        //}
 
-        public class WorkerInfo
-        {
-            public TcpClient Client { get; set; }
+        //public class WorkerInfo
+        //{
+        //    public TcpClient Client { get; set; }
 
-            public AbstractTransactionParser Parser { get; set; }
+        //    public AbstractTransactionParser Parser { get; set; }
 
-            public bool IsSenderWorkerOn { get; set; }
+        //    public bool IsSenderWorkerOn { get; set; }
 
-            public string ClientId { get; set; }
+        //    public string ClientId { get; set; }
 
-            public WorkerInfo()
-            {
-                IsSenderWorkerOn = false;
-            }
-        }
+        //    public WorkerInfo()
+        //    {
+        //        IsSenderWorkerOn = false;
+        //    }
+        //}
 
 
         public abstract class AbstractTrackerObserver
@@ -80,10 +80,10 @@ namespace TransactionKernelDSL.Framework.V1
                 {
                     if (ClientId != null)
                     {
+                        _Log.InfoFormat("OnTrackSuccessEvent! ClientId={0} - EventArgs={1}", ClientId ?? "N/A", args);
+
                         if (args.Items.Where(t => t.TrackedClientId == ClientId).Any() == true)
                         {
-                            _Log.InfoFormat("OnTrackSuccessEvent! ClientId={0} - EventArgs={1}", ClientId ?? "N/A", args);
-
                             var observerInfo = new TrackerObserverInfo(_Client, GetParserForEventMessage());
 
                             if (this.SendReply(observerInfo) == false)
