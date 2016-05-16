@@ -6,7 +6,7 @@ using System.Threading;
 
 namespace TransactionKernelDSL.Framework.V1
 {
-    public partial class AbstractTcpTriggeredMultiThreadedPushPullInputTransactionEngine : AbstractThreadedInputTransactionEngine
+    public abstract partial class AbstractTcpTriggeredMultiThreadedPushPullInputTransactionEngine : AbstractThreadedInputTransactionEngine
     {
         public class SyncCache<T> where T : class, new()
         {

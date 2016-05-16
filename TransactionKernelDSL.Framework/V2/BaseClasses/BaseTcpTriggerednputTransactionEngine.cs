@@ -18,9 +18,9 @@ namespace TransactionKernelDSL.Framework.V2.BaseClasses
         private int _ListenerMinThreads = 50;
         private int _ListenerMinCompletionWorkThreads = 1000;
 
-        public class Factory : BaseTransactionEngine.Factory
-        {
+        //public class Factory : BaseTransactionEngine.Factory
+        //{
 
-        }
+        //}
     }
 }

@@ -62,22 +62,26 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="V1\AbstractStraightOutputTransactionEngine.cs" />
-    <Compile Include="V1\AbstractInputTransactionEngine.cs" />
+    <Compile Include="V1\OutputEngine\Straight\AbstractStraightOutputTransactionEngine.cs" />
+    <Compile Include="V1\InputEngine\AbstractInputTransactionEngine.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <Compile Include="V1\AbstractFunneledOutputTransactionEngine.cs" />
-    <Compile Include="V1\AbstractOutputTransactionEngine.cs" />
-    <Compile Include="V1\AbstractTcpFunneledOutputTransactionEngine.cs" />
-    <Compile Include="V1\AbstractTcpStraightOutputTransactionEngine.cs" />
-    <Compile Include="V1\AbstractTcpTriggeredMultiThreadedPushPullInputTransactionEngine.cs" />
-    <Compile Include="V1\AbstractTcpTriggeredSocketReusableMultiThreadedInputEngine.cs" />
-    <Compile Include="V1\AbstractThreadedInputTransactionEngine.cs" />
-    <Compile Include="V1\AbstractTcpTriggeredMultiThreadedInputTransactionEngine.cs" />
-    <Compile Include="V1\AbstractTimeTriggeredInputTransactionEngine.cs" />
+    <Compile Include="V1\OutputEngine\Funneled\AbstractFunneledOutputTransactionEngine.cs" />
+    <Compile Include="V1\OutputEngine\AbstractOutputTransactionEngine.cs" />
+    <Compile Include="V1\OutputEngine\Funneled\TcpTriggered\AbstractTcpFunneledOutputTransactionEngine.cs" />
+    <Compile Include="V1\OutputEngine\Straight\TcpTriggered\AbstractTcpStraightOutputTransactionEngine.cs" />
+    <Compile Include="V1\InputEngine\ThreadedInputEngine\PushEngine\AbstractTcpTriggeredMultiThreadedPushPullInputTransactionEngine.cs" />
+    <Compile Include="V1\InputEngine\ThreadedInputEngine\PushEngine\AbstractTcpTriggeredMultiThreadedPushPullInputTransactionEngine_SlaveWorker.cs" />
+    <Compile Include="V1\InputEngine\ThreadedInputEngine\PushEngine\AbstractTcpTriggeredMultiThreadedPushPullInputTransactionEngine_SyncList.cs" />
+    <Compile Include="V1\InputEngine\ThreadedInputEngine\PushEngine\AbstractTcpTriggeredMultiThreadedPushPullInputTransactionEngine_MasterWorker.cs" />
+    <Compile Include="V1\InputEngine\ThreadedInputEngine\PushEngine\AbstractTcpTriggeredMultiThreadedPushPullInputTransactionEngine_TrackerWorker.cs" />
+    <Compile Include="V1\InputEngine\ThreadedInputEngine\SocketReusable\AbstractTcpTriggeredSocketReusableMultiThreadedInputEngine.cs" />
+    <Compile Include="V1\InputEngine\ThreadedInputEngine\AbstractThreadedInputTransactionEngine.cs" />
+    <Compile Include="V1\InputEngine\ThreadedInputEngine\MultiThreaded\AbstractTcpTriggeredMultiThreadedInputTransactionEngine.cs" />
+    <Compile Include="V1\InputEngine\ThreadedInputEngine\TimeTriggered\AbstractTimeTriggeredInputTransactionEngine.cs" />
     <Compile Include="V1\AbstractTransactionContext.cs" />
     <Compile Include="V1\AbstractTransactionEngine.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -92,9 +96,17 @@
     <Compile Include="V1\AbstractTransactionParserStructureType.cs" />
     <Compile Include="V1\AbstractTransactionParserSubfield.cs" />
     <Compile Include="V1\AbstractTransactionStub.cs" />
+    <Compile Include="V1\InputEngine\ThreadedInputEngine\PushEngine\AbstractTcpTriggeredMultiThreadedPushPullInputTransactionEngine_ObserverWorker.cs" />
     <Compile Include="V1\FrameworkEnums.cs" />
+    <Compile Include="V2\BaseClasses\BaseTcpTriggerednputTransactionEngine.cs" />
+    <Compile Include="V2\BaseClasses\BaseTransactionContext.cs" />
     <Compile Include="V2\BaseClasses\BaseTransactionEngine.cs" />
     <Compile Include="V2\BaseClasses\BaseTransactionFacade.cs" />
+    <Compile Include="V2\BaseClasses\BaseTransactionHandler.cs" />
+    <Compile Include="V2\BaseClasses\BaseTransactionParser.cs" />
+    <Compile Include="V2\Enums\FrameworkEnums.cs" />
+    <Compile Include="V2\Interfaces\ITcpTriggeredTransactionInputEngine.cs" />
+    <Compile Include="V2\Interfaces\ITransactionContext.cs" />
     <Compile Include="V2\Interfaces\ITransactionEngine.cs" />
     <Compile Include="V2\Interfaces\ITransactionFacade.cs" />
     <Compile Include="V1\ITransactionParserCommunicable.cs" />
@@ -104,6 +116,8 @@
     <Compile Include="V1\ITransactionHandlerMaintanceable.cs" />
     <Compile Include="V1\ITransactionHandlerPersistable.cs" />
     <Compile Include="V1\AbstractTransactionClearing.cs" />
+    <Compile Include="V2\Interfaces\ITransactionHandler.cs" />
+    <Compile Include="V2\Interfaces\ITransactionParser.cs" />
     <Compile Include="V2\TransactionKernelTools.cs" />
   </ItemGroup>
   <ItemGroup>
