@@ -137,6 +137,7 @@ namespace TransactionKernelDSL.Framework.Parser.BPosBrowser
                             this._Status |= TransmissionStatus.ConnectionError;
                             break;
                     }
+                   
                 }
                 else
                 {
@@ -148,6 +149,7 @@ namespace TransactionKernelDSL.Framework.Parser.BPosBrowser
             catch (Exception ex)
             {
                 this._ErrorMessage = "TIMEOUT antes de determinar el proceso (handler) que requiere la conexión. Mensaje: " + ex.Message;
+                
                 this._Status |= TransmissionStatus.Timeout;
                 return false;
             }
@@ -159,12 +161,29 @@ namespace TransactionKernelDSL.Framework.Parser.BPosBrowser
 
             _RequestStream.Set(dump, totalBytesRead + 6);
             //_RequestStream.Set(btAccumulatedReadBuffer, totalBytesRead);
-            _Log.Info(_RootSection + "_IN: " + ((BPosBrowserStream)RequestStream).ToString());
+            if(this.IsKeepAliveMessage() == false)
+                _Log.Info(_RootSection + "_IN: " + ((BPosBrowserStream)RequestStream).ToString());  
+
             return true;
         }
 
         public bool IsKeepAliveMessage()
         {
+
+            if ((this.RequestStream as BPosBrowserStream).IsSet)
+            {
+                if (this._IsInputParser == true)
+                {
+                    _IsKeepAliveMessage = (this.RequestStream as BPosBrowserStream).Get(6) == "<T_MSG></T_MSG>";
+                }
+                else
+                {
+                    _IsKeepAliveMessage = (this.RequestStream as BPosBrowserStream).Get(6) == "<S_MSG></S_MSG>";
+                }
+            }
+            else
+                _IsKeepAliveMessage = false;
+            
             return _IsKeepAliveMessage;
         }
 
