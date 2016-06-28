@@ -22,7 +22,7 @@ namespace TransactionKernelDSL.Framework.V1
         protected Thread _TrackThread = null;
 
         protected int _PushSleep = 1000;
-        protected int _TrackerSleep = 45000;
+        protected int _TrackerSleep = 1000;
     
         protected AutoResetEvent _AutoTrackerEvent = null;
         protected event OnTrackSuccess _OnTrackSuccessEvent = null;

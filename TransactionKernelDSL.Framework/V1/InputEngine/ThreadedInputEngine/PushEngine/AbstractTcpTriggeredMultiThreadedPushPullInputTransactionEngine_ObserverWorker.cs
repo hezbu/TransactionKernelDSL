@@ -74,7 +74,7 @@ namespace TransactionKernelDSL.Framework.V1
 
             public abstract AbstractTransactionParser GetParserForEventMessage();
 
-            public void OnTrackSuccessEvent(object sender, OnTrackArgs args)
+            public virtual void OnTrackSuccessEvent(object sender, OnTrackArgs args)
             {
                 try
                 {
@@ -84,7 +84,7 @@ namespace TransactionKernelDSL.Framework.V1
 
                         if (args.Items.Where(t => t.TrackedClientId == ClientId).Any() == true)
                         {
-                            var observerInfo = new TrackerObserverInfo(_Client, GetParserForEventMessage());
+                            var observerInfo = BuildObserverInfo(_Client, GetParserForEventMessage());
 
                             if (this.SendReply(observerInfo) == false)
                             {
@@ -99,7 +99,7 @@ namespace TransactionKernelDSL.Framework.V1
                 }
             }
 
-            public bool SendReply(TrackerObserverInfo observerInfo)
+            public virtual bool SendReply(AbstractTrackerObserverInfo observerInfo)
             {
                 lock (this._SendLock)
                 {
@@ -115,6 +115,10 @@ namespace TransactionKernelDSL.Framework.V1
                 }
 
             }
+
+            public abstract AbstractTrackerObserverInfo BuildObserverInfo(TcpClient client, AbstractTransactionParser parser);
+
+            public abstract void ProcessObserverInfo(AbstractTrackerObserverInfo observerInfo);
         }
 
         public class OnTrackArgs : EventArgs
@@ -148,7 +152,7 @@ namespace TransactionKernelDSL.Framework.V1
             }
         }
 
-        public class TrackerObserverInfo
+        public abstract class AbstractTrackerObserverInfo
         {
             private TcpClient _Client;
             private AbstractTransactionParser _Parser;
@@ -156,7 +160,7 @@ namespace TransactionKernelDSL.Framework.V1
             public TcpClient Client { get { return _Client; } }
             public AbstractTransactionParser Parser { get { return _Parser; } }
 
-            public TrackerObserverInfo(TcpClient client, AbstractTransactionParser parser)
+            public AbstractTrackerObserverInfo(TcpClient client, AbstractTransactionParser parser)
             {
                 this._Client = client;
                 this._Parser = parser;

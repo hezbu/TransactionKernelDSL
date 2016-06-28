@@ -51,8 +51,9 @@ namespace TransactionKernelDSL.Framework.V1
                                     AbstractTransactionHandler transaction = TransactionHandlerFactory(parser.RequestStructure.GetOperationId());
                                     transaction.Client = client;
                                     transaction.Parser = parser;
-                                    var observerInfo = new TrackerObserverInfo(client, parser);
+                                    var observerInfo = observer.BuildObserverInfo(client, parser);
                                     transaction.DoTransaction(observerInfo);
+                                    observer.ProcessObserverInfo(observerInfo);
 
                                     if (observer.ClientId == null)
                                     {

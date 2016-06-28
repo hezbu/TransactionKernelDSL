@@ -13,7 +13,13 @@ namespace TransactionKernelDSL.Framework.V1
 {
     public abstract partial class AbstractTcpTriggeredMultiThreadedPushPullInputTransactionEngine : AbstractThreadedInputTransactionEngine
     {
-        protected void TrackThreadWorker()
+
+        protected virtual void FireTrackSuccessEvent(OnTrackArgs trackerInfo)
+        {
+            if (_OnTrackSuccessEvent != null) _OnTrackSuccessEvent(this, trackerInfo);
+        }
+
+        protected virtual void TrackThreadWorker()
         {
             try
             {
@@ -23,7 +29,7 @@ namespace TransactionKernelDSL.Framework.V1
                     var trackerInfo = DoTrackerWork();
                     if (trackerInfo != null)
                     {
-                        if (_OnTrackSuccessEvent != null) _OnTrackSuccessEvent(this, trackerInfo);
+                        FireTrackSuccessEvent(trackerInfo);
                     }
                     Thread.Sleep(_TrackerSleep);
                 }
