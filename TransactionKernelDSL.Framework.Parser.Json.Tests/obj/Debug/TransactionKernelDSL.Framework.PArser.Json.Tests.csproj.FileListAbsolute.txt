@@ -1,0 +1,13 @@
+C:\SANDBOX\TransactionKernelDSL\TransactionKernelDSL.Framework.PArser.Json.Tests\bin\Debug\TransactionKernelDSL.Framework.Parser.Json.Tests.dll
+C:\SANDBOX\TransactionKernelDSL\TransactionKernelDSL.Framework.PArser.Json.Tests\bin\Debug\TransactionKernelDSL.Framework.Parser.Json.Tests.pdb
+C:\SANDBOX\TransactionKernelDSL\TransactionKernelDSL.Framework.PArser.Json.Tests\bin\Debug\TransactionKernelDSL.Framework.dll
+C:\SANDBOX\TransactionKernelDSL\TransactionKernelDSL.Framework.PArser.Json.Tests\bin\Debug\TransactionKernelDSL.Framework.Parser.Json.dll
+C:\SANDBOX\TransactionKernelDSL\TransactionKernelDSL.Framework.PArser.Json.Tests\bin\Debug\Newtonsoft.Json.dll
+C:\SANDBOX\TransactionKernelDSL\TransactionKernelDSL.Framework.PArser.Json.Tests\bin\Debug\log4net.dll
+C:\SANDBOX\TransactionKernelDSL\TransactionKernelDSL.Framework.PArser.Json.Tests\bin\Debug\TransactionKernelDSL.Framework.Parser.Json.pdb
+C:\SANDBOX\TransactionKernelDSL\TransactionKernelDSL.Framework.PArser.Json.Tests\bin\Debug\TransactionKernelDSL.Framework.pdb
+C:\SANDBOX\TransactionKernelDSL\TransactionKernelDSL.Framework.PArser.Json.Tests\bin\Debug\Newtonsoft.Json.xml
+C:\SANDBOX\TransactionKernelDSL\TransactionKernelDSL.Framework.PArser.Json.Tests\bin\Debug\log4net.xml
+C:\SANDBOX\TransactionKernelDSL\TransactionKernelDSL.Framework.PArser.Json.Tests\obj\Debug\TransactionKernelDSL.Framework.PArser.Json.Tests.csprojResolveAssemblyReference.cache
+C:\SANDBOX\TransactionKernelDSL\TransactionKernelDSL.Framework.PArser.Json.Tests\obj\Debug\TransactionKernelDSL.Framework.Parser.Json.Tests.dll
+C:\SANDBOX\TransactionKernelDSL\TransactionKernelDSL.Framework.PArser.Json.Tests\obj\Debug\TransactionKernelDSL.Framework.Parser.Json.Tests.pdb

@@ -20,11 +20,11 @@ namespace TransactionKernelDSL.Framework.V1
   #endregion
 
   #region Member Properties
-  public Nullable<AbstractTransactionParserStructureType> StructureType
+  public virtual Nullable<AbstractTransactionParserStructureType> StructureType
   {
    get { return _StructureType; }
   }
-  public Dictionary<int, AbstractTransactionParserField> Fields
+  public virtual Dictionary<int, AbstractTransactionParserField> Fields
   {
    get
    {
