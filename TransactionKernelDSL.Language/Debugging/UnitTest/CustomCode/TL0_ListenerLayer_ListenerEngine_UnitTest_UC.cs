@@ -11,7 +11,7 @@
 using System.Net.Sockets; 
 	 using System.Net; 
 	
-            
+using TransactionKernelDSL.Framework.Parser.Json;            
 #if DEBUG == true
 namespace PDS.Switch.PDSNet
 {
@@ -32,3 +32,5 @@ namespace PDS.Switch.PDSNet
 	}
 }
 #endif
+	
+    

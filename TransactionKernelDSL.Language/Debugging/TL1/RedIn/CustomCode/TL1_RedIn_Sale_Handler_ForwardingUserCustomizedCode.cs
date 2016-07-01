@@ -14,7 +14,7 @@ namespace PDS.Switch.PDSNet
     /// User-customized helpers for Forwarding stage methods 
     /// </summary>
     /// <remarks>
-    /// Generated on 06/05/2016 14:29:59
+    /// Generated on 29/06/2016 11:40:15
     /// </remarks>
     public partial class TL1_RedIn_Sale_Handler: AbstractTransactionHandler,ITransactionHandlerForwardable
 	{    

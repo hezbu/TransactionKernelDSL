@@ -15,7 +15,7 @@ namespace PDS.Switch.PDSNet
     /// A transaction handler named Sale with Id  3200000000
     /// </summary>
     /// <remarks>
-    /// Generated on 06/05/2016 15:16:54
+    /// Generated on 29/06/2016 11:40:11
     /// </remarks>
 	public partial class TL0_ListenerLayer_Sale_Handler: AbstractTransactionHandler,ITransactionHandlerListenable,ITransactionHandlerForwardable
 	{

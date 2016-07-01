@@ -8,11 +8,16 @@ using TransactionKernelDSL.Framework.V1;
 namespace TransactionKernelDSL.Framework.Parser.Json
 {
     public class JsonParserStructure: AbstractTransactionParserStructure
-    {
-        public string OperationId { get; set; }
-        public string MerchantId { get; set; }
-        public string TerminalId { get; set; }
-        public List<Item> Items { get; set; }
+    {     
+        public string MTI { get; set; }
+        public string P_CODE { get; set; }
+        public string CID { get; set; }
+        public string TID { get; set; }
+        public string TRX { get; set; }
+        public string COD_OPER { get; set; }
+        public JsonStructureRequestInfo RequestInfo { get; set; }
+        public JsonStructureResponseInfo ResponseInfo { get; set; }
+      
 
         [JsonIgnore]
         public new string Logger 
@@ -46,20 +51,25 @@ namespace TransactionKernelDSL.Framework.Parser.Json
                                 ) :
             base(rootSection, type)
         {
-            Items = new List<Item>();
-        
+           
         }
 
         public override object GetOperationId()
         {
-            return OperationId;
+            return String.Format("{0}{1}", MTI,P_CODE);
         }
 
-        public class Item
-        {
-            public string Product { get; set; }
-            public string ClienteReference { get; set; }
-            public decimal? Amount { get; set; }
-        }
+      
+    }
+
+    public class JsonStructureResponseInfo
+    {
+        public string COD_RES { get; set; }
+        public string MSG_RES { get; set; }
+    }
+
+    public class JsonStructureRequestInfo
+    {
+        public string PAN { get; set; }
     }
 }

@@ -20,7 +20,7 @@ namespace PDS.Switch.PDSNet
     /// The transactional facade for solution PDSNet
     /// </summary>
     /// <remarks>
-    /// Generated on 06/05/2016 15:16:53
+    /// Generated on 29/06/2016 11:40:08
     /// </remarks>
 	public partial class PDSNetFacade : AbstractTransactionFacade
 	{

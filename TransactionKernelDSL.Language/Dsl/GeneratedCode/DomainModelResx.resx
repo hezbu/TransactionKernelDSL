@@ -1533,6 +1533,22 @@
     <value>Description for TransactionKernelDSL.Framework.Language.ParserType.BPosBrowser</value>
     <comment>Description for EnumerationLiteral &apos;BPosBrowser&apos; on DomainEnumeration &apos;ParserType&apos;</comment>
   </data>
+  <data name="TransactionKernelDSL.Framework.Language.ParserType/Json.DisplayName" xml:space="preserve">
+    <value>Json</value>
+    <comment>Display name for EnumerationLiteral &apos;Json&apos; on DomainEnumeration &apos;ParserType&apos;</comment>
+  </data>
+  <data name="TransactionKernelDSL.Framework.Language.ParserType/Json.Description" xml:space="preserve">
+    <value>Description for TransactionKernelDSL.Framework.Language.ParserType.Json</value>
+    <comment>Description for EnumerationLiteral &apos;Json&apos; on DomainEnumeration &apos;ParserType&apos;</comment>
+  </data>
+  <data name="TransactionKernelDSL.Framework.Language.ParserType/Xml.DisplayName" xml:space="preserve">
+    <value>Xml</value>
+    <comment>Display name for EnumerationLiteral &apos;Xml&apos; on DomainEnumeration &apos;ParserType&apos;</comment>
+  </data>
+  <data name="TransactionKernelDSL.Framework.Language.ParserType/Xml.Description" xml:space="preserve">
+    <value>Description for TransactionKernelDSL.Framework.Language.ParserType.Xml</value>
+    <comment>Description for EnumerationLiteral &apos;Xml&apos; on DomainEnumeration &apos;ParserType&apos;</comment>
+  </data>
   <data name="TransactionKernelDSL.Framework.Language.DataSourceSupportType/NotTyped.DisplayName" xml:space="preserve">
     <value>NotTyped</value>
     <comment>Display name for EnumerationLiteral &apos;NotTyped&apos; on DomainEnumeration &apos;DataSourceSupportType&apos;</comment>

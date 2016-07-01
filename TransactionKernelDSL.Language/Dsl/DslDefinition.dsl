@@ -766,6 +766,8 @@
         <EnumerationLiteral Description="Description for TransactionKernelDSL.Framework.Language.ParserType.PropietaryParser" Name="PropietaryParser" Value="-1" />
         <EnumerationLiteral Description="Parser of Type Beltran" Name="Beltran" Value="5" />
         <EnumerationLiteral Description="Description for TransactionKernelDSL.Framework.Language.ParserType.BPosBrowser" Name="BPosBrowser" Value="6" />
+        <EnumerationLiteral Description="Description for TransactionKernelDSL.Framework.Language.ParserType.Json" Name="Json" Value="7" />
+        <EnumerationLiteral Description="Description for TransactionKernelDSL.Framework.Language.ParserType.Xml" Name="Xml" Value="8" />
       </Literals>
     </DomainEnumeration>
     <DomainEnumeration Name="DataSourceSupportType" Namespace="TransactionKernelDSL.Framework.Language" Description="Description for TransactionKernelDSL.Framework.Language.DataSourceSupportType">

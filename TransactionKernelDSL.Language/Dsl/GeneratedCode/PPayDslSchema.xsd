@@ -1738,6 +1738,8 @@
         </xsd:annotation>
       </xsd:enumeration>
       <xsd:enumeration value="BPosBrowser"/>
+      <xsd:enumeration value="Json"/>
+      <xsd:enumeration value="Xml"/>
     </xsd:restriction>
   </xsd:simpleType>
   

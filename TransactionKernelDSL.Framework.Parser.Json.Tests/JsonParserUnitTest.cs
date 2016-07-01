@@ -12,9 +12,9 @@ namespace TransactionKernelDSL.Framework.Parser.Json.Tests
         {
             var parser = new JsonParser();
             var rsp = new JsonParserStructure(AbstractTransactionParserStructureType.Response);
-            rsp.MerchantId = "Merch1234";
-            rsp.TerminalId = "Term1234";
-            rsp.OperationId = "A";
+            rsp.CID = "Merch1234";
+            rsp.TID = "Term1234";
+            rsp.MTI = "3800";            
 
             parser.ResponseStructure = rsp;
             Assert.IsTrue(parser.Assemble());
@@ -26,14 +26,14 @@ namespace TransactionKernelDSL.Framework.Parser.Json.Tests
         {
             var parser = new JsonParser();
             var rsp = new JsonParserStructure(AbstractTransactionParserStructureType.Response);
-            rsp.MerchantId = "Merch1234";
-            rsp.TerminalId = "Term1234";
-            rsp.OperationId = "A";
+            rsp.CID = "Merch1234";
+            rsp.TID = "Term1234";
+            rsp.MTI = "3800";  
 
             parser.ResponseStructure = rsp;
             parser.Assemble();
             var output = (parser.ResponseStream as JsonParserStream).Get();
-            var stub = "{\"OperationId\":\"A\",\"MerchantId\":\"Merch1234\",\"TerminalId\":\"Term1234\",\"Items\":[]}";
+            var stub = "{\"MTI\":\"3800\",\"CID\":\"Merch1234\",\"TID\":\"Term1234\",\"Items\":[]}";
             Assert.IsTrue(output == String.Format("{0:D4}{1}",stub.Length,stub));
 
         }
@@ -43,9 +43,9 @@ namespace TransactionKernelDSL.Framework.Parser.Json.Tests
         {
             var parser = new JsonParser();
             var rsp = new JsonParserStructure(AbstractTransactionParserStructureType.Response);
-            rsp.MerchantId = "Merch1234";
-            rsp.TerminalId = "Term1234";
-            rsp.OperationId = "A";
+            rsp.CID = "Merch1234";
+            rsp.TID = "Term1234";
+            rsp.MTI = "A";
 
             parser.ResponseStructure = rsp;
             parser.Assemble();
@@ -60,10 +60,9 @@ namespace TransactionKernelDSL.Framework.Parser.Json.Tests
         {
             var parser = new JsonParser();
             var rsp = new JsonParserStructure(AbstractTransactionParserStructureType.Response);
-            rsp.MerchantId = "Merch1234";
-            rsp.TerminalId = "Term1234";
-            rsp.OperationId = "A";
-
+            rsp.CID = "Merch1234";
+            rsp.TID = "Term1234";
+            rsp.MTI = "A";
             parser.ResponseStructure = rsp;
             parser.Assemble();
             var output = (parser.ResponseStream as JsonParserStream).Get();
@@ -71,10 +70,9 @@ namespace TransactionKernelDSL.Framework.Parser.Json.Tests
             parser.Disassemble();
             var req = (parser.RequestStructure as JsonParserStructure);
             Assert.IsTrue(
-                rsp.MerchantId == req.MerchantId &&
-                rsp.OperationId == req.OperationId &&
-                rsp.Items.Count == req.Items.Count &&
-                rsp.TerminalId == req.TerminalId
+                rsp.CID == req.CID &&
+                rsp.MTI == req.MTI &&              
+                rsp.TID == req.TID
                 );
 
         }

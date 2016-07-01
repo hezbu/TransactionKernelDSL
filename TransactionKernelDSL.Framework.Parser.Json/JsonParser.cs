@@ -179,8 +179,12 @@ namespace TransactionKernelDSL.Framework.Parser.Json
 
             try
             {
+                var settings = new JsonSerializerSettings
+                {
+                    NullValueHandling = NullValueHandling.Ignore
+                };
 
-                string output = JsonConvert.SerializeObject(this._ResponseStructure);
+                string output = JsonConvert.SerializeObject(this._ResponseStructure, settings);
                 (this._ResponseStream as JsonParserStream).Set(String.Format("{0:D4}{1}", output.Length, output));
 
                 boolResult = true;

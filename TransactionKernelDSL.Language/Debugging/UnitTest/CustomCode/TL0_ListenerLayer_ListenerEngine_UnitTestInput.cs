@@ -7,7 +7,7 @@
     using log4net;
     using System.Threading;
     using System.Diagnostics;    
-            
+using TransactionKernelDSL.Framework.Parser.Json;            
 #if DEBUG == true
 namespace PDS.Switch.PDSNet
 {
@@ -15,37 +15,39 @@ namespace PDS.Switch.PDSNet
     public partial class TL0_ListenerLayer_ListenerEngine_UnitTestInput
 	{
                     
-                public static TL0_ListenerLayer_ListenerEngine_ParserStructure Unit_Sale_OK_Test()
+                public static JsonStructure Unit_Sale_OK_Test()
                 {
                    
-				    TL0_ListenerLayer_ListenerEngine_ParserStructure testStructure = new TL0_ListenerLayer_ListenerEngine_ParserStructureTL0_ListenerLayer_ListenerEngine_ParserStructure();
+				    JsonStructure testStructure = new JsonStructure(AbstractTransactionParserStructureType.Request,"PDSXML");
                     throw new NotImplementedException(" Unit_Sale_OK_Test() Must be implemented in order to generate a valid input regarding to the references unit test");
                     return testStructure;
                 }
             
-                public static TL0_ListenerLayer_ListenerEngine_ParserStructure Unit_Sale_KO_Test()
+                public static JsonStructure Unit_Sale_KO_Test()
                 {
                    
-				    TL0_ListenerLayer_ListenerEngine_ParserStructure testStructure = new TL0_ListenerLayer_ListenerEngine_ParserStructureTL0_ListenerLayer_ListenerEngine_ParserStructure();
+				    JsonStructure testStructure = new JsonStructure(AbstractTransactionParserStructureType.Request,"PDSXML");
                     throw new NotImplementedException(" Unit_Sale_KO_Test() Must be implemented in order to generate a valid input regarding to the references unit test");
                     return testStructure;
                 }
             
-                public static TL0_ListenerLayer_ListenerEngine_ParserStructure Unit_BalanceQuery_OK_Test()
+                public static JsonStructure Unit_BalanceQuery_OK_Test()
                 {
                    
-				    TL0_ListenerLayer_ListenerEngine_ParserStructure testStructure = new TL0_ListenerLayer_ListenerEngine_ParserStructureTL0_ListenerLayer_ListenerEngine_ParserStructure();
+				    JsonStructure testStructure = new JsonStructure(AbstractTransactionParserStructureType.Request,"PDSXML");
                     throw new NotImplementedException(" Unit_BalanceQuery_OK_Test() Must be implemented in order to generate a valid input regarding to the references unit test");
                     return testStructure;
                 }
             
-                public static TL0_ListenerLayer_ListenerEngine_ParserStructure Unit_BalanceQuery_KO_Test()
+                public static JsonStructure Unit_BalanceQuery_KO_Test()
                 {
                    
-				    TL0_ListenerLayer_ListenerEngine_ParserStructure testStructure = new TL0_ListenerLayer_ListenerEngine_ParserStructureTL0_ListenerLayer_ListenerEngine_ParserStructure();
+				    JsonStructure testStructure = new JsonStructure(AbstractTransactionParserStructureType.Request,"PDSXML");
                     throw new NotImplementedException(" Unit_BalanceQuery_KO_Test() Must be implemented in order to generate a valid input regarding to the references unit test");
                     return testStructure;
                 }
 	}
 }
 #endif
+	
+    

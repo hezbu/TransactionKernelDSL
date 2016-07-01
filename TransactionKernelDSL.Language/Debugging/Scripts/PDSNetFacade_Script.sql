@@ -29,7 +29,7 @@
 	 
 	-- =============================================
 	-- Author:		<TransactionKernelDSL>
-	-- Create date: 6-5-2016
+	-- Create date: 29-6-2016
 	-- Description:	<Obtiene un valor de una tabla de configuracion>
 	-- =============================================
 	CREATE PROCEDURE [Sp_GetValue]
@@ -82,7 +82,7 @@
 	
 	-- =============================================
 	-- Author:		<TransactionKernelDSL>
-	-- Create date: 6-5-2016
+	-- Create date: 29-6-2016
 	-- Description:	<Genera un secuenciador para cada componente del sistema>
 	-- =============================================
 	CREATE PROCEDURE [dbo].[Sp_SequenceFactory]

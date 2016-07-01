@@ -11,7 +11,7 @@
 using System.Net.Sockets; 
 	 using System.Net; 
 	
-            
+using TransactionKernelDSL.Framework.Parser.Json;            
 #if DEBUG == true
 namespace PDS.Switch.PDSNet
 {
@@ -29,7 +29,7 @@ namespace PDS.Switch.PDSNet
 
                 try
                 {
-					TL0_ListenerLayer_ListenerEngine_Parser testParser = new TL0_ListenerLayer_ListenerEngine_Parser();
+					JsonParser testParser = new JsonParser("PDSXML",false);
                     
 
                     testParser.ResponseStructure = TL0_ListenerLayer_ListenerEngine_UnitTestInput.Unit_Sale_OK_Test();
@@ -106,7 +106,7 @@ TL0_ListenerLayer_ListenerEngine_Engine.Instance.Logger = "MainLogger";
 
                 try
                 {
-					TL0_ListenerLayer_ListenerEngine_Parser testParser = new TL0_ListenerLayer_ListenerEngine_Parser();
+					JsonParser testParser = new JsonParser("PDSXML",false);
                     
 
                     testParser.ResponseStructure = TL0_ListenerLayer_ListenerEngine_UnitTestInput.Unit_Sale_KO_Test();
@@ -183,7 +183,7 @@ TL0_ListenerLayer_ListenerEngine_Engine.Instance.Logger = "MainLogger";
 
                 try
                 {
-					TL0_ListenerLayer_ListenerEngine_Parser testParser = new TL0_ListenerLayer_ListenerEngine_Parser();
+					JsonParser testParser = new JsonParser("PDSXML",false);
                     
 
                     testParser.ResponseStructure = TL0_ListenerLayer_ListenerEngine_UnitTestInput.Unit_BalanceQuery_OK_Test();
@@ -260,7 +260,7 @@ TL0_ListenerLayer_ListenerEngine_Engine.Instance.Logger = "MainLogger";
 
                 try
                 {
-					TL0_ListenerLayer_ListenerEngine_Parser testParser = new TL0_ListenerLayer_ListenerEngine_Parser();
+					JsonParser testParser = new JsonParser("PDSXML",false);
                     
 
                     testParser.ResponseStructure = TL0_ListenerLayer_ListenerEngine_UnitTestInput.Unit_BalanceQuery_KO_Test();

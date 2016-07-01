@@ -14,7 +14,7 @@ namespace PDS.Switch.PDSNet
     /// User-customized helpers for Listenable stage methods 
     /// </summary>
     /// <remarks>
-    /// Generated on 06/05/2016 14:30:01
+    /// Generated on 29/06/2016 11:40:16
     /// </remarks>
 	public partial class TL0_ListenerLayer_Sale_Handler: AbstractTransactionHandler,ITransactionHandlerListenable,ITransactionHandlerForwardable
 	{    

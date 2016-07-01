@@ -6,7 +6,7 @@
     using log4net.Config;
     using log4net;
     using System.Threading;
-    
+    using TransactionKernelDSL.Framework.Parser.Json;
 
 namespace PDS.Switch.PDSNet
 {
@@ -15,7 +15,7 @@ namespace PDS.Switch.PDSNet
     /// A transactional engine named Listener Engine
     /// </summary>
     /// <remarks>
-    /// Generated on 06/05/2016 15:16:54
+    /// Generated on 29/06/2016 11:40:10
     /// </remarks>
 public partial class TL0_ListenerLayer_ListenerEngine_Engine: AbstractTcpTriggeredMultiThreadedInputTransactionEngine
 	{
@@ -75,7 +75,7 @@ public partial class TL0_ListenerLayer_ListenerEngine_Engine: AbstractTcpTrigger
         }
         protected override AbstractTransactionParser ParserFactory(object state = null) 
 { 
-TL0_ListenerLayer_ListenerEngine_Parser parser = new TL0_ListenerLayer_ListenerEngine_Parser(); 
+JsonParser parser =  new JsonParser("PDSXML"); 
 parser.Logger = "MainLogger"; 
 return parser; 
 } 

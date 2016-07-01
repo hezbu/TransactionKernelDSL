@@ -17,7 +17,7 @@ namespace PDS.Switch.PDSNet
     /// User-Customized Definitions for ransactional facade's solution PDSNet
     /// </summary>
     /// <remarks>
-    /// Generated on 06/05/2016 14:30:02
+    /// Generated on 29/06/2016 11:40:17
     /// </remarks>
 	public partial class PDSNetFacade : AbstractTransactionFacade
 	{

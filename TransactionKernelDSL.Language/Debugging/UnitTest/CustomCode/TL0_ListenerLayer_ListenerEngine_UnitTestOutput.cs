@@ -7,7 +7,7 @@
     using log4net;
     using System.Threading;
     using System.Diagnostics;    
-            
+using TransactionKernelDSL.Framework.Parser.Json;            
 #if DEBUG == true
 namespace PDS.Switch.PDSNet
 {
@@ -37,3 +37,5 @@ namespace PDS.Switch.PDSNet
 	}
 }
 #endif
+	
+    

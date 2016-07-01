@@ -34,7 +34,7 @@
         </transactionHandlers>
         <inputTransactionEngines>
           <transactionLayerHasInputTransactionEngines Id="944aa20e-d1b1-4739-bb92-efaf3880bdf1">
-            <inputTransactionEngine Id="3980f4c0-929a-4e1c-9461-6e78605f8dd5" name="Listener Engine" parser="PropietaryParser" parserSectionName="PDSXML" hasUnitTests="true" type="TcpTriggeredMultiThreadedInputEngine">
+            <inputTransactionEngine Id="3980f4c0-929a-4e1c-9461-6e78605f8dd5" name="Listener Engine" parser="Json" parserSectionName="PDSXML" hasUnitTests="true" type="TcpTriggeredMultiThreadedInputEngine">
               <transactionHandlers>
                 <inputTransactionEngineReferencesTransactionHandlers Id="3b05168e-c9f9-4109-b70b-5b44799887e8">
                   <transactionHandlerMoniker Id="0426183e-794e-428a-8a42-41ed65e6d94b" />

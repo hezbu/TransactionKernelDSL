@@ -882,6 +882,18 @@ namespace TransactionKernelDSL.Framework.Language
 		/// </summary>
 		[DslDesign::DescriptionResource("TransactionKernelDSL.Framework.Language.ParserType/BPosBrowser.Description", typeof(global::TransactionKernelDSL.Framework.Language.TrnxDslDomainModel), "TransactionKernelDSL.Framework.Language.GeneratedCode.DomainModelResx")]
 		BPosBrowser = 6,
+		/// <summary>
+		/// Json
+		/// Description for TransactionKernelDSL.Framework.Language.ParserType.Json
+		/// </summary>
+		[DslDesign::DescriptionResource("TransactionKernelDSL.Framework.Language.ParserType/Json.Description", typeof(global::TransactionKernelDSL.Framework.Language.TrnxDslDomainModel), "TransactionKernelDSL.Framework.Language.GeneratedCode.DomainModelResx")]
+		Json = 7,
+		/// <summary>
+		/// Xml
+		/// Description for TransactionKernelDSL.Framework.Language.ParserType.Xml
+		/// </summary>
+		[DslDesign::DescriptionResource("TransactionKernelDSL.Framework.Language.ParserType/Xml.Description", typeof(global::TransactionKernelDSL.Framework.Language.TrnxDslDomainModel), "TransactionKernelDSL.Framework.Language.GeneratedCode.DomainModelResx")]
+		Xml = 8,
 	}
 }
 namespace TransactionKernelDSL.Framework.Language
