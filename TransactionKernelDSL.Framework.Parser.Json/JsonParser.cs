@@ -21,8 +21,8 @@ namespace TransactionKernelDSL.Framework.Parser.Json
             this._ReceiveMethod = Receive;
             this._IsKeepAliveMessageMethod = IsKeepAliveMessage;
 
-            this._RequestStructure = new JsonParserStructure((_IsInputParser == true) ? AbstractTransactionParserStructureType.Request : AbstractTransactionParserStructureType.Response, _RootSection);
-            this._ResponseStructure = new JsonParserStructure((_IsInputParser == true) ? AbstractTransactionParserStructureType.Response : AbstractTransactionParserStructureType.Request, _RootSection);
+            this._RequestStructure = new JsonParserRequestStructure( _RootSection);
+            this._ResponseStructure = new JsonParserResponseStructure( _RootSection);
 
             this._RequestStream = new JsonParserStream();
             this._ResponseStream = new JsonParserStream();
@@ -38,7 +38,10 @@ namespace TransactionKernelDSL.Framework.Parser.Json
                 else if (IsKeepAliveMessage() == false)
                 {
                     ((TcpClient)handler).GetStream().Write(AbstractTransactionFacade.GetBytes(package), 0, AbstractTransactionFacade.GetBytes(package).Length);
-                    _Log.Info(_RootSection + "_OUT: " + ((JsonParserStream)ResponseStream).ToString());
+                    var stub = JsonConvert.DeserializeObject(((JsonParserStream)ResponseStream).ToString().Substring(4));
+
+                    //_Log.InfoFormat("{0}_OUT: {1}", _RootSection, ((JsonParserStream)ResponseStream).ToString());
+                    _Log.InfoFormat("{0}_OUT: {2}{1}", _RootSection, JsonConvert.SerializeObject(stub, Formatting.Indented), Environment.NewLine);
                 }
                 else
                 {
@@ -153,7 +156,11 @@ namespace TransactionKernelDSL.Framework.Parser.Json
             _RequestStream.Set(dump, totalBytesRead + 4);
             //_RequestStream.Set(btAccumulatedReadBuffer, totalBytesRead);
             if (this.IsKeepAliveMessage() == false)
-                _Log.Info(_RootSection + "_IN: " + ((JsonParserStream)RequestStream).ToString());
+            {
+              //  _Log.InfoFormat("{0}_IN: {1}", _RootSection, ((JsonParserStream)RequestStream).ToString());
+                var stub = JsonConvert.DeserializeObject(((JsonParserStream)RequestStream).ToString().Substring(4));
+                _Log.InfoFormat("{0}_IN: {2}{1}", _RootSection, JsonConvert.SerializeObject(stub, Formatting.Indented), Environment.NewLine);
+            }
 
             return true;
         }
@@ -208,8 +215,9 @@ namespace TransactionKernelDSL.Framework.Parser.Json
                 var output = (this._RequestStream as JsonParserStream).Get();
                 var length = output.Substring(0, 4);
                 var data = output.Substring(4);
-                this._RequestStructure = JsonConvert.DeserializeObject<JsonParserStructure>(data);
-
+                //this._RequestStructure = JsonConvert.DeserializeObject(data, this._RequestStructure.GetType()) as JsonParserResponseStructure;
+                
+                (this._RequestStructure as JsonParserRequestStructure).Root = JsonConvert.DeserializeObject(data);
 
                 boolResult = true;
             }

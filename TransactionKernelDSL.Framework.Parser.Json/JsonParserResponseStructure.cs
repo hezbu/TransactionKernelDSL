@@ -7,7 +7,7 @@ using TransactionKernelDSL.Framework.V1;
 
 namespace TransactionKernelDSL.Framework.Parser.Json
 {
-    public class JsonParserStructure: AbstractTransactionParserStructure
+    public class JsonParserResponseStructure: AbstractTransactionParserStructure
     {     
         public string MTI { get; set; }
         public string P_CODE { get; set; }
@@ -15,9 +15,11 @@ namespace TransactionKernelDSL.Framework.Parser.Json
         public string TID { get; set; }
         public string TRX { get; set; }
         public string COD_OPER { get; set; }
-        public JsonStructureRequestInfo RequestInfo { get; set; }
-        public JsonStructureResponseInfo ResponseInfo { get; set; }
-      
+        public string TRACE { get; set; }
+        public string COD_RES { get; set; }
+        public string MSG_RES { get; set; }
+
+        public virtual JsonStructureInfo Info { get; set; }
 
         [JsonIgnore]
         public new string Logger 
@@ -46,13 +48,15 @@ namespace TransactionKernelDSL.Framework.Parser.Json
             }
         }
 
-        public JsonParserStructure(Nullable<AbstractTransactionParserStructureType> type,
-                                string rootSection = "Json"
+      
+        public JsonParserResponseStructure(
+                                    string rootSection = "Json"
                                 ) :
-            base(rootSection, type)
+            base(rootSection,AbstractTransactionParserStructureType.Response)
         {
-           
+
         }
+        
 
         public override object GetOperationId()
         {
@@ -62,14 +66,12 @@ namespace TransactionKernelDSL.Framework.Parser.Json
       
     }
 
-    public class JsonStructureResponseInfo
+    public class JsonStructureInfo
     {
-        public string COD_RES { get; set; }
-        public string MSG_RES { get; set; }
+
     }
 
-    public class JsonStructureRequestInfo
-    {
-        public string PAN { get; set; }
-    }
+    //public class JsonStructureRequestInfo
+    //{
+    //}
 }

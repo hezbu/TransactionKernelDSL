@@ -25,16 +25,8 @@ namespace TransactionKernelDSL.Framework.Parser.Xml
             this._ReceiveMethod = Receive;
             this._IsKeepAliveMessageMethod = IsKeepAliveMessage;
 
-            if (_IsInputParser == true)
-            {
-                this._RequestStructure = new XmlRequestStructure();
-                this._ResponseStructure = new XmlResponseStructure();
-            }
-            else
-            {
-                this._RequestStructure = new XmlResponseStructure();
-                this._ResponseStructure = new XmlRequestStructure();
-            }
+            this._RequestStructure = new XmlRequestStructure();
+            this._ResponseStructure = new XmlResponseStructure();
 
             this._RequestStream = new XmlStream();
             this._ResponseStream = new XmlStream();
@@ -143,7 +135,7 @@ namespace TransactionKernelDSL.Framework.Parser.Xml
                 return false;
             }
 
-            _RequestStream.Set(btAccumulatedReadBuffer, totalBytesRead );
+            _RequestStream.Set(btAccumulatedReadBuffer, totalBytesRead);
 
             if (this.IsKeepAliveMessage() == false)
                 _Log.Info(_RootSection + "_IN: " + ((XmlStream)RequestStream).ToString());
@@ -266,6 +258,7 @@ namespace TransactionKernelDSL.Framework.Parser.Xml
             catch (Exception ex)
             {
                 _ErrorMessage = String.Format("Exception found at Disassemble {0}", ex);
+                _Log.ErrorFormat(ErrorMessage);
                 _Status = TransmissionStatus.BadDisassembling;
                 boolResult = false;
             }

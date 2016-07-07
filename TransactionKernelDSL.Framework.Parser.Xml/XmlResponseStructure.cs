@@ -80,7 +80,6 @@ namespace TransactionKernelDSL.Framework.Parser.Xml
                 return sw.ToString();
             }
         }
-
     }
 
    

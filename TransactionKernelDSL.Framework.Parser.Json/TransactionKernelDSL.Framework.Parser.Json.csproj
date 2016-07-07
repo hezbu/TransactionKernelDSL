@@ -64,8 +64,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="JsonParser.cs" />
+    <Compile Include="JsonParserRequestStructure.cs" />
     <Compile Include="JsonParserStream.cs" />
-    <Compile Include="JsonParserStructure.cs" />
+    <Compile Include="JsonParserResponseStructure.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
