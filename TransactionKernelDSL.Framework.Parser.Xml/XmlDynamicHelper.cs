@@ -44,6 +44,25 @@ namespace TransactionKernelDSL.Framework.Parser.Xml
                     AddProperty(parent, node.Name.ToString(), item);
                 }
             }
+            else if (node.HasAttributes)
+            {
+                //HZ
+                var item = new ExpandoObject();
+
+                foreach (var attribute in node.Attributes())
+                {
+                    AddProperty(item, attribute.Name.ToString(), attribute.Value.Trim());
+                }
+
+                //element
+                foreach (var element in node.Elements())
+                {
+                    Parse(item, element);
+                }
+
+                AddProperty(parent, node.Name.ToString(), item);
+                //HZ
+            }
             else
             {
                 AddProperty(parent, node.Name.ToString(), node.Value.Trim());

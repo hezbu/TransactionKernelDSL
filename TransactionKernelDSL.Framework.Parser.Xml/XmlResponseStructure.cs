@@ -24,11 +24,11 @@ namespace TransactionKernelDSL.Framework.Parser.Xml
         public string LTE { get; set; }
         public string COP { get; set; }
         public string DTMP { get; set; }
-        public XmlRootResponseElement Response { get; set; }        
-      
+        public XmlRootResponseElement Response { get; set; }
+
 
         public XmlResponseStructure() :
-            base(String.Empty,AbstractTransactionParserStructureType.Response)
+            base(String.Empty, AbstractTransactionParserStructureType.Response)
         {
 
         }
@@ -52,29 +52,22 @@ namespace TransactionKernelDSL.Framework.Parser.Xml
         [XmlAttribute]
         public string MSG_2 { get; set; }
 
-        
+
 
         public virtual string Serialize()
         {
             using (StringWriter sw = new StringWriter())
             {
-                var settings = new XmlWriterSettings();            
+                var settings = new XmlWriterSettings();
                 settings.OmitXmlDeclaration = true;
 
                 using (XmlWriter tw = XmlWriter.Create(sw, settings))
                 {
-                    try
-                    {
-                        XmlSerializer serializer = new XmlSerializer(this.GetType());
-                        XmlSerializerNamespaces ns = new XmlSerializerNamespaces();
-                        
-                        ns.Add("", "");
-                        serializer.Serialize(tw, this, ns);
-                    }
-                    catch (Exception ex)
-                    {
-                        //Handle Exception Code
-                    }                   
+                    XmlSerializer serializer = new XmlSerializer(this.GetType());
+                    XmlSerializerNamespaces ns = new XmlSerializerNamespaces();
+
+                    ns.Add("", "");
+                    serializer.Serialize(tw, this, ns);
                 }
 
                 return sw.ToString();
@@ -82,6 +75,6 @@ namespace TransactionKernelDSL.Framework.Parser.Xml
         }
     }
 
-   
+
 
 }

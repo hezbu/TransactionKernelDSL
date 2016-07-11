@@ -1,6 +1,7 @@
 ﻿using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Dynamic;
 using System.IO;
 using System.Linq;
@@ -81,14 +82,17 @@ namespace TransactionKernelDSL.Framework.Parser.Xml
                     totalBytesRead += bytesRead;
 
                     var endTest = AbstractTransactionFacade.GetString(btAccumulatedReadBuffer, totalBytesRead);
-                    if (_IsInputParser == true)
+
+                    try
                     {
-                        if (endTest.Contains("</T_MSG>")) break;
+                        XmlDocument xmlDoc = new XmlDocument();
+                        xmlDoc.LoadXml(endTest);
+                        break;
                     }
-                    else
+                    catch (XmlException)
                     {
-                        if (endTest.Contains("</S_MSG>")) break;
-                    }
+
+                    }                  
 
                     if (bytesRead == 0) ///No se leyo nada
                     {
@@ -201,9 +205,10 @@ namespace TransactionKernelDSL.Framework.Parser.Xml
 
 
                 if (rsp.Response != null)
-                {
+                {                  
                     element1.InnerXml = rsp.Response.Serialize();
                 }
+               
 
                 using (var stringWriter = new StringWriter())
                 using (var xmlTextWriter = XmlWriter.Create(stringWriter))
