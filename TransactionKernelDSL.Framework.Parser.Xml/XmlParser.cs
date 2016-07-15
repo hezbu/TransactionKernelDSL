@@ -195,11 +195,16 @@ namespace TransactionKernelDSL.Framework.Parser.Xml
                     element1.SetAttribute("TID", rsp.TID);
                     element1.SetAttribute("CID", rsp.CID);
                     element1.SetAttribute("NID", rsp.NID);
+                    if (String.IsNullOrEmpty(rsp.PWD) == false)
+                    {
+                        element1.SetAttribute("PWD", rsp.PWD);
+                    }
                     element1.SetAttribute("VAPP", rsp.VAPP);
                     element1.SetAttribute("TRC", rsp.TRC);
                     element1.SetAttribute("LTE", rsp.LTE);
                     element1.SetAttribute("COP", rsp.COP);
                     element1.SetAttribute("DTMP", rsp.DTMP);
+                    
                 }
 
 

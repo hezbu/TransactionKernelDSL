@@ -12,6 +12,7 @@ namespace TransactionKernelDSL.Framework.Parser.Json
         public string MTI { get; set; }
         public string P_CODE { get; set; }
         public string CID { get; set; }
+        public string PWD { get; set; }
         public string TID { get; set; }
         public string TRX { get; set; }
         public string COD_OPER { get; set; }

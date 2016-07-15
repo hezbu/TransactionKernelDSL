@@ -40,6 +40,8 @@ namespace TransactionKernelDSL.Framework.Parser.Xml
 
 
         public string DTMS { get; set; }
+
+        public string PWD { get; set; }
     }
 
     public abstract class XmlRootResponseElement
