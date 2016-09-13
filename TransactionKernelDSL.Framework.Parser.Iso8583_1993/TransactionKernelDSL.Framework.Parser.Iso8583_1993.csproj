@@ -1,0 +1,95 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{8117B2E7-5AE4-430E-BC1D-0744D1411785}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>TransactionKernelDSL.Framework.Parser.Iso8583_1993</RootNamespace>
+    <AssemblyName>TransactionKernelDSL.Framework.Parser.Iso8583_1993</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="log4net, Version=1.2.15.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
+      <HintPath>..\packages\log4net.2.0.5\lib\net40-full\log4net.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.configuration" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Iso8583_1993Enums.cs" />
+    <Compile Include="Iso8583_1993Field.cs" />
+    <Compile Include="Iso8583_1993Parser.cs" />
+    <Compile Include="Iso8583_1993Stream.cs" />
+    <Compile Include="Iso8583_1993Structure.cs" />
+    <Compile Include="Iso8583_1993SubField.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Token\04_PS50-TKN\_04_PS50_TKN.cs" />
+    <Compile Include="Token\C0_PS51-TKN\_C0_PS51_TKN.cs" />
+    <Compile Include="Token\C4_PT-SRV-DATA-TKN\_C4_PT_SRV_DATA_TKN.cs" />
+    <Compile Include="Token\Iso8583_1993AbstractToken.cs" />
+    <Compile Include="Token\Iso8583_1993HeaderToken.cs" />
+    <Compile Include="Token\Iso8583_1993TokenBuilder.cs" />
+    <Compile Include="Token\Q1-AUTH-MODE-ID-TKN\_Q1_AUTH_MODE_ID_TKN.cs" />
+    <Compile Include="Token\Q2-ACC-ID-TKN\_Q2_ACC_ID_TKN.cs" />
+    <Compile Include="Token\Q6-PART-CHGS-TKN\_Q6_PART_CHGS_TKN.cs" />
+    <Compile Include="Token\R1-CORR-OPER-AUTH-DATA-TKN\_R1_CORR_OPER_AUTH_DATA_TKN.cs" />
+    <Compile Include="Token\U1_EBT-AVAIL-BAL-TKN\_U1_EBT_AVAIL_BAL_TKN.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\TransactionKernelDSL.Framework\TransactionKernelDSL.Framework.csproj">
+      <Project>{8c6f8e91-5aa2-4bed-8213-10c37d5e85bd}</Project>
+      <Name>TransactionKernelDSL.Framework</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
