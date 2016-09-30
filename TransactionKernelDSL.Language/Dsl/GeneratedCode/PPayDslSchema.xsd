@@ -1740,6 +1740,7 @@
       <xsd:enumeration value="BPosBrowser"/>
       <xsd:enumeration value="Json"/>
       <xsd:enumeration value="Xml"/>
+      <xsd:enumeration value="Iso8583_1993"/>
     </xsd:restriction>
   </xsd:simpleType>
   

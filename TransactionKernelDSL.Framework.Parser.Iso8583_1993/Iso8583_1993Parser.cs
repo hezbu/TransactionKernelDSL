@@ -50,10 +50,9 @@ namespace TransactionKernelDSL.Framework.Parser.Iso8583_1993
 
         public bool Receive(object handler)
         {
-            int bytesRead = 0;
-            byte[] header = null;
+            int bytesRead = 0;         
             int totalBytesRead = 0;//nHeaderLenProt;
-
+            int payloadOffset = 18;
             int bytesToRead = Iso8583_1993Stream.Iso8583_1993MaxLength;
             byte[] btPartialReadsBuffer = new byte[Iso8583_1993Stream.Iso8583_1993MaxLength];
             byte[] btAccumulatedReadBuffer = new byte[Iso8583_1993Stream.Iso8583_1993MaxLength];
@@ -61,14 +60,12 @@ namespace TransactionKernelDSL.Framework.Parser.Iso8583_1993
 
             try
             {
-                bytesRead = ((TcpClient)handler).GetStream().Read(btPartialReadsBuffer, 0, 2);
+                bytesRead = ((TcpClient)handler).GetStream().Read(btPartialReadsBuffer, 0, payloadOffset);
 
-                if (bytesRead == 2)
+                if (bytesRead == payloadOffset)
                 {
-                    bytesToRead = (int)btPartialReadsBuffer[0] * 0x100;
-                    bytesToRead += (int)btPartialReadsBuffer[1];
-                    header = new byte[] { btPartialReadsBuffer[0], btPartialReadsBuffer[1] };
-                    this._IsKeepAliveMessage = (header[0] == 0x00 && header[1] == 0x00);
+                    bytesToRead = (int)btPartialReadsBuffer[16] * 0x100;
+                    bytesToRead += (int)btPartialReadsBuffer[17];                  
                 }
                 else ///Se recibio menos de 2 bytes ....
                 {
@@ -78,10 +75,12 @@ namespace TransactionKernelDSL.Framework.Parser.Iso8583_1993
                 }
 
 
+                System.Buffer.BlockCopy(btPartialReadsBuffer, 0, btAccumulatedReadBuffer, 0, bytesRead);
+
                 for (totalBytesRead = 0; totalBytesRead < bytesToRead; )
                 {
                     bytesRead = ((TcpClient)handler).GetStream().Read(btPartialReadsBuffer, 0, bytesToRead - totalBytesRead);
-                    System.Buffer.BlockCopy(btPartialReadsBuffer, 0, btAccumulatedReadBuffer, totalBytesRead, bytesRead);
+                    System.Buffer.BlockCopy(btPartialReadsBuffer, 0, btAccumulatedReadBuffer, totalBytesRead + payloadOffset, bytesRead);
                     totalBytesRead += bytesRead;
 
                     if (bytesRead == 0) ///No se leyo nada
@@ -104,12 +103,9 @@ namespace TransactionKernelDSL.Framework.Parser.Iso8583_1993
                 this._Status |= TransmissionStatus.Timeout;
                 return false;
             }
-
-            byte[] dump = new byte[bytesToRead + 2];
-            System.Buffer.BlockCopy(header, 0, dump, 0, 2);
-            System.Buffer.BlockCopy(btAccumulatedReadBuffer, 0, dump, 2, totalBytesRead);
-            this._RequestStream.Set(dump);
-            _Log.Info(_RootSection + "_IN: " + RequestStream.ToString());
+        
+            this._RequestStream.Set(btAccumulatedReadBuffer);
+            _Log.Info(_RootSection + "_IN: " + (RequestStream as Iso8583_1993Stream).ToString());
 
             return true;
         }
@@ -126,30 +122,26 @@ namespace TransactionKernelDSL.Framework.Parser.Iso8583_1993
         public bool Assemble()
         {
             bool boolResult = false;
-            int intLength = 2;
+            int intLength = 0;
             byte mask = 0x01;
             this._ResponseStream = new Iso8583_1993Stream();
             int intBmpIndex = 0;
             int intFieldFoundIndex = -1;
+            int lengthOffset = 0;
 
             byte[] partialData = this._ResponseStream.Get();
-
-            ///// OPTIONAL DATA PREFIX
-            if (((Iso8583_1993Structure)ResponseStructure).IsDataPrefix)
-            {
-                intLength += _ResponseStructure["DataPrefix"].CopyContentTo(ref partialData, intLength);
-            }
-
-            ///// OPTIONAL IMS_CICS TRANSACTION CODE
-            if (((Iso8583_1993Structure)ResponseStructure).IsImsCicsTransactionCode)
-            {
-                intLength += _ResponseStructure["IMS_CICS_TransactionCode"].CopyContentTo(ref partialData, intLength);
-            }
-
+                       
             //// ISO LITERAL
-            intLength += ResponseStructure["StartSignature"].CopyContentTo(ref partialData, intLength);
+            intLength += ResponseStructure["StartSignature"].CopyContentTo(ref partialData, intLength);          
             //// BASE 24 HEADER
             intLength += ResponseStructure["Base24Header"].CopyContentTo(ref partialData, intLength);
+            //// SID
+            intLength += ResponseStructure["SID"].CopyContentTo(ref partialData, intLength);
+            //// SID
+            intLength += ResponseStructure["DID"].CopyContentTo(ref partialData, intLength);
+            //LENGTH
+            lengthOffset = intLength;
+            intLength += 2;  //solo dejo el espacio
             //// MESSAGE TYPE
             intLength += ResponseStructure["MessageType"].CopyContentTo(ref partialData, intLength);
             //// BITMAP
@@ -184,10 +176,9 @@ namespace TransactionKernelDSL.Framework.Parser.Iso8583_1993
 
             #region Carga de campo LONGITUD al principio de la trama
             byte[] length = new byte[2 + 1];
-            AbstractTransactionFacade.AscToBcd(length, AbstractTransactionFacade.GetBytes((intLength - 2).ToString("X").PadLeft(4, '0')), 4, 0);
+            AbstractTransactionFacade.AscToHex(length, AbstractTransactionFacade.GetBytes((intLength - 2 - lengthOffset).ToString("X").PadLeft(4, '0')), 2);
             ResponseStructure["LENGTH"].CopyContentFrom(length);
-            ResponseStructure["LENGTH"].CopyContentTo(ref partialData);
-            Debug.WriteLine("Length Header = " + AbstractTransactionFacade.GetString(length, 2));
+            ResponseStructure["LENGTH"].CopyContentTo(ref partialData, lengthOffset);           
             #endregion
 
             this._ResponseStream.Set(partialData, intLength);
@@ -213,16 +204,7 @@ namespace TransactionKernelDSL.Framework.Parser.Iso8583_1993
             {
                 #region Finding ISO start of frame
                 int intLength = ((Iso8583_1993Structure)_RequestStructure).FindISOStart(RequestStream.Get());
-                if (intLength == 11)
-                {
-                    RequestStructure["DataPrefix"].CopyContentFrom(RequestStream.Get(), 0);
-                }
-                else if (intLength == 20)
-                {
-                    RequestStructure["DataPrefix"].CopyContentFrom(RequestStream.Get(), 0);
-                    RequestStructure["IMS_CICS_TransactionCode"].CopyContentFrom(RequestStream.Get(), 9);
-                }
-                else if (intLength != 2)
+                if (intLength != 0)
                 {
                     throw new Exception("Signature 'ISO' haven't found on where it was expected to be, but in position " + intLength.ToString());
                 }
@@ -233,6 +215,11 @@ namespace TransactionKernelDSL.Framework.Parser.Iso8583_1993
 
                 intLength += RequestStructure["Base24Header"].CopyContentFrom(_RequestStream.Get(), intLength);
                 Debug.WriteLine("[Dissasemble B24]: " + RequestStructure["Base24Header"].Keyname + ": " + RequestStructure["Base24Header"].ToString());
+                intLength += RequestStructure["SID"].CopyContentFrom(_RequestStream.Get(), intLength);
+                Debug.WriteLine("[Dissasemble B24]: " + RequestStructure["SID"].Keyname + ": " + RequestStructure["SID"].ToString());
+                intLength += RequestStructure["DID"].CopyContentFrom(_RequestStream.Get(), intLength);
+                Debug.WriteLine("[Dissasemble B24]: " + RequestStructure["SID"].Keyname + ": " + RequestStructure["DID"].ToString());
+                intLength += 2; //Salteo la longitud de la trama
                 intLength += RequestStructure["MessageType"].CopyContentFrom(_RequestStream.Get(), intLength);
                 Debug.WriteLine("[Dissasemble B24]: " + RequestStructure["MessageType"].Keyname + ": " + RequestStructure["MessageType"].ToString());
                 intLength += RequestStructure["PrimaryBitmap"].CopyContentFrom(_RequestStream.Get(), intLength);

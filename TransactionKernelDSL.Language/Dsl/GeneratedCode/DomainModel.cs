@@ -894,6 +894,12 @@ namespace TransactionKernelDSL.Framework.Language
 		/// </summary>
 		[DslDesign::DescriptionResource("TransactionKernelDSL.Framework.Language.ParserType/Xml.Description", typeof(global::TransactionKernelDSL.Framework.Language.TrnxDslDomainModel), "TransactionKernelDSL.Framework.Language.GeneratedCode.DomainModelResx")]
 		Xml = 8,
+		/// <summary>
+		/// Iso8583_1993
+		/// Description for TransactionKernelDSL.Framework.Language.ParserType.Iso8583_1993
+		/// </summary>
+		[DslDesign::DescriptionResource("TransactionKernelDSL.Framework.Language.ParserType/Iso8583_1993.Description", typeof(global::TransactionKernelDSL.Framework.Language.TrnxDslDomainModel), "TransactionKernelDSL.Framework.Language.GeneratedCode.DomainModelResx")]
+		Iso8583_1993 = 9,
 	}
 }
 namespace TransactionKernelDSL.Framework.Language

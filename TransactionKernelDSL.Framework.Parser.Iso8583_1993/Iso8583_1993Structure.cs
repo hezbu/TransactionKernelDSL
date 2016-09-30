@@ -154,29 +154,10 @@ namespace TransactionKernelDSL.Framework.Parser.Iso8583_1993
                 throw new ArgumentOutOfRangeException("Field number is out of range (" + fieldParam.ToString() + "vs 1 - 128)");
             }
 
-            byte[] byteToReturn = new byte[1 + 1];
             int indexBitmapByte = (fieldParam - 1) / 8;
             int indexBitmapBit = (fieldParam - 1) % 8;
 
-            if (fieldParam >= 64)  //Usa el segundo Bitmap
-            {
-                byteToReturn = AbstractTransactionFacade.GetHexaBytes(AbstractTransactionFacade.GetString(this[_SecondaryBitmapKeyname].Content, 2, (indexBitmapByte - 8) * 2));
-            }
-            else //Usa el primer Bitmap
-            {
-                byteToReturn = AbstractTransactionFacade.GetHexaBytes(AbstractTransactionFacade.GetString(this[_PrimaryBitmapKeyname].Content, 2, indexBitmapByte * 2));
-            }
-
-            byteToReturn[0] |= (byte)(((int)mask) >> indexBitmapBit);
-
-            if (fieldParam >= 64)  //Usa el segundo Bitmap
-            {
-                AbstractTransactionFacade.BcdToAsc(this[_SecondaryBitmapKeyname].Content, byteToReturn, 2, 0, 0, (indexBitmapByte - 8) * 2);
-            }
-            else //Usa el primer Bitmap
-            {
-                AbstractTransactionFacade.BcdToAsc(this[_PrimaryBitmapKeyname].Content, byteToReturn, 2, 0, 0, indexBitmapByte * 2);
-            }
+            this[_PrimaryBitmapKeyname].Content[indexBitmapByte] = (byte)(((int)this[_PrimaryBitmapKeyname].Content[indexBitmapByte]) | (mask >> indexBitmapBit));
 
 
         }
@@ -189,53 +170,23 @@ namespace TransactionKernelDSL.Framework.Parser.Iso8583_1993
                 throw new ArgumentOutOfRangeException("Field number is out of range (" + fieldParam.ToString() + "vs 1 - 128)");
             }
 
-            byte[] byteToReturn = new byte[1 + 1];
             int indexBitmapByte = (fieldParam - 1) / 8;
             int indexBitmapBit = (fieldParam - 1) % 8;
 
-            if (fieldParam >= 64)  //Usa el segundo Bitmap
-            {
-                byteToReturn = AbstractTransactionFacade.GetHexaBytes(AbstractTransactionFacade.GetString(this[_SecondaryBitmapKeyname].Content, 2, (indexBitmapByte - 8) * 2));
-            }
-            else //Usa el primer Bitmap
-            {
-                byteToReturn = AbstractTransactionFacade.GetHexaBytes(AbstractTransactionFacade.GetString(this[_PrimaryBitmapKeyname].Content, 2, indexBitmapByte * 2));
-            }
+            this[_PrimaryBitmapKeyname].Content[indexBitmapByte] = (byte)(((int)this[_PrimaryBitmapKeyname].Content[indexBitmapByte]) & (~(mask >> indexBitmapBit)));
 
-            byteToReturn[0] &= (byte)(~(((int)mask) >> indexBitmapBit));
-
-            if (fieldParam >= 64)  //Usa el segundo Bitmap
-            {
-                AbstractTransactionFacade.BcdToAsc(this[_SecondaryBitmapKeyname].Content, byteToReturn, 2, 0, 0, (indexBitmapByte - 8) * 2);
-            }
-            else //Usa el primer Bitmap
-            {
-                AbstractTransactionFacade.BcdToAsc(this[_PrimaryBitmapKeyname].Content, byteToReturn, 2, 0, 0, indexBitmapByte * 2);
-            }
         }
         public bool IsFieldOnBitmap(int fieldParam)
         {
             byte mask = 0x80;
-
             if (fieldParam < 1 || fieldParam > 128)
             {
                 throw new ArgumentOutOfRangeException("Field number is out of range (" + fieldParam.ToString() + "vs 1 - 128)");
             }
-
-            byte[] byteToReturn = new byte[1 + 1];
             int indexBitmapByte = (fieldParam - 1) / 8;
             int indexBitmapBit = (fieldParam - 1) % 8;
 
-            if (fieldParam >= 64)  //Usa el segundo Bitmap
-            {
-                byteToReturn = AbstractTransactionFacade.GetHexaBytes(AbstractTransactionFacade.GetString(this[_SecondaryBitmapKeyname].Content, 2, (indexBitmapByte - 8) * 2));
-            }
-            else //Usa el primer Bitmap
-            {
-                byteToReturn = AbstractTransactionFacade.GetHexaBytes(AbstractTransactionFacade.GetString(this[_PrimaryBitmapKeyname].Content, 2, indexBitmapByte * 2));
-            }
-
-            return (byteToReturn[0] & (byte)(((int)mask) >> indexBitmapBit)) > 0;
+            return ((this[_PrimaryBitmapKeyname].Content[indexBitmapByte] & (mask >> indexBitmapBit)) == (mask >> indexBitmapBit));
         }
         #endregion
     }

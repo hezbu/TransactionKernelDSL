@@ -768,6 +768,7 @@
         <EnumerationLiteral Description="Description for TransactionKernelDSL.Framework.Language.ParserType.BPosBrowser" Name="BPosBrowser" Value="6" />
         <EnumerationLiteral Description="Description for TransactionKernelDSL.Framework.Language.ParserType.Json" Name="Json" Value="7" />
         <EnumerationLiteral Description="Description for TransactionKernelDSL.Framework.Language.ParserType.Xml" Name="Xml" Value="8" />
+        <EnumerationLiteral Description="Description for TransactionKernelDSL.Framework.Language.ParserType.Iso8583_1993" Name="Iso8583_1993" Value="9" />
       </Literals>
     </DomainEnumeration>
     <DomainEnumeration Name="DataSourceSupportType" Namespace="TransactionKernelDSL.Framework.Language" Description="Description for TransactionKernelDSL.Framework.Language.DataSourceSupportType">

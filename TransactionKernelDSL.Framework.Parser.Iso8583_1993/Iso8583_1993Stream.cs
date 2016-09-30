@@ -16,15 +16,31 @@ namespace TransactionKernelDSL.Framework.Parser.Iso8583_1993
 
         }
 
-        public string ToString(bool includeLen)
-        {
-            if (includeLen == true) return "(" + AbstractTransactionFacade.GetString(_Stream, _Stream.Length).Substring(2).Length.ToString("X4") + ")" + AbstractTransactionFacade.GetString(_Stream, _Stream.Length).Substring(2);
-            else return AbstractTransactionFacade.GetString(_Stream, _Stream.Length).Substring(2);
-        }
-
         public override string ToString()
         {
-            return ToString(true);
-        }               
+            string strDump = "";
+            int length = 0;
+            try
+            {
+                for (int i = 0; i < 18; i++)
+                {
+                    strDump += " " + this._Stream[i].ToString("X").PadLeft(2, '0');
+                }
+                length = this._Stream[16] * 256;
+                length += this._Stream[17];
+                for (int i = 18, j = 0; j < length; i++, j++)
+                {
+                    strDump += " " + this._Stream[i].ToString("X").PadLeft(2, '0');
+                }
+            }
+            catch (Exception ex)
+            {
+
+            }
+
+            return strDump;
+        }
+
+      
     }
 }
