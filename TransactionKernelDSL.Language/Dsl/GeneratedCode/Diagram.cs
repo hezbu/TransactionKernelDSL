@@ -304,6 +304,12 @@ namespace TransactionKernelDSL.Framework.Language
 				if(newShape != null) newShape.Size = newShape.DefaultSize; // set default shape size
 				return newShape;
 			}
+			if(element is global::TransactionKernelDSL.Framework.Language.OutputTransactionWebService)
+			{
+				global::TransactionKernelDSL.Framework.Language.OutputTransactionWebServiceShape newShape = new global::TransactionKernelDSL.Framework.Language.OutputTransactionWebServiceShape(this.Partition);
+				if(newShape != null) newShape.Size = newShape.DefaultSize; // set default shape size
+				return newShape;
+			}
 			if(element is global::TransactionKernelDSL.Framework.Language.OutputTransactionEngine)
 			{
 				global::TransactionKernelDSL.Framework.Language.OutputTransactionEngineShape newShape = new global::TransactionKernelDSL.Framework.Language.OutputTransactionEngineShape(this.Partition);
@@ -316,9 +322,9 @@ namespace TransactionKernelDSL.Framework.Language
 				if(newShape != null) newShape.Size = newShape.DefaultSize; // set default shape size
 				return newShape;
 			}
-			if(element is global::TransactionKernelDSL.Framework.Language.OutputTransactionWebService)
+			if(element is global::TransactionKernelDSL.Framework.Language.TransactionHandler)
 			{
-				global::TransactionKernelDSL.Framework.Language.OutputTransactionWebServiceShape newShape = new global::TransactionKernelDSL.Framework.Language.OutputTransactionWebServiceShape(this.Partition);
+				global::TransactionKernelDSL.Framework.Language.TransactionHandlerShape newShape = new global::TransactionKernelDSL.Framework.Language.TransactionHandlerShape(this.Partition);
 				if(newShape != null) newShape.Size = newShape.DefaultSize; // set default shape size
 				return newShape;
 			}
@@ -340,9 +346,10 @@ namespace TransactionKernelDSL.Framework.Language
 				if(newShape != null) newShape.Size = newShape.DefaultSize; // set default shape size
 				return newShape;
 			}
-			if(element is global::TransactionKernelDSL.Framework.Language.InputTransactionEngineReferencesTimeTriggers)
+			if(element is global::TransactionKernelDSL.Framework.Language.TransactionEnvironmentLayer)
 			{
-				global::TransactionKernelDSL.Framework.Language.TimeTriggerLinkConnector newShape = new global::TransactionKernelDSL.Framework.Language.TimeTriggerLinkConnector(this.Partition);
+				global::TransactionKernelDSL.Framework.Language.TransactionEnvironmentLayerSwimLane newShape = new global::TransactionKernelDSL.Framework.Language.TransactionEnvironmentLayerSwimLane(this.Partition);
+				if(newShape != null) newShape.Size = newShape.DefaultSize; // set default shape size
 				return newShape;
 			}
 			if(element is global::TransactionKernelDSL.Framework.Language.TransactionEnvironmentSQLServerVariable)
@@ -351,20 +358,19 @@ namespace TransactionKernelDSL.Framework.Language
 				if(newShape != null) newShape.Size = newShape.DefaultSize; // set default shape size
 				return newShape;
 			}
-			if(element is global::TransactionKernelDSL.Framework.Language.TransactionEnvironmentLayer)
+			if(element is global::TransactionKernelDSL.Framework.Language.TransactionHandlerReferencesForwarderTransactionHandlers)
 			{
-				global::TransactionKernelDSL.Framework.Language.TransactionEnvironmentLayerSwimLane newShape = new global::TransactionKernelDSL.Framework.Language.TransactionEnvironmentLayerSwimLane(this.Partition);
-				if(newShape != null) newShape.Size = newShape.DefaultSize; // set default shape size
+				global::TransactionKernelDSL.Framework.Language.TransactionHandlerForwardingLinkConnector newShape = new global::TransactionKernelDSL.Framework.Language.TransactionHandlerForwardingLinkConnector(this.Partition);
+				return newShape;
+			}
+			if(element is global::TransactionKernelDSL.Framework.Language.TransactionHandlerReferencesMaintenanceTransactionHandler)
+			{
+				global::TransactionKernelDSL.Framework.Language.TransactionHandlerMaintenanceLinkConnector newShape = new global::TransactionKernelDSL.Framework.Language.TransactionHandlerMaintenanceLinkConnector(this.Partition);
 				return newShape;
 			}
 			if(element is global::TransactionKernelDSL.Framework.Language.TransactionHandlerReferencesOutputTransactionEngine)
 			{
 				global::TransactionKernelDSL.Framework.Language.OutputTransactionEngineReferencesTransactionHandlersLinkConnector newShape = new global::TransactionKernelDSL.Framework.Language.OutputTransactionEngineReferencesTransactionHandlersLinkConnector(this.Partition);
-				return newShape;
-			}
-			if(element is global::TransactionKernelDSL.Framework.Language.TransactionHandlerReferencesForwarderTransactionHandlers)
-			{
-				global::TransactionKernelDSL.Framework.Language.TransactionHandlerForwardingLinkConnector newShape = new global::TransactionKernelDSL.Framework.Language.TransactionHandlerForwardingLinkConnector(this.Partition);
 				return newShape;
 			}
 			if(element is global::TransactionKernelDSL.Framework.Language.InputTransactionEngineReferencesTransactionHandlers)
@@ -382,20 +388,14 @@ namespace TransactionKernelDSL.Framework.Language
 				global::TransactionKernelDSL.Framework.Language.OutputTransactionWebServiceLinkConnector newShape = new global::TransactionKernelDSL.Framework.Language.OutputTransactionWebServiceLinkConnector(this.Partition);
 				return newShape;
 			}
-			if(element is global::TransactionKernelDSL.Framework.Language.TransactionHandler)
-			{
-				global::TransactionKernelDSL.Framework.Language.TransactionHandlerShape newShape = new global::TransactionKernelDSL.Framework.Language.TransactionHandlerShape(this.Partition);
-				if(newShape != null) newShape.Size = newShape.DefaultSize; // set default shape size
-				return newShape;
-			}
-			if(element is global::TransactionKernelDSL.Framework.Language.TransactionHandlerReferencesMaintenanceTransactionHandler)
-			{
-				global::TransactionKernelDSL.Framework.Language.TransactionHandlerMaintenanceLinkConnector newShape = new global::TransactionKernelDSL.Framework.Language.TransactionHandlerMaintenanceLinkConnector(this.Partition);
-				return newShape;
-			}
 			if(element is global::TransactionKernelDSL.Framework.Language.OutputTransactionEngineReferencesTransactionDataSourceSupport)
 			{
 				global::TransactionKernelDSL.Framework.Language.TransactionDataSourceSupportForOutputEngineLink newShape = new global::TransactionKernelDSL.Framework.Language.TransactionDataSourceSupportForOutputEngineLink(this.Partition);
+				return newShape;
+			}
+			if(element is global::TransactionKernelDSL.Framework.Language.InputTransactionEngineReferencesTimeTriggers)
+			{
+				global::TransactionKernelDSL.Framework.Language.TimeTriggerLinkConnector newShape = new global::TransactionKernelDSL.Framework.Language.TimeTriggerLinkConnector(this.Partition);
 				return newShape;
 			}
 			return base.CreateChildShape(element);
@@ -876,24 +876,24 @@ namespace TransactionKernelDSL.Framework.Language
 		/// <summary>
 		/// Rule that initiates view fixup when an element that has an associated shape is added to the model. 
 		/// </summary>
-		[DslModeling::RuleOn(typeof(global::TransactionKernelDSL.Framework.Language.InputTransactionEngine), FireTime = DslModeling::TimeToFire.TopLevelCommit, Priority = DslDiagrams::DiagramFixupConstants.AddShapeParentExistRulePriority, InitiallyDisabled=true)]
 		[DslModeling::RuleOn(typeof(global::TransactionKernelDSL.Framework.Language.OutputTransactionEngine), FireTime = DslModeling::TimeToFire.TopLevelCommit, Priority = DslDiagrams::DiagramFixupConstants.AddShapeParentExistRulePriority, InitiallyDisabled=true)]
 		[DslModeling::RuleOn(typeof(global::TransactionKernelDSL.Framework.Language.TransactionSQLServerDataSource), FireTime = DslModeling::TimeToFire.TopLevelCommit, Priority = DslDiagrams::DiagramFixupConstants.AddShapeParentExistRulePriority, InitiallyDisabled=true)]
+		[DslModeling::RuleOn(typeof(global::TransactionKernelDSL.Framework.Language.InputTransactionEngine), FireTime = DslModeling::TimeToFire.TopLevelCommit, Priority = DslDiagrams::DiagramFixupConstants.AddShapeParentExistRulePriority, InitiallyDisabled=true)]
 		[DslModeling::RuleOn(typeof(global::TransactionKernelDSL.Framework.Language.OutputTransactionWebService), FireTime = DslModeling::TimeToFire.TopLevelCommit, Priority = DslDiagrams::DiagramFixupConstants.AddShapeParentExistRulePriority, InitiallyDisabled=true)]
-		[DslModeling::RuleOn(typeof(global::TransactionKernelDSL.Framework.Language.TransactionHandler), FireTime = DslModeling::TimeToFire.TopLevelCommit, Priority = DslDiagrams::DiagramFixupConstants.AddShapeParentExistRulePriority, InitiallyDisabled=true)]
-		[DslModeling::RuleOn(typeof(global::TransactionKernelDSL.Framework.Language.TransactionHandlerReferencesOutputTransactionWebService), FireTime = DslModeling::TimeToFire.TopLevelCommit, Priority = DslDiagrams::DiagramFixupConstants.AddConnectionRulePriority, InitiallyDisabled=true)]
-		[DslModeling::RuleOn(typeof(global::TransactionKernelDSL.Framework.Language.TransactionHandlerReferencesTransactionSQLServerDataSources), FireTime = DslModeling::TimeToFire.TopLevelCommit, Priority = DslDiagrams::DiagramFixupConstants.AddConnectionRulePriority, InitiallyDisabled=true)]
 		[DslModeling::RuleOn(typeof(global::TransactionKernelDSL.Framework.Language.InputTransactionEngineReferencesTransactionHandlers), FireTime = DslModeling::TimeToFire.TopLevelCommit, Priority = DslDiagrams::DiagramFixupConstants.AddConnectionRulePriority, InitiallyDisabled=true)]
 		[DslModeling::RuleOn(typeof(global::TransactionKernelDSL.Framework.Language.TransactionHandlerReferencesOutputTransactionEngine), FireTime = DslModeling::TimeToFire.TopLevelCommit, Priority = DslDiagrams::DiagramFixupConstants.AddConnectionRulePriority, InitiallyDisabled=true)]
 		[DslModeling::RuleOn(typeof(global::TransactionKernelDSL.Framework.Language.TransactionHandlerReferencesMaintenanceTransactionHandler), FireTime = DslModeling::TimeToFire.TopLevelCommit, Priority = DslDiagrams::DiagramFixupConstants.AddConnectionRulePriority, InitiallyDisabled=true)]
-		[DslModeling::RuleOn(typeof(global::TransactionKernelDSL.Framework.Language.TransactionEnvironmentLayer), FireTime = DslModeling::TimeToFire.TopLevelCommit, Priority = DslDiagrams::DiagramFixupConstants.AddShapeRulePriority, InitiallyDisabled=true)]
-		[DslModeling::RuleOn(typeof(global::TransactionKernelDSL.Framework.Language.TransactionEnvironmentSQLServerVariable), FireTime = DslModeling::TimeToFire.TopLevelCommit, Priority = DslDiagrams::DiagramFixupConstants.AddShapeParentExistRulePriority, InitiallyDisabled=true)]
+		[DslModeling::RuleOn(typeof(global::TransactionKernelDSL.Framework.Language.TransactionHandlerReferencesTransactionSQLServerDataSources), FireTime = DslModeling::TimeToFire.TopLevelCommit, Priority = DslDiagrams::DiagramFixupConstants.AddConnectionRulePriority, InitiallyDisabled=true)]
 		[DslModeling::RuleOn(typeof(global::TransactionKernelDSL.Framework.Language.InputTransactionEngineReferencesTimeTriggers), FireTime = DslModeling::TimeToFire.TopLevelCommit, Priority = DslDiagrams::DiagramFixupConstants.AddConnectionRulePriority, InitiallyDisabled=true)]
-		[DslModeling::RuleOn(typeof(global::TransactionKernelDSL.Framework.Language.TransactionDataSourceSupport), FireTime = DslModeling::TimeToFire.TopLevelCommit, Priority = DslDiagrams::DiagramFixupConstants.AddShapeParentExistRulePriority, InitiallyDisabled=true)]
+		[DslModeling::RuleOn(typeof(global::TransactionKernelDSL.Framework.Language.OutputTransactionEngineReferencesTransactionDataSourceSupport), FireTime = DslModeling::TimeToFire.TopLevelCommit, Priority = DslDiagrams::DiagramFixupConstants.AddConnectionRulePriority, InitiallyDisabled=true)]
+		[DslModeling::RuleOn(typeof(global::TransactionKernelDSL.Framework.Language.TransactionHandlerReferencesOutputTransactionWebService), FireTime = DslModeling::TimeToFire.TopLevelCommit, Priority = DslDiagrams::DiagramFixupConstants.AddConnectionRulePriority, InitiallyDisabled=true)]
 		[DslModeling::RuleOn(typeof(global::TransactionKernelDSL.Framework.Language.TimeTrigger), FireTime = DslModeling::TimeToFire.TopLevelCommit, Priority = DslDiagrams::DiagramFixupConstants.AddShapeParentExistRulePriority, InitiallyDisabled=true)]
 		[DslModeling::RuleOn(typeof(global::TransactionKernelDSL.Framework.Language.TransactionLayer), FireTime = DslModeling::TimeToFire.TopLevelCommit, Priority = DslDiagrams::DiagramFixupConstants.AddShapeRulePriority, InitiallyDisabled=true)]
+		[DslModeling::RuleOn(typeof(global::TransactionKernelDSL.Framework.Language.TransactionHandler), FireTime = DslModeling::TimeToFire.TopLevelCommit, Priority = DslDiagrams::DiagramFixupConstants.AddShapeParentExistRulePriority, InitiallyDisabled=true)]
+		[DslModeling::RuleOn(typeof(global::TransactionKernelDSL.Framework.Language.TransactionDataSourceSupport), FireTime = DslModeling::TimeToFire.TopLevelCommit, Priority = DslDiagrams::DiagramFixupConstants.AddShapeParentExistRulePriority, InitiallyDisabled=true)]
 		[DslModeling::RuleOn(typeof(global::TransactionKernelDSL.Framework.Language.TransactionHandlerReferencesForwarderTransactionHandlers), FireTime = DslModeling::TimeToFire.TopLevelCommit, Priority = DslDiagrams::DiagramFixupConstants.AddConnectionRulePriority, InitiallyDisabled=true)]
-		[DslModeling::RuleOn(typeof(global::TransactionKernelDSL.Framework.Language.OutputTransactionEngineReferencesTransactionDataSourceSupport), FireTime = DslModeling::TimeToFire.TopLevelCommit, Priority = DslDiagrams::DiagramFixupConstants.AddConnectionRulePriority, InitiallyDisabled=true)]
+		[DslModeling::RuleOn(typeof(global::TransactionKernelDSL.Framework.Language.TransactionEnvironmentSQLServerVariable), FireTime = DslModeling::TimeToFire.TopLevelCommit, Priority = DslDiagrams::DiagramFixupConstants.AddShapeParentExistRulePriority, InitiallyDisabled=true)]
+		[DslModeling::RuleOn(typeof(global::TransactionKernelDSL.Framework.Language.TransactionEnvironmentLayer), FireTime = DslModeling::TimeToFire.TopLevelCommit, Priority = DslDiagrams::DiagramFixupConstants.AddShapeRulePriority, InitiallyDisabled=true)]
 		internal sealed partial class FixUpDiagram : FixUpDiagramBase
 		{
 			[global::System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1800:DoNotCastUnnecessarily")]
@@ -909,10 +909,6 @@ namespace TransactionKernelDSL.Framework.Language
 				{
 					parentElement = GetParentForRelationship((DslModeling::ElementLink)childElement);
 				} else
-				if(childElement is global::TransactionKernelDSL.Framework.Language.InputTransactionEngine)
-				{
-					parentElement = GetParentForInputTransactionEngine((global::TransactionKernelDSL.Framework.Language.InputTransactionEngine)childElement);
-				} else
 				if(childElement is global::TransactionKernelDSL.Framework.Language.OutputTransactionEngine)
 				{
 					parentElement = GetParentForOutputTransactionEngine((global::TransactionKernelDSL.Framework.Language.OutputTransactionEngine)childElement);
@@ -921,25 +917,13 @@ namespace TransactionKernelDSL.Framework.Language
 				{
 					parentElement = GetParentForTransactionSQLServerDataSource((global::TransactionKernelDSL.Framework.Language.TransactionSQLServerDataSource)childElement);
 				} else
+				if(childElement is global::TransactionKernelDSL.Framework.Language.InputTransactionEngine)
+				{
+					parentElement = GetParentForInputTransactionEngine((global::TransactionKernelDSL.Framework.Language.InputTransactionEngine)childElement);
+				} else
 				if(childElement is global::TransactionKernelDSL.Framework.Language.OutputTransactionWebService)
 				{
 					parentElement = GetParentForOutputTransactionWebService((global::TransactionKernelDSL.Framework.Language.OutputTransactionWebService)childElement);
-				} else
-				if(childElement is global::TransactionKernelDSL.Framework.Language.TransactionHandler)
-				{
-					parentElement = GetParentForTransactionHandler((global::TransactionKernelDSL.Framework.Language.TransactionHandler)childElement);
-				} else
-				if(childElement is global::TransactionKernelDSL.Framework.Language.TransactionEnvironmentLayer)
-				{
-					parentElement = GetParentForTransactionEnvironmentLayer((global::TransactionKernelDSL.Framework.Language.TransactionEnvironmentLayer)childElement);
-				} else
-				if(childElement is global::TransactionKernelDSL.Framework.Language.TransactionEnvironmentSQLServerVariable)
-				{
-					parentElement = GetParentForTransactionEnvironmentSQLServerVariable((global::TransactionKernelDSL.Framework.Language.TransactionEnvironmentSQLServerVariable)childElement);
-				} else
-				if(childElement is global::TransactionKernelDSL.Framework.Language.TransactionDataSourceSupport)
-				{
-					parentElement = GetParentForTransactionDataSourceSupport((global::TransactionKernelDSL.Framework.Language.TransactionDataSourceSupport)childElement);
 				} else
 				if(childElement is global::TransactionKernelDSL.Framework.Language.TimeTrigger)
 				{
@@ -948,6 +932,22 @@ namespace TransactionKernelDSL.Framework.Language
 				if(childElement is global::TransactionKernelDSL.Framework.Language.TransactionLayer)
 				{
 					parentElement = GetParentForTransactionLayer((global::TransactionKernelDSL.Framework.Language.TransactionLayer)childElement);
+				} else
+				if(childElement is global::TransactionKernelDSL.Framework.Language.TransactionHandler)
+				{
+					parentElement = GetParentForTransactionHandler((global::TransactionKernelDSL.Framework.Language.TransactionHandler)childElement);
+				} else
+				if(childElement is global::TransactionKernelDSL.Framework.Language.TransactionDataSourceSupport)
+				{
+					parentElement = GetParentForTransactionDataSourceSupport((global::TransactionKernelDSL.Framework.Language.TransactionDataSourceSupport)childElement);
+				} else
+				if(childElement is global::TransactionKernelDSL.Framework.Language.TransactionEnvironmentSQLServerVariable)
+				{
+					parentElement = GetParentForTransactionEnvironmentSQLServerVariable((global::TransactionKernelDSL.Framework.Language.TransactionEnvironmentSQLServerVariable)childElement);
+				} else
+				if(childElement is global::TransactionKernelDSL.Framework.Language.TransactionEnvironmentLayer)
+				{
+					parentElement = GetParentForTransactionEnvironmentLayer((global::TransactionKernelDSL.Framework.Language.TransactionEnvironmentLayer)childElement);
 				} else
 				{
 					parentElement = null;
