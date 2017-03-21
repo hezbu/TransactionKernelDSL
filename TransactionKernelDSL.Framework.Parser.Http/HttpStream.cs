@@ -2,18 +2,19 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 using TransactionKernelDSL.Framework.V1;
 
-namespace TransactionKernelDSL.Framework.Parser.Xml
+namespace TransactionKernelDSL.Framework.Parser.Http
 {
-    public class XmlStream : AbstractTransactionParserStream
+    public class HttpStream : AbstractTransactionParserStream
     {
-        public const int XmlStreamMaxLength = 200000;
+        public const int HttpStreamMaxLength = 65535;
         private string _Content;
 
 
-        public XmlStream() :
-            base(XmlStreamMaxLength)
+        public HttpStream() :
+            base(HttpStreamMaxLength)
         {
 
         }
