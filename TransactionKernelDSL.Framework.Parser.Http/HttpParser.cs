@@ -11,7 +11,7 @@ namespace TransactionKernelDSL.Framework.Parser.Http
 {
     public class HttpParser : AbstractTransactionParser, ITransactionParserCommunicable, ITransactionParserAssembleable
     {
-        public HttpParser(string rootSection = "Xml", bool isEngineParser = true)
+        public HttpParser(string rootSection = "Http", bool isEngineParser = true)
             : base(rootSection, isEngineParser)
         {
             this._AssembleMethod = Assemble;
@@ -21,11 +21,11 @@ namespace TransactionKernelDSL.Framework.Parser.Http
             this._ReceiveMethod = Receive;
             this._IsKeepAliveMessageMethod = IsKeepAliveMessage;
 
-            this._RequestStructure = new XmlRequestStructure();
-            this._ResponseStructure = new XmlResponseStructure();
+            this._RequestStream = new HttpStream();
+            this._ResponseStream = new HttpStream();
 
-            this._RequestStream = new XmlStream();
-            this._ResponseStream = new XmlStream();
+            this._RequestStructure = new HttpStructure();
+            this._ResponseStructure = new HttpStructure();
         }
 
         #region ITransactionParserCommunicable Members
@@ -33,12 +33,12 @@ namespace TransactionKernelDSL.Framework.Parser.Http
         {
             try
             {
-                string package = (ResponseStream as XmlStream).Get();
+                string package = (ResponseStream as HttpStream).Get();
                 if (this.Status == TransmissionStatus.BadDisassembling) return true;
                 else if (IsKeepAliveMessage() == false)
                 {
                     ((TcpClient)handler).GetStream().Write(AbstractTransactionFacade.GetBytes(package), 0, AbstractTransactionFacade.GetBytes(package).Length);
-                    _Log.Info(_RootSection + "_OUT: " + ((XmlStream)ResponseStream).ToString());
+                    _Log.Info(_RootSection + "_OUT: " + ((HttpStream)ResponseStream).ToString());
                 }
                 else
                 {
@@ -64,37 +64,16 @@ namespace TransactionKernelDSL.Framework.Parser.Http
             int bytesToRead = HttpStream.HttpStreamMaxLength;
             byte[] btPartialReadsBuffer = new byte[HttpStream.HttpStreamMaxLength];
             byte[] btAccumulatedReadBuffer = new byte[HttpStream.HttpStreamMaxLength];
-
+            string header = null;
 
             try
             {
-                while (true)
+                var headerFound = false;
+                while (headerFound == false)
                 {
                     bytesRead = ((TcpClient)handler).GetStream().Read(btPartialReadsBuffer, 0, 1);
                     System.Buffer.BlockCopy(btPartialReadsBuffer, 0, btAccumulatedReadBuffer, totalBytesRead, bytesRead);
                     totalBytesRead += bytesRead;
-
-                    for (int i = 0; i < totalBytesRead; i++)
-                    {
-                        if (btAccumulatedReadBuffer[i] == 0x0D &&
-                            btAccumulatedReadBuffer[i + 1] == 0x0A &&
-                            btAccumulatedReadBuffer[i + 2] == 0x0D &&
-                            btAccumulatedReadBuffer[i + 3] == 0x0A
-                            )
-                        {
-                            break;
-                        }
-                    }
-                     
-                }
-                //blocks until a client sends a message
-                for (totalBytesRead = 0; (totalBytesRead < bytesToRead); )
-                {
-                    bytesRead = ((TcpClient)handler).GetStream().Read(btPartialReadsBuffer, 0, bytesToRead - totalBytesRead);
-                    System.Buffer.BlockCopy(btPartialReadsBuffer, 0, btAccumulatedReadBuffer, totalBytesRead, bytesRead);
-                    totalBytesRead += bytesRead;
-
-
 
                     if (bytesRead == 0) ///No se leyo nada
                     {
@@ -103,15 +82,72 @@ namespace TransactionKernelDSL.Framework.Parser.Http
                         this._Status |= TransmissionStatus.ContactLost;
                         return false;
                     }
+
+
+                    if (totalBytesRead > 4)
+                    {
+                        if (btAccumulatedReadBuffer[totalBytesRead - 4] == 0x0D &&
+                       btAccumulatedReadBuffer[totalBytesRead - 3] == 0x0A &&
+                       btAccumulatedReadBuffer[totalBytesRead - 2] == 0x0D &&
+                       btAccumulatedReadBuffer[totalBytesRead - 1] == 0x0A
+                       )
+                        {
+                            header = AbstractTransactionFacade.GetString(btAccumulatedReadBuffer, totalBytesRead);
+
+                            headerFound = true;
+                            break;
+                        }
+                    }
+
+
+
+
+                }
+                if (header != null)
+                {
+                    if (header.Contains("Content-Length:") == true)
+                    {
+
+                        var startIndex = header.IndexOf("Content-Length:") + "Content-Length:".Length;
+                        var endIndex = header.IndexOf(Environment.NewLine, startIndex);
+                        var contentLength = header.Substring(startIndex, endIndex - startIndex);
+
+                        //blocks until a client sends a message
+                        for (totalBytesRead = header.Length; (totalBytesRead < (int.Parse(contentLength)) + header.Length); )
+                        {
+                            bytesRead = ((TcpClient)handler).GetStream().Read(btPartialReadsBuffer, 0, int.Parse(contentLength) - (totalBytesRead - header.Length));
+                            System.Buffer.BlockCopy(btPartialReadsBuffer, 0, btAccumulatedReadBuffer, totalBytesRead, bytesRead);
+                            totalBytesRead += bytesRead;
+
+
+
+                            if (bytesRead == 0) ///No se leyo nada
+                            {
+                                this._ErrorMessage = "Error leyendo datos de conexion: bytesRead = 0 ";
+                                //  _Log.Error(this._ErrorMessage);
+                                this._Status |= TransmissionStatus.ContactLost;
+                                return false;
+                            }
+                            else
+                            {
+                                var endTest = AbstractTransactionFacade.GetString(btAccumulatedReadBuffer, totalBytesRead);
+
+
+                            }
+                        }
+                    }
                     else
                     {
-                        var endTest = AbstractTransactionFacade.GetString(btAccumulatedReadBuffer, totalBytesRead);
+                        _RequestStream.Set(btAccumulatedReadBuffer, totalBytesRead);
 
+                        if (this.IsKeepAliveMessage() == false)
+                            _Log.Info(_RootSection + "_IN: " + ((HttpStream)RequestStream).ToString());
 
+                        return true;
                     }
                 }
 
-                //break;
+
             }
             catch (IOException ioEx)
             {
@@ -146,6 +182,8 @@ namespace TransactionKernelDSL.Framework.Parser.Http
                 this._Status |= TransmissionStatus.Timeout;
                 return false;
             }
+
+
 
             _RequestStream.Set(btAccumulatedReadBuffer, totalBytesRead);
 
