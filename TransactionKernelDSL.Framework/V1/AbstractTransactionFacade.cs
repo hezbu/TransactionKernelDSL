@@ -44,7 +44,28 @@ namespace TransactionKernelDSL.Framework.V1
         
 
         #region Static Methods
+        public static string Dump(byte[] src, int len, int offset = 0)
+        {
+            var result = String.Empty;
+            for (int i = 0; i < len; i++)
+            {
+                result += String.Format("{0:X2} ", src[i + offset]);
+            }
 
+            return result.Trim();
+        }
+
+        public static string GetHexaString(byte[] arr)
+        {
+            var result = String.Empty;
+
+            foreach (var item in arr)
+            {
+                result += String.Format("{0:X2}", item);
+            }
+
+            return result;
+        }
 
         public static string GetLuhnCheckDigit(string number)
         {
@@ -80,8 +101,8 @@ namespace TransactionKernelDSL.Framework.V1
         /// <returns></returns>
         public static string GetString(byte[] byteInputParam, int intInputLenParam)
         {
-            System.Text.ASCIIEncoding enc = new System.Text.ASCIIEncoding();
-            return enc.GetString(byteInputParam, 0, intInputLenParam);
+            return System.Text.Encoding.UTF8.GetString(byteInputParam, 0, intInputLenParam);
+            
         }
         /// <summary>
         /// 
@@ -92,8 +113,7 @@ namespace TransactionKernelDSL.Framework.V1
         /// <returns></returns>
         public static string GetString(byte[] byteInputParam, int intInputLenParam, int intOffsetParam)
         {
-            System.Text.ASCIIEncoding enc = new System.Text.ASCIIEncoding();
-            return enc.GetString(byteInputParam, intOffsetParam, intInputLenParam);
+            return System.Text.Encoding.UTF8.GetString(byteInputParam, intOffsetParam, intInputLenParam);
         }
         /// <summary>
         /// 
@@ -104,7 +124,7 @@ namespace TransactionKernelDSL.Framework.V1
         {
             //   System.Text.UTF8Encoding encoding = new System.Text.UTF8Encoding();           
             //   return encoding.GetBytes(strSourceParam);
-            return Encoding.Default.GetBytes(strSourceParam);
+            return Encoding.UTF8.GetBytes(strSourceParam);            
         }
 
         public static byte[] GetAsciiLVarBytes(string strSourceParam)

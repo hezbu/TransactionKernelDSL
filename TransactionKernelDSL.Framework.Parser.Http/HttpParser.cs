@@ -65,6 +65,7 @@ namespace TransactionKernelDSL.Framework.Parser.Http
             byte[] btPartialReadsBuffer = new byte[HttpStream.HttpStreamMaxLength];
             byte[] btAccumulatedReadBuffer = new byte[HttpStream.HttpStreamMaxLength];
             string header = null;
+            bool isRnEnding = true;
 
             try
             {
@@ -99,6 +100,19 @@ namespace TransactionKernelDSL.Framework.Parser.Http
                         }
                     }
 
+                    if (totalBytesRead > 2)
+                    {
+                        if (btAccumulatedReadBuffer[totalBytesRead - 2] == 0x0A &&
+                              btAccumulatedReadBuffer[totalBytesRead - 1] == 0x0A
+                       )
+                        {
+                            header = AbstractTransactionFacade.GetString(btAccumulatedReadBuffer, totalBytesRead);
+                            isRnEnding = false;
+                            headerFound = true;
+                            break;
+                        }
+                    }
+
 
 
 
@@ -109,8 +123,16 @@ namespace TransactionKernelDSL.Framework.Parser.Http
                     {
 
                         var startIndex = header.IndexOf("Content-Length:") + "Content-Length:".Length;
-                        var endIndex = header.IndexOf(Environment.NewLine, startIndex);
-                        var contentLength = header.Substring(startIndex, endIndex - startIndex);
+                        var endIndex = 0;
+
+
+                       
+                            endIndex = header.IndexOf("\n", startIndex);
+                       
+                      
+
+
+                        var contentLength = header.Substring(startIndex, endIndex - startIndex).Trim();
 
                         //blocks until a client sends a message
                         for (totalBytesRead = header.Length; (totalBytesRead < (int.Parse(contentLength)) + header.Length); )
@@ -177,14 +199,15 @@ namespace TransactionKernelDSL.Framework.Parser.Http
             }
             catch (Exception ex)
             {
-                this._ErrorMessage = "TIMEOUT antes de determinar el proceso (handler) que requiere la conexión. Mensaje: " + ex.Message;
+                _Log.ErrorFormat("Excepcion encontrada: {0} - Array era: {1}", ex, AbstractTransactionFacade.GetString(btAccumulatedReadBuffer, totalBytesRead));
+                this._ErrorMessage = String.Format("TIMEOUT antes de determinar el proceso (handler) que requiere la conexión. Mensaje: {0}", ex.Message);
 
                 this._Status |= TransmissionStatus.Timeout;
                 return false;
             }
 
 
-
+            _Log.InfoFormat("DUMP_IN: {0}", AbstractTransactionFacade.Dump(btAccumulatedReadBuffer, totalBytesRead, 0));
             _RequestStream.Set(btAccumulatedReadBuffer, totalBytesRead);
 
             if (this.IsKeepAliveMessage() == false)

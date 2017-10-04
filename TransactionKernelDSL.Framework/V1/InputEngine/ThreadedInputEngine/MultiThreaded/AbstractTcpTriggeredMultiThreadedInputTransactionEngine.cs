@@ -119,7 +119,7 @@ namespace TransactionKernelDSL.Framework.V1
                     //Leer Estado Actual del Thread Pool, Luego de Encolar 1 Transacción
                     int workerThreadsCurrent = 0, completionPortThreadsCurrent = 0;
                     ThreadPool.GetAvailableThreads(out workerThreadsCurrent, out completionPortThreadsCurrent);
-                    _Log.Info("ThreadPool Info." + " :: " + "workerThreadsCurrent:[" + ((workerThreadsMax >= workerThreadsCurrent) ? (workerThreadsMax - workerThreadsCurrent).ToString() : "Error") + "] ; completionPortThreadsCurrent:[" + ((completionPortThreadsMax >= completionPortThreadsCurrent) ? (completionPortThreadsMax - completionPortThreadsCurrent).ToString() : "Error") + "]"); //HZ v1.0.1.0
+                  //  _Log.Info("ThreadPool Info." + " :: " + "workerThreadsCurrent:[" + ((workerThreadsMax >= workerThreadsCurrent) ? (workerThreadsMax - workerThreadsCurrent).ToString() : "Error") + "] ; completionPortThreadsCurrent:[" + ((completionPortThreadsMax >= completionPortThreadsCurrent) ? (completionPortThreadsMax - completionPortThreadsCurrent).ToString() : "Error") + "]"); //HZ v1.0.1.0
                 }
                 while (_IsListening);
 
@@ -187,7 +187,7 @@ namespace TransactionKernelDSL.Framework.V1
                 }
                 catch (Exception ex)
                 {
-                    _Log.Error("Connection closed (Exception found): " + ex.Message + " (" + this.Actors(client) + ")");
+                    _Log.ErrorFormat("Connection closed (Exception found) ({0}): {1}",  this.Actors(client), ex  );
                 }
                 finally
                 {

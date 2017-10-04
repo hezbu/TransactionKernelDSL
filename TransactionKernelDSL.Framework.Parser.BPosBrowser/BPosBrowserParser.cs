@@ -264,7 +264,7 @@ namespace TransactionKernelDSL.Framework.Parser.BPosBrowser
                         return false;
                     }
 
-                    if (payload.Contains("</T_MSG>") == false)
+                    if (payload.Contains("</T_MSG>") == false && payload.EndsWith("/>") == false)
                     {
                         _ErrorMessage = String.Format("</T_MSG> not found in stream");
                         _Status |= TransmissionStatus.BadDisassembling;
@@ -297,7 +297,7 @@ namespace TransactionKernelDSL.Framework.Parser.BPosBrowser
                         return false;
                     }
 
-                    if (payload.Contains("</S_MSG>") == false)
+                    if (payload.Contains("</S_MSG>") == false && payload.EndsWith("/>") == false)
                     {
                         _ErrorMessage = String.Format("</S_MSG> not found in stream");
                         _Status |= TransmissionStatus.BadDisassembling;

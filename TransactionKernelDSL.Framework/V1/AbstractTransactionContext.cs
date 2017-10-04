@@ -95,5 +95,7 @@ namespace TransactionKernelDSL.Framework.V1
             this._ErrorCode = errorCodeParam;
             this._ErrorMessage = errorMessageParam;
         }
+
+        
     }
 }
